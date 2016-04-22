@@ -20,17 +20,8 @@ left:
       - text: "Module 3: Spatial Data"
       - text: "Tufte Handout"
         href: tufte_handout_format.html
-      - text: "Package Vignette"
-        href: package_vignette_format.html
-      - text: "GitHub Document"
-        href: github_document_format.html
-      - text: "-----------------"
-      - text: "Module 4: Graphing"
-        href: r_notebook_format.html
-  - text: "Info"
-    href: developer_html_widgets.html
-  - text: "Links"
-    href: articles.html
+  - text: "Resources"
+    href: Resources.html
 right:
   - icon: fa-github fa-lg
     href: https://github.com/adammwilson/RDataScience

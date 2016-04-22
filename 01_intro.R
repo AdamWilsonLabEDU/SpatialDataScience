@@ -3,7 +3,7 @@
 #' ---
 #' 
 #' 
-#' This file is available as a `R` script [here](`r output`)
+#' This file is available as a [R script here  <i class="fa fa-file-text" aria-hidden="true"></i> ](`r output`)
 #' 
 #' ## Variables
 ## ------------------------------------------------------------------------
@@ -92,14 +92,24 @@ mean(x)
 #' [pic1]: img/autocomplete.png "Autocomplete Screenshot"
 #' 
 #' 
-#' > ![Autocomplete screenshot](img/check.png) Calculate the standard deviation of `c(3,6,12,89)`.    
+#' <div class="well">
+#' Calculate the standard deviation of `c(3,6,12,89)`.    
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+#' <div id="demo2" class="collapse">
 #' 
-#' ### Standard Deviation
 ## ------------------------------------------------------------------------
 y=c(3,6,12,89)
+sqrt((sum((y-mean(y))^2))/(length(y)-1))
 
-#' 
+#or
+sd(y)
+
+#or
+sd(c(3,6,12,89))
+
+#' </div>
+#' </div>
 #' 
 #' 
 #' Writing functions in R is pretty easy.  Let's create one to calculate the mean of a vector by getting the sum and length.  First think about how to break it down into parts:
@@ -123,14 +133,14 @@ mymean(f=x)
 mean(x)
 
 #' 
-#' > ![Autocomplete screenshot](img/check.png) Any potential problems with the `mymean` function?
+#' <div class="well"> Any potential problems with the `mymean` function? </div>
 #' 
 #' ### Missing data:  dealing with `NA` values
 ## ------------------------------------------------------------------------
 x3=c(5,8,NA,91,3,NA,14,30,100)
 
 #' 
-#' > ![Autocomplete screenshot](img/check.png) What do you think `mymean(x3)` will return?
+#' <div class="well">" What do you think `mymean(x3)` will return? </div>
 #' 
 #' Calculate the mean using the new function
 ## ------------------------------------------------------------------------
@@ -170,8 +180,11 @@ result =  x3 >  3
 result
 
 #' 
-#' >![Autocomplete screenshot](img/check.png) define a function that counts how many values in a vector are less than or equal (`<=`) to 12.  
+#' <div class="well">
+#' Define a function that counts how many values in a vector are less than or equal (`<=`) to 12.  
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+#' <div id="demo3" class="collapse">
 #' 
 #' Try it:
 ## ------------------------------------------------------------------------
@@ -180,7 +193,6 @@ mycount(x3)
 
 #' oops!
 #' 
-#' 
 #' Try it:
 ## ------------------------------------------------------------------------
 x3
@@ -188,6 +200,8 @@ mycount(x3)
 
 #' 
 #' Nice!
+#' </div>
+#' </div>
 #' 
 #' 
 #' ### Generating Data
@@ -213,23 +227,30 @@ hist(a)
 #' ## Matrices
 #' You can also use matrices (2-dimensional arrays of numbers):
 ## ------------------------------------------------------------------------
-y=matrix(1:30,ncol=5)
+y=matrix(1:9,ncol=3)
 y
 
 #' 
 #' 
 #' Matrices behave much like vectors:
 ## ------------------------------------------------------------------------
-y
 y+2
 
 #' 
 #' 
 #' and have 2-dimensional indexing:
 ## ------------------------------------------------------------------------
-y
 y[2,3]
 
+#' 
+#' <div class="well">
+#' Create a 3x3 matrix full of random numbers.  Hint: `rnorm(5)` will generate 5 random numbers
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+#' <div id="demo4" class="collapse">
+#' 
+#' </div>
+#' </div>
 #' 
 #' ## Data Frames
 #' Data frames are similar to matrices, but more flexible.  Matrices must be all the same type (e.g. all numbers), while a data frame can include multiple data types (e.g. text, factors, numbers). Dataframes are commonly used when doing statistical modeling in R.  

@@ -168,7 +168,7 @@ $(document).ready(function () {
 $(document).ready(function ()  {
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -295,23 +295,10 @@ div.tocify {
     <li>
       <a href="tufte_handout_format.html">Tufte Handout</a>
     </li>
-    <li>
-      <a href="package_vignette_format.html">Package Vignette</a>
-    </li>
-    <li>
-      <a href="github_document_format.html">GitHub Document</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="r_notebook_format.html">Module 4: Graphing</a>
-    </li>
   </ul>
 </li>
 <li>
-  <a href="developer_html_widgets.html">Info</a>
-</li>
-<li>
-  <a href="articles.html">Links</a>
+  <a href="Resources.html">Resources</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -497,10 +484,15 @@ Software Integration Language/software integration. Use of the system() command.
 </div>
 
 
-
-<!-- bizible -->
-<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
-
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <!-- disqus -->
   <div id="disqus_thread" style="margin-top: 45px;"></div>

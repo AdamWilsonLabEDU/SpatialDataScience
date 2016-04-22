@@ -1,0 +1,24 @@
+---
+title: "Resources"
+---
+
+## Learning More
+
+<div class="row">
+<div class="col-sm-10">
+
+
+## Getting Started
+
+<div style="height: 10px;"></div>
+
+* [R Markdown Cheat Sheet (PDF)](http://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), a quick guide to the most commonly used markdown syntax, knitr options, and output formats.
+
+* [R Markdown Reference Guide (PDF)](http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf), a more comprehensive reference guide to markdown, knitr, and output format options.
+
+For even more in-depth documentation see:
+
+* The website for the [knitr package](http://yihui.name/knitr/). Knitr is an extremely powerful tool for dynamic content generation and the website has a wealth of documentation and examples to help you utilize it to its full potential.
+
+</div>
+</div>

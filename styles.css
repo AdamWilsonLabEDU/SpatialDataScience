@@ -13,7 +13,12 @@ table.table td a:only-child:active {
 }
 
 .well{
-background-color: #98AFC7;
+  background-color: #F5F5DC;
+  border-radius: 40px 0px 40px 0px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  margin-top:60px;
 }
 
 /**************************

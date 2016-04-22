@@ -168,7 +168,7 @@ $(document).ready(function () {
 $(document).ready(function ()  {
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -295,23 +295,10 @@ div.tocify {
     <li>
       <a href="tufte_handout_format.html">Tufte Handout</a>
     </li>
-    <li>
-      <a href="package_vignette_format.html">Package Vignette</a>
-    </li>
-    <li>
-      <a href="github_document_format.html">GitHub Document</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="r_notebook_format.html">Module 4: Graphing</a>
-    </li>
   </ul>
 </li>
 <li>
-  <a href="developer_html_widgets.html">Info</a>
-</li>
-<li>
-  <a href="articles.html">Links</a>
+  <a href="Resources.html">Resources</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -335,7 +322,7 @@ div.tocify {
 </div>
 
 
-<p>This file is available as a <code>R</code> script <a href="01_intro.R">here</a></p>
+<p>This file is available as a <a href="01_intro.R">R script here <i class="fa fa-file-text" aria-hidden="true"></i></a></p>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
 <pre class="r"><code>x=1
@@ -400,14 +387,14 @@ Show Solution
 <img src="img/autocomplete.png" title="Autocomplete Screenshot" alt="Autocomplete screenshot" />
 <p class="caption">Autocomplete screenshot</p>
 </div>
-<blockquote>
-<p><img src="img/check.png" alt="Autocomplete screenshot" /> Calculate the standard deviation of <code>c(3,6,12,89)</code>.</p>
-</blockquote>
-</div>
-<div id="standard-deviation" class="section level3">
-<h3>Standard Deviation</h3>
-<pre class="r"><code>y=c(3,6,12,89)</code></pre>
-<pre class="r"><code>sqrt((sum((y-mean(y))^2))/(length(y)-1))</code></pre>
+<div class="well">
+<p>Calculate the standard deviation of <code>c(3,6,12,89)</code>.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<pre class="r"><code>y=c(3,6,12,89)
+sqrt((sum((y-mean(y))^2))/(length(y)-1))</code></pre>
 <pre><code>## [1] 41.17038</code></pre>
 <pre class="r"><code>#or
 sd(y)</code></pre>
@@ -415,6 +402,8 @@ sd(y)</code></pre>
 <pre class="r"><code>#or
 sd(c(3,6,12,89))</code></pre>
 <pre><code>## [1] 41.17038</code></pre>
+</div>
+</div>
 <p>Writing functions in R is pretty easy. Let’s create one to calculate the mean of a vector by getting the sum and length. First think about how to break it down into parts:</p>
 <pre class="r"><code>x1= sum(x)
 x2=length(x)
@@ -430,16 +419,16 @@ mymean(f=x)</code></pre>
 <p>Confirm it works:</p>
 <pre class="r"><code>mean(x)</code></pre>
 <pre><code>## [1] 25.125</code></pre>
-<blockquote>
-<p><img src="img/check.png" alt="Autocomplete screenshot" /> Any potential problems with the <code>mymean</code> function?</p>
-</blockquote>
+<div class="well">
+Any potential problems with the <code>mymean</code> function?
+</div>
 </div>
 <div id="missing-data-dealing-with-na-values" class="section level3">
 <h3>Missing data: dealing with <code>NA</code> values</h3>
 <pre class="r"><code>x3=c(5,8,NA,91,3,NA,14,30,100)</code></pre>
-<blockquote>
-<p><img src="img/check.png" alt="Autocomplete screenshot" /> What do you think <code>mymean(x3)</code> will return?</p>
-</blockquote>
+<div class="well">
+&quot; What do you think <code>mymean(x3)</code> will return?
+</div>
 <p>Calculate the mean using the new function</p>
 <pre class="r"><code>mymean(x3)</code></pre>
 <pre><code>## [1] NA</code></pre>
@@ -468,9 +457,12 @@ mymean(f=x)</code></pre>
 <pre class="r"><code>result =  x3 &gt;  3
 result</code></pre>
 <pre><code>## [1]  TRUE  TRUE    NA  TRUE FALSE    NA  TRUE  TRUE  TRUE</code></pre>
-<blockquote>
-<p><img src="img/check.png" alt="Autocomplete screenshot" /> define a function that counts how many values in a vector are less than or equal (<code>&lt;=</code>) to 12.</p>
-</blockquote>
+<div class="well">
+<p>Define a function that counts how many values in a vector are less than or equal (<code>&lt;=</code>) to 12.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
+Show Solution
+</button>
+<div id="demo3" class="collapse">
 <pre class="r"><code>mycount=function(x){
   sum(x&lt;=12)
 }</code></pre>
@@ -490,6 +482,8 @@ result</code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Nice!</p>
 </div>
+</div>
+</div>
 <div id="generating-data" class="section level3">
 <h3>Generating Data</h3>
 <p>There are many ways to generate data in R such as sequences:</p>
@@ -499,50 +493,41 @@ result</code></pre>
 <pre class="r"><code>a=rnorm(100,mean=0,sd=10)</code></pre>
 <p>Let’s visualize those values in a histogram:</p>
 <pre class="r"><code>hist(a)</code></pre>
-<p><img src="01_intro_files/figure-html/unnamed-chunk-30-1.png" alt="" /><!-- --></p>
+<p><img src="01_intro_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
 <p>We’ll cover much more sophisticated graphics later…</p>
 </div>
 </div>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>
 <p>You can also use matrices (2-dimensional arrays of numbers):</p>
-<pre class="r"><code>y=matrix(1:30,ncol=5)
+<pre class="r"><code>y=matrix(1:9,ncol=3)
 y</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    7   13   19   25
-## [2,]    2    8   14   20   26
-## [3,]    3    9   15   21   27
-## [4,]    4   10   16   22   28
-## [5,]    5   11   17   23   29
-## [6,]    6   12   18   24   30</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
 <p>Matrices behave much like vectors:</p>
-<pre class="r"><code>y</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    7   13   19   25
-## [2,]    2    8   14   20   26
-## [3,]    3    9   15   21   27
-## [4,]    4   10   16   22   28
-## [5,]    5   11   17   23   29
-## [6,]    6   12   18   24   30</code></pre>
 <pre class="r"><code>y+2</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    3    9   15   21   27
-## [2,]    4   10   16   22   28
-## [3,]    5   11   17   23   29
-## [4,]    6   12   18   24   30
-## [5,]    7   13   19   25   31
-## [6,]    8   14   20   26   32</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    3    6    9
+## [2,]    4    7   10
+## [3,]    5    8   11</code></pre>
 <p>and have 2-dimensional indexing:</p>
-<pre class="r"><code>y</code></pre>
-<pre><code>##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    7   13   19   25
-## [2,]    2    8   14   20   26
-## [3,]    3    9   15   21   27
-## [4,]    4   10   16   22   28
-## [5,]    5   11   17   23   29
-## [6,]    6   12   18   24   30</code></pre>
 <pre class="r"><code>y[2,3]</code></pre>
-<pre><code>## [1] 14</code></pre>
+<pre><code>## [1] 8</code></pre>
+<div class="well">
+<p>Create a 3x3 matrix full of random numbers. Hint: <code>rnorm(5)</code> will generate 5 random numbers</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
+Show Solution
+</button>
+<div id="demo4" class="collapse">
+<pre class="r"><code>matrix(rnorm(9),nrow=3)</code></pre>
+<pre><code>##             [,1]       [,2]       [,3]
+## [1,] -0.06351992 -0.3353494 -0.3361644
+## [2,]  0.70678939 -0.2762879 -1.4258847
+## [3,]  0.23446170 -0.8628467 -0.7773195</code></pre>
+</div>
+</div>
 </div>
 <div id="data-frames" class="section level2">
 <h2>Data Frames</h2>
@@ -575,10 +560,15 @@ data</code></pre>
 </div>
 
 
-
-<!-- bizible -->
-<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
-
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <!-- disqus -->
   <div id="disqus_thread" style="margin-top: 45px;"></div>

@@ -168,7 +168,7 @@ $(document).ready(function () {
 $(document).ready(function ()  {
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -295,23 +295,10 @@ div.tocify {
     <li>
       <a href="tufte_handout_format.html">Tufte Handout</a>
     </li>
-    <li>
-      <a href="package_vignette_format.html">Package Vignette</a>
-    </li>
-    <li>
-      <a href="github_document_format.html">GitHub Document</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="r_notebook_format.html">Module 4: Graphing</a>
-    </li>
   </ul>
 </li>
 <li>
-  <a href="developer_html_widgets.html">Info</a>
-</li>
-<li>
-  <a href="articles.html">Links</a>
+  <a href="Resources.html">Resources</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -343,7 +330,7 @@ div.tocify {
 <ul>
 <li><code>ctrl-R</code> (or <code>command-R</code>) to run current line</li>
 <li>Highlight <code>code</code> in script and run <code>ctrl-R</code> (or <code>command-R</code>) to run selection</li>
-<li>Buttons: <img src="02_assets/Source.png" alt="buttons" /></li>
+<li>Buttons: <img src="02_assets/Source.png" style="width: 25%"/></li>
 </ul>
 </div>
 <div id="switching-windows" class="section level2">
@@ -377,42 +364,45 @@ library(tidyr)</code></pre>
 <pre class="r"><code>head(flights)</code></pre>
 <pre><code>## Source: local data frame [6 x 16]
 ## 
-##    year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##   (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1  2013     1     1      517         2      830        11      UA  N14228
-## 2  2013     1     1      533         4      850        20      UA  N24211
-## 3  2013     1     1      542         2      923        33      AA  N619AA
-## 4  2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5  2013     1     1      554        -6      812       -25      DL  N668DN
-## 6  2013     1     1      554        -4      740        12      UA  N39463
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##    year month   day dep_time dep_delay arr_time
+##   (int) (int) (int)    (int)     (dbl)    (int)
+## 1  2013     1     1      517         2      830
+## 2  2013     1     1      533         4      850
+## 3  2013     1     1      542         2      923
+## 4  2013     1     1      544        -1     1004
+## 5  2013     1     1      554        -6      812
+## 6  2013     1     1      554        -4      740
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 <div id="object-structure" class="section level3">
 <h3>Object <em>Structure</em></h3>
-<p>Check out data <em>structure</em> with <code>str()</code></p>
-<pre class="r"><code>str(flights)</code></pre>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    336776 obs. of  16 variables:
-##  $ year     : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
-##  $ month    : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ day      : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ dep_time : int  517 533 542 544 554 554 555 557 557 558 ...
-##  $ dep_delay: num  2 4 2 -1 -6 -4 -5 -3 -3 -2 ...
-##  $ arr_time : int  830 850 923 1004 812 740 913 709 838 753 ...
-##  $ arr_delay: num  11 20 33 -18 -25 12 19 -14 -8 8 ...
-##  $ carrier  : chr  &quot;UA&quot; &quot;UA&quot; &quot;AA&quot; &quot;B6&quot; ...
-##  $ tailnum  : chr  &quot;N14228&quot; &quot;N24211&quot; &quot;N619AA&quot; &quot;N804JB&quot; ...
-##  $ flight   : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...
-##  $ origin   : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;JFK&quot; &quot;JFK&quot; ...
-##  $ dest     : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;MIA&quot; &quot;BQN&quot; ...
-##  $ air_time : num  227 227 160 183 116 150 158 53 140 138 ...
-##  $ distance : num  1400 1416 1089 1576 762 ...
-##  $ hour     : num  5 5 5 5 5 5 5 5 5 5 ...
-##  $ minute   : num  17 33 42 44 54 54 55 57 57 58 ...</code></pre>
+<p>Check out data <em>structure</em> with <code>glimpse()</code></p>
+<pre class="r"><code>glimpse(flights)</code></pre>
+<pre><code>## Observations: 336,776
+## Variables: 16
+## $ year      (int) 2013, 2013, 2013, 2013, 201...
+## $ month     (int) 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ day       (int) 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+## $ dep_time  (int) 517, 533, 542, 544, 554, 55...
+## $ dep_delay (dbl) 2, 4, 2, -1, -6, -4, -5, -3...
+## $ arr_time  (int) 830, 850, 923, 1004, 812, 7...
+## $ arr_delay (dbl) 11, 20, 33, -18, -25, 12, 1...
+## $ carrier   (chr) &quot;UA&quot;, &quot;UA&quot;, &quot;AA&quot;, &quot;B6&quot;, &quot;DL...
+## $ tailnum   (chr) &quot;N14228&quot;, &quot;N24211&quot;, &quot;N619AA...
+## $ flight    (int) 1545, 1714, 1141, 725, 461,...
+## $ origin    (chr) &quot;EWR&quot;, &quot;LGA&quot;, &quot;JFK&quot;, &quot;JFK&quot;,...
+## $ dest      (chr) &quot;IAH&quot;, &quot;IAH&quot;, &quot;MIA&quot;, &quot;BQN&quot;,...
+## $ air_time  (dbl) 227, 227, 160, 183, 116, 15...
+## $ distance  (dbl) 1400, 1416, 1089, 1576, 762...
+## $ hour      (dbl) 5, 5, 5, 5, 5, 5, 5, 5, 5, ...
+## $ minute    (dbl) 17, 33, 42, 44, 54, 54, 55,...</code></pre>
 </div>
 </div>
 </div>
-<div id="dplyr-verbs-of-data-manipulation" class="section level1">
-<h1><code>dplyr</code> “verbs” of data manipulation</h1>
+<div id="dplyr-verbs" class="section level1">
+<h1><code>dplyr</code> “verbs”</h1>
 <ul>
 <li><code>select()</code> and <code>rename()</code>: Extract existing variables</li>
 <li><code>filter()</code> and <code>slice()</code>: Extract existing observations</li>
@@ -461,21 +451,23 @@ library(tidyr)</code></pre>
 <pre class="r"><code>select(flights,-tailnum)</code></pre>
 <pre><code>## Source: local data frame [336,776 x 15]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier flight
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)  (int)
-## 1   2013     1     1      517         2      830        11      UA   1545
-## 2   2013     1     1      533         4      850        20      UA   1714
-## 3   2013     1     1      542         2      923        33      AA   1141
-## 4   2013     1     1      544        -1     1004       -18      B6    725
-## 5   2013     1     1      554        -6      812       -25      DL    461
-## 6   2013     1     1      554        -4      740        12      UA   1696
-## 7   2013     1     1      555        -5      913        19      B6    507
-## 8   2013     1     1      557        -3      709       -14      EV   5708
-## 9   2013     1     1      557        -3      838        -8      B6     79
-## 10  2013     1     1      558        -2      753         8      AA    301
-## ..   ...   ...   ...      ...       ...      ...       ...     ...    ...
-## Variables not shown: origin (chr), dest (chr), air_time (dbl), distance
-##   (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), flight (int), origin (chr), dest (chr),
+##   air_time (dbl), distance (dbl), hour (dbl),
+##   minute (dbl)</code></pre>
 <p>Select all columns containing the string <code>&quot;time&quot;</code>:</p>
 <pre class="r"><code>select(flights,contains(&quot;time&quot;))</code></pre>
 <pre><code>## Source: local data frame [336,776 x 3]
@@ -518,21 +510,23 @@ library(tidyr)</code></pre>
 <pre class="r"><code>filter(flights, month == 1, day == 1)</code></pre>
 <pre><code>## Source: local data frame [842 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1      517         2      830        11      UA  N14228
-## 2   2013     1     1      533         4      850        20      UA  N24211
-## 3   2013     1     1      542         2      923        33      AA  N619AA
-## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5   2013     1     1      554        -6      812       -25      DL  N668DN
-## 6   2013     1     1      554        -4      740        12      UA  N39463
-## 7   2013     1     1      555        -5      913        19      B6  N516JB
-## 8   2013     1     1      557        -3      709       -14      EV  N829AS
-## 9   2013     1     1      557        -3      838        -8      B6  N593JB
-## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 </div>
 <div id="base-r-method" class="section level2">
 <h2><em>Base</em> R method</h2>
@@ -540,21 +534,23 @@ library(tidyr)</code></pre>
 <pre class="r"><code>flights[flights$month == 1 &amp; flights$day == 1, ]</code></pre>
 <pre><code>## Source: local data frame [842 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1      517         2      830        11      UA  N14228
-## 2   2013     1     1      533         4      850        20      UA  N24211
-## 3   2013     1     1      542         2      923        33      AA  N619AA
-## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5   2013     1     1      554        -6      812       -25      DL  N668DN
-## 6   2013     1     1      554        -4      740        12      UA  N39463
-## 7   2013     1     1      555        -5      913        19      B6  N516JB
-## 8   2013     1     1      557        -3      709       -14      EV  N829AS
-## 9   2013     1     1      557        -3      838        -8      B6  N593JB
-## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 <p>Compare with <code>dplyr</code> method:</p>
 <pre class="r"><code>filter(flights, month == 1, day == 1)`</code></pre>
 </div>
@@ -566,21 +562,23 @@ library(tidyr)</code></pre>
 <pre class="r"><code>filter(flights,dep_time&gt;1600,month==6)</code></pre>
 <pre><code>## Source: local data frame [10,117 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     6     1     1602        57     1721        51      MQ  N3AEMQ
-## 2   2013     6     1     1602        -3     1824         4      MQ  N637MQ
-## 3   2013     6     1     1602        -8     1748       -20      9E  N604LR
-## 4   2013     6     1     1603        -7     1839       -32      B6  N760JB
-## 5   2013     6     1     1603        18     1726         1      WN  N460WN
-## 6   2013     6     1     1605        -3     1742       -30      9E  N922XJ
-## 7   2013     6     1     1605         5     1801        15      9E  N601LR
-## 8   2013     6     1     1605        -9     1801       -22      EV  N13968
-## 9   2013     6     1     1608         8     1807       -24      9E  N933XJ
-## 10  2013     6     1     1609        -6     1817       -23      MQ  N511MQ
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     6     1     1602        57     1721
+## 2   2013     6     1     1602        -3     1824
+## 3   2013     6     1     1602        -8     1748
+## 4   2013     6     1     1603        -7     1839
+## 5   2013     6     1     1603        18     1726
+## 6   2013     6     1     1605        -3     1742
+## 7   2013     6     1     1605         5     1801
+## 8   2013     6     1     1605        -9     1801
+## 9   2013     6     1     1608         8     1807
+## 10  2013     6     1     1609        -6     1817
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 </div>
 <div id="other-boolean-expressions" class="section level2">
 <h2>Other <em>boolean</em> expressions</h2>
@@ -589,21 +587,23 @@ library(tidyr)</code></pre>
 <pre class="r"><code>filter(flights, month == 1 | month == 2)</code></pre>
 <pre><code>## Source: local data frame [51,955 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1      517         2      830        11      UA  N14228
-## 2   2013     1     1      533         4      850        20      UA  N24211
-## 3   2013     1     1      542         2      923        33      AA  N619AA
-## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5   2013     1     1      554        -6      812       -25      DL  N668DN
-## 6   2013     1     1      554        -4      740        12      UA  N39463
-## 7   2013     1     1      555        -5      913        19      B6  N516JB
-## 8   2013     1     1      557        -3      709       -14      EV  N829AS
-## 9   2013     1     1      557        -3      838        -8      B6  N593JB
-## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 <div class="well">
 <p>Filter the <code>flights</code> data set to keep only ‘redeye’ flights where the departure time (<code>dep_time</code>) is “after” the arrival time (<code>arr_time</code>), indicating it arrived the next day:</p>
 <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
@@ -614,88 +614,96 @@ Show Solution
 <pre class="r"><code>filter(flights,dep_time&gt;arr_time)</code></pre>
 <pre><code>## Source: local data frame [10,633 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1     1929         9        3        -4      UA  N27205
-## 2   2013     1     1     1939        59       29        NA      9E  N905XJ
-## 3   2013     1     1     2058        -2        8         9      UA  N27724
-## 4   2013     1     1     2102        -6      146       -12      UA  N78511
-## 5   2013     1     1     2108        11       25       -14      UA  N17245
-## 6   2013     1     1     2120       -10       16        -2      B6  N603JB
-## 7   2013     1     1     2121        41        6        43      B6  N307JB
-## 8   2013     1     1     2128        -7       26       -24      AA  N338AA
-## 9   2013     1     1     2134        49       20        28      UA  N27733
-## 10  2013     1     1     2136        -9       25       -14      B6  N198JB
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1     1929         9        3
+## 2   2013     1     1     1939        59       29
+## 3   2013     1     1     2058        -2        8
+## 4   2013     1     1     2102        -6      146
+## 5   2013     1     1     2108        11       25
+## 6   2013     1     1     2120       -10       16
+## 7   2013     1     1     2121        41        6
+## 8   2013     1     1     2128        -7       26
+## 9   2013     1     1     2134        49       20
+## 10  2013     1     1     2136        -9       25
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 </div>
 </div>
 </div>
-<div id="select-rows-by-position-using-slice" class="section level2">
-<h2>Select rows by position using slice():</h2>
+<div id="select-rows-with-slice" class="section level2">
+<h2>Select rows with <code>slice()</code>:</h2>
 <pre class="r"><code>slice(flights, 1:10)</code></pre>
 <pre><code>## Source: local data frame [10 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1      517         2      830        11      UA  N14228
-## 2   2013     1     1      533         4      850        20      UA  N24211
-## 3   2013     1     1      542         2      923        33      AA  N619AA
-## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5   2013     1     1      554        -6      812       -25      DL  N668DN
-## 6   2013     1     1      554        -4      740        12      UA  N39463
-## 7   2013     1     1      555        -5      913        19      B6  N516JB
-## 8   2013     1     1      557        -3      709       -14      EV  N829AS
-## 9   2013     1     1      557        -3      838        -8      B6  N593JB
-## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 </div>
-<div id="arrange-rows-with-arrange" class="section level2">
-<h2>Arrange rows with <code>arrange()</code></h2>
+<div id="arrange-rows" class="section level2">
+<h2><code>arrange()</code> rows</h2>
 <p><code>arrange()</code> is similar to <code>filter()</code> except it reorders instead of filtering.</p>
 <pre class="r"><code>arrange(flights, year, month, day)</code></pre>
 <pre><code>## Source: local data frame [336,776 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     1      517         2      830        11      UA  N14228
-## 2   2013     1     1      533         4      850        20      UA  N24211
-## 3   2013     1     1      542         2      923        33      AA  N619AA
-## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
-## 5   2013     1     1      554        -6      812       -25      DL  N668DN
-## 6   2013     1     1      554        -4      740        12      UA  N39463
-## 7   2013     1     1      555        -5      913        19      B6  N516JB
-## 8   2013     1     1      557        -3      709       -14      EV  N829AS
-## 9   2013     1     1      557        -3      838        -8      B6  N593JB
-## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     1      517         2      830
+## 2   2013     1     1      533         4      850
+## 3   2013     1     1      542         2      923
+## 4   2013     1     1      544        -1     1004
+## 5   2013     1     1      554        -6      812
+## 6   2013     1     1      554        -4      740
+## 7   2013     1     1      555        -5      913
+## 8   2013     1     1      557        -3      709
+## 9   2013     1     1      557        -3      838
+## 10  2013     1     1      558        -2      753
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 <p><em>Base</em> R method:</p>
 <pre class="r"><code>flights[order(flights$year, flights$month, flights$day), ]</code></pre>
 </div>
-<div id="use-desc-for-descending-order" class="section level2">
-<h2>Use <code>desc()</code> for descending order:</h2>
+<div id="descending-order-desc" class="section level2">
+<h2>Descending order: <code>desc()</code></h2>
 <pre class="r"><code>arrange(flights, desc(arr_delay))</code></pre>
 <pre><code>## Source: local data frame [336,776 x 16]
 ## 
-##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
-##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
-## 1   2013     1     9      641      1301     1242      1272      HA  N384HA
-## 2   2013     6    15     1432      1137     1607      1127      MQ  N504MQ
-## 3   2013     1    10     1121      1126     1239      1109      MQ  N517MQ
-## 4   2013     9    20     1139      1014     1457      1007      AA  N338AA
-## 5   2013     7    22      845      1005     1044       989      MQ  N665MQ
-## 6   2013     4    10     1100       960     1342       931      DL  N959DL
-## 7   2013     3    17     2321       911      135       915      DL  N927DA
-## 8   2013     7    22     2257       898      121       895      DL  N6716C
-## 9   2013    12     5      756       896     1058       878      AA  N5DMAA
-## 10  2013     5     3     1133       878     1250       875      MQ  N523MQ
-## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
-## Variables not shown: flight (int), origin (chr), dest (chr), air_time
-##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+##     year month   day dep_time dep_delay arr_time
+##    (int) (int) (int)    (int)     (dbl)    (int)
+## 1   2013     1     9      641      1301     1242
+## 2   2013     6    15     1432      1137     1607
+## 3   2013     1    10     1121      1126     1239
+## 4   2013     9    20     1139      1014     1457
+## 5   2013     7    22      845      1005     1044
+## 6   2013     4    10     1100       960     1342
+## 7   2013     3    17     2321       911      135
+## 8   2013     7    22     2257       898      121
+## 9   2013    12     5      756       896     1058
+## 10  2013     5     3     1133       878     1250
+## ..   ...   ...   ...      ...       ...      ...
+## Variables not shown: arr_delay (dbl), carrier
+##   (chr), tailnum (chr), flight (int), origin
+##   (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
 <p><em>Base</em> R method:</p>
 <pre class="r"><code>flights[order(desc(flights$arr_delay)), ]</code></pre>
 </div>
@@ -754,8 +762,8 @@ Show Solution
 <pre class="r"><code>a1 &lt;- group_by(flights, year, month, day)
 a2 &lt;- select(a1, arr_delay, dep_delay)
 a3 &lt;- summarise(a2,
-  arr = mean(arr_delay, na.rm = TRUE),
-  dep = mean(dep_delay, na.rm = TRUE))
+                arr = mean(arr_delay, na.rm = TRUE),
+                dep = mean(dep_delay, na.rm = TRUE))
 a4 &lt;- filter(a3, arr &gt; 30 | dep &gt; 30)
 head(a4)</code></pre>
 <pre><code>## Source: local data frame [6 x 5]
@@ -867,21 +875,24 @@ head(a4)</code></pre>
 ## 14      VX 12.869421 44.81510
 ## 15      WN 17.711744 43.34435
 ## 16      YV 18.996330 49.17227</code></pre>
-<blockquote>
-<p>Flights from which <code>origin</code> airport go the farthest (on average)?</p>
-</blockquote>
-<p>Calculate the maximum flight distance (<code>distance</code>) by airport (<code>origin</code>).</p>
+<div class="well">
+<p>Flights from which <code>origin</code> airport go the farthest (on average)? Hint: Group by airport (<code>origin</code>) then calculate the maximum flight distance (<code>distance</code>).</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2a">
+Show Solution
+</button>
+<div id="demo2a" class="collapse">
 <pre class="r"><code>flights %&gt;% 
   group_by(origin) %&gt;%  
-  summarise(meanDist = mean(distance,na.rm=T),
-            maxDist = max(distance,na.rm=T))</code></pre>
-<pre><code>## Source: local data frame [3 x 3]
+  summarise(meanDist = mean(distance,na.rm=T))</code></pre>
+<pre><code>## Source: local data frame [3 x 2]
 ## 
-##   origin  meanDist maxDist
-##    (chr)     (dbl)   (dbl)
-## 1    EWR 1056.7428    4963
-## 2    JFK 1266.2491    4983
-## 3    LGA  779.8357    1620</code></pre>
+##   origin  meanDist
+##    (chr)     (dbl)
+## 1    EWR 1056.7428
+## 2    JFK 1266.2491
+## 3    LGA  779.8357</code></pre>
+</div>
+</div>
 <div class="well">
 <p>Which destination airport (<code>dest</code>) is the farthest (<code>distance</code>) from NYC?</p>
 <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
@@ -897,11 +908,11 @@ Show Solution
 ##    dest distance
 ##   (chr)    (dbl)
 ## 1   HNL     4983</code></pre>
-</div>
-</div>
 <blockquote>
-<p>What airport is that?</p>
+<p>Which airport is that?</p>
 </blockquote>
+</div>
+</div>
 </div>
 </div>
 <div id="combining-data-sets" class="section level1">
@@ -934,27 +945,31 @@ Show Solution
 <h3>Full Join</h3>
 <p><code>full_join(a, b, by = &quot;x1&quot;)</code> Join data. Retain all values, all rows.</p>
 <p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/> <img src="02_assets/join_full.png" alt="Drawing" style="width: 50%;"/></p>
-<pre class="r"><code>flights%&gt;%select(-year,-month,-day,-hour,-minute,-dep_time,-dep_delay)%&gt;%str()</code></pre>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    336776 obs. of  9 variables:
-##  $ arr_time : int  830 850 923 1004 812 740 913 709 838 753 ...
-##  $ arr_delay: num  11 20 33 -18 -25 12 19 -14 -8 8 ...
-##  $ carrier  : chr  &quot;UA&quot; &quot;UA&quot; &quot;AA&quot; &quot;B6&quot; ...
-##  $ tailnum  : chr  &quot;N14228&quot; &quot;N24211&quot; &quot;N619AA&quot; &quot;N804JB&quot; ...
-##  $ flight   : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...
-##  $ origin   : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;JFK&quot; &quot;JFK&quot; ...
-##  $ dest     : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;MIA&quot; &quot;BQN&quot; ...
-##  $ air_time : num  227 227 160 183 116 150 158 53 140 138 ...
-##  $ distance : num  1400 1416 1089 1576 762 ...</code></pre>
+<pre class="r"><code>flights%&gt;%
+  select(-year,-month,-day,-hour,-minute,-dep_time,-dep_delay)%&gt;%
+  glimpse()</code></pre>
+<pre><code>## Observations: 336,776
+## Variables: 9
+## $ arr_time  (int) 830, 850, 923, 1004, 812, 7...
+## $ arr_delay (dbl) 11, 20, 33, -18, -25, 12, 1...
+## $ carrier   (chr) &quot;UA&quot;, &quot;UA&quot;, &quot;AA&quot;, &quot;B6&quot;, &quot;DL...
+## $ tailnum   (chr) &quot;N14228&quot;, &quot;N24211&quot;, &quot;N619AA...
+## $ flight    (int) 1545, 1714, 1141, 725, 461,...
+## $ origin    (chr) &quot;EWR&quot;, &quot;LGA&quot;, &quot;JFK&quot;, &quot;JFK&quot;,...
+## $ dest      (chr) &quot;IAH&quot;, &quot;IAH&quot;, &quot;MIA&quot;, &quot;BQN&quot;,...
+## $ air_time  (dbl) 227, 227, 160, 183, 116, 15...
+## $ distance  (dbl) 1400, 1416, 1089, 1576, 762...</code></pre>
 <p>Let’s look at the <code>airports</code> data table (<code>?airports</code> for documentation):</p>
-<pre class="r"><code>str(airports)</code></pre>
-<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    1397 obs. of  7 variables:
-##  $ faa : chr  &quot;04G&quot; &quot;06A&quot; &quot;06C&quot; &quot;06N&quot; ...
-##  $ name: chr  &quot;Lansdowne Airport&quot; &quot;Moton Field Municipal Airport&quot; &quot;Schaumburg Regional&quot; &quot;Randall Airport&quot; ...
-##  $ lat : num  41.1 32.5 42 41.4 31.1 ...
-##  $ lon : num  -80.6 -85.7 -88.1 -74.4 -81.4 ...
-##  $ alt : int  1044 264 801 523 11 1593 730 492 1000 108 ...
-##  $ tz  : num  -5 -5 -6 -5 -4 -4 -5 -5 -5 -8 ...
-##  $ dst : chr  &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; ...</code></pre>
+<pre class="r"><code>glimpse(airports)</code></pre>
+<pre><code>## Observations: 1,397
+## Variables: 7
+## $ faa  (chr) &quot;04G&quot;, &quot;06A&quot;, &quot;06C&quot;, &quot;06N&quot;, &quot;09J...
+## $ name (chr) &quot;Lansdowne Airport&quot;, &quot;Moton Fiel...
+## $ lat  (dbl) 41.13047, 32.46057, 41.98934, 41...
+## $ lon  (dbl) -80.61958, -85.68003, -88.10124,...
+## $ alt  (int) 1044, 264, 801, 523, 11, 1593, 7...
+## $ tz   (dbl) -5, -5, -6, -5, -4, -4, -5, -5, ...
+## $ dst  (chr) &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A&quot;, &quot;A...</code></pre>
 <div class="well">
 <p>What is the name of the destination airport farthest from the NYC airports? Hints:</p>
 <ul>
@@ -967,7 +982,9 @@ Show Solution
 </button>
 <div id="demo3" class="collapse">
 <p><br></p>
-<pre class="r"><code>select(airports,dest=faa,destName=name)%&gt;%
+<pre class="r"><code>select(airports,
+       dest=faa,
+       destName=name)%&gt;%
   right_join(flights)%&gt;% 
   arrange(desc(distance)) %&gt;% 
   slice(1) %&gt;% 
@@ -988,19 +1005,20 @@ Show Solution
 <pre class="r"><code>select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)</code></pre>
 <pre><code>## Source: local data frame [1,397 x 4]
 ## 
-##     dest                       destName  destLat    destLon
-##    (chr)                          (chr)    (dbl)      (dbl)
-## 1    04G              Lansdowne Airport 41.13047  -80.61958
-## 2    06A  Moton Field Municipal Airport 32.46057  -85.68003
-## 3    06C            Schaumburg Regional 41.98934  -88.10124
-## 4    06N                Randall Airport 41.43191  -74.39156
-## 5    09J          Jekyll Island Airport 31.07447  -81.42778
-## 6    0A9 Elizabethton Municipal Airport 36.37122  -82.17342
-## 7    0G6        Williams County Airport 41.46731  -84.50678
-## 8    0G7  Finger Lakes Regional Airport 42.88356  -76.78123
-## 9    0P2   Shoestring Aviation Airfield 39.79482  -76.64719
-## 10   0S9          Jefferson County Intl 48.05381 -122.81064
-## ..   ...                            ...      ...        ...</code></pre>
+##     dest                       destName  destLat
+##    (chr)                          (chr)    (dbl)
+## 1    04G              Lansdowne Airport 41.13047
+## 2    06A  Moton Field Municipal Airport 32.46057
+## 3    06C            Schaumburg Regional 41.98934
+## 4    06N                Randall Airport 41.43191
+## 5    09J          Jekyll Island Airport 31.07447
+## 6    0A9 Elizabethton Municipal Airport 36.37122
+## 7    0G6        Williams County Airport 41.46731
+## 8    0G7  Finger Lakes Regional Airport 42.88356
+## 9    0P2   Shoestring Aviation Airfield 39.79482
+## 10   0S9          Jefferson County Intl 48.05381
+## ..   ...                            ...      ...
+## Variables not shown: destLon (dbl)</code></pre>
 <pre class="r"><code>library(geosphere)
 library(maps)
 library(ggplot2)
@@ -1008,44 +1026,92 @@ library(sp)
 library(rgeos)
 
 data=
-  select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)%&gt;%
+  select(airports,
+         dest=faa,
+         destName=name,
+         destLat=lat,
+         destLon=lon)%&gt;%
   right_join(flights)%&gt;%
-  group_by(dest,destLon,destLat,distance)%&gt;%
+  group_by(dest,
+           destLon,
+           destLat,
+           distance)%&gt;%
   summarise(count=n())%&gt;%
   ungroup()%&gt;%
-  select(destLon,destLat,count,distance)%&gt;%
+  select(destLon,
+         destLat,
+         count,
+         distance)%&gt;%
   mutate(id=row_number())%&gt;%
   na.omit()</code></pre>
 <pre><code>## Joining by: &quot;dest&quot;</code></pre>
 <pre class="r"><code>NYCll=airports%&gt;%filter(faa==&quot;JFK&quot;)%&gt;%select(lon,lat)  # get NYC coordinates
 
 # calculate great circle routes
-rts &lt;- gcIntermediate(as.matrix(NYCll), as.matrix(select(data,destLon,destLat)), 1000, addStartEnd=TRUE, sp=TRUE)
-rts.ff &lt;- fortify(as(rts,&quot;SpatialLinesDataFrame&quot;)) # convert into something ggplot can plot
+rts &lt;- gcIntermediate(as.matrix(NYCll),
+                      as.matrix(select(data,destLon,destLat)),
+                      1000,
+                      addStartEnd=TRUE,
+                      sp=TRUE)
+rts.ff &lt;- fortify(
+  as(rts,&quot;SpatialLinesDataFrame&quot;)) # convert into something ggplot can plot
 
 ## join with count of flights
 rts.ff$id=as.integer(rts.ff$id)
-gcircles &lt;- left_join(rts.ff, data, by=&quot;id&quot;) # join attributes, we keep them all, just in case</code></pre>
-<pre class="r"><code>base=ggplot()
-worldmap &lt;- map_data(&quot;world&quot;,ylim=c(10,70),xlim=c(-160,-80))
-wrld&lt;-c(geom_polygon(aes(long,lat,group=group), 
-                     size = 0.1, colour= &quot;grey&quot;, fill=&quot;grey&quot;, alpha=1, data=worldmap))
-base+wrld+geom_path(data=gcircles, aes(long,lat,col=count,group=group,order=as.factor(distance)),
-                    alpha=0.5, lineend=&quot;round&quot;,lwd=1)+
-  coord_equal()+
-  scale_colour_gradientn(colours=c(&quot;blue&quot;,&quot;orange&quot;,&quot;red&quot;),guide = &quot;colourbar&quot;)+
-  theme(panel.background = element_rect(fill=&#39;white&#39;,colour=&#39;white&#39;))+
-  labs(y=&quot;Latitude&quot;,x=&quot;Longitude&quot;,title=&quot;Count of Flights from New York in 2013&quot;)</code></pre>
+gcircles &lt;- left_join(rts.ff,
+                      data,
+                      by=&quot;id&quot;) # join attributes, we keep them all, just in case</code></pre>
+<pre class="r"><code>base = ggplot()
+worldmap &lt;- map_data(&quot;world&quot;,
+                     ylim = c(10, 70),
+                     xlim = c(-160, -80))
+wrld &lt;- c(geom_polygon(
+  aes(long, lat, group = group),
+  size = 0.1,
+  colour = &quot;grey&quot;,
+  fill = &quot;grey&quot;,
+  alpha = 1,
+  data = worldmap
+))
+
+base + wrld +
+  geom_path(
+    data = gcircles,
+    aes(
+      long,
+      lat,
+      col = count,
+      group = group,
+      order = as.factor(distance)
+    ),
+    alpha = 0.5,
+    lineend = &quot;round&quot;,
+    lwd = 1
+  ) +
+  coord_equal() +
+  scale_colour_gradientn(colours = c(&quot;blue&quot;, &quot;orange&quot;, &quot;red&quot;),
+                         guide = &quot;colourbar&quot;) +
+  theme(panel.background = element_rect(fill = &#39;white&#39;, colour = &#39;white&#39;)) +
+  labs(y = &quot;Latitude&quot;, x = &quot;Longitude&quot;,
+       title = &quot;Count of Flights from New York in 2013&quot;)</code></pre>
 <p><img src="02_DataWrangling_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
-<p>Idea from <a href="http://spatial.ly/2012/06/mapping-worlds-biggest-airlines/">here</a>.</p>
+</div>
+<div id="colophon" class="section level2">
+<h2>Colophon</h2>
+<p>This exercise based on code from <a href="http://spatial.ly/2012/06/mapping-worlds-biggest-airlines/">here</a>.</p>
 </div>
 </div>
 
 
-
-<!-- bizible -->
-<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
-
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <!-- disqus -->
   <div id="disqus_thread" style="margin-top: 45px;"></div>

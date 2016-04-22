@@ -11,9 +11,12 @@
 
 
 
-<title>GEO503: R Data Science</title>
+<title>Resources</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -161,6 +164,93 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: "h1.title, .toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.9em;
+  padding-left: 5px;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
@@ -227,13 +317,30 @@ $(document).ready(function () {
 
 
 
-<h1 class="title">GEO503: R Data Science</h1>
-<h3 class="subtitle"><em>Introduction to R for Data Science</em></h3>
+<h1 class="title">Resources</h1>
 
 </div>
 
 
-<p>The quantity and quality of data available for ecological and environmental research has exploded over the past few decades. These ‘big data’ now allow us to address important questions (both old and new) with unprecedented rigor and generality. Leveraging these new data streams requires new tools and increasingly sophisticated workflows. The free and open-source R programming language has become a lingua franca for ecological, epidemiological, and statistical research. The course will use a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The use of ‘literate programming’ (code embedded within text) to generate dynamic, reproducible research output (figures, manuscripts, websites, etc.) will also be addressed. The course includes an extensive project for students to conduct spatial analysis related to their research. Familiarity with basic GIS concepts (raster, vector, geographic projection, etc.) will be assumed, but no prior experience with R is necessary. The course is open to advanced undergraduate students and graduate students (postdocs are also welcome) with an interest in advancing their data analysis and modeling skill-set.</p>
+<div id="learning-more" class="section level2">
+<h2>Learning More</h2>
+<div class="row">
+<div class="col-sm-10">
+<h2 id="getting-started">Getting Started</h2>
+<div style="height: 10px;">
+
+</div>
+<ul>
+<li><p><a href="http://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown Cheat Sheet (PDF)</a>, a quick guide to the most commonly used markdown syntax, knitr options, and output formats.</p></li>
+<li><p><a href="http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide (PDF)</a>, a more comprehensive reference guide to markdown, knitr, and output format options.</p></li>
+</ul>
+<p>For even more in-depth documentation see:</p>
+<ul>
+<li>The website for the <a href="http://yihui.name/knitr/">knitr package</a>. Knitr is an extremely powerful tool for dynamic content generation and the website has a wealth of documentation and examples to help you utilize it to its full potential.</li>
+</ul>
+</div>
+</div>
+</div>
 
 
 <!-- Google Analytics -->
@@ -263,6 +370,8 @@ $(document).ready(function () {
     <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+</div>
+</div>
 
 </div>
 
