@@ -1,15 +1,9 @@
 #' ---
 #' title: "Introduction to R"
-#' author: "Adam M. Wilson"
-#' date: "August 31, 2015"
-#' output:
-#'   slidy_presentation:
-#'     fig_width: 7
-#'     fig_height: 6
-#'     keep_md: true
 #' ---
-#'     
 #' 
+#' 
+#' This file is available as a `R` script [here](`r output`)
 #' 
 #' ## Variables
 ## ------------------------------------------------------------------------
@@ -24,8 +18,6 @@ x=c(5,8,14,91,3,36,14,30)
 x
 
 #' 
-#' ----
-#' 
 #' And do simple arithmetic:
 ## ------------------------------------------------------------------------
 x+2
@@ -38,8 +30,6 @@ x+2
 #' 
 #' `Error: object 'X' not found`
 #' 
-#' ----
-#' 
 #' ### Variable naming conventions
 #' Naming your variables is your business, but there are [5 conventions](http://www.r-bloggers.com/consistent-naming-conventions-in-r/) to be aware of:
 #' 
@@ -49,7 +39,6 @@ x+2
 #' * **lowerCamelCase**: _e.g._ `addTaskCallback`
 #' * **UpperCamelCase**: _e.g._ `SignatureMethod`
 #' 
-#' ----
 #' 
 #' ### Subsetting
 ## ------------------------------------------------------------------------
@@ -69,8 +58,6 @@ x[5]
 x[1:5]
 
 #' 
-#' ----
-#' 
 #' ### Using Functions
 #' 
 #' To calculate the mean, you could do it _manually_ like this
@@ -83,8 +70,6 @@ x[1:5]
 ## ------------------------------------------------------------------------
 mean(x)
 
-#' 
-#' ----
 #' 
 #' Type `?functionname` to get the documentation (`?mean`) or `??"search parameters` (??"standard deviation") to search the documentation.  In RStudio, you can also search in the help panel.  `mean` has other arguments too: 
 #' 
@@ -99,7 +84,6 @@ mean(x)
 #' 
 #' > ![Autocomplete screenshot](img/check.png) Calculate the standard deviation of `c(3,6,12,89)`.    
 #' 
-#' ---- 
 #' 
 #' ### Standard Deviation
 ## ------------------------------------------------------------------------
@@ -107,7 +91,6 @@ y=c(3,6,12,89)
 
 #' 
 #' 
-#' ----
 #' 
 #' Writing functions in R is pretty easy.  Let's create one to calculate the mean of a vector by getting the sum and length.  First think about how to break it down into parts:
 ## ------------------------------------------------------------------------
@@ -115,8 +98,6 @@ x1= sum(x)
 x2=length(x)
 x1/x2
 
-#' 
-#' ----
 #' 
 #' Then put it all back together and create a new function called `mymean`:
 ## ------------------------------------------------------------------------
@@ -134,16 +115,12 @@ mean(x)
 #' 
 #' > ![Autocomplete screenshot](img/check.png) Any potential problems with the `mymean` function?
 #' 
-#' ----
-#' 
 #' ### Missing data:  dealing with `NA` values
 ## ------------------------------------------------------------------------
 x3=c(5,8,NA,91,3,NA,14,30,100)
 
 #' 
 #' > ![Autocomplete screenshot](img/check.png) What do you think `mymean(x3)` will return?
-#' 
-#' ----
 #' 
 #' Calculate the mean using the new function
 ## ------------------------------------------------------------------------
@@ -156,7 +133,6 @@ mean(x3,na.rm=T)
 
 #' Writing simple functions is easy, writing robust, reliable functions can be hard...
 #' 
-#' ----
 #' 
 #' ### Logical values
 #' 
@@ -172,7 +148,6 @@ mean(x3,na.rm=T)
   x3 >   15
 
 #' 
-#' ----
 #' 
 #' And you can perform operations on those results:
 ## ------------------------------------------------------------------------
@@ -187,7 +162,6 @@ result
 #' 
 #' >![Autocomplete screenshot](img/check.png) define a function that counts how many values in a vector are less than or equal (`<=`) to 12.  
 #' 
-#' ----
 #' 
 #' Try it:
 ## ------------------------------------------------------------------------
@@ -196,7 +170,6 @@ mycount(x3)
 
 #' oops!
 #' 
-#' ----
 #' 
 #' Try it:
 ## ------------------------------------------------------------------------
@@ -206,7 +179,6 @@ mycount(x3)
 #' 
 #' Nice!
 #' 
-#' ----
 #' 
 #' ### Generating Data
 #' 
@@ -220,7 +192,6 @@ seq(from=0, to=1, by=0.25)
 a=rnorm(100,mean=0,sd=10)
 
 #' 
-#' ----
 #' 
 #' Let's visualize those values in a histogram:
 ## ----fig.height=3--------------------------------------------------------
@@ -236,7 +207,6 @@ y=matrix(1:30,ncol=5)
 y
 
 #' 
-#' ----
 #' 
 #' Matrices behave much like vectors:
 ## ------------------------------------------------------------------------
@@ -244,7 +214,6 @@ y
 y+2
 
 #' 
-#' ----
 #' 
 #' and have 2-dimensional indexing:
 ## ------------------------------------------------------------------------
@@ -262,7 +231,6 @@ data = data.frame( x = c(11,12,14),
 data
 
 #' 
-#' ----
 #' 
 #' You can subset in several ways
 ## ------------------------------------------------------------------------
@@ -287,12 +255,4 @@ library(raster)
 #' 
 #' 
 #' If you don't have the packages above, install them in the package manager or by running `install.packages("raster")`.
-#' 
-#' ## That's all till next time.
-#' 
-#' Remember: 
-#' 
-#' * no class next week (Labor Day)
-#' * Homeworks are due the following Monday (September 14) BEFORE class!
-#' 
 #' 

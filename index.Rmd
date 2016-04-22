@@ -1,5 +1,5 @@
 ---
-title: "R for Data Science"
+title: "GEO503: R Data Science"
 subtitle: "Introduction to R for Data Science"
 output:
   html_document:

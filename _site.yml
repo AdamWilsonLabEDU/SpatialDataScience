@@ -4,9 +4,9 @@ output:
     theme: cosmo
     highlight: textmate
     mathjax: null
-    toc_depth: 3
+    toc_depth: 2
     toc_float:
-      collapsed: false
+      collapsed: true
     includes:
       after_body: include/after_body.html
     css: styles.css

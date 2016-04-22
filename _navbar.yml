@@ -4,12 +4,14 @@ left:
   - text: "Home"
     href: index.html
   - text: "Syllabus"
-    href: syllabus.html
+    href: Syllabus.html
   - text: "Content"
     menu:
       - text: "Module 1: Introduction to R"
-      - text: "HTML"
-        href: 01_IntroToR/R_Introduction.html
+      - text: "First Steps"
+        href: 01_intro.html
+      - text: "Data Wrangling"
+        href: 02_DataWrangling.html
       - text: "-----------------"
       - text: "Module 2: Advanced Programming"
       - text: "ioslides"

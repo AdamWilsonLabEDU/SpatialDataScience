@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Syllabus</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: "h1.title, .toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.9em;
+  padding-left: 5px;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="01_intro.html">First Steps</a>
+    </li>
+    <li>
+      <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li>
+      <a href="ioslides_presentation_format.html">ioslides</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Spatial Data</li>
+    <li>
+      <a href="tufte_handout_format.html">Tufte Handout</a>
+    </li>
+    <li>
+      <a href="package_vignette_format.html">Package Vignette</a>
+    </li>
+    <li>
+      <a href="github_document_format.html">GitHub Document</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="r_notebook_format.html">Module 4: Graphing</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="developer_html_widgets.html">Info</a>
+</li>
+<li>
+  <a href="articles.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title">Syllabus</h1>
+<h3 class="subtitle"><em>Course Information</em></h3>
+
+</div>
+
+
+<div id="logistics" class="section level1">
+<h1>Logistics</h1>
+<p>Professor Adam M. Wilson (<a href="mailto:adamw@buffalo.edu">adamw@buffalo.edu</a>)</p>
+<p>Office Hours: Mondays 2-3pm</p>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+<p>Mondays 5:00-7:40pm in 144 Wilkeson Quad.</p>
+</div>
+<div id="course-structure" class="section level2">
+<h2>Course Structure</h2>
+<p>The course will focus on programming in the R language. Typical class sessions will consist of a short (~30 minute) lecture followed by around two hours of interactive exercises. All teaching and exercises are done from within Rstudio using RMarkdown code structure.</p>
+</div>
+<div id="ublearns" class="section level2">
+<h2>UBLearns</h2>
+<p>Course announcements, readings, and other materials will be distributed through <a href="https://ublearns.buffalo.edu">UBLearns</a>. Please check the site regularly (or enable email notifications).</p>
+</div>
+<div id="computer-requirements" class="section level2">
+<h2>Computer requirements</h2>
+<p>The course will include class exercises on student laptops (under any operating system) or computer lab machines (if needed). Students will need to install RStudio on their laptops (instructions here).</p>
+</div>
+<div id="email-policy" class="section level2">
+<h2>Email Policy</h2>
+<p>During the week, I will attempt to respond to emails within 24 hours of receiving them (not including weekends). Do not expect an immediate response (please plan accordingly). For example, do not send an email with a question about a homework the same day that the homework is due. If you send an email over the weekend, do not expect any response until Monday or Tuesday.</p>
+</div>
+</div>
+<div id="student-learning-outcomes" class="section level1">
+<h1>Student Learning Outcomes</h1>
+<p>Successful completion of this course will enable the student to use the R programming language to:</p>
+<ol style="list-style-type: decimal">
+<li>develop approaches for integration of information/data</li>
+<li>inspect data and apply basic statistics to analysis and communication of geographical topics</li>
+<li>Understand and use scientific methodologies to perform spatial analyses in reproducible research workflows.</li>
+</ol>
+<p>These learning outcomes can be related to those expected of students completing the Geography program.</p>
+</div>
+<div id="course-content" class="section level1">
+<h1>Course Content</h1>
+<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
+<p>Topic Description Introduction and Overview Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data for spatial environmental analysis. Getting started with the R Project for Statistical Computing &amp; RStudio. Readings: ● The Popularity of Data Analysis Software ~ Robert A. Muenchen ● A (very) short introduction to R (12 pages) Data Gymnastics Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). For loops, conditional statements, and custom functions. Data gymnastics with dplyr. Reproducible Research, Literate Programming Introduction to rmarkdown, creation of dynamic research outputs. Publishing to github/word/html/etc. Brief introduction to pandoc. Version Control Managing code and research products in a “version control’ repository such as Github. Figshare and other data repositories. Graphics The “grammar” of graphics: ggplot2 and extensions (ggmap, rasterVis, etc.) Spatial Data Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. Readings: ● Introduction to the Raster Package Example Application: Species distribution modeling Use of dismo and raster packages to model species distributions. Example Application: processing MODIS data Use of raster, rgdal, and MODISTools packages to process MODIS satellite data. High Performance Computing Introduction to foreach package and parallel processing.<br />
+Software Integration Language/software integration. Use of the system() command. Calling various other programs from within R. Package Development Package structure and necessary components. Things to consider when developing an R package.</p>
+</div>
+<div id="course-requirements" class="section level1">
+<h1>Course Requirements</h1>
+<div id="grading" class="section level2">
+<h2>Grading</h2>
+<div id="course-participation-10" class="section level3">
+<h3>Course Participation (10%)</h3>
+<p>You are expected to actively participate in class discussions and follow along during in-class interactive exercises. If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged. ### Homeworks (30%) Homework assignments will be assigned throughout the semester and due before class the following week. The lowest two grades will be dropped. Assignments will be provided via UBLearns as R scripts with embedded questions. You can open the R script in RStudio and write the code needed to answer each question. Your work will be uploaded to UBLearns with multiple choice or numeric answers for each question. Your your R/RMarkdown script will also be uploaded as the response to the final ‘question’. Your script will not be graded, but will be taken into account if there are any questions about the assignment or grading. UBLearns will prevent submission of homework after class starts, so be sure to get it in on time.</p>
+<p>You are welcome to work collaboratively on homework assignments but you are responsible for developing your own code to answer the questions. So an acceptable question to ask a classmate would be, “which functions did you use to answer number 4?,” while an unacceptable question would be “please email me your code for question #4.”</p>
+<p>Some homework assignments will have a bonus question that builds upon material covered in class but is more complicated than the homework questions. These will be worth additional point(s).</p>
+</div>
+<div id="final-project-60" class="section level3">
+<h3>Final Project (60%)</h3>
+<p>The final project will consist of a dynamically generated report of a spatial analysis related to each student’s interest. Report will be uploaded to UBlearns as a PDF file with RMarkdown source code. This project can be related to the student’s own research or a separate topic. The report (minimum 12 page, maximum 30 pages) should include standard sections for a research manuscript:</p>
+<ol style="list-style-type: decimal">
+<li>Title</li>
+<li>Abstract</li>
+<li>Introduction with description of the question/problem</li>
+<li>Methods description</li>
+<li>Data description</li>
+<li>Interpretation and discussion of results (including figures)</li>
+<li>References</li>
+</ol>
+</div>
+</div>
+<div id="timeline-grading" class="section level2">
+<h2>Timeline &amp; Grading:</h2>
+<ul>
+<li>10/5 Project proposal (&lt;1 page, 10 points)</li>
+<li>11/16 First draft due (10 points)</li>
+<li>12/14: Final Project due (10-20 pages, 40 points). Unexcused late submissions will be docked 10 percentage points per 24 hour period.</li>
+</ul>
+<p><em>There will be no final exam.</em></p>
+</div>
+<div id="grading-scale" class="section level2">
+<h2>Grading Scale</h2>
+<p>Course grading will follow the grading procedures of the UB Graduate School (<a href="http://grad.buffalo.edu/Academics/Policies-Procedures/Grading-Procedures.html" class="uri">http://grad.buffalo.edu/Academics/Policies-Procedures/Grading-Procedures.html</a>).</p>
+<table style="width:110%;">
+<colgroup>
+<col width="30%" />
+<col width="31%" />
+<col width="25%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Quality of Work</th>
+<th align="left">Weighted Percentage</th>
+<th align="left">Quality Points</th>
+<th align="left">Weighted Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Superb</td>
+<td align="left">92+%</td>
+<td align="left">4</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="left">Excellent</td>
+<td align="left">90+%</td>
+<td align="left">3.67</td>
+<td align="left">A–</td>
+</tr>
+<tr class="odd">
+<td align="left">Very Good</td>
+<td align="left">88+%</td>
+<td align="left">3.33</td>
+<td align="left">B+</td>
+</tr>
+<tr class="even">
+<td align="left">Good</td>
+<td align="left">85+%</td>
+<td align="left">3.0</td>
+<td align="left">B</td>
+</tr>
+<tr class="odd">
+<td align="left">Acceptable</td>
+<td align="left">80+%</td>
+<td align="left">2.67</td>
+<td align="left">B–</td>
+</tr>
+<tr class="even">
+<td align="left">Adequate</td>
+<td align="left">75+%</td>
+<td align="left">2.33</td>
+<td align="left">C+</td>
+</tr>
+<tr class="odd">
+<td align="left">Barely Adequate</td>
+<td align="left">70+%</td>
+<td align="left">2.0</td>
+<td align="left">C</td>
+</tr>
+<tr class="even">
+<td align="left">Substantially Flawed</td>
+<td align="left">60+%</td>
+<td align="left">1.0</td>
+<td align="left">D</td>
+</tr>
+<tr class="odd">
+<td align="left">Flawed</td>
+<td align="left">&lt;60%</td>
+<td align="left">0.5</td>
+<td align="left">F</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="textbook" class="section level2">
+<h2>Textbook</h2>
+<p>There will be no textbook for the course. All materials will be available through this website.</p>
+</div>
+<div id="academic-integrity" class="section level2">
+<h2>Academic Integrity</h2>
+<p>The course will follow the university Academic Integrity Policy. Please review it and ask if you have any questions. Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source. If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension.</p>
+</div>
+</div>
+
+
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+
+<!-- disqus -->
+  <div id="disqus_thread" style="margin-top: 45px;"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'adammichaelwilson'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Data Wrangling</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: "h1.title, .toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.9em;
+  padding-left: 5px;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">R Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="01_intro.html">First Steps</a>
+    </li>
+    <li>
+      <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li>
+      <a href="ioslides_presentation_format.html">ioslides</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Spatial Data</li>
+    <li>
+      <a href="tufte_handout_format.html">Tufte Handout</a>
+    </li>
+    <li>
+      <a href="package_vignette_format.html">Package Vignette</a>
+    </li>
+    <li>
+      <a href="github_document_format.html">GitHub Document</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="r_notebook_format.html">Module 4: Graphing</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="developer_html_widgets.html">Info</a>
+</li>
+<li>
+  <a href="articles.html">Links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title">Data Wrangling</h1>
+
+</div>
+
+
+<p>This file is available as a <code>R</code> script <a href="02_DataWrangling.R">here</a></p>
+<div id="rstudio-shortcuts" class="section level1">
+<h1>RStudio Shortcuts</h1>
+<div id="running-code" class="section level2">
+<h2>Running code</h2>
+<ul>
+<li><code>ctrl-R</code> (or <code>command-R</code>) to run current line</li>
+<li>Highlight <code>code</code> in script and run <code>ctrl-R</code> (or <code>command-R</code>) to run selection</li>
+<li>Buttons: <img src="02_assets/Source.png" alt="buttons" /></li>
+</ul>
+</div>
+<div id="switching-windows" class="section level2">
+<h2>Switching windows</h2>
+<ul>
+<li><code>ctrl-1</code>: script window</li>
+<li><code>ctrl-2</code>: console window</li>
+</ul>
+<blockquote>
+<p>Try to run today’s script without using your mouse/trackpad</p>
+</blockquote>
+</div>
+</div>
+<div id="data-wrangling" class="section level1">
+<h1>Data wrangling</h1>
+<div id="useful-packages-dplyr-and-tidyr" class="section level2">
+<h2>Useful packages: <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html"><code>dplyr</code></a> and <a href=""><code>tidyr</code></a></h2>
+<p><a href="https://www.rstudio.com/resources/cheatsheets/">Cheat sheets on website</a> for <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data Wrangling</a></p>
+<pre class="r"><code>library(dplyr)
+library(tidyr)</code></pre>
+<p>Remember use <code>install.packages(&quot;dplyr&quot;)</code> to install a new package.</p>
+<div id="example-operations-from-here" class="section level3">
+<h3>Example operations from <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">here</a></h3>
+</div>
+</div>
+<div id="new-york-city-flights" class="section level2">
+<h2>New York City Flights</h2>
+<p>Data from <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0">US Bureau of Transportation Statistics</a> (see <code>?nycflights13</code>)</p>
+<pre class="r"><code>library(nycflights13)</code></pre>
+<p>Check out the <code>flights</code> object</p>
+<pre class="r"><code>head(flights)</code></pre>
+<pre><code>## Source: local data frame [6 x 16]
+## 
+##    year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##   (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1  2013     1     1      517         2      830        11      UA  N14228
+## 2  2013     1     1      533         4      850        20      UA  N24211
+## 3  2013     1     1      542         2      923        33      AA  N619AA
+## 4  2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5  2013     1     1      554        -6      812       -25      DL  N668DN
+## 6  2013     1     1      554        -4      740        12      UA  N39463
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+<div id="object-structure" class="section level3">
+<h3>Object <em>Structure</em></h3>
+<p>Check out data <em>structure</em> with <code>str()</code></p>
+<pre class="r"><code>str(flights)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    336776 obs. of  16 variables:
+##  $ year     : int  2013 2013 2013 2013 2013 2013 2013 2013 2013 2013 ...
+##  $ month    : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ day      : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ dep_time : int  517 533 542 544 554 554 555 557 557 558 ...
+##  $ dep_delay: num  2 4 2 -1 -6 -4 -5 -3 -3 -2 ...
+##  $ arr_time : int  830 850 923 1004 812 740 913 709 838 753 ...
+##  $ arr_delay: num  11 20 33 -18 -25 12 19 -14 -8 8 ...
+##  $ carrier  : chr  &quot;UA&quot; &quot;UA&quot; &quot;AA&quot; &quot;B6&quot; ...
+##  $ tailnum  : chr  &quot;N14228&quot; &quot;N24211&quot; &quot;N619AA&quot; &quot;N804JB&quot; ...
+##  $ flight   : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...
+##  $ origin   : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;JFK&quot; &quot;JFK&quot; ...
+##  $ dest     : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;MIA&quot; &quot;BQN&quot; ...
+##  $ air_time : num  227 227 160 183 116 150 158 53 140 138 ...
+##  $ distance : num  1400 1416 1089 1576 762 ...
+##  $ hour     : num  5 5 5 5 5 5 5 5 5 5 ...
+##  $ minute   : num  17 33 42 44 54 54 55 57 57 58 ...</code></pre>
+</div>
+</div>
+</div>
+<div id="dplyr-verbs-of-data-manipulation" class="section level1">
+<h1><code>dplyr</code> “verbs” of data manipulation</h1>
+<ul>
+<li><code>select()</code> and <code>rename()</code>: Extract existing variables</li>
+<li><code>filter()</code> and <code>slice()</code>: Extract existing observations</li>
+<li><code>arrange()</code></li>
+<li><code>distinct()</code></li>
+<li><code>mutate()</code> and <code>transmute()</code>: Derive new variables</li>
+<li><code>summarise()</code>: Change the unit of analysis</li>
+<li><code>sample_n()</code> and <code>sample_frac()</code></li>
+</ul>
+<div id="useful-select-functions" class="section level2">
+<h2>Useful select functions</h2>
+<ul>
+<li>“<code>-</code>” Select everything but</li>
+<li>“<code>:</code>” Select range</li>
+<li><code>contains()</code> Select columns whose name contains a character string</li>
+<li><code>ends_with()</code> Select columns whose name ends with a string</li>
+<li><code>everything()</code> Select every column</li>
+<li><code>matches()</code> Select columns whose name matches a regular expression</li>
+<li><code>num_range()</code> Select columns named x1, x2, x3, x4, x5</li>
+<li><code>one_of()</code> Select columns whose names are in a group of names</li>
+<li><code>starts_with()</code> Select columns whose name starts with a character string</li>
+</ul>
+<div id="select-examples" class="section level3">
+<h3><code>select()</code> examples</h3>
+<p>Select only the <code>year</code>, <code>month</code>, and <code>day</code> columns:</p>
+<pre class="r"><code>select(flights,year, month, day)</code></pre>
+<pre><code>## Source: local data frame [336,776 x 3]
+## 
+##     year month   day
+##    (int) (int) (int)
+## 1   2013     1     1
+## 2   2013     1     1
+## 3   2013     1     1
+## 4   2013     1     1
+## 5   2013     1     1
+## 6   2013     1     1
+## 7   2013     1     1
+## 8   2013     1     1
+## 9   2013     1     1
+## 10  2013     1     1
+## ..   ...   ...   ...</code></pre>
+</div>
+<div id="select-examples-1" class="section level3">
+<h3><code>select()</code> examples</h3>
+<p>Select everything <em>except</em> the <code>tailnum</code>:</p>
+<pre class="r"><code>select(flights,-tailnum)</code></pre>
+<pre><code>## Source: local data frame [336,776 x 15]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier flight
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)  (int)
+## 1   2013     1     1      517         2      830        11      UA   1545
+## 2   2013     1     1      533         4      850        20      UA   1714
+## 3   2013     1     1      542         2      923        33      AA   1141
+## 4   2013     1     1      544        -1     1004       -18      B6    725
+## 5   2013     1     1      554        -6      812       -25      DL    461
+## 6   2013     1     1      554        -4      740        12      UA   1696
+## 7   2013     1     1      555        -5      913        19      B6    507
+## 8   2013     1     1      557        -3      709       -14      EV   5708
+## 9   2013     1     1      557        -3      838        -8      B6     79
+## 10  2013     1     1      558        -2      753         8      AA    301
+## ..   ...   ...   ...      ...       ...      ...       ...     ...    ...
+## Variables not shown: origin (chr), dest (chr), air_time (dbl), distance
+##   (dbl), hour (dbl), minute (dbl)</code></pre>
+<p>Select all columns containing the string <code>&quot;time&quot;</code>:</p>
+<pre class="r"><code>select(flights,contains(&quot;time&quot;))</code></pre>
+<pre><code>## Source: local data frame [336,776 x 3]
+## 
+##    dep_time arr_time air_time
+##       (int)    (int)    (dbl)
+## 1       517      830      227
+## 2       533      850      227
+## 3       542      923      160
+## 4       544     1004      183
+## 5       554      812      116
+## 6       554      740      150
+## 7       555      913      158
+## 8       557      709       53
+## 9       557      838      140
+## 10      558      753      138
+## ..      ...      ...      ...</code></pre>
+<p>You can also rename columns with <code>select()</code></p>
+<pre class="r"><code>select(flights,year,carrier,destination=dest)</code></pre>
+<pre><code>## Source: local data frame [336,776 x 3]
+## 
+##     year carrier destination
+##    (int)   (chr)       (chr)
+## 1   2013      UA         IAH
+## 2   2013      UA         IAH
+## 3   2013      AA         MIA
+## 4   2013      B6         BQN
+## 5   2013      DL         ATL
+## 6   2013      UA         ORD
+## 7   2013      B6         FLL
+## 8   2013      EV         IAD
+## 9   2013      B6         MCO
+## 10  2013      AA         ORD
+## ..   ...     ...         ...</code></pre>
+</div>
+</div>
+<div id="filter-observations" class="section level2">
+<h2><code>filter()</code> observations</h2>
+<p>Filter all flights that departed on on January 1st:</p>
+<pre class="r"><code>filter(flights, month == 1, day == 1)</code></pre>
+<pre><code>## Source: local data frame [842 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1      517         2      830        11      UA  N14228
+## 2   2013     1     1      533         4      850        20      UA  N24211
+## 3   2013     1     1      542         2      923        33      AA  N619AA
+## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5   2013     1     1      554        -6      812       -25      DL  N668DN
+## 6   2013     1     1      554        -4      740        12      UA  N39463
+## 7   2013     1     1      555        -5      913        19      B6  N516JB
+## 8   2013     1     1      557        -3      709       -14      EV  N829AS
+## 9   2013     1     1      557        -3      838        -8      B6  N593JB
+## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+<div id="base-r-method" class="section level2">
+<h2><em>Base</em> R method</h2>
+<p>This is equivalent to the more verbose code in base R:</p>
+<pre class="r"><code>flights[flights$month == 1 &amp; flights$day == 1, ]</code></pre>
+<pre><code>## Source: local data frame [842 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1      517         2      830        11      UA  N14228
+## 2   2013     1     1      533         4      850        20      UA  N24211
+## 3   2013     1     1      542         2      923        33      AA  N619AA
+## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5   2013     1     1      554        -6      812       -25      DL  N668DN
+## 6   2013     1     1      554        -4      740        12      UA  N39463
+## 7   2013     1     1      555        -5      913        19      B6  N516JB
+## 8   2013     1     1      557        -3      709       -14      EV  N829AS
+## 9   2013     1     1      557        -3      838        -8      B6  N593JB
+## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+<p>Compare with <code>dplyr</code> method:</p>
+<pre class="r"><code>filter(flights, month == 1, day == 1)`</code></pre>
+</div>
+<div id="filter-excercise" class="section level2">
+<h2>Filter excercise</h2>
+<blockquote>
+<p>Filter the <code>flights</code> data set to keep only evening flights (<code>dep_time</code> after 1600) in June.</p>
+</blockquote>
+<pre class="r"><code>filter(flights,dep_time&gt;1600,month==6)</code></pre>
+<pre><code>## Source: local data frame [10,117 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     6     1     1602        57     1721        51      MQ  N3AEMQ
+## 2   2013     6     1     1602        -3     1824         4      MQ  N637MQ
+## 3   2013     6     1     1602        -8     1748       -20      9E  N604LR
+## 4   2013     6     1     1603        -7     1839       -32      B6  N760JB
+## 5   2013     6     1     1603        18     1726         1      WN  N460WN
+## 6   2013     6     1     1605        -3     1742       -30      9E  N922XJ
+## 7   2013     6     1     1605         5     1801        15      9E  N601LR
+## 8   2013     6     1     1605        -9     1801       -22      EV  N13968
+## 9   2013     6     1     1608         8     1807       -24      9E  N933XJ
+## 10  2013     6     1     1609        -6     1817       -23      MQ  N511MQ
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+<div id="other-boolean-expressions" class="section level2">
+<h2>Other <em>boolean</em> expressions</h2>
+<p><code>filter()</code> is similar to <code>subset()</code> except it handles any number of filtering conditions joined together with <code>&amp;</code>.</p>
+<p>You can also use other boolean operators, such as <em>OR</em> (“|”):</p>
+<pre class="r"><code>filter(flights, month == 1 | month == 2)</code></pre>
+<pre><code>## Source: local data frame [51,955 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1      517         2      830        11      UA  N14228
+## 2   2013     1     1      533         4      850        20      UA  N24211
+## 3   2013     1     1      542         2      923        33      AA  N619AA
+## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5   2013     1     1      554        -6      812       -25      DL  N668DN
+## 6   2013     1     1      554        -4      740        12      UA  N39463
+## 7   2013     1     1      555        -5      913        19      B6  N516JB
+## 8   2013     1     1      557        -3      709       -14      EV  N829AS
+## 9   2013     1     1      557        -3      838        -8      B6  N593JB
+## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+<div id="filter-excercise-1" class="section level2">
+<h2>Filter excercise</h2>
+<blockquote>
+<p>Filter the <code>flights</code> data set to keep only ‘redeye’ flights where the departure time (<code>dep_time</code>) is “after” the arrival time (<code>arr_time</code>), indicating it arrived the next day:</p>
+</blockquote>
+<pre class="r"><code>filter(flights,dep_time&gt;arr_time)</code></pre>
+<pre><code>## Source: local data frame [10,633 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1     1929         9        3        -4      UA  N27205
+## 2   2013     1     1     1939        59       29        NA      9E  N905XJ
+## 3   2013     1     1     2058        -2        8         9      UA  N27724
+## 4   2013     1     1     2102        -6      146       -12      UA  N78511
+## 5   2013     1     1     2108        11       25       -14      UA  N17245
+## 6   2013     1     1     2120       -10       16        -2      B6  N603JB
+## 7   2013     1     1     2121        41        6        43      B6  N307JB
+## 8   2013     1     1     2128        -7       26       -24      AA  N338AA
+## 9   2013     1     1     2134        49       20        28      UA  N27733
+## 10  2013     1     1     2136        -9       25       -14      B6  N198JB
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+<div id="select-rows-by-position-using-slice" class="section level2">
+<h2>Select rows by position using slice():</h2>
+<pre class="r"><code>slice(flights, 1:10)</code></pre>
+<pre><code>## Source: local data frame [10 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1      517         2      830        11      UA  N14228
+## 2   2013     1     1      533         4      850        20      UA  N24211
+## 3   2013     1     1      542         2      923        33      AA  N619AA
+## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5   2013     1     1      554        -6      812       -25      DL  N668DN
+## 6   2013     1     1      554        -4      740        12      UA  N39463
+## 7   2013     1     1      555        -5      913        19      B6  N516JB
+## 8   2013     1     1      557        -3      709       -14      EV  N829AS
+## 9   2013     1     1      557        -3      838        -8      B6  N593JB
+## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+<div id="arrange-rows-with-arrange" class="section level2">
+<h2>Arrange rows with <code>arrange()</code></h2>
+<p><code>arrange()</code> is similar to <code>filter()</code> except it reorders instead of filtering.</p>
+<pre class="r"><code>arrange(flights, year, month, day)</code></pre>
+<pre><code>## Source: local data frame [336,776 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     1      517         2      830        11      UA  N14228
+## 2   2013     1     1      533         4      850        20      UA  N24211
+## 3   2013     1     1      542         2      923        33      AA  N619AA
+## 4   2013     1     1      544        -1     1004       -18      B6  N804JB
+## 5   2013     1     1      554        -6      812       -25      DL  N668DN
+## 6   2013     1     1      554        -4      740        12      UA  N39463
+## 7   2013     1     1      555        -5      913        19      B6  N516JB
+## 8   2013     1     1      557        -3      709       -14      EV  N829AS
+## 9   2013     1     1      557        -3      838        -8      B6  N593JB
+## 10  2013     1     1      558        -2      753         8      AA  N3ALAA
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+<p><em>Base</em> R method:</p>
+<pre class="r"><code>flights[order(flights$year, flights$month, flights$day), ]</code></pre>
+</div>
+<div id="use-desc-for-descending-order" class="section level2">
+<h2>Use <code>desc()</code> for descending order:</h2>
+<pre class="r"><code>arrange(flights, desc(arr_delay))</code></pre>
+<pre><code>## Source: local data frame [336,776 x 16]
+## 
+##     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+##    (int) (int) (int)    (int)     (dbl)    (int)     (dbl)   (chr)   (chr)
+## 1   2013     1     9      641      1301     1242      1272      HA  N384HA
+## 2   2013     6    15     1432      1137     1607      1127      MQ  N504MQ
+## 3   2013     1    10     1121      1126     1239      1109      MQ  N517MQ
+## 4   2013     9    20     1139      1014     1457      1007      AA  N338AA
+## 5   2013     7    22      845      1005     1044       989      MQ  N665MQ
+## 6   2013     4    10     1100       960     1342       931      DL  N959DL
+## 7   2013     3    17     2321       911      135       915      DL  N927DA
+## 8   2013     7    22     2257       898      121       895      DL  N6716C
+## 9   2013    12     5      756       896     1058       878      AA  N5DMAA
+## 10  2013     5     3     1133       878     1250       875      MQ  N523MQ
+## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
+## Variables not shown: flight (int), origin (chr), dest (chr), air_time
+##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+<p><em>Base</em> R method:</p>
+<pre class="r"><code>flights[order(desc(flights$arr_delay)), ]</code></pre>
+</div>
+<div id="distinct-find-distinct-rows" class="section level2">
+<h2>Distinct: Find distinct rows</h2>
+<pre class="r"><code>distinct(
+  select(flights,carrier)
+)</code></pre>
+<pre><code>## Source: local data frame [16 x 1]
+## 
+##    carrier
+##      (chr)
+## 1       UA
+## 2       AA
+## 3       B6
+## 4       DL
+## 5       EV
+## 6       MQ
+## 7       US
+## 8       WN
+## 9       VX
+## 10      FL
+## 11      AS
+## 12      9E
+## 13      F9
+## 14      HA
+## 15      YV
+## 16      OO</code></pre>
+</div>
+<div id="mutate-derive-new-variables" class="section level2">
+<h2>Mutate: Derive new variables</h2>
+<p>Adds columns with calculations based on other columns.</p>
+<p>Average air speed (miles/hour):</p>
+<pre class="r"><code>select(
+  mutate(flights,ave_speed=distance/(air_time/60)),
+  distance, air_time,ave_speed)</code></pre>
+<pre><code>## Source: local data frame [336,776 x 3]
+## 
+##    distance air_time ave_speed
+##       (dbl)    (dbl)     (dbl)
+## 1      1400      227  370.0441
+## 2      1416      227  374.2731
+## 3      1089      160  408.3750
+## 4      1576      183  516.7213
+## 5       762      116  394.1379
+## 6       719      150  287.6000
+## 7      1065      158  404.4304
+## 8       229       53  259.2453
+## 9       944      140  404.5714
+## 10      733      138  318.6957
+## ..      ...      ...       ...</code></pre>
+</div>
+<div id="chaining-operations" class="section level2">
+<h2>Chaining Operations</h2>
+<p>Performing multiple operations sequentially with a <em>pipe</em> character</p>
+<pre class="r"><code>a1 &lt;- group_by(flights, year, month, day)
+a2 &lt;- select(a1, arr_delay, dep_delay)
+a3 &lt;- summarise(a2,
+  arr = mean(arr_delay, na.rm = TRUE),
+  dep = mean(dep_delay, na.rm = TRUE))
+a4 &lt;- filter(a3, arr &gt; 30 | dep &gt; 30)
+head(a4)</code></pre>
+<pre><code>## Source: local data frame [6 x 5]
+## Groups: year, month [3]
+## 
+##    year month   day      arr      dep
+##   (int) (int) (int)    (dbl)    (dbl)
+## 1  2013     1    16 34.24736 24.61287
+## 2  2013     1    31 32.60285 28.65836
+## 3  2013     2    11 36.29009 39.07360
+## 4  2013     2    27 31.25249 37.76327
+## 5  2013     3     8 85.86216 83.53692
+## 6  2013     3    18 41.29189 30.11796</code></pre>
+<p>If you don’t want to save the intermediate results: wrap the function calls inside each other:</p>
+<pre class="r"><code>filter(
+  summarise(
+    select(
+      group_by(flights, year, month, day),
+      arr_delay, dep_delay
+    ),
+    arr = mean(arr_delay, na.rm = TRUE),
+    dep = mean(dep_delay, na.rm = TRUE)
+  ),
+  arr &gt; 30 | dep &gt; 30
+)</code></pre>
+<pre><code>## Source: local data frame [49 x 5]
+## Groups: year, month [11]
+## 
+##     year month   day      arr      dep
+##    (int) (int) (int)    (dbl)    (dbl)
+## 1   2013     1    16 34.24736 24.61287
+## 2   2013     1    31 32.60285 28.65836
+## 3   2013     2    11 36.29009 39.07360
+## 4   2013     2    27 31.25249 37.76327
+## 5   2013     3     8 85.86216 83.53692
+## 6   2013     3    18 41.29189 30.11796
+## 7   2013     4    10 38.41231 33.02368
+## 8   2013     4    12 36.04814 34.83843
+## 9   2013     4    18 36.02848 34.91536
+## 10  2013     4    19 47.91170 46.12783
+## ..   ...   ...   ...      ...      ...</code></pre>
+<p>Arguments are distant from function -&gt; difficult to read!</p>
+</div>
+<div id="chaining-operations-1" class="section level2">
+<h2>Chaining Operations</h2>
+<p><code>%&gt;%</code> allows you to <em>pipe</em> together various commands</p>
+<p><code>x %&gt;% f(y)</code> turns into <code>f(x, y)</code></p>
+<p>So you can use it to rewrite multiple operations that you can read left-to-right, top-to-bottom:</p>
+<pre class="r"><code>flights %&gt;%
+  group_by(year, month, day) %&gt;%
+  select(arr_delay, dep_delay) %&gt;%
+  summarise(
+    arr = mean(arr_delay, na.rm = TRUE),
+    dep = mean(dep_delay, na.rm = TRUE)
+  ) %&gt;%
+  filter(arr &gt; 30 | dep &gt; 30)</code></pre>
+<pre><code>## Source: local data frame [49 x 5]
+## Groups: year, month [11]
+## 
+##     year month   day      arr      dep
+##    (int) (int) (int)    (dbl)    (dbl)
+## 1   2013     1    16 34.24736 24.61287
+## 2   2013     1    31 32.60285 28.65836
+## 3   2013     2    11 36.29009 39.07360
+## 4   2013     2    27 31.25249 37.76327
+## 5   2013     3     8 85.86216 83.53692
+## 6   2013     3    18 41.29189 30.11796
+## 7   2013     4    10 38.41231 33.02368
+## 8   2013     4    12 36.04814 34.83843
+## 9   2013     4    18 36.02848 34.91536
+## 10  2013     4    19 47.91170 46.12783
+## ..   ...   ...   ...      ...      ...</code></pre>
+</div>
+<div id="analyze-by-group-with-group_by" class="section level2">
+<h2>Analyze by group with <code>group_by()</code></h2>
+<p>Perform operations by <em>group</em>: mean departure delay by airport (<code>origin</code>)</p>
+<pre class="r"><code>flights %&gt;%
+  group_by(origin) %&gt;%
+  summarise(meanDelay = mean(dep_delay,na.rm=T))</code></pre>
+<pre><code>## Source: local data frame [3 x 2]
+## 
+##   origin meanDelay
+##    (chr)     (dbl)
+## 1    EWR  15.10795
+## 2    JFK  12.11216
+## 3    LGA  10.34688</code></pre>
+<p>Perform operations by <em>group</em>: mean and sd departure delay by airline (<code>carrier</code>)</p>
+<pre class="r"><code>flights %&gt;% 
+  group_by(carrier) %&gt;%  
+  summarise(meanDelay = mean(dep_delay,na.rm=T),
+            sdDelay =   sd(dep_delay,na.rm=T))</code></pre>
+<pre><code>## Source: local data frame [16 x 3]
+## 
+##    carrier meanDelay  sdDelay
+##      (chr)     (dbl)    (dbl)
+## 1       9E 16.725769 45.90604
+## 2       AA  8.586016 37.35486
+## 3       AS  5.804775 31.36303
+## 4       B6 13.022522 38.50337
+## 5       DL  9.264505 39.73505
+## 6       EV 19.955390 46.55235
+## 7       F9 20.215543 58.36265
+## 8       FL 18.726075 52.66160
+## 9       HA  4.900585 74.10990
+## 10      MQ 10.552041 39.18457
+## 11      OO 12.586207 43.06599
+## 12      UA 12.106073 35.71660
+## 13      US  3.782418 28.05633
+## 14      VX 12.869421 44.81510
+## 15      WN 17.711744 43.34435
+## 16      YV 18.996330 49.17227</code></pre>
+<blockquote>
+<p>Flights from which <code>origin</code> airport go the farthest (on average)?</p>
+</blockquote>
+<p>Calculate the maximum flight distance (<code>distance</code>) by airport (<code>origin</code>).</p>
+<pre class="r"><code>flights %&gt;% 
+  group_by(origin) %&gt;%  
+  summarise(meanDist = mean(distance,na.rm=T),
+            maxDist = max(distance,na.rm=T))</code></pre>
+<pre><code>## Source: local data frame [3 x 3]
+## 
+##   origin  meanDist maxDist
+##    (chr)     (dbl)   (dbl)
+## 1    EWR 1056.7428    4963
+## 2    JFK 1266.2491    4983
+## 3    LGA  779.8357    1620</code></pre>
+<blockquote>
+<p>Which destination airport (<code>dest</code>) is the farthest (<code>distance</code>) from NYC?</p>
+</blockquote>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo">
+Show Solution
+</button>
+<div id="demo" class="collapse">
+<pre class="r"><code>flights %&gt;% 
+  arrange(desc(distance)) %&gt;% 
+  select(dest,distance) %&gt;% 
+  slice(1)</code></pre>
+<pre><code>## Source: local data frame [1 x 2]
+## 
+##    dest distance
+##   (chr)    (dbl)
+## 1   HNL     4983</code></pre>
+</div>
+<blockquote>
+<p>What airport is that?</p>
+</blockquote>
+</div>
+</div>
+<div id="combining-data-sets" class="section level1">
+<h1>Combining data sets</h1>
+<div id="dplyr-join-methods" class="section level2">
+<h2><code>dplyr</code> <em>join</em> methods</h2>
+<p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/></p>
+<ul>
+<li><code>left_join(a, b, by = &quot;x1&quot;)</code> Join matching rows from b to a.</li>
+<li><code>right_join(a, b, by = &quot;x1&quot;)</code> Join matching rows from a to b.</li>
+<li><code>inner_join(a, b, by = &quot;x1&quot;)</code> Retain only rows in both sets.</li>
+<li><code>full_join(a, b, by = &quot;x1&quot;)</code> Join data. Retain all values, all rows.</li>
+</ul>
+<div id="left-join" class="section level3">
+<h3>Left Join</h3>
+<p><code>left_join(a, b, by = &quot;x1&quot;)</code> Join matching rows from b to a.</p>
+<p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/> <img src="02_assets/join_left.png" alt="Drawing" style="width: 50%;"/></p>
+</div>
+<div id="right-join" class="section level3">
+<h3>Right Join</h3>
+<p><code>right_join(a, b, by = &quot;x1&quot;)</code> Join matching rows from a to b.</p>
+<p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/> <img src="02_assets/join_right.png" alt="Drawing" style="width: 50%;"/></p>
+</div>
+<div id="inner-join" class="section level3">
+<h3>Inner Join</h3>
+<p><code>inner_join(a, b, by = &quot;x1&quot;)</code> Retain only rows in both sets.</p>
+<p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/> <img src="02_assets/join_inner.png" alt="Drawing" style="width: 50%;"/></p>
+</div>
+<div id="full-join" class="section level3">
+<h3>Full Join</h3>
+<p><code>full_join(a, b, by = &quot;x1&quot;)</code> Join data. Retain all values, all rows.</p>
+<p><img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/> <img src="02_assets/join_full.png" alt="Drawing" style="width: 50%;"/></p>
+<pre class="r"><code>flights%&gt;%select(-year,-month,-day,-hour,-minute,-dep_time,-dep_delay)%&gt;%str()</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    336776 obs. of  9 variables:
+##  $ arr_time : int  830 850 923 1004 812 740 913 709 838 753 ...
+##  $ arr_delay: num  11 20 33 -18 -25 12 19 -14 -8 8 ...
+##  $ carrier  : chr  &quot;UA&quot; &quot;UA&quot; &quot;AA&quot; &quot;B6&quot; ...
+##  $ tailnum  : chr  &quot;N14228&quot; &quot;N24211&quot; &quot;N619AA&quot; &quot;N804JB&quot; ...
+##  $ flight   : int  1545 1714 1141 725 461 1696 507 5708 79 301 ...
+##  $ origin   : chr  &quot;EWR&quot; &quot;LGA&quot; &quot;JFK&quot; &quot;JFK&quot; ...
+##  $ dest     : chr  &quot;IAH&quot; &quot;IAH&quot; &quot;MIA&quot; &quot;BQN&quot; ...
+##  $ air_time : num  227 227 160 183 116 150 158 53 140 138 ...
+##  $ distance : num  1400 1416 1089 1576 762 ...</code></pre>
+<p>Let’s look at the <code>airports</code> data table (<code>?airports</code> for documentation):</p>
+<pre class="r"><code>str(airports)</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    1397 obs. of  7 variables:
+##  $ faa : chr  &quot;04G&quot; &quot;06A&quot; &quot;06C&quot; &quot;06N&quot; ...
+##  $ name: chr  &quot;Lansdowne Airport&quot; &quot;Moton Field Municipal Airport&quot; &quot;Schaumburg Regional&quot; &quot;Randall Airport&quot; ...
+##  $ lat : num  41.1 32.5 42 41.4 31.1 ...
+##  $ lon : num  -80.6 -85.7 -88.1 -74.4 -81.4 ...
+##  $ alt : int  1044 264 801 523 11 1593 730 492 1000 108 ...
+##  $ tz  : num  -5 -5 -6 -5 -4 -4 -5 -5 -5 -8 ...
+##  $ dst : chr  &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; ...</code></pre>
+<blockquote>
+<p>What is the name of the destination airport farthest from the NYC airports?</p>
+</blockquote>
+<p>Hints:</p>
+<ul>
+<li>Use a <em>join</em> to connect the <code>flights</code> dataset and <code>airports</code> dataset.</li>
+<li>Figure out which column connects the two tables.</li>
+<li>You may need to rename the column names before joining.</li>
+</ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<pre class="r"><code>select(airports,dest=faa,destName=name)%&gt;%
+  right_join(flights)%&gt;% 
+  arrange(desc(distance)) %&gt;% 
+  slice(1) %&gt;% 
+  select(destName)</code></pre>
+<pre><code>## Joining by: &quot;dest&quot;</code></pre>
+<pre><code>## Source: local data frame [1 x 1]
+## 
+##        destName
+##           (chr)
+## 1 Honolulu Intl</code></pre>
+</div>
+</div>
+</div>
+<div id="plot-the-flights-data" class="section level2">
+<h2>Plot the <code>flights</code> data</h2>
+<p>Join destination airports. First select and rename needed variables:</p>
+<pre class="r"><code>select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)</code></pre>
+<pre><code>## Source: local data frame [1,397 x 4]
+## 
+##     dest                       destName  destLat    destLon
+##    (chr)                          (chr)    (dbl)      (dbl)
+## 1    04G              Lansdowne Airport 41.13047  -80.61958
+## 2    06A  Moton Field Municipal Airport 32.46057  -85.68003
+## 3    06C            Schaumburg Regional 41.98934  -88.10124
+## 4    06N                Randall Airport 41.43191  -74.39156
+## 5    09J          Jekyll Island Airport 31.07447  -81.42778
+## 6    0A9 Elizabethton Municipal Airport 36.37122  -82.17342
+## 7    0G6        Williams County Airport 41.46731  -84.50678
+## 8    0G7  Finger Lakes Regional Airport 42.88356  -76.78123
+## 9    0P2   Shoestring Aviation Airfield 39.79482  -76.64719
+## 10   0S9          Jefferson County Intl 48.05381 -122.81064
+## ..   ...                            ...      ...        ...</code></pre>
+<pre class="r"><code>library(geosphere)
+library(maps)
+library(ggplot2)
+library(sp)
+library(rgeos)
+
+data=
+  select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)%&gt;%
+  right_join(flights)%&gt;%
+  group_by(dest,destLon,destLat,distance)%&gt;%
+  summarise(count=n())%&gt;%
+  ungroup()%&gt;%
+  select(destLon,destLat,count,distance)%&gt;%
+  mutate(id=row_number())%&gt;%
+  na.omit()</code></pre>
+<pre><code>## Joining by: &quot;dest&quot;</code></pre>
+<pre class="r"><code>NYCll=airports%&gt;%filter(faa==&quot;JFK&quot;)%&gt;%select(lon,lat)  # get NYC coordinates
+
+# calculate great circle routes
+rts &lt;- gcIntermediate(as.matrix(NYCll), as.matrix(select(data,destLon,destLat)), 1000, addStartEnd=TRUE, sp=TRUE)
+rts.ff &lt;- fortify(as(rts,&quot;SpatialLinesDataFrame&quot;)) # convert into something ggplot can plot
+
+## join with count of flights
+rts.ff$id=as.integer(rts.ff$id)
+gcircles &lt;- left_join(rts.ff, data, by=&quot;id&quot;) # join attributes, we keep them all, just in case</code></pre>
+<pre class="r"><code>base=ggplot()
+worldmap &lt;- map_data(&quot;world&quot;,ylim=c(10,70),xlim=c(-160,-80))
+wrld&lt;-c(geom_polygon(aes(long,lat,group=group), 
+                     size = 0.1, colour= &quot;grey&quot;, fill=&quot;grey&quot;, alpha=1, data=worldmap))
+base+wrld+geom_path(data=gcircles, aes(long,lat,col=count,group=group,order=as.factor(distance)),
+                    alpha=0.5, lineend=&quot;round&quot;,lwd=1)+
+  coord_equal()+
+  scale_colour_gradientn(colours=c(&quot;blue&quot;,&quot;orange&quot;,&quot;red&quot;),guide = &quot;colourbar&quot;)+
+  theme(panel.background = element_rect(fill=&#39;white&#39;,colour=&#39;white&#39;))+
+  labs(y=&quot;Latitude&quot;,x=&quot;Longitude&quot;,title=&quot;Count of Flights from New York in 2013&quot;)</code></pre>
+<p><img src="02_DataWrangling_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<p>Idea from <a href="http://spatial.ly/2012/06/mapping-worlds-biggest-airlines/">here</a>.</p>
+</div>
+</div>
+
+
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+
+<!-- disqus -->
+  <div id="disqus_thread" style="margin-top: 45px;"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'adammichaelwilson'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>
