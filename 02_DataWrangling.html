@@ -604,12 +604,13 @@ library(tidyr)</code></pre>
 ## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
 ## Variables not shown: flight (int), origin (chr), dest (chr), air_time
 ##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
-</div>
-<div id="filter-excercise-1" class="section level2">
-<h2>Filter excercise</h2>
-<blockquote>
+<div class="well">
 <p>Filter the <code>flights</code> data set to keep only ‘redeye’ flights where the departure time (<code>dep_time</code>) is “after” the arrival time (<code>arr_time</code>), indicating it arrived the next day:</p>
-</blockquote>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+<p><br></p>
 <pre class="r"><code>filter(flights,dep_time&gt;arr_time)</code></pre>
 <pre><code>## Source: local data frame [10,633 x 16]
 ## 
@@ -628,6 +629,8 @@ library(tidyr)</code></pre>
 ## ..   ...   ...   ...      ...       ...      ...       ...     ...     ...
 ## Variables not shown: flight (int), origin (chr), dest (chr), air_time
 ##   (dbl), distance (dbl), hour (dbl), minute (dbl)</code></pre>
+</div>
+</div>
 </div>
 <div id="select-rows-by-position-using-slice" class="section level2">
 <h2>Select rows by position using slice():</h2>
@@ -879,13 +882,12 @@ head(a4)</code></pre>
 ## 1    EWR 1056.7428    4963
 ## 2    JFK 1266.2491    4983
 ## 3    LGA  779.8357    1620</code></pre>
-<blockquote>
+<div class="well">
 <p>Which destination airport (<code>dest</code>) is the farthest (<code>distance</code>) from NYC?</p>
-</blockquote>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
 Show Solution
 </button>
-<div id="demo" class="collapse">
+<div id="demo2" class="collapse">
 <pre class="r"><code>flights %&gt;% 
   arrange(desc(distance)) %&gt;% 
   select(dest,distance) %&gt;% 
@@ -895,6 +897,7 @@ Show Solution
 ##    dest distance
 ##   (chr)    (dbl)
 ## 1   HNL     4983</code></pre>
+</div>
 </div>
 <blockquote>
 <p>What airport is that?</p>
@@ -952,19 +955,18 @@ Show Solution
 ##  $ alt : int  1044 264 801 523 11 1593 730 492 1000 108 ...
 ##  $ tz  : num  -5 -5 -6 -5 -4 -4 -5 -5 -5 -8 ...
 ##  $ dst : chr  &quot;A&quot; &quot;A&quot; &quot;A&quot; &quot;A&quot; ...</code></pre>
-<blockquote>
-<p>What is the name of the destination airport farthest from the NYC airports?</p>
-</blockquote>
-<p>Hints:</p>
+<div class="well">
+<p>What is the name of the destination airport farthest from the NYC airports? Hints:</p>
 <ul>
 <li>Use a <em>join</em> to connect the <code>flights</code> dataset and <code>airports</code> dataset.</li>
 <li>Figure out which column connects the two tables.</li>
 <li>You may need to rename the column names before joining.</li>
 </ul>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
 Show Solution
 </button>
-<div id="demo2" class="collapse">
+<div id="demo3" class="collapse">
+<p><br></p>
 <pre class="r"><code>select(airports,dest=faa,destName=name)%&gt;%
   right_join(flights)%&gt;% 
   arrange(desc(distance)) %&gt;% 
@@ -976,6 +978,7 @@ Show Solution
 ##        destName
 ##           (chr)
 ## 1 Honolulu Intl</code></pre>
+</div>
 </div>
 </div>
 </div>

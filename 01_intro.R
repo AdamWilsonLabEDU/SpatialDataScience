@@ -23,6 +23,16 @@ x
 x+2
 
 #' 
+#' <div class="well">
+#' Create a new variable called `y` and set it to `15`
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+#' <div id="demo1" class="collapse">
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
 #' Note that `R` is case sensitive, if you ask for `X` instead of `x`, you will get an error
 ## ----eval=FALSE----------------------------------------------------------
 ## X

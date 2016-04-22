@@ -12,9 +12,10 @@ table.table td a:only-child:active {
   text-decoration: underline;
 }
 
+.well{
+background-color: #98AFC7;
+}
 
-HTML  CSS   Result
-Edit on 
 /**************************
   DEFAULT BOOTSTRAP STYLES
 **************************/
@@ -37,7 +38,6 @@ Edit on
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  padding: 10px 16px;
 }
   
 .btn-lg {

@@ -6,7 +6,7 @@ title       : "Data Wrangling"
 ## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=2,quiet=T)
+knitr::purl(input,output,documentation=1,quiet=T)
 knitr::opts_chunk$set(cache=T, warnings=F, messages=F)
 ```
 This file is available as a `R` script [here](`r output`)
@@ -138,15 +138,20 @@ You can also use other boolean operators, such as _OR_ ("|"):
 filter(flights, month == 1 | month == 2)
 ```
 
+<div class="well">
+Filter the `flights` data set to keep only 'redeye' flights where the departure time
+(`dep_time`) is "after" the arrival time (`arr_time`), indicating it arrived the next day:
 
-## Filter excercise
-
-> Filter the `flights` data set to keep only 'redeye' flights where the departure time (`dep_time`) is "after" the arrival time (`arr_time`), indicating it arrived the next day:
-
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+<div id="demo1" class="collapse"> <br>
 
 ```{r, purl=FALSE}
 filter(flights,dep_time>arr_time)
 ```
+</div>
+</div>
+
+
 
 
 
@@ -291,19 +296,20 @@ flights %>%
 ```
 
 
+<div class="well">
+Which destination airport (`dest`) is the farthest (`distance`) from NYC?
 
-> Which destination airport (`dest`) is the farthest (`distance`) from NYC?
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+<div id="demo2" class="collapse">
 
- 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo">Show Solution</button>
-
-<div id="demo" class="collapse">
 ```{r, purl=F}
 flights %>% 
   arrange(desc(distance)) %>% 
   select(dest,distance) %>% 
   slice(1)
 ```
+
+</div>
 </div>
 
 
@@ -355,18 +361,16 @@ Let's look at the `airports` data table (`?airports` for documentation):
 str(airports)
 ```
 
- 
-> What is the name of the destination airport farthest from the NYC airports?
 
-
+<div class="well">What is the name of the destination airport farthest from the NYC airports?
 Hints:
 
 * Use a _join_ to connect the `flights` dataset and `airports` dataset.
 * Figure out which column connects the two tables.
 * You may need to rename the column names before joining.
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
-<div id="demo2" class="collapse">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+<div id="demo3" class="collapse"> <br>
 
 ```{r purl=F}
 select(airports,dest=faa,destName=name)%>%
@@ -376,6 +380,9 @@ select(airports,dest=faa,destName=name)%>%
   select(destName)
 ```
 </div>
+
+</div>
+
 
 
 
