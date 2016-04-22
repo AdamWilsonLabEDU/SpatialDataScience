@@ -3,3 +3,4 @@
 .RData
 .Rproj.user
 packrat/lib*/
+_site

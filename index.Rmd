@@ -3,7 +3,9 @@ title: "R for Data Science"
 subtitle: "Introduction to R for Data Science"
 output:
   html_document:
-    toc_float: false
+    css: styles.css
+    self_contained: no
+    toc_float: no
 ---
 
 <style type="text/css">

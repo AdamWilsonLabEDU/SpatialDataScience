@@ -25,7 +25,7 @@ left:
       - text: "Module 4: Graphing"
         href: r_notebook_format.html
   - text: "Info"
-      href: developer_html_widgets.html
+    href: developer_html_widgets.html
   - text: "Links"
     href: articles.html
 right:
