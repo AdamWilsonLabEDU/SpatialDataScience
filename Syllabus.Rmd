@@ -37,40 +37,6 @@ Successful completion of this course will enable the student to use the R progra
 
 These learning outcomes can be related to those expected of students completing the Geography program. 
 
-# Course Content
-Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  
-
-Topic
-Description 
-Introduction and Overview 
-Course Motivation & Objectives. Workflow & repeatable research in an era of big data for spatial environmental analysis.  Getting started with the R Project for Statistical Computing & RStudio. 
-Readings: 
-●	The Popularity of Data Analysis Software ~ Robert A. Muenchen
-●	A (very) short introduction to R (12 pages) 
-Data Gymnastics
-Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). For loops, conditional statements, and custom functions.   Data gymnastics with dplyr.
-Reproducible Research, Literate Programming
-Introduction to rmarkdown, creation of dynamic research outputs. Publishing to github/word/html/etc.  Brief introduction to pandoc.
-Version Control
-Managing code and research products in a “version control’ repository such as Github.  Figshare and other data repositories. 
-Graphics
-The “grammar” of graphics: ggplot2 and extensions (ggmap, rasterVis, etc.)
-Spatial Data
-Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models.
-Readings:
-●	Introduction to the Raster Package
-Example Application: Species distribution modeling
-Use of dismo and raster packages to model species distributions.
-Example Application: processing MODIS data
-Use of raster, rgdal, and MODISTools packages to process MODIS satellite data.
-High Performance Computing
-Introduction to foreach package and parallel processing.  
-Software Integration
-Language/software integration.  Use of the system() command.
- Calling various other programs from within R.
-Package Development
-Package structure and necessary components.  Things to consider when developing an R package. 
-
 
 # Course Requirements
 ## Grading
