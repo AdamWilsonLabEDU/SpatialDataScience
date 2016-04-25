@@ -21,6 +21,22 @@ h1, h2, h3, h4, h5, h6{
   margin-top:60px;
 }
 
+/*******  Footer ******/
+
+#site-footer {
+height: 50px;
+}
+
+#footer1{
+width: 80%;
+float: left;
+}
+#footer2{
+width: 20%;
+float: right
+}
+
+
 /**************************
   DEFAULT BOOTSTRAP STYLES
 **************************/
