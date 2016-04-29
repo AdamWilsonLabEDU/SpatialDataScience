@@ -5,9 +5,17 @@ left:
     href: index.html
   - text: "Syllabus"
     href: Syllabus.html
+  - text: "Assignments"
+    menu:
+      - text: "Final Project"
+        href: Project.html
+      - text: "Homeworks"
+        href: Homework.html
   - text: "Content"
     menu:
       - text: "Module 1: Introduction to R"
+      - text: "Course Introduction"
+        href: 00_CourseIntroduction/00_CourseIntroduction.html
       - text: "First Steps"
         href: 01_intro.html
       - text: "Data Wrangling"

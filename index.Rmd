@@ -31,6 +31,7 @@ Course content is designed to be flexible to accommodate student interest and ab
 5. **Graphics**: The “grammar” of graphics: ggplot2 and extensions (ggmap, rasterVis, etc.)
 6. **Spatial Data**: Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. Example Application: Species distribution modeling: Use of dismo and raster packages to model species distributions. Example Application: processing MODIS data
 7. **Use of raster, rgdal, and MODISTools** packages to process MODIS satellite data.
+7. **HTML Widgets** http://www.htmlwidgets.org
 8. **High Performance Computing**: Introduction to foreach package and parallel processing.  
 9. **Software Integration**: Language/software integration.  Use of the system() command. Calling various other programs from within R.
 10. **Package Development**: Package structure and necessary components.  Things to consider when developing an R package. 

@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>Final Project</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
@@ -335,13 +335,91 @@ div.tocify {
 
 
 
+<h1 class="title">Final Project</h1>
 
 </div>
 
 
-<div id="this-chunk-automatically-generates-a-text-.r-version-of-this-script-when-running-within-knitr.-you-do-not-need-to-run-this" class="section level2">
-<h2>This chunk automatically generates a text .R version of this script when running within knitr. You do not need to run this…</h2>
-<p>input = knitr::current_input() # filename of input document output = paste(tools::file_path_sans_ext(input), ‘R’, sep = ‘.’) knitr::purl(input,output,documentation=1,quiet=T) knitr::opts_chunk$set(cache=T, warnings=F, messages=F)</p>
+<div id="description" class="section level2">
+<h2>Description</h2>
+<p>The final project is a report on a spatial analysis related to the student’s research interests using tools and methods we covered in class. The report (minimum 12 page, maximum 30 pages) should include standard sections for a research manuscript:</p>
+<ol style="list-style-type: decimal">
+<li>Title</li>
+<li>Abstract (should summarize the entire paper in a single paragraph - about two sentences per section)</li>
+<li>Introduction (including description of the question/problem)</li>
+<li>Data and Methods</li>
+<li>Results (including figures)</li>
+<li>Discussion and conclusion (can be combined into one section if desired)</li>
+<li>References</li>
+</ol>
+</div>
+<div id="formatting" class="section level2">
+<h2>Formatting</h2>
+<p>The project should be organized as a <a href="http://rmarkdown.rstudio.com">RMarkdown document</a> that includes all the steps necessary to run the analysis and produce the output (tables, figures, etc.). In general, the document should read like a <em>typical</em> scientific manuscript with the important exception that the code is included in the output document and the entire project should be reproducible. For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
+<div id="showing-code" class="section level3">
+<h3>Showing Code</h3>
+<p>In the output document you can show most of the code except for particularly long functions or data processing steps (e.g. more than 20 lines or so).</p>
+<p>If some steps of your analysis are time consuming to run (e.g. take more than a few minutes), you might want to pull out those components into a <code>.R</code> file to be executed separately. For example, if your project includes extensive pre-processing, you might have a script (perhaps named <code>setup.R</code>) that performs all the data cleaning and formatting and then saves intermediate files to disk so they can be used in the analysis. Alternatively, if you want to hide code, you can use <code>echo=F</code> in the code chunk header as explained <a href="http://rmarkdown.rstudio.com/authoring_rcodechunks.html">here</a>) and then include narrative explaining the processing steps taken in the hidden code.</p>
+</div>
+<div id="showing-r-output" class="section level3">
+<h3>Showing R output</h3>
+<p>While you should include the code, you should <em>not</em> include long sections of output from R. For example, do not include the structure of a raster (e.g. <code>str(raster)</code>) or simple summary of a regression (e.g. <code>summary(lm)</code>) in the output document. To show results, you can either summarize it into a table (see below) or work it into the text using the inline r code (e.g., <code>'r mean(x)'</code>). Remember, you want it to look like a typical scientific manuscript with embedded code.</p>
+</div>
+<div id="tables" class="section level3">
+<h3>Tables</h3>
+<p>Please format tabular output (e.g. summaries of regression models) into markdown tables. There are several ways to do this, including <code>kable</code> function in the ‘knitr’ package as explained <a href="http://rmarkdown.rstudio.com/authoring_rcodechunks.html">here</a> and the <code>xtable</code> package.</p>
+</div>
+<div id="figures" class="section level3">
+<h3>Figures</h3>
+<p>Figures (maps and other graphics) are a vital component of scientific communication and you should carefully plan your figures to convey the results of your analysis.</p>
+</div>
+<div id="source-and-output-files" class="section level3">
+<h3>Source and Output Files</h3>
+<p>You will upload the both the source (<code>.Rmd</code>) file and a PDF version (not HTML!) of the formatted document. The PDF version will be graded, the <code>.Rmd</code> file will be used only if there are technical questions about the analysis. You can create the PDF version in either of the following ways:</p>
+<ul>
+<li>Compile the <code>.Rmd</code> document to HTML (as we’ve done in class and explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf.</li>
+<li>Compile the <code>.Rmd</code> document directly to PDF as explained <a href="http://rmarkdown.rstudio.com/pdf_document_format.html">here</a></li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<p>You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section at the end. You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained <a href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">here</a>. Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.</p>
+</div>
+</div>
+<div id="grading" class="section level2">
+<h2>Grading</h2>
+<p>To achieve a perfect score the final project would have the following characteristics:</p>
+<ul>
+<li><strong>Organization:</strong> Findings very well organized. Clear headings demarcate separate sections. Excellent flow from one section to the next. The paper is easy to scan. An abstract or summary at the start of the paper briefly summarises approach and findings. Conclusions at the end present further questions and ways to investigate more. Tables and graphics carefully tuned and placed for desired purpose.</li>
+<li><strong>Curiosity:</strong> Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final answer. The author has gone beyond what was asked: additional research from other sources used to help understand/explain findings. The explanation and presentation is creative.</li>
+<li><strong>Skepticism:</strong> The author suggests multiple explanations for a given finding, and uses multiple tools to explore surprising results. One or two results are presented as the most plausible, but the paper allows for the possibility that results are wrong. The paper is self-critical: What was done well? What was done poorly? What may have been missed? How could it be done better next time? Flaws in methodology are identified suggestions provided as to how they could be remedied. Preconceived notions are challenged with interesting new tests.</li>
+<li><strong>Grammar:</strong> All sentences are well constructed and have varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.</li>
+<li><strong>Formatting:</strong> Demonstrates mastery of RMarkdown formatting and functions. Paper uses an excellent mixture of headings, tables, and figures.</li>
+</ul>
+<p>See the project rubric (see link near top of project submission page) for more details and examples.</p>
+</div>
+<div id="project-phases" class="section level2">
+<h2>Project Phases</h2>
+<div id="project-proposal" class="section level3">
+<h3>Project proposal</h3>
+<p>The project proposal will be 1 page or less and outline the following:</p>
+<ol style="list-style-type: decimal">
+<li>Introduction to problem/question</li>
+<li>Proposed data sources</li>
+<li>Proposed methods</li>
+<li>Expected results</li>
+</ol>
+</div>
+<div id="first-draft" class="section level3">
+<h3>First Draft</h3>
+<p>The more complete the first draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. However, the grading of the first draft will be limited to the introduction and methods/data sections. You should have acquired (downloaded, etc) all the data you plan to use and worked out most of the details of the methods, though you may not have any results or summary figures yet. I would like to see at least one figure illustrating the data you are working with. If you include drafts of the results and discussion/conclusion I will also give you feedback on those sections.</p>
+<p>The first draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion. If you have questions or comments, feel free to include them in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage.</p>
+</div>
+<div id="final-draft" class="section level3">
+<h3>Final Draft</h3>
+<p>The final draft will be uploaded to UBLearns at the end of the semester.</p>
+<p><strong>Remember to upload <em>both</em> the .Rmd and the PDF versions! </strong></p>
+</div>
 </div>
 
 <!-- Google Analytics -->

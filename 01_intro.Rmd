@@ -6,11 +6,11 @@ title: "Introduction to R"
 ## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=2,quiet=T)
+knitr::purl(input,output,documentation=1,quiet=T,envir=new.env())
 knitr::opts_chunk$set(cache=TRUE)
 ```
 
-This file is available as a [R script here  <i class="fa fa-file-text" aria-hidden="true"></i> ](`r output`)
+This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`)
 
 ## Variables
 ```{r}
@@ -51,6 +51,7 @@ X
 `Error: object 'X' not found`
 
 ### Variable naming conventions
+
 Naming your variables is your business, but there are [5 conventions](http://www.r-bloggers.com/consistent-naming-conventions-in-r/) to be aware of:
 
 * **alllowercase**: _e.g._ `adjustcolor`
