@@ -4,14 +4,28 @@ output:
   ioslides_presentation:
       widescreen: true
       logo: ../img/logo.png
-      css: ../site_libs/font-awesome-4.5.0/css/font-awesome.css">
       css: ../present.css
 ---
 
-## Spatial environmental data analysis with R
+
+## Spatial Data Science with R
 GEO 503
 
-## Agenda
+## Adam M. Wilson
+<div class="columns-2">
+Assistant Professor of Global Environmental Change<br>
+Geography Department
+
+I Use R:
+
+* GIS (with a little GRASS)
+* Statistics
+* Graphs
+* HTML/Websites (including this one!)
+
+</div>
+
+## Today's plan
 
 1. Course website (UBLearns) and syllabus
 2. What is R?
@@ -37,6 +51,10 @@ Mondays 5-7:40 (2 hours 40 min)
 A statistics course (see GEO 505, etc.). 
 We will focus on workflow and methods (‘how’ not ‘why’)
 
+---
+
+![](../images/data-science.png) 
+Grolemund & Wickham, R for Data Science, O'Reilly 2016
 
 ---
 
@@ -114,13 +132,13 @@ multi-core processors / high performance computing with foreach.
 ## Strengths & Limitations
 
 * Just-in-time compilation
-   * Slower than compiled languages <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-   * Faster to compose <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 
+     * Slower than compiled languages <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+     * Faster to compose <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 
 * Many available packages <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 * Most operations conducted in RAM
-   * RAM can be limiting and/or expensive <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-   * “Error: cannot allocate vector of size X Mb”
-* Various packages and clever programming can overcome this… <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+     * RAM can be limiting and/or expensive <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+     * `Error: cannot allocate vector of size X Mb`
+     * Various packages and clever programming can overcome this… <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 * Free like beer and speech! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 
 ## R Interface

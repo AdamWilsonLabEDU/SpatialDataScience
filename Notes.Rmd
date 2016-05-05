@@ -24,6 +24,8 @@ http://chartsnthings.tumblr.com/post/23348191031/amanda-cox-and-countrymen-chart
 http://blog.revolutionanalytics.com/2010/12/facebooks-social-network-graph.html
 http://stackoverflow.com/questions/12675147/how-can-we-make-xkcd-style-graphs
 
+## RMarkdown
+http://rpubs.com/mansun_kuo/24330 - https://github.com/mansunkuo/rmd_tutorial/blob/master/index.Rmd
 
 
 ## Useful R Packages

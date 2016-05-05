@@ -15,7 +15,7 @@ left:
     menu:
       - text: "Module 1: Introduction to R"
       - text: "Course Introduction"
-        href: 00_CourseIntroduction/00_CourseIntroduction.html
+        href: 00_CourseIntroductionFrame.html
       - text: "First Steps"
         href: 01_intro.html
       - text: "Data Wrangling"
