@@ -1,0 +1,100 @@
+# Syllabus
+
+# Logistics
+Professor Adam M. Wilson (adamw@buffalo.edu)
+
+Office Hours: Mondays 2:30-3:30pm
+
+## Schedule 
+Mondays 9:10-11:50am in 144 Wilkeson Quad.  
+
+## Course Structure	
+The course will focus on programming in the R language. Typical class sessions will consist of a short (~30 minute) lecture followed by around two hours of interactive exercises.   All teaching and exercises are done from within [RStudio](rstudio.com). 
+
+## UBLearns
+Course announcements, readings, and other materials will be distributed through [UBLearns](https://ublearns.buffalo.edu).  Please check the site regularly (or enable email notifications).  
+
+## Computer requirements
+The course will include class exercises on student laptops (under any operating system) or computer lab machines (if needed).  Students will need to install RStudio on their laptops (instructions here).  
+
+## Email Policy
+During the week, I will attempt to respond to emails within 24 hours of receiving them (not including weekends).  Do not expect an immediate response (please plan accordingly).  For example, do not send an email with a question about a homework the same day that the homework is due.   If you send an email over the weekend, do not expect any response until Monday or Tuesday.
+
+# Student Learning Outcomes
+Successful completion of this course will enable the student to use the R programming language to: 
+
+1. develop approaches for integration of information/data
+2. inspect data and apply basic statistics to analysis and communication of geographical topics
+3. Understand and use scientific methodologies to perform spatial analyses in reproducible research workflows.  
+
+These learning outcomes can be related to those expected of students completing the Geography program. 
+
+
+# Course Requirements
+## Grading
+
+The major course components are as follows:
+
+### Course Participation (10%)
+You are expected to actively participate in class discussions and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.
+
+### Package introduction (10%)
+Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session.  See full [Package Introduction Description](PackageIntro.html) for more details.  
+
+### Homeworks (30%)
+Homework assignments will be assigned throughout the semester and due before class the following week.  The lowest two grades will be dropped.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](Homework.html) for more details.  
+
+### Final Project and Presentation (50%)
+The final project will consist of a single multi-panel figure (like an infographic) that tells a story about a topic of interest.  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code and posted to the course website.  This project can be related to the student’s own research or a separate topic.  
+
+See full [Project Description](Project.html) for more details.  
+
+## Timeline & Grading:
+
+* 10/5  Project proposal due (<1 page, 5 points)
+* 11/16  Peer review of project drafts (5 points)
+* 12/14: Final project presentations (40 points)
+Unexcused late submissions will be docked 10 percentage points per 24 hour period.  
+
+**There will be no final exam.**
+
+## Grading Scale
+Course grading will follow the [grading procedures of the UB Graduate School](http://grad.buffalo.edu/Academics/Policies-Procedures/Grading-Procedures.html).
+
+
+| Quality of Work       | Weighted Percentage | Quality Points  | Weighted Grade| 
+| ---------------------|----------------------|-----------------|---------------|
+| Superb                | 92+%                | 4               | A             | 
+| Excellent             | 90+%                | 3.67            | A–            |
+| Very Good             | 88+%                | 3.33            | B+            |
+| Good                  | 85+%                | 3.0             | B             |
+| Acceptable            | 80+%                | 2.67            | B–            |
+| Adequate              | 75+%                | 2.33            | C+            |
+| Barely Adequate       | 70+%                | 2.0             | C             |
+| Substantially Flawed  | 60+%                | 1.0             | D             |
+| Flawed                | <60%                | 0.5             | F             |
+
+## Textbook
+There will be no textbook for the course.  All materials will be available through this website.
+
+## Academic Integrity 
+The course will follow the university Academic Integrity Policy.   Please review it and ask if you have any questions.  Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source.  If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension. 
+
+# Course Content
+Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  See the [course schedule for detailed course content](Schedule.html).
+
+* **Data Gymnastics**:
+Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet).
+For loops, conditional statements, and custom functions.
+* **Graphics**: Basic plots and the “grammar of graphics" approach to building complex figures.
+* **Spatial Data**:
+Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. 
+* **Use of raster, rgdal, and MODISTools** packages to process MODIS satellite data.
+* **Reproducible Research & Literate Programming**:
+Introduction to rmarkdown, creation of dynamic research outputs. 
+* **Version Control**: 
+Managing code and research products in a “version control’ repository such as Github. 
+* **High Performance Computing**: Introduction to parallel processing in R.  
+* **Software Integration**: Language/software integration.  Calling various other programs from within R.
+* **Package Development**: Package structure and necessary components.  Things to consider when developing an R package. 
+

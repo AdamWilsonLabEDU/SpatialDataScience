@@ -67,6 +67,10 @@ Learning a programming language can help you learn how to think
 
 ---
 
+<blockquote>
+"The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. <br> <br> The marriage of the two is a force beyond calculation." <br>  -– Leo Cherne
+</blockquote>
+
 ## UBLearns.buffalo.edu
 
 
@@ -185,8 +189,9 @@ RStudio
 # Assessment / Grading
 
 * **Course Participation (10%)** Actively participation
+* **Package Presentation (10%)** Overview of a R package of your choice
 * **Homeworks (30%)** 
-* **Final Project (60%)** a dynamically generated report of a spatial analysis related to each student’s interest.  Report will be uploaded to UBlearns as a PDF file with RMarkdown source code.  This project can be related to the student’s own research or a separate topic.
+* **Final Project (50%)** a dynamically generated set of figures (like an infographic) of a spatial analysis related to each student’s interest.  Report will be uploaded to UBlearns as a PDF file with RMarkdown source code.  This project can be related to the student’s own research or a separate topic.
 
 ## Homework
 Working collaboratively is encouraged but you are responsible for developing your own code to answer the questions. 

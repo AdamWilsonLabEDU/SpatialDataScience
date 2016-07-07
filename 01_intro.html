@@ -66,6 +66,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -166,6 +169,12 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -174,7 +183,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: "h1.title, .toc-ignore",
+      ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -271,20 +280,8 @@ div.tocify {
 <li>
   <a href="Syllabus.html">Syllabus</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Assignments
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Project.html">Final Project</a>
-    </li>
-    <li>
-      <a href="Homework.html">Homeworks</a>
-    </li>
-  </ul>
+<li>
+  <a href="Schedule.html">Schedule</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -303,6 +300,17 @@ div.tocify {
     <li>
       <a href="02_DataWrangling.html">Data Wrangling</a>
     </li>
+    <li>
+      <a href="03_Plotting.html">Plotting</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">Spatial Data</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">Spatial Raster Data</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>
     <li>
@@ -312,6 +320,24 @@ div.tocify {
     <li class="dropdown-header">Module 3: Spatial Data</li>
     <li>
       <a href="tufte_handout_format.html">Tufte Handout</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
     </li>
   </ul>
 </li>
@@ -335,12 +361,12 @@ div.tocify {
 
 
 
-<h1 class="title">Introduction to R</h1>
+<h1 class="title toc-ignore">Introduction to R</h1>
 
 </div>
 
 
-<p>This file is available as a <a href="01_intro.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script here</a></p>
+<p>This file is available as a <a href="01_intro.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
 <pre class="r"><code>x=1
@@ -363,8 +389,8 @@ Show Solution
 </div>
 </div>
 <p>Note that <code>R</code> is case sensitive, if you ask for <code>X</code> instead of <code>x</code>, you will get an error</p>
-<pre class="r"><code>X</code></pre>
-<p><code>Error: object 'X' not found</code></p>
+<pre class="r"><code>X
+Error: object &#39;X&#39; not found</code></pre>
 <div id="variable-naming-conventions" class="section level3">
 <h3>Variable naming conventions</h3>
 <p>Naming your variables is your business, but there are <a href="http://www.r-bloggers.com/consistent-naming-conventions-in-r/">5 conventions</a> to be aware of:</p>
@@ -540,10 +566,10 @@ Show Solution
 </button>
 <div id="demo4" class="collapse">
 <pre class="r"><code>matrix(rnorm(9),nrow=3)</code></pre>
-<pre><code>##             [,1]       [,2]        [,3]
-## [1,] -0.08001421 -1.0258084 -0.39961186
-## [2,] -0.97271547 -1.1043868 -0.09772124
-## [3,]  0.04901584  0.2091166  0.51971660</code></pre>
+<pre><code>##            [,1]      [,2]       [,3]
+## [1,]  0.3606916 0.7006843 -0.4335982
+## [2,] -1.5070465 0.7237667  0.0937146
+## [3,]  0.8981938 0.8758926 -0.1065538</code></pre>
 </div>
 </div>
 </div>

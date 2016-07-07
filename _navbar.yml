@@ -5,12 +5,8 @@ left:
     href: index.html
   - text: "Syllabus"
     href: Syllabus.html
-  - text: "Assignments"
-    menu:
-      - text: "Final Project"
-        href: Project.html
-      - text: "Homeworks"
-        href: Homework.html
+  - text: "Schedule"
+    href: Schedule.html
   - text: "Content"
     menu:
       - text: "Module 1: Introduction to R"
@@ -20,6 +16,14 @@ left:
         href: 01_intro.html
       - text: "Data Wrangling"
         href: 02_DataWrangling.html
+      - text: "Plotting"
+        href: 03_Plotting.html
+      - text: "-----------------"
+      - text: "Module 2: Spatial Analyses"
+      - text: "Spatial Data"
+        href: 04_Spatial.html
+      - text: "Spatial Raster Data"
+        href: 05_Raster.html
       - text: "-----------------"
       - text: "Module 2: Advanced Programming"
       - text: "ioslides"
@@ -28,6 +32,14 @@ left:
       - text: "Module 3: Spatial Data"
       - text: "Tufte Handout"
         href: tufte_handout_format.html
+  - text: "Assignments"
+    menu:
+      - text: "Homeworks"
+        href: Homework.html
+      - text: "Package Introduction"
+        href: PackageIntro.html
+      - text: "Final Project"
+        href: Project.html
   - text: "Resources"
     href: Resources.html
 right:

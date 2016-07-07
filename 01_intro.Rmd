@@ -10,7 +10,7 @@ knitr::purl(input,output,documentation=1,quiet=T,envir=new.env())
 knitr::opts_chunk$set(cache=TRUE)
 ```
 
-This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`)
+This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 
 ## Variables
 ```{r}
@@ -46,9 +46,9 @@ y=15
 Note that `R` is case sensitive, if you ask for `X` instead of `x`, you will get an error
 ```{r,eval=FALSE}
 X
+Error: object 'X' not found
 ```
 
-`Error: object 'X' not found`
 
 ### Variable naming conventions
 

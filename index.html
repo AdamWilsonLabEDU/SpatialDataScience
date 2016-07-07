@@ -63,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -181,6 +184,9 @@ $(document).ready(function () {
 <li>
   <a href="Syllabus.html">Syllabus</a>
 </li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Assignments
@@ -189,10 +195,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Project.html">Final Project</a>
+      <a href="Homework.html">Homeworks</a>
     </li>
     <li>
-      <a href="Homework.html">Homeworks</a>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
     </li>
   </ul>
 </li>
@@ -212,6 +221,17 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">Plotting</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">Spatial Data</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">Spatial Raster Data</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>
@@ -245,7 +265,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title">GEO503: R Data Science</h1>
+<h1 class="title toc-ignore">GEO503: R Data Science</h1>
 <h3 class="subtitle"><em>Introduction to R for Data Science</em></h3>
 
 </div>
@@ -256,26 +276,6 @@ $(document).ready(function () {
 <div id="description" class="section level2">
 <h2>Description</h2>
 <p>The quantity and quality of data available for ecological and environmental research has exploded over the past few decades. These ‘big data’ now allow us to address important questions (both old and new) with unprecedented rigor and generality. Leveraging these new data streams requires new tools and increasingly sophisticated workflows. The free and open-source R programming language has become a lingua franca for ecological, epidemiological, and statistical research. The course will use a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The use of ‘literate programming’ (code embedded within text) to generate dynamic, reproducible research output (figures, manuscripts, websites, etc.) will also be addressed. The course includes an extensive project for students to conduct spatial analysis related to their research. Familiarity with basic GIS concepts (raster, vector, geographic projection, etc.) will be assumed, but no prior experience with R is necessary. The course is open to advanced undergraduate students and graduate students (postdocs are also welcome) with an interest in advancing their data analysis and modeling skill-set.</p>
-</div>
-<div id="course-content" class="section level1">
-<h1>Course Content</h1>
-<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
-<ol style="list-style-type: decimal">
-<li><strong>Introduction &amp; Overview</strong>: Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data for spatial<br />
- environmental analysis. Getting started with the R Project for Statistical Computing &amp; RStudio.<br />
-</li>
-<li><strong>Data Gymnastics</strong>: Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). For loops, conditional statements, and custom functions. Data gymnastics with dplyr.</li>
-<li><strong>Reproducible Research &amp; Literate Programming</strong>: Introduction to rmarkdown, creation of dynamic research outputs. Publishing to github/word/html/etc. Brief introduction to pandoc.</li>
-<li><strong>Version Control</strong>: Managing code and research products in a “version control’ repository such as Github. Figshare and other data repositories.</li>
-<li><strong>Graphics</strong>: The “grammar” of graphics: ggplot2 and extensions (ggmap, rasterVis, etc.)</li>
-<li><strong>Spatial Data</strong>: Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. Example Application: Species distribution modeling: Use of dismo and raster packages to model species distributions. Example Application: processing MODIS data</li>
-<li><strong>Use of raster, rgdal, and MODISTools</strong> packages to process MODIS satellite data.</li>
-<li><strong>HTML Widgets</strong> <a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a></li>
-<li><strong>High Performance Computing</strong>: Introduction to foreach package and parallel processing.<br />
-</li>
-<li><strong>Software Integration</strong>: Language/software integration. Use of the system() command. Calling various other programs from within R.</li>
-<li><strong>Package Development</strong>: Package structure and necessary components. Things to consider when developing an R package.</li>
-</ol>
 </div>
 
 <!-- Google Analytics -->

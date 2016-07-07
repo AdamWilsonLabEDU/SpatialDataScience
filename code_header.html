@@ -66,6 +66,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -166,6 +169,12 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -174,7 +183,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: "h1.title, .toc-ignore",
+      ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -271,6 +280,9 @@ div.tocify {
 <li>
   <a href="Syllabus.html">Syllabus</a>
 </li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Assignments
@@ -279,10 +291,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Project.html">Final Project</a>
+      <a href="Homework.html">Homeworks</a>
     </li>
     <li>
-      <a href="Homework.html">Homeworks</a>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
     </li>
   </ul>
 </li>
@@ -302,6 +317,9 @@ div.tocify {
     </li>
     <li>
       <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">Plotting</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>

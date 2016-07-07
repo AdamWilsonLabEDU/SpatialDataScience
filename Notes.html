@@ -68,6 +68,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -168,6 +171,12 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -176,7 +185,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: "h1.title, .toc-ignore",
+      ignoreSelector: ".toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -273,6 +282,9 @@ div.tocify {
 <li>
   <a href="Syllabus.html">Syllabus</a>
 </li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Assignments
@@ -281,10 +293,13 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Project.html">Final Project</a>
+      <a href="Homework.html">Homeworks</a>
     </li>
     <li>
-      <a href="Homework.html">Homeworks</a>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
     </li>
   </ul>
 </li>
@@ -304,6 +319,9 @@ div.tocify {
     </li>
     <li>
       <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">Plotting</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>
@@ -337,7 +355,7 @@ div.tocify {
 
 
 
-<h1 class="title">DevelopmentNotes</h1>
+<h1 class="title toc-ignore">DevelopmentNotes</h1>
 <h4 class="author"><em>Adam M. Wilson</em></h4>
 <h4 class="date"><em>April 27, 2016</em></h4>
 
@@ -356,6 +374,10 @@ div.tocify {
 <div id="infographics" class="section level2">
 <h2>Infographics</h2>
 <p><a href="http://www.fastcodesign.com/3039650/the-18-best-infographics-of-2014/7" class="uri">http://www.fastcodesign.com/3039650/the-18-best-infographics-of-2014/7</a> <a href="http://jwhendy.blogspot.com/2015/01/re-doing-one-of-best-infographics-of.html" class="uri">http://jwhendy.blogspot.com/2015/01/re-doing-one-of-best-infographics-of.html</a> <a href="http://chartsnthings.tumblr.com/post/23348191031/amanda-cox-and-countrymen-chart-the-facebook-i-p-o" class="uri">http://chartsnthings.tumblr.com/post/23348191031/amanda-cox-and-countrymen-chart-the-facebook-i-p-o</a> <a href="http://blog.revolutionanalytics.com/2010/12/facebooks-social-network-graph.html" class="uri">http://blog.revolutionanalytics.com/2010/12/facebooks-social-network-graph.html</a> <a href="http://stackoverflow.com/questions/12675147/how-can-we-make-xkcd-style-graphs" class="uri">http://stackoverflow.com/questions/12675147/how-can-we-make-xkcd-style-graphs</a></p>
+</div>
+<div id="rmarkdown" class="section level2">
+<h2>RMarkdown</h2>
+<p><a href="http://rpubs.com/mansun_kuo/24330" class="uri">http://rpubs.com/mansun_kuo/24330</a> - <a href="https://github.com/mansunkuo/rmd_tutorial/blob/master/index.Rmd" class="uri">https://github.com/mansunkuo/rmd_tutorial/blob/master/index.Rmd</a></p>
 </div>
 <div id="useful-r-packages" class="section level2">
 <h2>Useful R Packages</h2>
