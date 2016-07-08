@@ -31,8 +31,8 @@ str(coords)
 
 ```
 ## 'data.frame':	100 obs. of  2 variables:
-##  $ x: num  2.245 0.316 0.361 0.219 0.647 ...
-##  $ y: num  0.8112 -0.4694 -0.7482 -0.2563 -0.0365 ...
+##  $ x: num  2.474 0.12 0.112 1.098 1.007 ...
+##  $ y: num  -0.276 0.282 1.093 -0.132 1.896 ...
 ```
 
 
@@ -55,11 +55,11 @@ str(sp)
 
 ```
 ## Formal class 'SpatialPoints' [package "sp"] with 3 slots
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -105,11 +105,11 @@ str(spdf)
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -136,11 +136,11 @@ str(spdf)
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -156,12 +156,12 @@ subset(spdf, group=="a")
 ```
 
 ```
-##                 coordinates ID group
-## 1     (2.244893, 0.8111743)  1     a
-## 21   (-0.2132082, 0.446351) 21     a
-## 41     (1.461436, 1.401752) 41     a
-## 61 (-0.04643231, 0.5881876) 61     a
-## 81    (0.7821042, 1.239597) 81     a
+##                  coordinates ID group
+## 1     (2.474125, -0.2755225)  1     a
+## 21 (-0.9650832, -0.04806011) 21     a
+## 41      (-1.02144, 0.382918) 41     a
+## 61   (0.5004737, -0.6499052) 61     a
+## 81   (-0.7947053, -1.000853) 81     a
 ```
 
 Or using `[]`
@@ -171,12 +171,12 @@ spdf[spdf$group=="a",]
 ```
 
 ```
-##                 coordinates ID group
-## 1     (2.244893, 0.8111743)  1     a
-## 21   (-0.2132082, 0.446351) 21     a
-## 41     (1.461436, 1.401752) 41     a
-## 61 (-0.04643231, 0.5881876) 61     a
-## 81    (0.7821042, 1.239597) 81     a
+##                  coordinates ID group
+## 1     (2.474125, -0.2755225)  1     a
+## 21 (-0.9650832, -0.04806011) 21     a
+## 41      (-1.02144, 0.382918) 41     a
+## 61   (0.5004737, -0.6499052) 61     a
+## 81   (-0.7947053, -1.000853) 81     a
 ```
 
 Unfortunately, `dplyr` functions do not directly filter spatial objects.
@@ -309,11 +309,11 @@ L1
 ## An object of class "Line"
 ## Slot "coords":
 ##            [,1]       [,2]
-## [1,]  1.2182002  0.4892788
-## [2,] -0.4191539 -1.1332689
-## [3,] -0.5735035 -0.8154963
-## [4,]  1.6729862  0.1359502
-## [5,] -0.2490799  0.8078373
+## [1,] -1.2490240  0.1944906
+## [2,] -1.0266416  0.9400866
+## [3,] -1.4307795  0.5013475
+## [4,]  1.3180625 -0.6262027
+## [5,]  0.9851047 -1.8352710
 ```
 
 
@@ -341,23 +341,23 @@ Ls2
 ## [[1]]
 ## An object of class "Line"
 ## Slot "coords":
-##            [,1]        [,2]
-## [1,] -0.1465679 -0.72750748
-## [2,] -1.8250195 -0.05802594
-## [3,]  0.4474751  1.25948097
-## [4,]  1.2142365  0.61075907
-## [5,] -0.3570694 -0.43643453
+##            [,1]       [,2]
+## [1,]  1.1171018 -2.1125498
+## [2,]  0.5582155  1.6694883
+## [3,] -1.5206290  0.5284784
+## [4,]  0.2034423  0.3659654
+## [5,] -0.6368669 -0.2098395
 ## 
 ## 
 ## [[2]]
 ## An object of class "Line"
 ## Slot "coords":
-##             [,1]       [,2]
-## [1,]  0.87217280 -0.8486497
-## [2,] -0.33491399  0.6734537
-## [3,] -0.01295575 -0.7486389
-## [4,] -1.72863963  1.3724054
-## [5,] -0.84943119 -0.9913878
+##            [,1]       [,2]
+## [1,]  0.2774494 -1.8423114
+## [2,] -1.3134206 -0.3378156
+## [3,]  0.1526129  0.6035131
+## [4,] -0.8538986 -0.2166753
+## [5,] -0.3510835  1.4021369
 ## 
 ## 
 ## 
@@ -400,16 +400,16 @@ str(SLDF)
 ##   .. ..$ :Formal class 'Lines' [package "sp"] with 2 slots
 ##   .. .. .. ..@ Lines:List of 1
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.218 -0.419 -0.574 1.673 -0.249 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -1.249 -1.027 -1.431 1.318 0.985 ...
 ##   .. .. .. ..@ ID   : chr "a"
 ##   .. ..$ :Formal class 'Lines' [package "sp"] with 2 slots
 ##   .. .. .. ..@ Lines:List of 2
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.147 -1.825 0.447 1.214 -0.357 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.117 0.558 -1.521 0.203 -0.637 ...
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.872 -0.335 -0.013 -1.729 -0.849 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.277 -1.313 0.153 -0.854 -0.351 ...
 ##   .. .. .. ..@ ID   : chr "b"
-##   ..@ bbox       : num [1:2, 1:2] -1.83 -1.13 1.67 1.37
+##   ..@ bbox       : num [1:2, 1:2] -1.52 -2.11 1.32 1.67
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -444,13 +444,7 @@ But, you rarely construct data _from scratch_ like we did above.  Usually you wi
 
 Also the `gdalUtils` package for reprojecting, transforming, reclassifying, etc.
 
-List the file formats that your installation of rgdal can read/write:
-
-```r
-knitr::kable(ogrDrivers())
-```
-
-
+List the file formats that your installation of rgdal can read/write with `ogrDrivers()`:
 
 name             write 
 ---------------  ------
@@ -608,8 +602,8 @@ plot(sids)
 ![](04_Spatial_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 
-### maptools package
-Has an alternative function for importing shapefiles that's a little easier to use.
+### Maptools package
+The `maptools` package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).
 
 * `readShapeSpatial`
 
@@ -617,6 +611,10 @@ Has an alternative function for importing shapefiles that's a little easier to u
 ```r
 sids <- readShapeSpatial(file)
 ```
+
+### Raster data
+
+We'll deal with raster data in the next section.
 
 # Coordinate Systems
 
@@ -722,6 +720,198 @@ ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
 ```
 
 ![](04_Spatial_files/figure-html/unnamed-chunk-29-2.png)<!-- -->
+
+# RGEOS
+
+Interface to Geometry Engine - Open Source (GEOS) using a C API for topology operations (e.g. union, simplification) on geometries (lines and polygons).
+
+
+```r
+library(rgeos)
+```
+
+## RGEOS package for polygon operations
+
+* Area calculations (`gArea`)
+* Centroids (`gCentroid`)
+* Convex Hull (`gConvexHull`)
+* Intersections (`gIntersection`)
+* Unions (`gUnion`)
+* Simplification (`gSimplify`)
+
+If you have trouble installing `rgeos` on OS X, look [here](http://dyerlab.bio.vcu.edu/2015/03/31/install-rgeos-on-osx/)
+
+
+## Example: gSimplify
+
+Make up some lines and polygons:
+
+```r
+p = readWKT(paste("POLYGON((0 40,10 50,0 60,40 60,40 100,50 90,60 100,60",
+ "60,100 60,90 50,100 40,60 40,60 0,50 10,40 0,40 40,0 40))"))
+l = readWKT("LINESTRING(0 7,1 6,2 1,3 4,4 1,5 7,6 6,7 4,8 6,9 4)")
+```
+
+
+### Simplication of lines
+
+
+```r
+par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(l);title("Original")
+plot(gSimplify(l,tol=3));title("tol: 3")
+plot(gSimplify(l,tol=5));title("tol: 5")
+plot(gSimplify(l,tol=7));title("tol: 7")
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+
+
+### Simplification of polygons
+
+```r
+par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(p);title("Original")
+plot(gSimplify(p,tol=10));title("tol: 10")
+plot(gSimplify(p,tol=20));title("tol: 20")
+plot(gSimplify(p,tol=25));title("tol: 25")
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
+
+
+##  Use `rgeos` functions with real spatial data
+
+Load the `sids` data again
+
+```r
+file = system.file("shapes/sids.shp", package="maptools")
+sids = readOGR(dsn=file, layer="sids")
+```
+
+```
+## OGR data source with driver: ESRI Shapefile 
+## Source: "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/maptools/shapes/sids.shp", layer: "sids"
+## with 100 features
+## It has 14 fields
+```
+
+## Simplify polygons with RGEOS
+
+
+```r
+sids2=gSimplify(sids,tol = 0.2,topologyPreserve=T)
+```
+
+### Plotting vectors with ggplot
+
+`fortify()` in `ggplot` useful for converting `Spatial*` objects into plottable data.frames.  
+
+
+```r
+sids%>%
+  fortify()%>%
+  head()
+```
+
+```
+## Regions defined for each Polygons
+```
+
+```
+##        long      lat order  hole piece id group
+## 1 -81.47276 36.23436     1 FALSE     1  0   0.1
+## 2 -81.54084 36.27251     2 FALSE     1  0   0.1
+## 3 -81.56198 36.27359     3 FALSE     1  0   0.1
+## 4 -81.63306 36.34069     4 FALSE     1  0   0.1
+## 5 -81.74107 36.39178     5 FALSE     1  0   0.1
+## 6 -81.69828 36.47178     6 FALSE     1  0   0.1
+```
+
+To use `ggplot` with a `fortify`ed spatial object, you must specify `aes(x=long,y=lat,order=order, group=group)` to indicate that each polygon should be plotted separately.  
+
+
+```r
+ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill="grey",col="blue")+
+  coord_map()
+```
+
+```
+## Regions defined for each Polygons
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+
+Now let's overlay the simplified version to see how they differ.
+
+
+```r
+ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill="grey",col="blue")+
+  geom_polygon(data=fortify(sids2),col="red",fill=NA)+
+  coord_map()
+```
+
+```
+## Regions defined for each Polygons
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+
+How does changing the tolerance (`tol`) affect the map?
+
+## Calculate area with `gArea`
+
+
+```r
+sids$area=gArea(sids,byid = T)
+```
+
+
+### Plot a chloropleth of area
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Choropleth_map):
+
+> A **choropleth** (from Greek χώρο ("area/region") + πλήθος ("multitude")) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.
+
+By default, the rownames in the dataframe are the unique identifier (e.g. the **FID**) for the polygons.  
+
+
+```r
+## add the ID to the dataframe itself for easier indexing
+sids$id=as.numeric(rownames(sids@data))
+## create fortified version for plotting with ggplot()
+fsids=fortify(sids,region="id")
+
+ggplot(sids@data, aes(map_id = id)) +
+    expand_limits(x = fsids$long, y = fsids$lat)+
+    scale_fill_gradientn(colours = c("grey","goldenrod","darkgreen","green"))+
+    coord_map()+
+    geom_map(aes(fill = area), map = fsids)
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+
+## Union
+
+Merge sub-geometries (polygons) together with `gUnionCascaded()`
+
+
+```r
+sids_all=gUnionCascaded(sids)
+```
+
+
+
+```r
+ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
+  geom_path()+
+  coord_map()
+```
+
+![](04_Spatial_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
+
 
 ## Colophon
 See also:  `Raster` package for working with raster data

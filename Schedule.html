@@ -285,29 +285,14 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Assignments
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Homework.html">Homeworks</a>
-    </li>
-    <li>
-      <a href="PackageIntro.html">Package Introduction</a>
-    </li>
-    <li>
-      <a href="Project.html">Final Project</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Content
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
     <li class="dropdown-header">Module 1: Introduction to R</li>
     <li>
       <a href="00_CourseIntroductionFrame.html">Course Introduction</a>
@@ -322,6 +307,14 @@ div.tocify {
       <a href="03_Plotting.html">Plotting</a>
     </li>
     <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">Spatial Data</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>
     <li>
       <a href="ioslides_presentation_format.html">ioslides</a>
@@ -330,6 +323,24 @@ div.tocify {
     <li class="dropdown-header">Module 3: Spatial Data</li>
     <li>
       <a href="tufte_handout_format.html">Tufte Handout</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
     </li>
   </ul>
 </li>
@@ -359,24 +370,108 @@ div.tocify {
 
 
 <p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
-<ul>
-<li>8/29: <strong>Introduction &amp; Overview</strong> Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data for spatial environmental analysis. Getting started with the R Project for Statistical Computing &amp; RStudio.</li>
-<li>9/5: Labor day, no class</li>
-<li>9/12: <strong>Data Gymnastics</strong>: Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). For loops, conditional statements, and custom functions. Data gymnastics with dplyr. Practice homework in class.</li>
-<li>9/26 <strong>Graphics</strong>: The “grammar” of graphics: ggplot2 and extensions (ggmap, rasterVis, etc.).</li>
-<li>10/3 <strong>Spatial Data</strong>: Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.<br />
-Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. Example Application: Species distribution modeling: Use of dismo and raster packages to model species distributions.</li>
-<li>10/10 <strong>Reproducible Research &amp; Literate Programming</strong>: Introduction to rmarkdown, creation of dynamic research outputs. Publishing to github/word/html/etc. Brief introduction to pandoc.</li>
-<li>10/17 <strong>Version Control</strong>: Managing code and research products in a “version control’ repository such as Github. Figshare and other data repositories.</li>
-<li>10/24 <strong>Use of raster, rgdal, and MODISTools</strong> packages to process MODIS satellite data.</li>
-<li>10/31 <strong>HTML Widgets</strong> <a href="http://www.htmlwidgets.org" class="uri">http://www.htmlwidgets.org</a></li>
-<li>11/7 <strong>High Performance Computing</strong>: Introduction to foreach package and parallel processing.<br />
-</li>
-<li>11/14 <strong>Software Integration</strong>: Language/software integration. Use of the system() command. Calling various other programs from within R.</li>
-<li>11/21 <strong>Package Development</strong>: Package structure and necessary components. Things to consider when developing an R package.</li>
-<li>11/28 Final Project Presentations</li>
-<li>12/5 Final Project Presentations</li>
-</ul>
+<table style="width:89%;">
+<colgroup>
+<col width="5%" />
+<col width="5%" />
+<col width="58%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Date</th>
+<th align="left">Title</th>
+<th align="left">Description</th>
+<th align="left">Assignment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">8/29</td>
+<td align="left"><strong>Introduction &amp; Overview</strong></td>
+<td align="left">Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data for spatial environmental analysis. Getting started with the R Project for Statistical Computing &amp; RStudio.</td>
+<td align="left">Read Introduction to R</td>
+</tr>
+<tr class="even">
+<td align="left">9/5</td>
+<td align="left"><strong>Labor day</strong></td>
+<td align="left">(no class)</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">9/12</td>
+<td align="left"><strong>Data Gymnastics</strong></td>
+<td align="left">Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet).For loops, conditional statements, and custom functions. Data gymnastics with dplyr.</td>
+<td align="left">Practice homework submitted during class.</td>
+</tr>
+<tr class="even">
+<td align="left">9/26</td>
+<td align="left"><strong>Graphics</strong></td>
+<td align="left">The <em>grammar of graphics</em>: ggplot2 and extensions (ggmap, rasterVis, etc.).</td>
+<td align="left">Homework #1 due</td>
+</tr>
+<tr class="odd">
+<td align="left">10/3</td>
+<td align="left"><strong>Spatial Vectors</strong></td>
+<td align="left">Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models.</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">10/10</td>
+<td align="left"><strong>Spatial Rasters</strong></td>
+<td align="left">Process MODIS satellite data.</td>
+<td align="left">Homework # 3 due</td>
+</tr>
+<tr class="odd">
+<td align="left">10/17</td>
+<td align="left"><strong>Reproducible Research &amp; Literate Programming</strong></td>
+<td align="left">RMarkdown to create dynamic research outputs. Publishing to github/word/html/etc.</td>
+<td align="left">Homework # 2 due</td>
+</tr>
+<tr class="even">
+<td align="left">10/24</td>
+<td align="left"><strong>Version Control</strong></td>
+<td align="left">Managing code with “version control” using Github. Figshare and other data repositories.</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">10/31</td>
+<td align="left"><strong>Web output</strong></td>
+<td align="left"><a href="http://www.htmlwidgets.org">HTML Widgets</a></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">11/7</td>
+<td align="left"><strong>High Performance Computing</strong></td>
+<td align="left">Parallel processing and high performance computing in R</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">11/14</td>
+<td align="left"><strong>Software Integration</strong></td>
+<td align="left">Calling other programs from within R.</td>
+<td align="left">Homework # 4 due</td>
+</tr>
+<tr class="even">
+<td align="left">11/21</td>
+<td align="left"><strong>Package Development</strong></td>
+<td align="left">Package structure and necessary components. Things to consider when developing an R package.</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">11/28</td>
+<td align="left"><strong>Final Project Presentations</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">12/5</td>
+<td align="left"><strong>Final Project Presentations</strong></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
 
 <!-- Google Analytics -->
 <script>

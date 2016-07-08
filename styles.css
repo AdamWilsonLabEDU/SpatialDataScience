@@ -36,6 +36,40 @@ width: 20%;
 float: right
 }
 
+/*****
+Create class for scaled iframe content
+*****/
+html,body {height:100%;}
+.wrapper{
+  width:100%; 
+  max-width:1000px;
+  height:100%;
+  max-height:600px;
+  margin:0 auto;
+  background:#CCC}
+.h_iframe{
+  position:relative;
+  padding-top: 100%}
+.h_iframe iframe {
+  position:absolute;
+  top:0;
+  left:0;
+  width:140%;
+  height:100%;
+  -ms-transform: scale(0.75);
+  -ms-transform-origin: top left;
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: top left;
+  -o-transform: scale(0.75);
+  -o-transform-origin: top left;
+  -webkit-transform: scale(0.75);
+  -webkit-transform-origin: top left;
+  transform: scale(0.75);
+  transform-origin: top left;
+  overflow: hidden;
+}
+
+
 
 /**************************
   DEFAULT BOOTSTRAP STYLES

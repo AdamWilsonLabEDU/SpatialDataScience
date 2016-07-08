@@ -9,6 +9,8 @@ left:
     href: Schedule.html
   - text: "Content"
     menu:
+      - text: "About Course Content"
+        href: CourseContent.html
       - text: "Module 1: Introduction to R"
       - text: "Course Introduction"
         href: 00_CourseIntroductionFrame.html

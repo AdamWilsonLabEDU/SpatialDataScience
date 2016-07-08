@@ -8,11 +8,11 @@ title: "Introduction to Raster Package"
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
 knitr::purl(input,output,documentation=2,quiet=T)
-knitr::opts_chunk$set(cache=T,fig.width=7,fig.height=3,dpi=250)
+source("knitr_header.R")
+knitr::opts_chunk$set(eval=F)
 ```
 
 This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
-
 
 ## Libraries
 
@@ -22,65 +22,25 @@ library(tidyr)
 library(sp)
 library(ggplot2)
 
-# Three new libraries
-library(rgeos)
+# New libraries
 library(raster)
 library(rasterVis)  #visualization library for raster
 ```
 
-# RGEOS
-
-## RGEOS package for polygon operations
-
-* Area calculations (`gArea`)
-* Centroids (`gCentroid`)
-* Convex Hull (`gConvexHull`)
-* Intersections (`gIntersection`)
-* Unions (`gUnion`)
-* Simplification (`gSimplify`)
-
-If you have trouble installing `rgeos` on OS X, look [here](http://dyerlab.bio.vcu.edu/2015/03/31/install-rgeos-on-osx/)
-
-
-## Example: gSimplify
-
-Make up some lines and polygons:
-```{r}
-p = readWKT(paste("POLYGON((0 40,10 50,0 60,40 60,40 100,50 90,60 100,60",
- "60,100 60,90 50,100 40,60 40,60 0,50 10,40 0,40 40,0 40))"))
-l = readWKT("LINESTRING(0 7,1 6,2 1,3 4,4 1,5 7,6 6,7 4,8 6,9 4)")
-```
-
-
-
-```{r}
-par(mfrow=c(2,4))
-plot(p);title("Original")
-plot(gSimplify(p,tol=10));title("tol: 10")
-plot(gSimplify(p,tol=20));title("tol: 20")
-plot(gSimplify(p,tol=25));title("tol: 25")
-
-plot(l);title("Original")
-plot(gSimplify(l,tol=3));title("tol: 3")
-plot(gSimplify(l,tol=5));title("tol: 5")
-plot(gSimplify(l,tol=7));title("tol: 7")
-par(mfrow=c(1,1))
-```
-
 # Raster Package
 
-## getData
+## `getData()`
 
-Raster package includes access to some useful datasets with `getData()`:
+Raster package includes access to some useful (vector and raster) datasets with `getData()`:
 
-* Elevation (SRTM 90m resolution)
-* World Climate (Tmin, Tmax, Precip, BioClim)
+* Elevation (SRTM 90m resolution raster)
+* World Climate (Tmin, Tmax, Precip, BioClim rasters)
 * Countries from CIA factsheet (vector!)
 * Global Administrative boundaries (vector!)
 
 `getData()` steps for GADM:
 
-1. _Select Dataset_: ‘GADM’ returns the global administrative boundaries.
+1. _Select Dataset_: ‘GADM’ returns the  global administrative boundaries.
 2. _Select country_: Country name of the boundaries using its ISO A3 country code
 3. _Specify level_: Level of of administrative subdivision (0=country, 1=first level subdivision).
 
@@ -88,7 +48,6 @@ Raster package includes access to some useful datasets with `getData()`:
 Administrative areas in this database are countries and lower level subdivisions.  
 
 <img src="assets/gadm25.png" alt="alt text" width="70%">
-
 
 Divided by country (see website for full dataset).  Explore country list:
 ```{r}
@@ -135,66 +94,6 @@ plot(tun)
 ```
 
 
-## Simplify polygons with RGEOS
-
-```{r,eval=F}
-za2=gSimplify(za,tol = 0.1,topologyPreserve=T)
-plot(za,lwd=2)
-plot(za2,border="red",add=T)
-```
-
-## Calculate area by province
-
-```{r}
-za$area=gArea(za,byid = T)
-```
-
-
-## Selecting a Projection
-For help selecting a projection, see the [projection wizard](http://projectionwizard.org)
-
-<img src="assets/ProjectionWizard.png" alt="alt text" width="70%">
-
-
-### Plot by area with `spplot()`
-
-```{r}
-za$area=
-  spTransform(za,CRS("+proj=aea +lat_1=-34.55302083711272 +lat_2=-31.208904317916957 +lon_0=22.4560546875"))%>%
-  gArea(byid = T)/(1000*1000)
-
-spplot(za,zcol="area")
-
-```
-
-
-## Union
-
-Merge sub-geometries together with `gUnionCascaded()`
-
-```{r}
-za2=gUnionCascaded(za)
-```
-
-## Plotting vectors with ggplot
-
-`fortify()` in `ggplot` useful for converting `Spatial*` objects into plottable data.frames.  
-
-```{r}
-head(fortify(za))
-```
-
-
-
-```{r}
-ggplot(fortify(za),aes(x=long,y=lat,group=group,order=order))+
-  geom_path()+
-  geom_path(data=fortify(za2),
-            mapping=aes(x=long,y=lat,
-                        group=group,order=order),
-            col="red")+
-  coord_equal()
-```
 
 # Raster Data
 
@@ -207,7 +106,6 @@ Spatial data structure dividing region ('grid') into rectangles (’cells’ or 
 * `rasterLayer`: 1 band
 * `rasterStack`: Multiple Bands
 * `rasterBrick`: Multiple Bands of _same_ thing.
-
 
 
 ```{r}
@@ -389,7 +287,7 @@ BIO19         Precipitation of Coldest Quarter
 
 Download the data:
 
-```{r}
+```{r, eval=F}
 clim=getData('worldclim', var='bio', res=10)
 ```
 

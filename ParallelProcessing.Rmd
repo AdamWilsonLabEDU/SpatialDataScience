@@ -8,17 +8,9 @@ options(width = 50)
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
 knitr::purl(input,output,documentation=2,quiet=T)
-knitr::opts_chunk$set(cache=T,
-                      fig.width=7,
-                      fig.height=4,
-                      dpi=300,
-                      dev="png",
-                      tidy=FALSE, tidy.opts=list(width.cutoff=75))
-presentation_theme <- ggplot2::theme_grey()+
-  ggplot2::theme(text = ggplot2::element_text(size = 25, colour = "black"))
-ggplot2::theme_set(presentation_theme)
+source("knitr_header.R")
+knitr::opts_chunk$set(eval=F)
 
-present=T
 ```
 
  
@@ -169,7 +161,7 @@ Write a `foreach()` loop that:
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-```{r, echo=present, eval=present, purl=present}
+```{r, purl=F}
 x <- foreach(i=1:10,.combine='cbind') %do% rnorm(100)
 head(x)%>%kable()
 dim(x)
@@ -255,10 +247,12 @@ $logit(p_i) = \beta_0 + \beta_1 X_i$
 
 The index $i$ identifies each grid cell (data point). $\beta_0$ - $\beta_1$ are model coefficients (intercept and slope), and $y_i$ is the simulated observation from cell $i$.
 
-```{r}
+```{r, eval=T}
 trials = 10000
 tsize = 100
+```
 
+```{r}
   ptime <- system.time({
   result <- foreach(i=1:trials,
                     .combine = rbind.data.frame) %dopar% {
@@ -273,7 +267,7 @@ ptime
 ```
 
 
-Look at `results` object containing slope and aspect from subsampled models. There is one row per sample (`1:trials`) with columns for the estimated intercept and slope for that sample.
+Look at `results` object containing slope and aspect from subsampled models. There is one row per sample with columns for the estimated intercept and slope for that sample.
 
 ```{r}
 kable(head(result),digits = 2)
@@ -291,7 +285,7 @@ ggplot(dplyr::select(result,everything(),Intercept=contains("Intercept")))+
 ```
 
 
-So we were able to perform `r trials` separate model fits in `r ptime[3]` seconds.  Let's see how long it would have taken in sequence.
+So we were able to perform `r trials` separate model fits in `r #ptime[3]` seconds.  Let's see how long it would have taken in sequence.
 
 ```{r }
   stime <- system.time({
@@ -307,7 +301,7 @@ stime
 
 ```
 
-So we were able to run `r trials` separate model fits in `r ptime[3]` seconds when using `r foreach::getDoParWorkers()` CPUs and `r stime[3]` seconds on one CPU.  That's `r round(stime[3]/ptime[3],1)`X faster for this simple example.
+So we were able to run `r trials` separate model fits in `r #ptime[3]` seconds when using `r foreach::getDoParWorkers()` CPUs and `r #stime[3]` seconds on one CPU.  That's `r #round(stime[3]/ptime[3],1)`X faster for this simple example.
 
 ## Your Turn
 
@@ -332,7 +326,7 @@ Hint: see `?summary.lm`.
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-```{r, eval=present, purl=present, echo=present}
+```{r, purl=F}
 trials = 100
 tsize = 100
 
@@ -541,7 +535,7 @@ Are the outputs the same?
 identical(r_focal,r_focal1)
 ```
 
-So we were able to process the data in `r ptime2[3]` seconds when using `r foreach::getDoParWorkers()` CPUs and `r stime2[3]` seconds on one CPU.  That's `r round(stime2[3]/ptime2[3],1)`X faster for this simple example.
+So we were able to process the data in `r #ptime2[3]` seconds when using `r foreach::getDoParWorkers()` CPUs and `r #stime2[3]` seconds on one CPU.  That's `r #round(stime2[3]/ptime2[3],1)`X faster for this simple example.
 
 
 ## Parallelized Raster functions

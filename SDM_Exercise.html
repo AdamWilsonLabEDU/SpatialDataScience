@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatially-explicit logistic regression</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.9em;
+  padding-left: 5px;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: R Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_intro.html">First Steps</a>
+    </li>
+    <li>
+      <a href="02_DataWrangling.html">Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">Plotting</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">Spatial Data</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li>
+      <a href="ioslides_presentation_format.html">ioslides</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Spatial Data</li>
+    <li>
+      <a href="tufte_handout_format.html">Tufte Handout</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Resources.html">Resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Spatially-explicit logistic regression</h1>
+
+</div>
+
+
+<pre class="r"><code>library(knitr)
+library(raster)
+library(rasterVis)
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(rgdal)
+library(sp) # handles spatial data
+
+## New Packages
+library(mgcv) # package for Generalized Additive Models
+library(ncf) # has an easy function for correlograms
+library(grid)
+library(gridExtra)
+library(xtable)</code></pre>
+<div id="goal-of-this-class" class="section level2">
+<h2>Goal of this class</h2>
+<ul>
+<li>To demonstrate a simple presence/absence modelling in spatial context.</li>
+<li>To model spatial dependence (autocorrelation) in the response.</li>
+</ul>
+<p>Overview of <a href="http://cran.r-project.org/web/views/Spatial.html">R’s spatial toolset is here</a>.</p>
+</div>
+<div id="what-is-spatial-autocorrelation" class="section level2">
+<h2>What is spatial autocorrelation?</h2>
+<p>Today we will model space by <strong>smooth splines</strong> in <code>mgcv</code> package.</p>
+<p>Examples of Alternative approaches:</p>
+<ul>
+<li>Simple polynomials</li>
+<li>Eigenvector Mapping: <code>vegan</code>, <code>spdep</code></li>
+<li>Predictive process: <code>spbayes</code></li>
+</ul>
+<p>Methods that tweak variance-covariance matrix of <strong>Multivariate Normal Distribution</strong>:</p>
+<ul>
+<li>Generalized Least Squares: <code>MASS</code>, <code>nlme</code></li>
+<li>Autoregressive Models: <code>spdep</code></li>
+<li>GeoBUGS module in OpenBUGS</li>
+</ul>
+<p>See <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x/full">Dormann et al. 2007 Ecography, 30: 609-628</a> for a review.</p>
+</div>
+<div id="species-distribution-modeling" class="section level2">
+<h2>Species Distribution Modeling</h2>
+<p>We’ll attempt to explain the spatial distribution of the Purple finch (<em>Carpodacus purpureus</em>) in San Diego county, California:</p>
+<div class="figure">
+<img src="assets/finch_photo.png" alt="purple finch figure" />
+<p class="caption">purple finch figure</p>
+</div>
+<p>(photo/Wikimedia)</p>
+</div>
+<div id="preparing-the-data" class="section level2">
+<h2>Preparing the data</h2>
+<p>Load a vector dataset (shapefile) representing the <a href="http://sdplantatlas.org/BirdAtlas/BirdPages.htm">San Diego bird atlas data</a> for the Purple finch:</p>
+<pre class="r"><code>finch &lt;- readOGR(&quot;data&quot;, layer=&quot;finch&quot;)
+## add centroid locations to dataframe
+finch@data[,c(&quot;x&quot;,&quot;y&quot;)]=coordinates(finch)</code></pre>
+<div id="plot-the-shapefile" class="section level3">
+<h3>Plot the shapefile</h3>
+<p>Plot the finch dataset over a google map layer.</p>
+<div id="first-convert-to-latitude-longitude" class="section level4">
+<h4>First convert to latitude-longitude</h4>
+<pre class="r"><code>finchll=spTransform(finch,CRS(&quot;+proj=longlat +datum=WGS84&quot;))</code></pre>
+</div>
+<div id="get-a-google-map-image-for-the-background" class="section level4">
+<h4>Get a google map image for the background</h4>
+<pre class="r"><code>map_usa=get_map(&quot;usa&quot;, zoom = 4,
+             maptype = &quot;terrain-background&quot;,
+             source=&quot;stamen&quot;)
+map_sd=get_map(bbox(finchll), zoom = 9,
+             maptype=&quot;terrain-background&quot;,
+             source=&quot;stamen&quot;)</code></pre>
+</div>
+<div id="build-the-ggplot-objects" class="section level4">
+<h4>Build the ggplot objects</h4>
+<pre class="r"><code>m1=ggmap(map_usa,extent = &quot;device&quot;)+
+geom_polygon(aes(y=lat,x=long,group=group,order=order),
+             data=fortify(finchll),fill=&quot;transparent&quot;,colour=&quot;red&quot;,size=2)+
+  ylab(&quot;&quot;)+xlab(&quot;&quot;)
+
+m2=ggmap(map_sd)+
+geom_polygon(aes(y=lat,x=long,group=group,order=order),
+             data=fortify(finchll),fill=&quot;transparent&quot;,colour=&quot;red&quot;)+
+  ylab(&quot;Latitude&quot;)+xlab(&quot;Longitude&quot;)</code></pre>
+</div>
+<div id="draw-the-plot-with-an-inset-using-viewport" class="section level4">
+<h4>Draw the plot with an inset using <code>viewport()</code></h4>
+<p><code>viewport()</code> in the <code>grid</code> package allows you to put graphical objects anywhere in the plotting region. Use it to draw the USA map as an inset to show the location of region with respect to the US.</p>
+<pre class="r"><code>print(m2)
+print(m1,vp=viewport(width=.25,height=.25,x=.8,y=.8))</code></pre>
+</div>
+</div>
+<div id="your-turn" class="section level3">
+<h3>Your Turn</h3>
+<p>Explore adjusting the <code>viewport()</code> parameters to see how it moves around. Can you move it to lower right corner? Note that the positions (e.g. <code>width</code>, <code>height</code>, <code>x</code>, and <code>y</code>) are all with respect to the full plotting domain, so if you change the aspect ratio of the plotting window, things will move around…</p>
+<p><br><br><br><br><br><br><br><br><br><br><br></p>
+</div>
+</div>
+<div id="explore-the-data" class="section level2">
+<h2>Explore the data</h2>
+<p>Now look at the associated data frame (analogous to the *.dbf file that accompanied the shapefile):</p>
+<pre class="r"><code>kable(head(finch@data))</code></pre>
+<blockquote>
+<p>Note: in your final projects, don’t simply print out large tables or outputs… Filter/select only data relevent to tell your ‘story’…</p>
+</blockquote>
+</div>
+<div id="scaling-and-centering-the-environmental-variables" class="section level2">
+<h2>Scaling and centering the environmental variables</h2>
+<p>Statistical models generally perform better when covariates have a mean of zero and variance of 1, using the <code>scale()</code> function:</p>
+<pre class="r"><code>kable(head(select(finch@data,15:25)))
+
+envi &lt;- finch@data[,15:25] 
+envi.scaled &lt;- as.data.frame(scale(envi))
+finch@data[,15:25] &lt;- envi.scaled</code></pre>
+</div>
+<div id="the-predictor-ndvi" class="section level2">
+<h2>The predictor (NDVI)</h2>
+<div id="plot-a-chloropleth" class="section level3">
+<h3>Plot a chloropleth</h3>
+<p>From <a href="https://en.wikipedia.org/wiki/Choropleth_map">Wikipedia</a>:</p>
+<blockquote>
+<p>A <strong>choropleth</strong> (from Greek χώρο (“area/region”) + πλήθος (“multitude”)) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.</p>
+</blockquote>
+<p>By default, the rownames in the dataframe are the unique identifier (e.g. the <strong>FID</strong>) for the polygons.</p>
+<pre class="r"><code>## add the ID to the dataframe itself for easier indexing
+finch$id=as.numeric(rownames(finch@data))
+## create fortified version for plotting with ggplot()
+pfinch=fortify(finch,region=&quot;id&quot;)
+
+ggplot(finch@data, aes(map_id = id)) +
+    expand_limits(x = pfinch$long, y = pfinch$lat)+
+    scale_fill_gradientn(colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
+    coord_equal()+
+    geom_map(aes(fill = ndvi), map = pfinch)</code></pre>
+</div>
+</div>
+<div id="your-turn-1" class="section level2">
+<h2>Your turn</h2>
+<p>Explore the other variables in the <code>finch</code> dataset with <code>summary(finch)</code>. Plot a map of the mean elevation in each region.</p>
+<p><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<pre class="r"><code>ggplot(finch@data, aes(map_id = id)) +
+    expand_limits(x = pfinch$long, y = pfinch$lat)+
+    scale_fill_gradientn(colours = c(&quot;blue&quot;,&quot;grey&quot;,&quot;red&quot;))+
+    coord_equal()+
+    geom_map(aes(fill = meanelev), map = pfinch)</code></pre>
+<p>Use <code>grid.arrange()</code> to plot multiple plots in the same figure.</p>
+<pre class="r"><code>p1=ggplot(finch@data, aes(map_id = id)) +
+    expand_limits(x = pfinch$long, y = pfinch$lat)+
+    scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;)+
+    coord_equal()+
+    ylab(&quot;&quot;)+xlab(&quot;&quot;)+
+     theme(legend.position = &quot;top&quot;)+
+    theme(axis.ticks = element_blank(), axis.text = element_blank())
+
+p1a=p1+geom_map(aes(fill = ndvi), map = pfinch)
+p1b=p1+geom_map(aes(fill = meanelev), map = pfinch)
+p1c=p1+geom_map(aes(fill = urban), map = pfinch)
+p1d=p1+geom_map(aes(fill = maxtmp), map = pfinch)
+
+grid.arrange(p1a,p1b,p1c,p1d,ncol=2)    </code></pre>
+</div>
+<div id="the-response-presences-and-absences" class="section level2">
+<h2>The response (presences and absences)</h2>
+<pre class="r"><code>    ggplot(finch@data, aes(map_id = id)) +
+    geom_map(aes(fill = as.logical(present)), map = pfinch)+
+    expand_limits(x = pfinch$long, y = pfinch$lat)+
+    scale_fill_manual(values = c(&quot;darkgrey&quot;,&quot;red&quot;),name=&quot;Present&quot;)+
+    coord_equal()</code></pre>
+</div>
+<div id="fitting-the-models" class="section level2">
+<h2>Fitting the models</h2>
+<p>Compare three models:</p>
+<ol style="list-style-type: decimal">
+<li>Only NDVI</li>
+<li>Only Space</li>
+<li>Space and NDVI</li>
+</ol>
+<div id="model-1---only-ndvi" class="section level3">
+<h3>Model 1 - only NDVI</h3>
+<p>Now we will do the actual modelling. The first simple model links the presences and absences to NDVI.</p>
+<p>First, we will fit model a model that only uses NDVI as a predictor of presence and absence:</p>
+<p><span class="math inline">$\log ( \frac{p_i}{1-p_i} ) = \beta_0 + \beta_1 NDVI_i$</span></p>
+<p><span class="math inline"><em>o</em><sub><em>i</em></sub> ∼ <em>B</em><em>e</em><em>r</em><em>n</em><em>o</em><em>u</em><em>l</em><em>l</em><em>i</em>(<em>p</em><sub><em>i</em></sub>)</span></p>
+<blockquote>
+<p>Note: this assumes residuals are <em>iid</em> (independent and identically distributed).</p>
+</blockquote>
+<p>It can be fitted by simple glm() in R:</p>
+<pre class="r"><code>  ndvi.only &lt;- glm(present~ndvi, data=finch@data, family=&quot;binomial&quot;)
+  ## and let&#39;s extract predictions and residuals:
+  preds.ndvi.only &lt;- predict(ndvi.only, type=&quot;response&quot;)
+  resid.ndvi.only &lt;- residuals(ndvi.only)</code></pre>
+<p>Now let’s plot the logistic curve:</p>
+<pre class="r"><code>  plot(finch$ndvi,preds.ndvi.only, type=&quot;p&quot;, 
+       xlab=&quot;(Scaled) NDVI&quot;, ylab=&quot;P of presence&quot;, col=&quot;red&quot;)
+  points(finch$ndvi, finch$present)</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(ndvi.only,
+       caption=&quot;Model summary for &#39;NDVI-only&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+</div>
+<div id="model-2---only-space" class="section level3">
+<h3>Model 2 - only space</h3>
+<p>The second model fits only the spatial trend in the data (using GAM and splines):</p>
+<pre class="r"><code>  space.only &lt;- gam(present~s(X_CEN, Y_CEN),
+                   data=finch@data, family=&quot;binomial&quot;)
+  ## extracting predictions
+  preds.space.only &lt;- as.numeric(predict(space.only, type=&quot;response&quot;))
+  resid.space.only &lt;- residuals(space.only)</code></pre>
+<p>Plot the <strong><em>spatial term</em></strong> of the model:</p>
+<pre class="r"><code>  finch$space=as.numeric(predict(space.only,type=&quot;terms&quot;))
+
+  ggplot(finch@data, aes(x=x,y=y,z=space, map_id = id)) +
+  geom_map(aes(fill = space), map = pfinch)+
+  geom_point(aes(col=as.logical(present)))+
+  expand_limits(x = pfinch$long, y = pfinch$lat)+
+  scale_fill_gradientn(colours=c(&quot;darkblue&quot;,&quot;blue&quot;,&quot;grey&quot;,&quot;yellow&quot;,&quot;orange&quot;,&quot;red&quot;))+
+  scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;)+
+  coord_equal()</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(space.only)$s.table, 
+       caption=&quot;Model summary for &#39;Space-only&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+</div>
+<div id="model-3---space-and-ndvi" class="section level3">
+<h3>Model 3 - space and NDVI</h3>
+<p>The third model uses both the NDVI and spatial trends to explain the finch’s occurrences:</p>
+<pre class="r"><code>  space.and.ndvi &lt;- gam(present~ndvi + s(X_CEN, Y_CEN),
+                   data=finch@data, family=&quot;binomial&quot;)
+  ## extracting predictions and residuals:
+  preds.space.and.ndvi &lt;- as.numeric(predict(space.and.ndvi, type=&quot;response&quot;))
+  resid.space.and.ndvi &lt;- residuals(space.and.ndvi)</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(space.and.ndvi)$s.table,
+       caption=&quot;Model summary for &#39;Space and NDVI&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<p>Plot the <strong><em>spatial term</em></strong> of the model:</p>
+<pre class="r"><code>  finch$ndvispace=as.numeric(predict(space.and.ndvi,type=&quot;terms&quot;)[,2])
+
+  ggplot(finch@data, aes(x=x,y=y, map_id = id)) +
+  geom_map(aes(fill = ndvispace), map = pfinch)+
+  geom_point(aes(col=as.logical(present)))+
+  expand_limits(x = pfinch$long, y = pfinch$lat)+
+  scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;,name=&quot;Spatial Effects&quot;)+
+  scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;)+
+  coord_equal()</code></pre>
+</div>
+</div>
+<div id="examine-the-fitted-models" class="section level2">
+<h2>Examine the fitted models</h2>
+<p>Now let’s put all of the predictions together:</p>
+<pre class="r"><code>predictions &lt;- data.frame(id=finch$id,
+                          x=finch$x,
+                          y=finch$y,
+                          present=finch$present,
+                          ndvi=  preds.ndvi.only, 
+                          ndvi_resid=  resid.ndvi.only,
+                          space =  preds.space.only,
+                          space_resid =  resid.space.only,
+                          ndvispace=  preds.space.and.ndvi,
+                          ndvispace_resid= resid.space.and.ndvi)</code></pre>
+<p>Combine all the predictions into a single <em>long</em> table:</p>
+<pre class="r"><code>library(reshape2)
+
+predictionsl= melt(predictions,
+                     variable.name=&quot;var&quot;,
+                     id.vars=c(&quot;id&quot;,&quot;x&quot;,&quot;y&quot;),
+                     measure.vars=c(
+                       &quot;present&quot;,
+                       &quot;ndvi&quot;,&quot;ndvi_resid&quot;,
+                       &quot;space&quot;,&quot;space_resid&quot;,
+                       &quot;ndvispace&quot;,&quot;ndvispace_resid&quot;))</code></pre>
+<p>Plot predictions from the three models, together with the observed presences and absences:</p>
+<pre class="r"><code>    ggplot(filter(predictionsl,!grepl(&quot;resid|present&quot;,var)), aes(map_id = id)) +
+    geom_map(aes(fill = value), map = pfinch)+
+      facet_wrap(~var)+
+    geom_point(data=finch@data,aes(x=x,y=y,col=as.logical(present)),size=.5)+
+    scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;)+
+    expand_limits(x = pfinch$long, y = pfinch$lat)+
+    scale_fill_gradientn(colours = c(&quot;blue&quot;,&quot;grey&quot;,&quot;red&quot;))+
+    coord_equal()+
+   theme(axis.ticks = element_blank(), axis.text = element_blank())</code></pre>
+</div>
+<div id="model-comparison" class="section level2">
+<h2>Model comparison</h2>
+<p>We can compare model performance of the models with Akaike’s Information Criterion (AIC). This uses the formula <span class="math inline">−2 * <em>l</em><em>o</em><em>g</em> − <em>l</em><em>i</em><em>k</em><em>e</em><em>l</em><em>i</em><em>h</em><em>o</em><em>o</em><em>d</em> + <em>k</em> * <em>n</em><em>p</em><em>a</em><em>r</em></span>, where</p>
+<ul>
+<li><span class="math inline"><em>n</em><em>p</em><em>a</em><em>r</em></span> number of parameters in the fitted model</li>
+<li><span class="math inline"><em>k</em> = 2</span> penalty per parameter</li>
+</ul>
+<p>Lower is better…</p>
+<pre class="r"><code>kable(AIC(ndvi.only, space.only, space.and.ndvi))</code></pre>
+</div>
+<div id="spatial-autocorrelation-of-residuals" class="section level2">
+<h2>Spatial Autocorrelation of Residuals</h2>
+<p>Should always check the spatial correlation in model residuals to evaluate assumptions. We will use the function <code>correlog</code> from the <code>ncf</code> package. An overview of other <a href="http://www.petrkeil.com/?p=1050">functions that plot correlograms is here.</a>.</p>
+<pre class="r"><code>inc=10000  #spatial increment of correlogram in m
+
+cor=predictionsl%&gt;%
+  filter(grepl(&quot;present&quot;,var)|grepl(&quot;resid&quot;,var))%&gt;%
+  group_by(var)%&gt;%
+  do(var=.$var,cor=correlog(.$x,.$y,.$value,increment=inc, resamp=100))%&gt;%
+  do(data.frame(
+      var=.$var[[1]],
+      Distance = .$cor$mean.of.class/1000,
+      Correlation=.$cor$correlation,
+      pvalue=.$cor$p))</code></pre>
+<p>And we can plot the correlograms:</p>
+<pre class="r"><code>ggplot(cor,aes(x=Distance,y=Correlation,col=var,group=var))+
+  geom_point(aes(shape=pvalue&lt;=0.05))+
+  geom_line()+
+  xlab(&quot;Distance (km)&quot;)+ylab(&quot;Spatial\nAuto-correlation&quot;)</code></pre>
+</div>
+<div id="what-did-we-gain-by-making-the-model-spatially-explicit" class="section level2">
+<h2>What did we gain by making the model “spatially explicit”?</h2>
+<ul>
+<li>We know that the effect of NDVI is not artificially amplified by pseudoreplication.</li>
+<li>We have more realistic predictions.</li>
+<li>We have a fitted surface that can be interpreted – perhaps to guide us towards some additional spatially-structured predictors that can be important.</li>
+</ul>
+</div>
+<div id="your-turn-2" class="section level2">
+<h2>Your turn</h2>
+<p>Try adding additional co-variates into the spatial model (e.g. elevation or climate).</p>
+<pre class="r"><code>m1 &lt;- gam(present~ndvi+meanelev+
+            wintert+meanppt+urban + 
+            s(X_CEN, Y_CEN),
+            data=finch@data, family=&quot;binomial&quot;)
+m2 &lt;- gam(present~ndvi+meanppt + 
+            s(X_CEN, Y_CEN),
+            data=finch@data, family=&quot;binomial&quot;)</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(m1)$p.table)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<p>Compare all models</p>
+<pre class="r"><code>kable(AIC(ndvi.only, 
+          space.only, 
+          space.and.ndvi,
+          m1,m2))</code></pre>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+  <a rel="license" property="http://creativecommons.org/ns#license"
+  href="http://creativecommons.org/licenses/by/4.0/" ><img src="img/cc-by.svg" alt="cc-by"/></a> 
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+
+</body>
+</html>

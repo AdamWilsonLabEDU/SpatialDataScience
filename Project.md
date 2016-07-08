@@ -1,14 +1,17 @@
 # Final Project
 
 ## Description
+
 The final project will consist of a multipart figure that tells a story (often referred to as an 'infographic').  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code.  The topic can be related to the student’s research interests or a separate topic.  
 
 Requirements
-1. The graphic(s) must include data from at least two sources that were integrated/merged
-2. The underlying data must be publically accessible via the web and downloaded within the R/Rmd script.  If you want to use your own data, you must make it available on a website (e.g. [Figshare](figshare.org)).  This will enable others to re-run your code.
+
+1. The graphic(s) must include data from at least two sources that were integrated/merged using R.
+2. The underlying data must be publically accessible via the web and downloaded within the R/Rmd script.  If you want to use your own data, you must make it available on a website (e.g. [Figshare](figshare.org)) so that others are able to re-run your code.
 2. The graphic should convey at least four dimensions of information (e.g.  latitude, longitude, time, and one more)
 
 Complete submissions will include:
+
 1.	Title (<25 words)
 2.	Summary (~250 words) 
 3.	Extended caption (~ 1 page)
@@ -21,6 +24,7 @@ Complete submissions will include:
 ## Formatting
 
 The final project should be organized as a [RMarkdown document](http://rmarkdown.rstudio.com) that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.).  For examples of similar documents, explore the [RPubs website](https://rpubs.com).    
+
 ### Showing Code 
 In the output document you can show most of the code except for  particularly long functions or data processing steps (e.g. more than 20 lines or so).   
 
@@ -52,7 +56,7 @@ To achieve a perfect score a final project would have the following characterist
 * **Organization:** The 'story' is very well organized and easy to understand when 'skimming' the document. Clear headings demarcate separate sections. Excellent flow from one section to the next. An abstract or summary at the start of the paper briefly summarises approach and findings. Conclusions at the end present further questions and ways to investigate more. Tables and graphics carefully tuned and placed for desired purpose.
 * **Curiosity:** Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final result. The author has gone beyond what was asked: additional techniques from other sources used to help understand/explain findings. The explanation and presentation is creative.
 * **Skepticism:** The author suggests multiple explanations for a given finding, and uses multiple tools to explore surprising results. One or two results are presented as the most plausible, but the paper allows for the possibility that results are wrong. The paper is self-critical: What was done well? What was done poorly? What may have been missed? How could it be done better next time? 
-* **Grammar:**  All sentences are well constructed and have varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.
+* **Grammar:**  All language is well constructed with varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.
 * **Formatting:** Demonstrates mastery of RMarkdown formatting and functions. Paper uses an excellent mixture of headings, tables, and figures.
 
 See the project rubric (see link near top of project submission page) for more details and examples.  

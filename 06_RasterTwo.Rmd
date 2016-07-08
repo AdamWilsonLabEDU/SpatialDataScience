@@ -8,12 +8,9 @@ title: "More Raster"
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
 knitr::purl(input,output,documentation=2,quiet=T)
-knitr::opts_chunk$set(cache=T,fig.width=7,fig.height=3,dpi=250)
+source("knitr_header.R")
+knitr::opts_chunk$set(eval=F)
 
-library(ggplot2) 
-newtheme <- theme_set(theme_bw())
-newtheme=theme_update(text=element_text(size=18),axis.text=element_text(size=18))
-theme_set(newtheme)
 ```
 
 This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  

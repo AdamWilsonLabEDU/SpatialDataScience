@@ -202,8 +202,8 @@ str(SLDF)
 #' 
 #' Also the `gdalUtils` package for reprojecting, transforming, reclassifying, etc.
 #' 
-#' List the file formats that your installation of rgdal can read/write:
-## ------------------------------------------------------------------------
+#' List the file formats that your installation of rgdal can read/write with `ogrDrivers()`:
+## ---- echo=F-------------------------------------------------------------
 knitr::kable(ogrDrivers())
 
 #' 
@@ -221,14 +221,18 @@ plot(sids)
 
 #' 
 #' 
-#' ### maptools package
-#' Has an alternative function for importing shapefiles that's a little easier to use.
+#' ### Maptools package
+#' The `maptools` package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).
 #' 
 #' * `readShapeSpatial`
 #' 
 ## ------------------------------------------------------------------------
 sids <- readShapeSpatial(file)
 
+#' 
+#' ### Raster data
+#' 
+#' We'll deal with raster data in the next section.
 #' 
 #' # Coordinate Systems
 #' 
@@ -296,6 +300,144 @@ ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
   coord_equal()+
   ylab("Northing")+xlab("Easting")
 
+#' 
+#' # RGEOS
+#' 
+#' Interface to Geometry Engine - Open Source (GEOS) using a C API for topology operations (e.g. union, simplification) on geometries (lines and polygons).
+#' 
+## ------------------------------------------------------------------------
+library(rgeos)
+
+#' 
+#' ## RGEOS package for polygon operations
+#' 
+#' * Area calculations (`gArea`)
+#' * Centroids (`gCentroid`)
+#' * Convex Hull (`gConvexHull`)
+#' * Intersections (`gIntersection`)
+#' * Unions (`gUnion`)
+#' * Simplification (`gSimplify`)
+#' 
+#' If you have trouble installing `rgeos` on OS X, look [here](http://dyerlab.bio.vcu.edu/2015/03/31/install-rgeos-on-osx/)
+#' 
+#' 
+#' ## Example: gSimplify
+#' 
+#' Make up some lines and polygons:
+## ------------------------------------------------------------------------
+p = readWKT(paste("POLYGON((0 40,10 50,0 60,40 60,40 100,50 90,60 100,60",
+ "60,100 60,90 50,100 40,60 40,60 0,50 10,40 0,40 40,0 40))"))
+l = readWKT("LINESTRING(0 7,1 6,2 1,3 4,4 1,5 7,6 6,7 4,8 6,9 4)")
+
+#' 
+#' 
+#' ### Simplication of lines
+#' 
+## ------------------------------------------------------------------------
+par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(l);title("Original")
+plot(gSimplify(l,tol=3));title("tol: 3")
+plot(gSimplify(l,tol=5));title("tol: 5")
+plot(gSimplify(l,tol=7));title("tol: 7")
+
+#' 
+#' 
+#' ### Simplification of polygons
+## ------------------------------------------------------------------------
+par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(p);title("Original")
+plot(gSimplify(p,tol=10));title("tol: 10")
+plot(gSimplify(p,tol=20));title("tol: 20")
+plot(gSimplify(p,tol=25));title("tol: 25")
+
+#' 
+#' 
+#' ##  Use `rgeos` functions with real spatial data
+#' 
+#' Load the `sids` data again
+## ------------------------------------------------------------------------
+file = system.file("shapes/sids.shp", package="maptools")
+sids = readOGR(dsn=file, layer="sids")
+
+#' 
+#' ## Simplify polygons with RGEOS
+#' 
+## ------------------------------------------------------------------------
+sids2=gSimplify(sids,tol = 0.2,topologyPreserve=T)
+
+#' 
+#' ### Plotting vectors with ggplot
+#' 
+#' `fortify()` in `ggplot` useful for converting `Spatial*` objects into plottable data.frames.  
+#' 
+## ------------------------------------------------------------------------
+sids%>%
+  fortify()%>%
+  head()
+
+#' 
+#' To use `ggplot` with a `fortify`ed spatial object, you must specify `aes(x=long,y=lat,order=order, group=group)` to indicate that each polygon should be plotted separately.  
+#' 
+## ------------------------------------------------------------------------
+ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill="grey",col="blue")+
+  coord_map()
+
+#' 
+#' Now let's overlay the simplified version to see how they differ.
+#' 
+## ------------------------------------------------------------------------
+ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill="grey",col="blue")+
+  geom_polygon(data=fortify(sids2),col="red",fill=NA)+
+  coord_map()
+
+#' 
+#' How does changing the tolerance (`tol`) affect the map?
+#' 
+#' ## Calculate area with `gArea`
+#' 
+## ------------------------------------------------------------------------
+sids$area=gArea(sids,byid = T)
+
+#' 
+#' 
+#' ### Plot a chloropleth of area
+#' 
+#' From [Wikipedia](https://en.wikipedia.org/wiki/Choropleth_map):
+#' 
+#' > A **choropleth** (from Greek χώρο ("area/region") + πλήθος ("multitude")) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.
+#' 
+#' By default, the rownames in the dataframe are the unique identifier (e.g. the **FID**) for the polygons.  
+#' 
+## ---- fig.height=4-------------------------------------------------------
+## add the ID to the dataframe itself for easier indexing
+sids$id=as.numeric(rownames(sids@data))
+## create fortified version for plotting with ggplot()
+fsids=fortify(sids,region="id")
+
+ggplot(sids@data, aes(map_id = id)) +
+    expand_limits(x = fsids$long, y = fsids$lat)+
+    scale_fill_gradientn(colours = c("grey","goldenrod","darkgreen","green"))+
+    coord_map()+
+    geom_map(aes(fill = area), map = fsids)
+
+#' 
+#' ## Union
+#' 
+#' Merge sub-geometries (polygons) together with `gUnionCascaded()`
+#' 
+## ------------------------------------------------------------------------
+sids_all=gUnionCascaded(sids)
+
+#' 
+#' 
+## ------------------------------------------------------------------------
+ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
+  geom_path()+
+  coord_map()
+
+#' 
 #' 
 #' ## Colophon
 #' See also:  `Raster` package for working with raster data

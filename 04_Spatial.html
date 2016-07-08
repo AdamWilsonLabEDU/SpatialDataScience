@@ -290,6 +290,9 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
     <li class="dropdown-header">Module 1: Introduction to R</li>
     <li>
       <a href="00_CourseIntroductionFrame.html">Course Introduction</a>
@@ -389,8 +392,8 @@ library(maptools)</code></pre>
 )
 str(coords)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    100 obs. of  2 variables:
-##  $ x: num  2.245 0.316 0.361 0.219 0.647 ...
-##  $ y: num  0.8112 -0.4694 -0.7482 -0.2563 -0.0365 ...</code></pre>
+##  $ x: num  2.474 0.12 0.112 1.098 1.007 ...
+##  $ y: num  -0.276 0.282 1.093 -0.132 1.896 ...</code></pre>
 <pre class="r"><code>plot(coords)</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" alt="" /><!-- --></p>
 </div>
@@ -399,11 +402,11 @@ str(coords)</code></pre>
 <pre class="r"><code>sp = SpatialPoints(coords)
 str(sp)</code></pre>
 <pre><code>## Formal class &#39;SpatialPoints&#39; [package &quot;sp&quot;] with 3 slots
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -432,11 +435,11 @@ str(spdf)</code></pre>
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -453,11 +456,11 @@ str(spdf)</code></pre>
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.245 0.316 0.361 0.219 0.647 ...
+##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.64 2.49 3.75
+##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -467,20 +470,20 @@ str(spdf)</code></pre>
 <div id="subset-data" class="section level2">
 <h2>Subset data</h2>
 <pre class="r"><code>subset(spdf, group==&quot;a&quot;)</code></pre>
-<pre><code>##                 coordinates ID group
-## 1     (2.244893, 0.8111743)  1     a
-## 21   (-0.2132082, 0.446351) 21     a
-## 41     (1.461436, 1.401752) 41     a
-## 61 (-0.04643231, 0.5881876) 61     a
-## 81    (0.7821042, 1.239597) 81     a</code></pre>
+<pre><code>##                  coordinates ID group
+## 1     (2.474125, -0.2755225)  1     a
+## 21 (-0.9650832, -0.04806011) 21     a
+## 41      (-1.02144, 0.382918) 41     a
+## 61   (0.5004737, -0.6499052) 61     a
+## 81   (-0.7947053, -1.000853) 81     a</code></pre>
 <p>Or using <code>[]</code></p>
 <pre class="r"><code>spdf[spdf$group==&quot;a&quot;,]</code></pre>
-<pre><code>##                 coordinates ID group
-## 1     (2.244893, 0.8111743)  1     a
-## 21   (-0.2132082, 0.446351) 21     a
-## 41     (1.461436, 1.401752) 41     a
-## 61 (-0.04643231, 0.5881876) 61     a
-## 81    (0.7821042, 1.239597) 81     a</code></pre>
+<pre><code>##                  coordinates ID group
+## 1     (2.474125, -0.2755225)  1     a
+## 21 (-0.9650832, -0.04806011) 21     a
+## 41      (-1.02144, 0.382918) 41     a
+## 61   (0.5004737, -0.6499052) 61     a
+## 81   (-0.7947053, -1.000853) 81     a</code></pre>
 <p>Unfortunately, <code>dplyr</code> functions do not directly filter spatial objects.</p>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
@@ -599,11 +602,11 @@ L1</code></pre>
 <pre><code>## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
 ##            [,1]       [,2]
-## [1,]  1.2182002  0.4892788
-## [2,] -0.4191539 -1.1332689
-## [3,] -0.5735035 -0.8154963
-## [4,]  1.6729862  0.1359502
-## [5,] -0.2490799  0.8078373</code></pre>
+## [1,] -1.2490240  0.1944906
+## [2,] -1.0266416  0.9400866
+## [3,] -1.4307795  0.5013475
+## [4,]  1.3180625 -0.6262027
+## [5,]  0.9851047 -1.8352710</code></pre>
 <pre class="r"><code>plot(coordinates(L1),type=&quot;l&quot;)</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
 </div>
@@ -617,23 +620,23 @@ Ls2</code></pre>
 ## [[1]]
 ## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
-##            [,1]        [,2]
-## [1,] -0.1465679 -0.72750748
-## [2,] -1.8250195 -0.05802594
-## [3,]  0.4474751  1.25948097
-## [4,]  1.2142365  0.61075907
-## [5,] -0.3570694 -0.43643453
+##            [,1]       [,2]
+## [1,]  1.1171018 -2.1125498
+## [2,]  0.5582155  1.6694883
+## [3,] -1.5206290  0.5284784
+## [4,]  0.2034423  0.3659654
+## [5,] -0.6368669 -0.2098395
 ## 
 ## 
 ## [[2]]
 ## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
-##             [,1]       [,2]
-## [1,]  0.87217280 -0.8486497
-## [2,] -0.33491399  0.6734537
-## [3,] -0.01295575 -0.7486389
-## [4,] -1.72863963  1.3724054
-## [5,] -0.84943119 -0.9913878
+##            [,1]       [,2]
+## [1,]  0.2774494 -1.8423114
+## [2,] -1.3134206 -0.3378156
+## [3,]  0.1526129  0.6035131
+## [4,] -0.8538986 -0.2166753
+## [5,] -0.3510835  1.4021369
 ## 
 ## 
 ## 
@@ -662,16 +665,16 @@ str(SLDF)</code></pre>
 ##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
 ##   .. .. .. ..@ Lines:List of 1
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.218 -0.419 -0.574 1.673 -0.249 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -1.249 -1.027 -1.431 1.318 0.985 ...
 ##   .. .. .. ..@ ID   : chr &quot;a&quot;
 ##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
 ##   .. .. .. ..@ Lines:List of 2
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.147 -1.825 0.447 1.214 -0.357 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.117 0.558 -1.521 0.203 -0.637 ...
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.872 -0.335 -0.013 -1.729 -0.849 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.277 -1.313 0.153 -0.854 -0.351 ...
 ##   .. .. .. ..@ ID   : chr &quot;b&quot;
-##   ..@ bbox       : num [1:2, 1:2] -1.83 -1.13 1.67 1.37
+##   ..@ bbox       : num [1:2, 1:2] -1.52 -2.11 1.32 1.67
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -705,8 +708,7 @@ str(SLDF)</code></pre>
 <li><code>readGDAL()</code> and <code>writeGDAL()</code>: Raster data</li>
 </ul>
 <p>Also the <code>gdalUtils</code> package for reprojecting, transforming, reclassifying, etc.</p>
-<p>List the file formats that your installation of rgdal can read/write:</p>
-<pre class="r"><code>knitr::kable(ogrDrivers())</code></pre>
+<p>List the file formats that your installation of rgdal can read/write with <code>ogrDrivers()</code>:</p>
 <table>
 <thead>
 <tr class="header">
@@ -1009,12 +1011,16 @@ sids &lt;- readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
 <pre class="r"><code>plot(sids)</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" alt="" /><!-- --></p>
 <div id="maptools-package" class="section level3">
-<h3>maptools package</h3>
-<p>Has an alternative function for importing shapefiles that’s a little easier to use.</p>
+<h3>Maptools package</h3>
+<p>The <code>maptools</code> package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).</p>
 <ul>
 <li><code>readShapeSpatial</code></li>
 </ul>
 <pre class="r"><code>sids &lt;- readShapeSpatial(file)</code></pre>
+</div>
+<div id="raster-data" class="section level3">
+<h3>Raster data</h3>
+<p>We’ll deal with raster data in the next section.</p>
 </div>
 </div>
 </div>
@@ -1077,6 +1083,123 @@ ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
   ylab(&quot;Northing&quot;)+xlab(&quot;Easting&quot;)</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" alt="" /><!-- --></p>
+</div>
+</div>
+<div id="rgeos" class="section level1">
+<h1>RGEOS</h1>
+<p>Interface to Geometry Engine - Open Source (GEOS) using a C API for topology operations (e.g. union, simplification) on geometries (lines and polygons).</p>
+<pre class="r"><code>library(rgeos)</code></pre>
+<div id="rgeos-package-for-polygon-operations" class="section level2">
+<h2>RGEOS package for polygon operations</h2>
+<ul>
+<li>Area calculations (<code>gArea</code>)</li>
+<li>Centroids (<code>gCentroid</code>)</li>
+<li>Convex Hull (<code>gConvexHull</code>)</li>
+<li>Intersections (<code>gIntersection</code>)</li>
+<li>Unions (<code>gUnion</code>)</li>
+<li>Simplification (<code>gSimplify</code>)</li>
+</ul>
+<p>If you have trouble installing <code>rgeos</code> on OS X, look <a href="http://dyerlab.bio.vcu.edu/2015/03/31/install-rgeos-on-osx/">here</a></p>
+</div>
+<div id="example-gsimplify" class="section level2">
+<h2>Example: gSimplify</h2>
+<p>Make up some lines and polygons:</p>
+<pre class="r"><code>p = readWKT(paste(&quot;POLYGON((0 40,10 50,0 60,40 60,40 100,50 90,60 100,60&quot;,
+ &quot;60,100 60,90 50,100 40,60 40,60 0,50 10,40 0,40 40,0 40))&quot;))
+l = readWKT(&quot;LINESTRING(0 7,1 6,2 1,3 4,4 1,5 7,6 6,7 4,8 6,9 4)&quot;)</code></pre>
+<div id="simplication-of-lines" class="section level3">
+<h3>Simplication of lines</h3>
+<pre class="r"><code>par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(l);title(&quot;Original&quot;)
+plot(gSimplify(l,tol=3));title(&quot;tol: 3&quot;)
+plot(gSimplify(l,tol=5));title(&quot;tol: 5&quot;)
+plot(gSimplify(l,tol=7));title(&quot;tol: 7&quot;)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+</div>
+<div id="simplification-of-polygons" class="section level3">
+<h3>Simplification of polygons</h3>
+<pre class="r"><code>par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(p);title(&quot;Original&quot;)
+plot(gSimplify(p,tol=10));title(&quot;tol: 10&quot;)
+plot(gSimplify(p,tol=20));title(&quot;tol: 20&quot;)
+plot(gSimplify(p,tol=25));title(&quot;tol: 25&quot;)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+<div id="use-rgeos-functions-with-real-spatial-data" class="section level2">
+<h2>Use <code>rgeos</code> functions with real spatial data</h2>
+<p>Load the <code>sids</code> data again</p>
+<pre class="r"><code>file = system.file(&quot;shapes/sids.shp&quot;, package=&quot;maptools&quot;)
+sids = readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;/Library/Frameworks/R.framework/Versions/3.2/Resources/library/maptools/shapes/sids.shp&quot;, layer: &quot;sids&quot;
+## with 100 features
+## It has 14 fields</code></pre>
+</div>
+<div id="simplify-polygons-with-rgeos" class="section level2">
+<h2>Simplify polygons with RGEOS</h2>
+<pre class="r"><code>sids2=gSimplify(sids,tol = 0.2,topologyPreserve=T)</code></pre>
+<div id="plotting-vectors-with-ggplot" class="section level3">
+<h3>Plotting vectors with ggplot</h3>
+<p><code>fortify()</code> in <code>ggplot</code> useful for converting <code>Spatial*</code> objects into plottable data.frames.</p>
+<pre class="r"><code>sids%&gt;%
+  fortify()%&gt;%
+  head()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<pre><code>##        long      lat order  hole piece id group
+## 1 -81.47276 36.23436     1 FALSE     1  0   0.1
+## 2 -81.54084 36.27251     2 FALSE     1  0   0.1
+## 3 -81.56198 36.27359     3 FALSE     1  0   0.1
+## 4 -81.63306 36.34069     4 FALSE     1  0   0.1
+## 5 -81.74107 36.39178     5 FALSE     1  0   0.1
+## 6 -81.69828 36.47178     6 FALSE     1  0   0.1</code></pre>
+<p>To use <code>ggplot</code> with a <code>fortify</code>ed spatial object, you must specify <code>aes(x=long,y=lat,order=order, group=group)</code> to indicate that each polygon should be plotted separately.</p>
+<pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
+  coord_map()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<p>Now let’s overlay the simplified version to see how they differ.</p>
+<pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
+  geom_polygon(data=fortify(sids2),col=&quot;red&quot;,fill=NA)+
+  coord_map()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+<p>How does changing the tolerance (<code>tol</code>) affect the map?</p>
+</div>
+</div>
+<div id="calculate-area-with-garea" class="section level2">
+<h2>Calculate area with <code>gArea</code></h2>
+<pre class="r"><code>sids$area=gArea(sids,byid = T)</code></pre>
+<div id="plot-a-chloropleth-of-area" class="section level3">
+<h3>Plot a chloropleth of area</h3>
+<p>From <a href="https://en.wikipedia.org/wiki/Choropleth_map">Wikipedia</a>:</p>
+<blockquote>
+<p>A <strong>choropleth</strong> (from Greek χώρο (“area/region”) + πλήθος (“multitude”)) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.</p>
+</blockquote>
+<p>By default, the rownames in the dataframe are the unique identifier (e.g. the <strong>FID</strong>) for the polygons.</p>
+<pre class="r"><code>## add the ID to the dataframe itself for easier indexing
+sids$id=as.numeric(rownames(sids@data))
+## create fortified version for plotting with ggplot()
+fsids=fortify(sids,region=&quot;id&quot;)
+
+ggplot(sids@data, aes(map_id = id)) +
+    expand_limits(x = fsids$long, y = fsids$lat)+
+    scale_fill_gradientn(colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
+    coord_map()+
+    geom_map(aes(fill = area), map = fsids)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+<div id="union" class="section level2">
+<h2>Union</h2>
+<p>Merge sub-geometries (polygons) together with <code>gUnionCascaded()</code></p>
+<pre class="r"><code>sids_all=gUnionCascaded(sids)</code></pre>
+<pre class="r"><code>ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
+  geom_path()+
+  coord_map()</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
 </div>
 <div id="colophon" class="section level2">
 <h2>Colophon</h2>
