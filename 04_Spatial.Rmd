@@ -97,10 +97,13 @@ Unfortunately, `dplyr` functions do not directly filter spatial objects.
 <div class="well">
 ## Your turn
 
-Create a new SpatialPointsDataFrame from the following dataframe using the `coordinates()` method.
+Convert the following `data.frame` into a SpatialPointsDataFrame using the `coordinates()` method and then plot the points with `plot()`.
 
 ```{r}
-df=data.frame(lat=c(12,15,17,12),lon=c(-35,-35,-32,-32),id=c(1,2,3,4))
+df=data.frame(
+  lat=c(12,15,17,12),
+  lon=c(-35,-35,-32,-32),
+  id=c(1,2,3,4))
 ```
 
 ```{r,purl=F,echo=F}
@@ -138,7 +141,7 @@ str(meuse)
 ```
 
 Plot it with ggplot:
-```{r, fig.height=2}
+```{r, fig.height=4}
   ggplot(as.data.frame(meuse),aes(x=x,y=y))+
     geom_point(col="red")+
     coord_equal()

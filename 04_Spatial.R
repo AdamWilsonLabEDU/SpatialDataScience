@@ -93,7 +93,10 @@ spdf[spdf$group=="a",]
 #' Create a new SpatialPointsDataFrame from the following dataframe using the `coordinates()` method.
 #' 
 ## ------------------------------------------------------------------------
-df=data.frame(lat=c(12,15,17,12),lon=c(-35,-35,-32,-32),id=c(1,2,3,4))
+df=data.frame(
+  lat=c(12,15,17,12),
+  lon=c(-35,-35,-32,-32),
+  id=c(1,2,3,4))
 
 #' 
 #' 

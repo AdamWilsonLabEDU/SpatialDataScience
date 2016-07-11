@@ -2,9 +2,10 @@
 title: "Course Introduction"
 output: 
   ioslides_presentation:
-      widescreen: true
+      widescreen: FALSE
       logo: ../img/logo.png
       css: ../present.css
+
 ---
 
 
@@ -15,6 +16,8 @@ GEO 503
 <div class="columns-2">
 Assistant Professor of Global Environmental Change<br>
 Geography Department
+
+
 
 I Use R:
 
@@ -53,23 +56,33 @@ We will focus on workflow and methods (‘how’ not ‘why’)
 
 ---
 
-![](../images/data-science.png) 
-Grolemund & Wickham, R for Data Science, O'Reilly 2016
+<img src="assets/data-science.png" width=100%></img>
+--Grolemund & Wickham, R for Data Science, O'Reilly 2016
+
+---
+
+## Why program?
+
+Add ArcGIS screenshot
+
+Graphical User Interfaces are useful, 
 
 ---
 
 <blockquote>
 A man who does not know foreign language is ignorant of his own.
-          <br> -- Johann Wolfgang von Goethe (1749 - 1832)
+<br> -- Johann Wolfgang von Goethe (1749 - 1832)
 </blockquote>
 
-Learning a programming language can help you learn how to think
+Learning a programming language can help you learn how to think logically.
 
 ---
 
 <blockquote>
-"The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. <br> <br> The marriage of the two is a force beyond calculation." <br>  -– Leo Cherne
+The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. The marriage of the two is a force beyond calculation. <br> -- Leo Cherne
 </blockquote>
+
+Programming gives you access to more computer power.
 
 ## UBLearns.buffalo.edu
 
@@ -92,8 +105,12 @@ No			29%
 No 			52%
 
 
-## From Graphical User Interface (GUI)
-The R Project for Statistical Computing
+## From Graphical User Interface (GUI) to Scripting
+
+<img src="assets/02_productivity.png" width=100%></img>
+
+
+## R Project for Statistical Computing
 
 * Free and Open source
 * Data manipulation
@@ -121,17 +138,34 @@ R is a dialect of the S language  developed at Bell Laboratories (formerly AT&T)
 
 ## R Graphics
 
+### Custom graphics
+<img src="assets/03_weather.png" width=100%></img>
+[source](http://rpubs.com/bradleyboehmke/weather_graphic)  
+
+---
+
+### Spatial Data
+<img src="assets/03_map.png" width=100%></img>
+[source](http://blog.revolutionanalytics.com/2009/01/r-graph-gallery.html)  
+
+
 ## Spatial data in R
 Packages: sp, maptools, rgeos, raster, ggmap 
 Examples:
  species range overlays
 
+<img src="assets/04_ranges.png" width=100%></img>
+[source](http://www.nceas.ucsb.edu/)  
+
 
 ## Basemaps with ggmap
+<img src="assets/04_ggmap.png" height=100%></img>
+[source](http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf)
 
 ## Parallel Processing
 For BIG jobs:
 multi-core processors / high performance computing with foreach.
+<img src="assets/05_parallel.png" width=100%></img>
 
 ## Strengths & Limitations
 
@@ -143,30 +177,59 @@ multi-core processors / high performance computing with foreach.
      * RAM can be limiting and/or expensive <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
      * `Error: cannot allocate vector of size X Mb`
      * Various packages and clever programming can overcome this… <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-* Free like beer and speech! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+* Free like beer **AND** speech! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 
 ## R Interface
 
+<img src="assets/01_terminal.png" width=100%></img>
+
+But there are other options...
 
 ## R in Mac
+<img src="assets/06_mac.png" width=100%></img>
+
 ## R in Windows
+<img src="assets/06_windows.png" width=100%></img>
 
 ## Who uses R?
-http://r4stats.com/articles/popularity/ 
-“Analytics” Jobs on indeed.com 
+<img src="assets/07_survey.png" width=100%></img>
+
+[http://r4stats.com/articles/popularity/](http://r4stats.com/articles/popularity/ )
+
+---
+### “Analytics” Jobs on indeed.com 
+
+<img src="assets/08_analytics.png" width=100%></img>
+
 Feb 2014:  http://r4stats.com/articles/popularity/ 
-Scholarly articles by software package
+
+
+### Scholarly articles by software package
+
+<img src="assets/08_analytics2.png" width=100%></img>
+
 http://r4stats.com/articles/popularity/ 
-Change in scholarly articles
+
+### Change in scholarly articles
 http://r4stats.com/articles/popularity/ 
-Forum/discussion activity
+
+
+
+Number of scholarly articles found in the most recent complete year (2014) for each software package used as a topic or tool of analysis.  For methods see [here](http://r4stats.com/articles/how-to-search-for-analytics-articles/).
+
+
+### Forum/discussion activity
 http://r4stats.com/articles/popularity/ 
-Rexer Analytics Data Miner Survey (2013)
+
+### Rexer Analytics Data Miner Survey (2013)
 ~1.2k respondents http://r4stats.com/articles/popularity/ 
-240 Books on R since 2000
-R Development
+
+### 240 Books on R since 2000
+
+### R Development
 Over 6k packages!
-Task Views organize packages by topic
+
+### Task Views organize packages by topic
 http://cran.r-project.org/web/views/ 
 
 ## Reproducible Research
@@ -216,3 +279,5 @@ data(iris)
 "' Then multiply each element of the vector by 15.  
 #' > What is the standard deviation of the new vector? 
 ```
+
+## Questions?
