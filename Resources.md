@@ -8,6 +8,10 @@
 
 * [R Markdown Reference Guide (PDF)](http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf), a more comprehensive reference guide to markdown, knitr, and output format options.
 
+## Infographic resources
+
+* [Infographic Layout](http://www.r-bloggers.com/r-how-to-layout-and-design-an-infographic/)
+
 ## Learning more
 
 For even more in-depth documentation see:

@@ -1,11 +1,11 @@
 ---
 title: "Course Introduction"
-output: 
+output:
   ioslides_presentation:
-      widescreen: FALSE
-      logo: ../img/logo.png
-      css: ../present.css
-
+    css: ../present.css
+    logo: ../img/logo.png
+    widescreen: no
+  beamer_presentation: default
 ---
 
 
