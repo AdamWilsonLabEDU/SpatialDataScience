@@ -1,5 +1,5 @@
 ---
-title: "Course Introduction"
+title: "GEO 503: Spatial Data Science with R"
 output:
   ioslides_presentation:
     css: ../present.css
@@ -8,16 +8,19 @@ output:
   beamer_presentation: default
 ---
 
+## Today's plan
 
-## Spatial Data Science with R
-GEO 503
+1. Course website (UBLearns) and syllabus
+2. What is R?
+3. Who uses it?
+4. Reproducible Research
+5. Guided interactive coding
+
 
 ## Adam M. Wilson
 <div class="columns-2">
 Assistant Professor of Global Environmental Change<br>
 Geography Department
-
-
 
 I Use R:
 
@@ -28,20 +31,12 @@ I Use R:
 
 </div>
 
-## Today's plan
-
-1. Course website (UBLearns) and syllabus
-2. What is R?
-3. Who uses it?
-4. Reproducible Research
-5. Guided interactive coding
-
 ## Course Structure
 
-Mondays 5-7:40 (2 hours 40 min)
+Mondays 9:10-11:50 (2 hours 40 min)
 
 * Review/Questions
-* 30 Minute Presentation
+* ~30 Minute Presentation
 * Semi-guided interactive exercises on your laptops
 
 ## 3 Learning Objectives
@@ -59,55 +54,69 @@ We will focus on workflow and methods (‘how’ not ‘why’)
 <img src="assets/data-science.png" width=100%></img>
 --Grolemund & Wickham, R for Data Science, O'Reilly 2016
 
+
+## Why write code when you can click?
+
+<img src="assets/arcgis.jpg" width=50%></img>
+
+Graphical User Interfaces are useful, especially when you are learning...
+
+## Reproducible Research
+
+* The ability to reproduce results from an experiment or analysis conducted by another*
+* Developed from literate programming:
+* Logic of the analysis is represented in output 
+* Combines computer code with narrative
+
+## Typical GUI Workflow
+<img src="assets/workflow1.png" width=100%></img>
+
+## Organized and repeatable workflow
+<img src="assets/workflow2.png" width=100%></img>
+
+
 ---
 
-## Why program?
-
-Add ArcGIS screenshot
-
-Graphical User Interfaces are useful, 
-
----
+Learning a programming language can help you learn how to think logically.
 
 <blockquote>
 A man who does not know foreign language is ignorant of his own.
 <br> -- Johann Wolfgang von Goethe (1749 - 1832)
 </blockquote>
 
-Learning a programming language can help you learn how to think logically.
+
+## From Graphical User Interface (GUI) to Scripting
+
+<img src="assets/02_productivity.png" width=100%></img>
 
 ---
+
+Programming gives you access to more computer power.
 
 <blockquote>
 The computer is incredibly fast, accurate, and stupid. Man is unbelievably slow, inaccurate, and brilliant. The marriage of the two is a force beyond calculation. <br> -- Leo Cherne
 </blockquote>
 
-Programming gives you access to more computer power.
-
-## UBLearns.buffalo.edu
 
 
-## Class Survey
+## Typical UB Geo Experience
 
-Software
-ArcGIS			94%	
-Python			29%	
-R				29%	
-SPSS			29%	
-Google Earth Engine	24%
-Erdas Imagine		24%	
+### Software
 
-## Scripting
-Yes			71%	
-No			29%	
+* ArcGIS			  94%	
+* Python			  29%	
+* R				      29%	
+* SPSS			    29%	
+* Erdas Imagine		24%	
 
-## Used R?
-No 			52%
+### Scripting
 
+* Yes			71%	
+* No			29%	
 
-## From Graphical User Interface (GUI) to Scripting
+### Used R?
 
-<img src="assets/02_productivity.png" width=100%></img>
+* No 			52%
 
 
 ## R Project for Statistical Computing
@@ -135,6 +144,11 @@ R is a dialect of the S language  developed at Bell Laboratories (formerly AT&T)
     * input and output facilities
 
 ## Reproducible, Portable, & Transparent
+
+<img src="assets/mann.png" width=60%></img>
+
+. . . all the code and data used to recreate the Mann’s original analysis has been made available to the public [...] Since the analysis is in R, anyone can replicate the results and examine the methods. 
+(Matthew Pocernich, _R news_ 10/31/06). [link](http://www.cgd.ucar.edu/ccr/ammann/millennium/refs/WahlAmmann_ClimChange2006.html)
 
 ## R Graphics
 
@@ -191,70 +205,109 @@ But there are other options...
 ## R in Windows
 <img src="assets/06_windows.png" width=100%></img>
 
+## R Anywhere with <img src="assets/rstudiologo.png" width=20%></img>
+
+<img src="assets/rstudio.png" width=100%></img>
+
+Mac, Windows, Linux, and over the web…
+
 ## Who uses R?
 <img src="assets/07_survey.png" width=100%></img>
 
-[http://r4stats.com/articles/popularity/](http://r4stats.com/articles/popularity/ )
-
+(Feb 2014 [source](http://r4stats.com/articles/popularity/))
 ---
+
 ### “Analytics” Jobs on indeed.com 
 
-<img src="assets/08_analytics.png" width=100%></img>
+<img src="assets/08_analytics.png" width=50%></img>
 
-Feb 2014:  http://r4stats.com/articles/popularity/ 
+(Feb 2014 [source](http://r4stats.com/articles/popularity/))
 
+---
 
 ### Scholarly articles by software package
+<div class="columns-2">
 
 <img src="assets/08_analytics2.png" width=100%></img>
 
-http://r4stats.com/articles/popularity/ 
+Number of scholarly articles found in the most recent complete year (2014) for each software package used as a topic or tool of analysis.  For methods see [here](http://r4stats.com/articles/how-to-search-for-analytics-articles/). (Feb 2014 [source](http://r4stats.com/articles/popularity/))
+</div>
+
+---
 
 ### Change in scholarly articles
-http://r4stats.com/articles/popularity/ 
 
+<img src="assets/scholar1.png" width=75%></img>
 
+The number of scholarly articles found in each year by Google Scholar. Only the top six “classic” statistics packages are shown. (Feb 2014 [source](http://r4stats.com/articles/popularity/))
 
-Number of scholarly articles found in the most recent complete year (2014) for each software package used as a topic or tool of analysis.  For methods see [here](http://r4stats.com/articles/how-to-search-for-analytics-articles/).
+---
 
+<img src="assets/scholar2.png" height=75%></img>
+
+The number of scholarly articles found in each year by Google Scholar (excluding SAS and SPSS). (Feb 2014 [source](http://r4stats.com/articles/popularity/))
+
+---
 
 ### Forum/discussion activity
-http://r4stats.com/articles/popularity/ 
+
+<img src="assets/08_analytics5.png" height=75%></img>
+
+Sum of monthly email traffic on each software’s main listserv discussion list.
+(Feb 2014 [source](http://r4stats.com/articles/popularity/))
+
+---
+
+<img src="assets/08_analytics5.png" height=75%></img>
+
+Number of R- or SAS-related posts to Stack Overflow (programming and statistical topics) by week.
+(Feb 2014 [source](http://r4stats.com/articles/popularity/))
+
+---
 
 ### Rexer Analytics Data Miner Survey (2013)
-~1.2k respondents http://r4stats.com/articles/popularity/ 
 
-### 240 Books on R since 2000
+<img src="assets/08_analytics6.png" height=75%></img>
 
-### R Development
-Over 6k packages!
+~1.2k respondents 
+(Feb 2014 [source](http://r4stats.com/articles/popularity/))
+---
+
+## 240 Books on R since 2000
+
+<img src="assets/rbooks.png" height=100%></img>
+
+---
+
+## R Development
+
+<img src="assets/09_development.png" height=20%></img>
+
+Number of R packages available on its main distribution site for the last version released in each year.
+
+In 2014:
+
+* SAS v9.3 added 1.2k commands (in Base, Stat, ETS, HP Forecasting, Graph, IML, Macro, OR, QC.) 
+* R added 1.3k packages and ~27k functions. 
+
+Over 6k packages! (Feb 2014 [source](http://r4stats.com/articles/popularity/))
 
 ### Task Views organize packages by topic
 http://cran.r-project.org/web/views/ 
-
-## Reproducible Research
-
-* The ability to reproduce results from an experiment or analysis conducted by another*
-* Developed from literate programming:
-* Logic of the analysis is represented in output 
-* Combines computer code with narrative
-
-
-## Reproducible Research
-Typical GUI Workflow
-Organized and repeatable workflow (and some example commands)
 
 ## Following Along
 RStudio
 
 ## Following Along
 
-# Assessment / Grading
+# Course Logistics
 
-* **Course Participation (10%)** Actively participation
+## Assessment
+
+* **Course Participation (10%)** Active participation
 * **Package Presentation (10%)** Overview of a R package of your choice
 * **Homeworks (30%)** 
-* **Final Project (50%)** a dynamically generated set of figures (like an infographic) of a spatial analysis related to each student’s interest.  Report will be uploaded to UBlearns as a PDF file with RMarkdown source code.  This project can be related to the student’s own research or a separate topic.
+* **Final Project (50%)** a poster/infographic of an analysis related to each student’s interest.  Report will be uploaded to UBlearns as a PDF file with RMarkdown source code.  This project can be related to the student’s own research or a separate topic.
 
 ## Homework
 Working collaboratively is encouraged but you are responsible for developing your own code to answer the questions. 

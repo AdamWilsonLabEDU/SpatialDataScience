@@ -9,9 +9,9 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 9/12 | **Data Gymnastics** | Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet).For loops, conditional statements, and custom functions. Data gymnastics with dplyr. |  Practice homework submitted during class. |
 | 9/26 | **Graphics** | The _grammar of graphics_: ggplot2 and extensions (ggmap, rasterVis, etc.). | Homework #1 due |
 | 10/3 | **Spatial Vectors** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. | |
-| 10/10 | **Spatial Rasters** | Process MODIS satellite data. | Homework # 3 due |
-| 10/17 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.  | Homework # 2 due |
-| 10/24 | **Version Control** | Managing code with “version control" using Github. Figshare and other data repositories. | |
+| 10/10 | **Spatial Rasters** | Process MODIS satellite data. | Homework # 2 due |
+| 10/17 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.  |  |
+| 10/24 | **Version Control** | Managing code with “version control" using Github. Figshare and other data repositories. | Homework # 2 due |
 | 10/31 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | |
 | 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  | |
 | 11/14 | **Software Integration** | Calling other programs from within R. | Homework # 4 due |
