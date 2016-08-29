@@ -27,9 +27,6 @@ Complete submissions will include:
 5. Conclusions [~200 words]
 6. References
 
-#### Poster Style
-Follow the 
-  If you are doing an infographic style, the abstract and 
 
 ## Formatting
 
@@ -42,7 +39,7 @@ Figures (maps and other graphics) are a vital component of scientific communicat
 
 ### Source and Output Files
 
-You will upload the both the source (`.Rmd`) 	file and a PDF version (not HTML!) of the formatted document.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
+You will upload 1) the source (`.Rmd`) 	file and 2) a PDF version of the formatted document.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
 
 * Compile the `.Rmd` document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf.
 * Compile the `.Rmd` document directly to PDF as explained [here](http://rmarkdown.rstudio.com/pdf_document_format.html) 

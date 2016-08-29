@@ -2,24 +2,29 @@
 
 ## Description
 
-The final project will consist of a multipart figure that tells a story.  You can do this as a traditional academic poster or in a more informal 'infographic' style.  The figure will be uploaded to UBlearns as a PDF along with the underlying R source code used to create the graphics.  The topic can be related to the student’s research interests or a separate topic.
+The final project will consist of a poster-length report summarizing your analysis.  You can do this in either of two formats:
+
+1. An academic poster
+2. An informal 'infographic' with background information
+
+The project will be uploaded to UBlearns as a PDF along with the underlying R source code.  The topic can be related to the student’s research interests or a separate topic.
 
 ### Requirements
 
-1. The graphic(s) must include data from at least two sources that were integrated/merged using R.
+1. The project must include data from at least two sources that were integrated/merged using R.
 2. The underlying data must be publically accessible via the web and downloaded within the R/Rmd script.  If you want to use your own data, you must make it available on a website (e.g. [Figshare](figshare.org)) so that others are able to re-run your code.
 2. The graphic should convey at least three (and preferably four) dimensions of information (e.g.  latitude, longitude, time, and one more)
 
+
 Complete submissions will include:
 
-1.	Title (<25 words)
-2.	Abstract/Summary (~250 words) 
-3.	Extended caption (~ 1-2 pages)
-    * Introduction with description of the question/problem
-    *	Methods description
-    * Data description
-    * Interpretation and discussion of figure(s)
-    * Any references
+1. Title (<25 words)
+2. Introduction  [~ 200 words]
+3. Materials and methods [~ 200 words]
+4. Results [~200 words]
+5. Conclusions [~200 words]
+6. References
+
 
 ## Formatting
 
@@ -32,7 +37,7 @@ Figures (maps and other graphics) are a vital component of scientific communicat
 
 ### Source and Output Files
 
-You will upload the both the source (`.Rmd`) 	file and a PDF version (not HTML!) of the formatted document.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
+You will upload 1) the source (`.Rmd`) 	file and 2) a PDF version of the formatted document.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
 
 * Compile the `.Rmd` document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf.
 * Compile the `.Rmd` document directly to PDF as explained [here](http://rmarkdown.rstudio.com/pdf_document_format.html) 
@@ -78,7 +83,7 @@ The first draft will be graded using the same criteria as the full project (see 
 
 ### Final Draft
 
-The final draft will be uploaded to UBLearns at the end of the semester.
+The final draft will be uploaded to UBLearns at the end of the semester and posted on the course website.
 
 **Remember to upload _both_ the .Rmd and the PDF versions! **
 
@@ -89,4 +94,5 @@ Sites with examples of visual display of quantitative information
 * [http://www.informationisbeautiful.net](http://www.informationisbeautiful.net)
 * [http://flowingdata.com](http://flowingdata.com)
 * [https://visual.ly/m/design-portfolio/](https://visual.ly/m/design-portfolio/) 
-
+* [40 Brilliant and Complex Topics Explained Perfectly By Infographics](https://designschool.canva.com/blog/best-infographics/)
+* [NY Times Graphics Department](https://twitter.com/nytgraphics)
