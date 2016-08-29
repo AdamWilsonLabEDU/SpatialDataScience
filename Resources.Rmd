@@ -6,6 +6,7 @@ title: "Resources"
 
 <div style="height: 10px;"></div>
 
+* [A very short introduction to R](https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf)
 * [R Markdown Cheat Sheet (PDF)](http://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), a quick guide to the most commonly used markdown syntax, knitr options, and output formats.
 
 * [R Markdown Reference Guide (PDF)](http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf), a more comprehensive reference guide to markdown, knitr, and output format options.

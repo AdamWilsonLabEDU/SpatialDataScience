@@ -3,9 +3,9 @@ title: "Syllabus"
 ---
 
 # Logistics
-Professor Adam M. Wilson (adamw@buffalo.edu)
+Professor Adam M. Wilson ([adamwilson.us](adamwilson.us))
 
-Office Hours: Mondays 2:30-3:30pm
+Office Hours: Wednesdays 9:30-11:30am
 
 ## Schedule 
 Mondays 9:10-11:50am in 144 Wilkeson Quad.  
@@ -14,10 +14,10 @@ Mondays 9:10-11:50am in 144 Wilkeson Quad.
 The course will focus on programming in the R language. Typical class sessions will consist of a short (~30 minute) lecture followed by around two hours of interactive exercises.   All teaching and exercises are done from within [RStudio](rstudio.com). 
 
 ## UBLearns
-Course announcements, assignments, and other materials will be distributed through [UBLearns](https://ublearns.buffalo.edu).  Please check the site regularly (or enable email notifications).  
+Course announcements, homeworks, and other materials will be distributed through [UBLearns](https://ublearns.buffalo.edu).  Please check the site regularly (or enable email notifications).  
 
 ## Computer requirements
-During the course we will use complete class exercises on your personal laptop (under any operating system). If you do not have access to a laptop, please let the professor know as soon as possible.  Students will need to install RStudio on their laptops (instructions on the Rstudio site).  
+During the course we will complete class exercises on your personal laptop (under any Mac, Linux, or Windows). If you do not have access to a laptop, please let the professor know as soon as possible.  Students will need to install RStudio on their laptops ([instructions here](https://www.rstudio.com/products/rstudio/download/)).  
 
 ## Email Policy
 During the week, I will attempt to respond to emails within 24 hours of receiving them (not including weekends).  Do not expect an immediate response (please plan accordingly).  For example, do not send an email with a question about a homework the same day that the homework is due.   If you send an email over the weekend, do not expect any response until Monday or Tuesday.
@@ -38,18 +38,16 @@ These learning outcomes can be related to those expected of students completing 
 The major course components are as follows:
 
 ### Course Participation (10%)
-You are expected to actively participate in class discussions and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.
+You are expected to attend class, actively participate in class discussions, and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.
 
 ### Package introduction (10%)
 Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session.  See full [Package Introduction Description](PackageIntro.html) for more details.  
 
 ### Homeworks (30%)
-Homework assignments will be assigned throughout the semester and due before class the following week.  The lowest two grades will be dropped.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](Homework.html) for more details.  
+Four homework assignments will be assigned throughout the semester and due before class the following week.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](Homework.html) for more details.  
 
 ### Final Project and Presentation (50%)
-The final project will consist of a single multi-panel figure (like an infographic) that tells a story about a topic of interest.  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code and posted to the course website.  This project can be related to the student’s own research or a separate topic.  
-
-See full [Project Description](Project.html) for more details.  
+The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code and posted to the course website.  This project can be related to the student’s own research or a separate topic.  
 
 ## Timeline & Grading:
 
@@ -57,6 +55,8 @@ See full [Project Description](Project.html) for more details.
 * 11/16  Peer review of project drafts (5 points)
 * 12/14: Final project presentations (40 points)
 Unexcused late submissions will be docked 10 percentage points per 24 hour period.  
+
+See full [Project Description](Project.html) for more details.  
 
 **There will be no final exam.**
 
