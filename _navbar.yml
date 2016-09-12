@@ -12,13 +12,13 @@ left:
       - text: "About Course Content"
         href: CourseContent.html
       - text: "Module 1: Introduction to R"
-      - text: "Course Introduction"
+      - text: "00 Course Introduction"
         href: 00_CourseIntroductionFrame.html
-      - text: "First Steps"
+      - text: "01 First Steps"
         href: 01_Rintro.html
-      - text: "Data Wrangling"
+      - text: "02 Data Wrangling"
         href: 02_DataWrangling.html
-      - text: "Plotting"
+      - text: "03 Plotting"
         href: 03_Plotting.html
       - text: "-----------------"
       - text: "Module 2: Spatial Analyses"
