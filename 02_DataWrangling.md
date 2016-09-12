@@ -25,7 +25,32 @@ This file is available as a `R` script [here](02_DataWrangling.R)
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(tidyr)
+```
+
+```
+## Warning: package 'tidyr' was built under R version
+## 3.2.3
 ```
 Remember use `install.packages("dplyr")` to install a new package.
 
@@ -36,6 +61,11 @@ Data from [US Bureau of Transportation Statistics](http://www.transtats.bts.gov/
 
 ```r
 library(nycflights13)
+```
+
+```
+## Warning: package 'nycflights13' was built under R
+## version 3.2.5
 ```
 Check out the `flights` object
 
@@ -946,11 +976,59 @@ select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)
 
 ```r
 library(geosphere)
+```
+
+```
+## Warning: package 'geosphere' was built under R
+## version 3.2.3
+```
+
+```
+## Loading required package: sp
+```
+
+```r
 library(maps)
+```
+
+```
+## Warning: package 'maps' was built under R version
+## 3.2.3
+```
+
+```
+## 
+##  # maps v3.1: updated 'world': all lakes moved to separate new #
+##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
+```
+
+```r
 library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R
+## version 3.2.4
+```
+
+```r
 library(sp)
 library(rgeos)
+```
 
+```
+## Warning: package 'rgeos' was built under R version
+## 3.2.5
+```
+
+```
+## rgeos version: 0.3-19, (SVN revision 524)
+##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
+##  Linking to sp version: 1.1-1 
+##  Polygon checking: TRUE
+```
+
+```r
 data=
   select(airports,
          dest=faa,

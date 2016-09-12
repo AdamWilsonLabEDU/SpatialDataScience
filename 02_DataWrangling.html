@@ -295,16 +295,16 @@ div.tocify {
     </li>
     <li class="dropdown-header">Module 1: Introduction to R</li>
     <li>
-      <a href="00_CourseIntroductionFrame.html">Course Introduction</a>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
     </li>
     <li>
-      <a href="01_intro.html">First Steps</a>
+      <a href="01_Rintro.html">01 First Steps</a>
     </li>
     <li>
-      <a href="02_DataWrangling.html">Data Wrangling</a>
+      <a href="02_DataWrangling.html">02 Data Wrangling</a>
     </li>
     <li>
-      <a href="03_Plotting.html">Plotting</a>
+      <a href="03_Plotting.html">03 Plotting</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Spatial Analyses</li>
@@ -396,8 +396,18 @@ div.tocify {
 <div id="useful-packages-dplyr-and-tidyr" class="section level2">
 <h2>Useful packages: <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html"><code>dplyr</code></a> and <a href=""><code>tidyr</code></a></h2>
 <p><a href="https://www.rstudio.com/resources/cheatsheets/">Cheat sheets on website</a> for <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data Wrangling</a></p>
-<pre class="r"><code>library(dplyr)
-library(tidyr)</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(tidyr)</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version
+## 3.2.3</code></pre>
 <p>Remember use <code>install.packages(&quot;dplyr&quot;)</code> to install a new package.</p>
 <div id="example-operations-from-here" class="section level3">
 <h3>Example operations from <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">here</a></h3>
@@ -407,6 +417,8 @@ library(tidyr)</code></pre>
 <h2>New York City Flights</h2>
 <p>Data from <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0">US Bureau of Transportation Statistics</a> (see <code>?nycflights13</code>)</p>
 <pre class="r"><code>library(nycflights13)</code></pre>
+<pre><code>## Warning: package &#39;nycflights13&#39; was built under R
+## version 3.2.5</code></pre>
 <p>Check out the <code>flights</code> object</p>
 <pre class="r"><code>head(flights)</code></pre>
 <pre><code>## Source: local data frame [6 x 19]
@@ -1093,13 +1105,28 @@ Show Solution
 ## 10   0S9          Jefferson County Intl 48.05381
 ## ..   ...                            ...      ...
 ## Variables not shown: destLon (dbl)</code></pre>
-<pre class="r"><code>library(geosphere)
-library(maps)
-library(ggplot2)
-library(sp)
-library(rgeos)
-
-data=
+<pre class="r"><code>library(geosphere)</code></pre>
+<pre><code>## Warning: package &#39;geosphere&#39; was built under R
+## version 3.2.3</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre class="r"><code>library(maps)</code></pre>
+<pre><code>## Warning: package &#39;maps&#39; was built under R version
+## 3.2.3</code></pre>
+<pre><code>## 
+##  # maps v3.1: updated &#39;world&#39;: all lakes moved to separate new #
+##  # &#39;lakes&#39; database. Type &#39;?world&#39; or &#39;news(package=&quot;maps&quot;)&#39;.  #</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R
+## version 3.2.4</code></pre>
+<pre class="r"><code>library(sp)
+library(rgeos)</code></pre>
+<pre><code>## Warning: package &#39;rgeos&#39; was built under R version
+## 3.2.5</code></pre>
+<pre><code>## rgeos version: 0.3-19, (SVN revision 524)
+##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
+##  Linking to sp version: 1.1-1 
+##  Polygon checking: TRUE</code></pre>
+<pre class="r"><code>data=
   select(airports,
          dest=faa,
          destName=name,

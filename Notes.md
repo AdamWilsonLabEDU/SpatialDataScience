@@ -1,6 +1,4 @@
 # DevelopmentNotes
-Adam M. Wilson  
-April 27, 2016  
 
 Notes on course materials
 
