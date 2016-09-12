@@ -15,7 +15,7 @@ left:
       - text: "Course Introduction"
         href: 00_CourseIntroductionFrame.html
       - text: "First Steps"
-        href: 01_intro.html
+        href: 01_Rintro.html
       - text: "Data Wrangling"
         href: 02_DataWrangling.html
       - text: "Plotting"
