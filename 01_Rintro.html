@@ -369,6 +369,7 @@ div.tocify {
 </div>
 
 
+<div>
 <object data="01_assets/01_Rintro.pdf" type="application/pdf" width="100%" height="600px">
 <p>
 It appears you don’t have a PDF plugin for this browser. No biggie… you can <a href="01_assets/01_Rintro.pdf">click here to download the PDF file.</a>
@@ -376,9 +377,11 @@ It appears you don’t have a PDF plugin for this browser. No biggie… you can 
 </object>
 </div>
 <p>
-<a href="01_assets/01_Rintro.pdf">Download the PDF</a>
+<a href="01_assets/01_Rintro.pdf">Download the PDF of the presentation</a>
 </p>
-<p>This file is available as a <a href="01_Rintro.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<div id="first-steps" class="section level1">
+<h1>First Steps</h1>
+<p><a href="01_Rintro.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="variables" class="section level2">
 <h2>Variables</h2>
 <pre class="r"><code>x=1
@@ -414,8 +417,10 @@ Error: object &#39;X&#39; not found</code></pre>
 <li><strong>UpperCamelCase</strong>: <em>e.g.</em> <code>SignatureMethod</code></li>
 </ul>
 </div>
-<div id="subsetting" class="section level3">
-<h3>Subsetting</h3>
+</div>
+</div>
+<div id="subsetting" class="section level1">
+<h1>Subsetting</h1>
 <pre class="r"><code>x</code></pre>
 <pre><code>## [1]  5  8 14 91  3 36 14 30</code></pre>
 <p>Subset the vector using <code>x[ ]</code> notation</p>
@@ -428,8 +433,8 @@ Error: object &#39;X&#39; not found</code></pre>
 <pre class="r"><code>x[1:5]</code></pre>
 <pre><code>## [1]  5  8 14 91  3</code></pre>
 </div>
-<div id="using-functions" class="section level3">
-<h3>Using Functions</h3>
+<div id="using-functions" class="section level1">
+<h1>Using Functions</h1>
 <p>To calculate the mean, you could do it <em>manually</em> like this</p>
 <pre class="r"><code>(5+8+14+91+3+36+14+30)/8</code></pre>
 <pre><code>## [1] 25.125</code></pre>
@@ -479,8 +484,8 @@ mymean(f=x)</code></pre>
 Any potential problems with the <code>mymean</code> function?
 </div>
 </div>
-<div id="missing-data-dealing-with-na-values" class="section level3">
-<h3>Missing data: dealing with <code>NA</code> values</h3>
+<div id="missing-data-dealing-with-na-values" class="section level1">
+<h1>Missing data: dealing with <code>NA</code> values</h1>
 <pre class="r"><code>x3=c(5,8,NA,91,3,NA,14,30,100)</code></pre>
 <div class="well">
 &quot; What do you think <code>mymean(x3)</code> will return?
@@ -494,9 +499,8 @@ Any potential problems with the <code>mymean</code> function?
 <pre class="r"><code>mean(x3,na.rm=T)</code></pre>
 <pre><code>## [1] 35.85714</code></pre>
 <p>Writing simple functions is easy, writing robust, reliable functions can be hard…</p>
-</div>
-<div id="logical-values" class="section level3">
-<h3>Logical values</h3>
+<div id="logical-values" class="section level2">
+<h2>Logical values</h2>
 <p>R also has standard conditional tests to generate <code>TRUE</code> or <code>FALSE</code> values (which also behave as <code>0</code>s and <code>1</code>s. These are often useful for filtering data (e.g. identify all values greater than 5). The logical operators are <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>==</code> for exact equality and <code>!=</code> for inequality.</p>
 <pre class="r"><code>  x</code></pre>
 <pre><code>## [1]  5  8 14 91  3 36 14 30</code></pre>
@@ -540,8 +544,9 @@ Show Solution
 </div>
 </div>
 </div>
-<div id="generating-data" class="section level3">
-<h3>Generating Data</h3>
+</div>
+<div id="generating-data" class="section level1">
+<h1>Generating Data</h1>
 <p>There are many ways to generate data in R such as sequences:</p>
 <pre class="r"><code>seq(from=0, to=1, by=0.25)</code></pre>
 <pre><code>## [1] 0.00 0.25 0.50 0.75 1.00</code></pre>
@@ -552,7 +557,8 @@ Show Solution
 <p><img src="01_Rintro_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
 <p>We’ll cover much more sophisticated graphics later…</p>
 </div>
-</div>
+<div id="data-types" class="section level1">
+<h1>Data Types</h1>
 <div id="matrices" class="section level2">
 <h2>Matrices</h2>
 <p>You can also use matrices (2-dimensional arrays of numbers):</p>
@@ -589,23 +595,24 @@ Show Solution
 <h2>Data Frames</h2>
 <p>Data frames are similar to matrices, but more flexible. Matrices must be all the same type (e.g. all numbers), while a data frame can include multiple data types (e.g. text, factors, numbers). Dataframes are commonly used when doing statistical modeling in R.</p>
 <pre class="r"><code>data = data.frame( x = c(11,12,14),
-                   y = c(19,20,21),
-                   z = c(10,9,7))
+                   y = c(&quot;a&quot;,&quot;b&quot;,&quot;b&quot;),
+                   z = c(T,F,T))
 data</code></pre>
-<pre><code>##    x  y  z
-## 1 11 19 10
-## 2 12 20  9
-## 3 14 21  7</code></pre>
+<pre><code>##    x y     z
+## 1 11 a  TRUE
+## 2 12 b FALSE
+## 3 14 b  TRUE</code></pre>
 <p>You can subset in several ways</p>
-<pre class="r"><code>mean(data$z)</code></pre>
-<pre><code>## [1] 8.666667</code></pre>
-<pre class="r"><code>mean(data[[&quot;z&quot;]])</code></pre>
-<pre><code>## [1] 8.666667</code></pre>
-<pre class="r"><code>mean(data[,3])</code></pre>
-<pre><code>## [1] 8.666667</code></pre>
+<pre class="r"><code>mean(data$x)</code></pre>
+<pre><code>## [1] 12.33333</code></pre>
+<pre class="r"><code>mean(data[[&quot;x&quot;]])</code></pre>
+<pre><code>## [1] 12.33333</code></pre>
+<pre class="r"><code>mean(data[,1])</code></pre>
+<pre><code>## [1] 12.33333</code></pre>
 </div>
-<div id="loading-packages" class="section level2">
-<h2>Loading Packages</h2>
+</div>
+<div id="loading-packages" class="section level1">
+<h1>Loading Packages</h1>
 <p>For installed packages: <code>library(packagename)</code>.</p>
 <p>New packages: <code>install.packages()</code> or use the package manager.</p>
 <pre class="r"><code>library(raster)</code></pre>

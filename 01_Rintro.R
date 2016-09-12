@@ -3,16 +3,19 @@
 #' ---
 #' 
 #' 
+#' <div>
 #' <object data="01_assets/01_Rintro.pdf" type="application/pdf" width="100%" height="600px"> 
 #'   <p>It appears you don't have a PDF plugin for this browser.
 #'    No biggie... you can <a href="01_assets/01_Rintro.pdf">click here to
 #'   download the PDF file.</a></p>  
 #'  </object>
 #'  </div>
-#'  <p><a href="01_assets/01_Rintro.pdf">Download the PDF</a></p>  
+#'  <p><a href="01_assets/01_Rintro.pdf">Download the PDF of the presentation</a></p>  
 #' 
 #' 
-#' This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+#' # First Steps
+#' 
+#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
 #' ## Variables
 ## ------------------------------------------------------------------------
@@ -60,7 +63,7 @@ x+2
 #' * **UpperCamelCase**: _e.g._ `SignatureMethod`
 #' 
 #' 
-#' ### Subsetting
+#' # Subsetting
 ## ------------------------------------------------------------------------
 x
 
@@ -78,7 +81,7 @@ x[5]
 x[1:5]
 
 #' 
-#' ### Using Functions
+#' # Using Functions
 #' 
 #' To calculate the mean, you could do it _manually_ like this
 #' 
@@ -145,7 +148,7 @@ mean(x)
 #' 
 #' <div class="well"> Any potential problems with the `mymean` function? </div>
 #' 
-#' ### Missing data:  dealing with `NA` values
+#' # Missing data:  dealing with `NA` values
 ## ------------------------------------------------------------------------
 x3=c(5,8,NA,91,3,NA,14,30,100)
 
@@ -164,7 +167,7 @@ mean(x3,na.rm=T)
 #' Writing simple functions is easy, writing robust, reliable functions can be hard...
 #' 
 #' 
-#' ### Logical values
+#' ## Logical values
 #' 
 #' R also has standard conditional tests to generate `TRUE` or `FALSE` values (which also behave as `0`s and `1`s.  These are often useful for filtering data (e.g. identify all values greater than 5).  The logical operators are `<`, `<=`, `>`, `>=`, `==` for exact equality and `!=` for inequality.
 #' 
@@ -214,7 +217,7 @@ mycount(x3)
 #' </div>
 #' 
 #' 
-#' ### Generating Data
+#' # Generating Data
 #' 
 #' There are many ways to generate data in R such as sequences:
 ## ------------------------------------------------------------------------
@@ -233,6 +236,8 @@ hist(a)
 
 #' 
 #' We'll cover much more sophisticated graphics later...
+#' 
+#' # Data Types
 #' 
 #' ## Matrices
 #' You can also use matrices (2-dimensional arrays of numbers):
@@ -267,22 +272,22 @@ y[2,3]
 #' 
 ## ------------------------------------------------------------------------
 data = data.frame( x = c(11,12,14),
-                   y = c(19,20,21),
-                   z = c(10,9,7))
+                   y = c("a","b","b"),
+                   z = c(T,F,T))
 data
 
 #' 
 #' 
 #' You can subset in several ways
 ## ------------------------------------------------------------------------
-mean(data$z)
+mean(data$x)
 
-mean(data[["z"]])
+mean(data[["x"]])
 
-mean(data[,3])
+mean(data[,1])
 
 #' 
-#' ## Loading Packages
+#' # Loading Packages
 #' 
 #' For installed packages:  `library(packagename)`.
 #' 
