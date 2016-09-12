@@ -295,16 +295,16 @@ div.tocify {
     </li>
     <li class="dropdown-header">Module 1: Introduction to R</li>
     <li>
-      <a href="00_CourseIntroductionFrame.html">Course Introduction</a>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
     </li>
     <li>
-      <a href="01_intro.html">First Steps</a>
+      <a href="01_Rintro.html">01 First Steps</a>
     </li>
     <li>
-      <a href="02_DataWrangling.html">Data Wrangling</a>
+      <a href="02_DataWrangling.html">02 Data Wrangling</a>
     </li>
     <li>
-      <a href="03_Plotting.html">Plotting</a>
+      <a href="03_Plotting.html">03 Plotting</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Spatial Analyses</li>
@@ -375,11 +375,19 @@ div.tocify {
 <div id="load-packages" class="section level2">
 <h2>Load packages</h2>
 <pre class="r"><code>library(sp)
-library(rgdal)
-library(ggplot2)
+library(rgdal)</code></pre>
+<pre><code>## rgdal: version: 1.1-10, (SVN revision 622)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal
+##  Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj
+##  Linking to sp version: 1.2-3</code></pre>
+<pre class="r"><code>library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(maptools)</code></pre>
+<pre><code>## Checking rgeos availability: TRUE</code></pre>
 </div>
 </div>
 <div id="point-data" class="section level1">
@@ -392,8 +400,8 @@ library(maptools)</code></pre>
 )
 str(coords)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    100 obs. of  2 variables:
-##  $ x: num  2.474 0.12 0.112 1.098 1.007 ...
-##  $ y: num  -0.276 0.282 1.093 -0.132 1.896 ...</code></pre>
+##  $ x: num  -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
+##  $ y: num  -0.0159 0.7206 0.08 0.7659 0.5246 ...</code></pre>
 <pre class="r"><code>plot(coords)</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" alt="" /><!-- --></p>
 </div>
@@ -402,11 +410,11 @@ str(coords)</code></pre>
 <pre class="r"><code>sp = SpatialPoints(coords)
 str(sp)</code></pre>
 <pre><code>## Formal class &#39;SpatialPoints&#39; [package &quot;sp&quot;] with 3 slots
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -435,11 +443,11 @@ str(spdf)</code></pre>
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -456,11 +464,11 @@ str(spdf)</code></pre>
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
@@ -470,24 +478,24 @@ str(spdf)</code></pre>
 <div id="subset-data" class="section level2">
 <h2>Subset data</h2>
 <pre class="r"><code>subset(spdf, group==&quot;a&quot;)</code></pre>
-<pre><code>##                  coordinates ID group
-## 1     (2.474125, -0.2755225)  1     a
-## 21 (-0.9650832, -0.04806011) 21     a
-## 41      (-1.02144, 0.382918) 41     a
-## 61   (0.5004737, -0.6499052) 61     a
-## 81   (-0.7947053, -1.000853) 81     a</code></pre>
+<pre><code>##                 coordinates ID group
+## 1  (-0.775517, -0.01594804)  1     a
+## 21   (0.3812662, -2.206719) 21     a
+## 41  (0.7711842, 0.02331766) 41     a
+## 61 (-0.01874341, -2.460687) 61     a
+## 81    (1.043132, 0.8615845) 81     a</code></pre>
 <p>Or using <code>[]</code></p>
 <pre class="r"><code>spdf[spdf$group==&quot;a&quot;,]</code></pre>
-<pre><code>##                  coordinates ID group
-## 1     (2.474125, -0.2755225)  1     a
-## 21 (-0.9650832, -0.04806011) 21     a
-## 41      (-1.02144, 0.382918) 41     a
-## 61   (0.5004737, -0.6499052) 61     a
-## 81   (-0.7947053, -1.000853) 81     a</code></pre>
+<pre><code>##                 coordinates ID group
+## 1  (-0.775517, -0.01594804)  1     a
+## 21   (0.3812662, -2.206719) 21     a
+## 41  (0.7711842, 0.02331766) 41     a
+## 61 (-0.01874341, -2.460687) 61     a
+## 81    (1.043132, 0.8615845) 81     a</code></pre>
 <p>Unfortunately, <code>dplyr</code> functions do not directly filter spatial objects.</p>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
-<p>Create a new SpatialPointsDataFrame from the following dataframe using the <code>coordinates()</code> method.</p>
+<p>Convert the following <code>data.frame</code> into a SpatialPointsDataFrame using the <code>coordinates()</code> method and then plot the points with <code>plot()</code>.</p>
 <pre class="r"><code>df=data.frame(
   lat=c(12,15,17,12),
   lon=c(-35,-35,-32,-32),
@@ -605,11 +613,11 @@ L1</code></pre>
 <pre><code>## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
 ##            [,1]       [,2]
-## [1,] -1.2490240  0.1944906
-## [2,] -1.0266416  0.9400866
-## [3,] -1.4307795  0.5013475
-## [4,]  1.3180625 -0.6262027
-## [5,]  0.9851047 -1.8352710</code></pre>
+## [1,] -0.2266602  1.2389508
+## [2,]  0.3506688 -0.6418654
+## [3,]  0.5572550 -1.0022352
+## [4,] -0.0470298 -1.2565673
+## [5,]  0.4880012  0.3211727</code></pre>
 <pre class="r"><code>plot(coordinates(L1),type=&quot;l&quot;)</code></pre>
 <p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
 </div>
@@ -623,23 +631,23 @@ Ls2</code></pre>
 ## [[1]]
 ## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
-##            [,1]       [,2]
-## [1,]  1.1171018 -2.1125498
-## [2,]  0.5582155  1.6694883
-## [3,] -1.5206290  0.5284784
-## [4,]  0.2034423  0.3659654
-## [5,] -0.6368669 -0.2098395
+##             [,1]       [,2]
+## [1,] -0.26960460 -1.4876681
+## [2,]  0.06619791 -2.3025701
+## [3,]  0.95283311  0.4591616
+## [4,] -2.44938917  0.2783118
+## [5,] -0.81758158 -0.4290159
 ## 
 ## 
 ## [[2]]
 ## An object of class &quot;Line&quot;
 ## Slot &quot;coords&quot;:
 ##            [,1]       [,2]
-## [1,]  0.2774494 -1.8423114
-## [2,] -1.3134206 -0.3378156
-## [3,]  0.1526129  0.6035131
-## [4,] -0.8538986 -0.2166753
-## [5,] -0.3510835  1.4021369
+## [1,] -0.3868302 -2.2222688
+## [2,] -1.4941343  1.1255854
+## [3,] -1.2185243  1.2088079
+## [4,]  1.1479574 -0.3165272
+## [5,] -1.6971661  0.1853546
 ## 
 ## 
 ## 
@@ -668,16 +676,16 @@ str(SLDF)</code></pre>
 ##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
 ##   .. .. .. ..@ Lines:List of 1
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -1.249 -1.027 -1.431 1.318 0.985 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.227 0.351 0.557 -0.047 0.488 ...
 ##   .. .. .. ..@ ID   : chr &quot;a&quot;
 ##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
 ##   .. .. .. ..@ Lines:List of 2
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.117 0.558 -1.521 0.203 -0.637 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.2696 0.0662 0.9528 -2.4494 -0.8176 ...
 ##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.277 -1.313 0.153 -0.854 -0.351 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.387 -1.494 -1.219 1.148 -1.697 ...
 ##   .. .. .. ..@ ID   : chr &quot;b&quot;
-##   ..@ bbox       : num [1:2, 1:2] -1.52 -2.11 1.32 1.67
+##   ..@ bbox       : num [1:2, 1:2] -2.45 -2.3 1.15 1.24
 ##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
 ##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
 ##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;

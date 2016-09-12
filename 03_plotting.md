@@ -423,6 +423,20 @@ Old Faithful Geyser Data on duration and waiting times.
 
 ```r
 library("MASS")
+```
+
+```
+## 
+## Attaching package: 'MASS'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     select
+```
+
+```r
 data(geyser)
 m <- ggplot(geyser, aes(x = duration, y = waiting))
 ```

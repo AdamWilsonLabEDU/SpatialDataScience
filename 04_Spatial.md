@@ -11,10 +11,27 @@ This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> 
 ```r
 library(sp)
 library(rgdal)
+```
+
+```
+## rgdal: version: 1.1-10, (SVN revision 622)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/gdal
+##  Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.2/Resources/library/rgdal/proj
+##  Linking to sp version: 1.2-3
+```
+
+```r
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(maptools)
+```
+
+```
+## Checking rgeos availability: TRUE
 ```
 
 # Point data
@@ -31,8 +48,8 @@ str(coords)
 
 ```
 ## 'data.frame':	100 obs. of  2 variables:
-##  $ x: num  2.474 0.12 0.112 1.098 1.007 ...
-##  $ y: num  -0.276 0.282 1.093 -0.132 1.896 ...
+##  $ x: num  -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
+##  $ y: num  -0.0159 0.7206 0.08 0.7659 0.5246 ...
 ```
 
 
@@ -55,11 +72,11 @@ str(sp)
 
 ```
 ## Formal class 'SpatialPoints' [package "sp"] with 3 slots
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -105,11 +122,11 @@ str(spdf)
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -136,11 +153,11 @@ str(spdf)
 ##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
 ##   .. ..$ group: Factor w/ 20 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10 ...
 ##   ..@ coords.nrs : num(0) 
-##   ..@ coords     : num [1:100, 1:2] 2.474 0.12 0.112 1.098 1.007 ...
+##   ..@ coords     : num [1:100, 1:2] -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : NULL
 ##   .. .. ..$ : chr [1:2] "x" "y"
-##   ..@ bbox       : num [1:2, 1:2] -2.39 -2.24 2.47 3.08
+##   ..@ bbox       : num [1:2, 1:2] -2.82 -3.2 2.13 2.9
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"
@@ -156,12 +173,12 @@ subset(spdf, group=="a")
 ```
 
 ```
-##                  coordinates ID group
-## 1     (2.474125, -0.2755225)  1     a
-## 21 (-0.9650832, -0.04806011) 21     a
-## 41      (-1.02144, 0.382918) 41     a
-## 61   (0.5004737, -0.6499052) 61     a
-## 81   (-0.7947053, -1.000853) 81     a
+##                 coordinates ID group
+## 1  (-0.775517, -0.01594804)  1     a
+## 21   (0.3812662, -2.206719) 21     a
+## 41  (0.7711842, 0.02331766) 41     a
+## 61 (-0.01874341, -2.460687) 61     a
+## 81    (1.043132, 0.8615845) 81     a
 ```
 
 Or using `[]`
@@ -171,12 +188,12 @@ spdf[spdf$group=="a",]
 ```
 
 ```
-##                  coordinates ID group
-## 1     (2.474125, -0.2755225)  1     a
-## 21 (-0.9650832, -0.04806011) 21     a
-## 41      (-1.02144, 0.382918) 41     a
-## 61   (0.5004737, -0.6499052) 61     a
-## 81   (-0.7947053, -1.000853) 81     a
+##                 coordinates ID group
+## 1  (-0.775517, -0.01594804)  1     a
+## 21   (0.3812662, -2.206719) 21     a
+## 41  (0.7711842, 0.02331766) 41     a
+## 61 (-0.01874341, -2.460687) 61     a
+## 81    (1.043132, 0.8615845) 81     a
 ```
 
 Unfortunately, `dplyr` functions do not directly filter spatial objects.
@@ -185,7 +202,7 @@ Unfortunately, `dplyr` functions do not directly filter spatial objects.
 <div class="well">
 ## Your turn
 
-Create a new SpatialPointsDataFrame from the following dataframe using the `coordinates()` method.
+Convert the following `data.frame` into a SpatialPointsDataFrame using the `coordinates()` method and then plot the points with `plot()`.
 
 
 ```r
@@ -312,11 +329,11 @@ L1
 ## An object of class "Line"
 ## Slot "coords":
 ##            [,1]       [,2]
-## [1,] -1.2490240  0.1944906
-## [2,] -1.0266416  0.9400866
-## [3,] -1.4307795  0.5013475
-## [4,]  1.3180625 -0.6262027
-## [5,]  0.9851047 -1.8352710
+## [1,] -0.2266602  1.2389508
+## [2,]  0.3506688 -0.6418654
+## [3,]  0.5572550 -1.0022352
+## [4,] -0.0470298 -1.2565673
+## [5,]  0.4880012  0.3211727
 ```
 
 
@@ -344,23 +361,23 @@ Ls2
 ## [[1]]
 ## An object of class "Line"
 ## Slot "coords":
-##            [,1]       [,2]
-## [1,]  1.1171018 -2.1125498
-## [2,]  0.5582155  1.6694883
-## [3,] -1.5206290  0.5284784
-## [4,]  0.2034423  0.3659654
-## [5,] -0.6368669 -0.2098395
+##             [,1]       [,2]
+## [1,] -0.26960460 -1.4876681
+## [2,]  0.06619791 -2.3025701
+## [3,]  0.95283311  0.4591616
+## [4,] -2.44938917  0.2783118
+## [5,] -0.81758158 -0.4290159
 ## 
 ## 
 ## [[2]]
 ## An object of class "Line"
 ## Slot "coords":
 ##            [,1]       [,2]
-## [1,]  0.2774494 -1.8423114
-## [2,] -1.3134206 -0.3378156
-## [3,]  0.1526129  0.6035131
-## [4,] -0.8538986 -0.2166753
-## [5,] -0.3510835  1.4021369
+## [1,] -0.3868302 -2.2222688
+## [2,] -1.4941343  1.1255854
+## [3,] -1.2185243  1.2088079
+## [4,]  1.1479574 -0.3165272
+## [5,] -1.6971661  0.1853546
 ## 
 ## 
 ## 
@@ -403,16 +420,16 @@ str(SLDF)
 ##   .. ..$ :Formal class 'Lines' [package "sp"] with 2 slots
 ##   .. .. .. ..@ Lines:List of 1
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -1.249 -1.027 -1.431 1.318 0.985 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.227 0.351 0.557 -0.047 0.488 ...
 ##   .. .. .. ..@ ID   : chr "a"
 ##   .. ..$ :Formal class 'Lines' [package "sp"] with 2 slots
 ##   .. .. .. ..@ Lines:List of 2
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 1.117 0.558 -1.521 0.203 -0.637 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.2696 0.0662 0.9528 -2.4494 -0.8176 ...
 ##   .. .. .. .. ..$ :Formal class 'Line' [package "sp"] with 1 slot
-##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 0.277 -1.313 0.153 -0.854 -0.351 ...
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.387 -1.494 -1.219 1.148 -1.697 ...
 ##   .. .. .. ..@ ID   : chr "b"
-##   ..@ bbox       : num [1:2, 1:2] -1.52 -2.11 1.32 1.67
+##   ..@ bbox       : num [1:2, 1:2] -2.45 -2.3 1.15 1.24
 ##   .. ..- attr(*, "dimnames")=List of 2
 ##   .. .. ..$ : chr [1:2] "x" "y"
 ##   .. .. ..$ : chr [1:2] "min" "max"

@@ -90,7 +90,7 @@ spdf[spdf$group=="a",]
 #' <div class="well">
 #' ## Your turn
 #' 
-#' Create a new SpatialPointsDataFrame from the following dataframe using the `coordinates()` method.
+#' Convert the following `data.frame` into a SpatialPointsDataFrame using the `coordinates()` method and then plot the points with `plot()`.
 #' 
 ## ------------------------------------------------------------------------
 df=data.frame(
@@ -121,7 +121,7 @@ str(meuse)
 #' 
 #' 
 #' Plot it with ggplot:
-## ---- fig.height=2-------------------------------------------------------
+## ---- fig.height=4-------------------------------------------------------
   ggplot(as.data.frame(meuse),aes(x=x,y=y))+
     geom_point(col="red")+
     coord_equal()

@@ -1,8 +1,7 @@
 # Homework
 
 ## Description
-There will be five homework assignments throughout the semester to ensure that you are learning the materials.  
-
+There will be four homework assignments throughout the semester to ensure that you are learning the materials.  
 Homework assignments will be assigned throughout the semester and due before class the following week.  The lowest two grades will be dropped.  Assignments will be provided via UBLearns as R scripts with embedded questions. It will look something like this:
 
 ```

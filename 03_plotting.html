@@ -11,7 +11,7 @@
 
 
 
-<title></title>
+<title>Getting Graphic</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
@@ -364,12 +364,12 @@ div.tocify {
 
 
 
+<h1 class="title toc-ignore">Getting Graphic</h1>
+<h3 class="subtitle"><em>Base graphics and <code>ggplot2</code></em></h3>
 
 </div>
 
 
-<div id="getting-graphic" class="section level1">
-<h1>Getting Graphic</h1>
 <div class="well">
 <p>This file is available as a <a href="03_plotting_codedoc.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script with documentation</a> Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 </div>
@@ -537,7 +537,6 @@ kable(head(mtcars))</code></pre>
 </tr>
 </tbody>
 </table>
-</div>
 <div id="base-graphics" class="section level1">
 <h1>Base graphics</h1>
 <div id="base-plot" class="section level2">
@@ -769,8 +768,13 @@ p + geom_point()</code></pre>
 <div id="d-kernel-density-estimation" class="section level3">
 <h3>2D kernel density estimation</h3>
 <p>Old Faithful Geyser Data on duration and waiting times.</p>
-<pre class="r"><code>library(&quot;MASS&quot;)
-data(geyser)
+<pre class="r"><code>library(&quot;MASS&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre class="r"><code>data(geyser)
 m &lt;- ggplot(geyser, aes(x = duration, y = waiting))</code></pre>
 <p><img src="03_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small><a href="https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg">photo: Greg Willis</a></small></p>
 <p>See <code>?geyser</code> for details.</p>
