@@ -1,8 +1,5 @@
 ---
 title: "DevelopmentNotes"
-author: "Adam M. Wilson"
-date: "April 27, 2016"
-output: html_document
 ---
 
 Notes on course materials
