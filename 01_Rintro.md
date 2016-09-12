@@ -8,7 +8,7 @@
   download the PDF file.</a></p>  
  </object>
  </div>
- <p><a href="01_assets_/01_Rintro.pdf">Download the PDF</a></p>  
+ <p><a href="01_assets/01_Rintro.pdf">Download the PDF</a></p>  
 
 
 This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](01_Rintro.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
