@@ -1,7 +1,19 @@
 # Data Wrangling
 
 
+
+<div>
+<object data="02_assets/02_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
+  <p>It appears you don't have a PDF plugin for this browser.
+   No biggie... you can <a href="02_assets/02_DataWrangling.pdf">click here to
+  download the PDF file.</a></p>  
+ </object>
+ </div>
+ <p><a href="02_assets/02_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
+
+
 This file is available as a `R` script [here](02_DataWrangling.R)
+
 
 # RStudio Shortcuts
 
@@ -25,32 +37,7 @@ This file is available as a `R` script [here](02_DataWrangling.R)
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(tidyr)
-```
-
-```
-## Warning: package 'tidyr' was built under R version
-## 3.2.3
 ```
 Remember use `install.packages("dplyr")` to install a new package.
 
@@ -61,11 +48,6 @@ Data from [US Bureau of Transportation Statistics](http://www.transtats.bts.gov/
 
 ```r
 library(nycflights13)
-```
-
-```
-## Warning: package 'nycflights13' was built under R
-## version 3.2.5
 ```
 Check out the `flights` object
 
@@ -324,9 +306,11 @@ filter(flights, month == 1, day == 1)`
 ```
 
 
-## Filter excercise
-> Filter the `flights` data set to keep only evening flights (`dep_time` after 1600) in June.
+<div class="well">
+Filter the `flights` data set to keep only evening flights (`dep_time` after 1600) in June.
 
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+<div id="demo1" class="collapse">
 
 
 ```r
@@ -356,6 +340,9 @@ filter(flights,dep_time>1600,month==6)
 ##   distance (dbl), hour (dbl), minute (dbl),
 ##   time_hour (time)
 ```
+</div>
+</div>
+
 
 
 ## Other _boolean_ expressions
@@ -395,8 +382,8 @@ filter(flights, month == 1 | month == 2)
 Filter the `flights` data set to keep only 'redeye' flights where the departure time
 (`dep_time`) is "after" the arrival time (`arr_time`), indicating it arrived the next day:
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-<div id="demo1" class="collapse"> <br>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+<div id="demo2" class="collapse"> <br>
 
 
 ```r
@@ -573,6 +560,7 @@ distinct(
 ```
 
 
+
 ## Mutate: Derive new variables
 
 Adds columns with calculations based on other columns.
@@ -609,6 +597,13 @@ select(
 ## Chaining Operations
 Performing multiple operations sequentially with a _pipe_ character
 
+1. Group by a variable
+2. Select some columns
+3. Summarize observations
+4. Filter by results
+
+
+With temporary objects:
 
 ```r
 a1 <- group_by(flights, year, month, day)
@@ -633,7 +628,6 @@ head(a4)
 ## 5  2013     3     8 85.86216 83.53692
 ## 6  2013     3    18 41.29189 30.11796
 ```
-
 
 If you don’t want to save the intermediate results: wrap the function calls inside each other:
 
@@ -798,8 +792,8 @@ flights %>%
 <div class="well">
 Which destination airport (`dest`) is the farthest (`distance`) from NYC?
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
-<div id="demo2" class="collapse">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+<div id="demo3" class="collapse">
 
 
 ```r
@@ -911,8 +905,8 @@ Hints:
 * Figure out which column connects the two tables.
 * You may need to rename the column names before joining.
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
-<div id="demo3" class="collapse"> <br>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+<div id="demo4" class="collapse"> <br>
 
 
 ```r
@@ -945,88 +939,20 @@ select(airports,
 
 ## Plot the `flights` data
 
-Join destination airports.  First select and rename needed variables:
+The section below shows some 'advanced' coding to extract the geographic locations for all flights and plotting.  This is just meant as an example to illustrate how one might use these functions to perform a mini-analysis that results in a map.  
 
-
-```r
-select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)
-```
-
-```
-## Source: local data frame [1,396 x 4]
-## 
-##     dest                       destName  destLat
-##    (chr)                          (chr)    (dbl)
-## 1    04G              Lansdowne Airport 41.13047
-## 2    06A  Moton Field Municipal Airport 32.46057
-## 3    06C            Schaumburg Regional 41.98934
-## 4    06N                Randall Airport 41.43191
-## 5    09J          Jekyll Island Airport 31.07447
-## 6    0A9 Elizabethton Municipal Airport 36.37122
-## 7    0G6        Williams County Airport 41.46731
-## 8    0G7  Finger Lakes Regional Airport 42.88356
-## 9    0P2   Shoestring Aviation Airfield 39.79482
-## 10   0S9          Jefferson County Intl 48.05381
-## ..   ...                            ...      ...
-## Variables not shown: destLon (dbl)
-```
-
-
+### Join destination airports
 
 
 ```r
 library(geosphere)
-```
-
-```
-## Warning: package 'geosphere' was built under R
-## version 3.2.3
-```
-
-```
-## Loading required package: sp
-```
-
-```r
 library(maps)
-```
-
-```
-## Warning: package 'maps' was built under R version
-## 3.2.3
-```
-
-```
-## 
-##  # maps v3.1: updated 'world': all lakes moved to separate new #
-##  # 'lakes' database. Type '?world' or 'news(package="maps")'.  #
-```
-
-```r
 library(ggplot2)
-```
-
-```
-## Warning: package 'ggplot2' was built under R
-## version 3.2.4
-```
-
-```r
 library(sp)
 library(rgeos)
 ```
 
-```
-## Warning: package 'rgeos' was built under R version
-## 3.2.5
-```
 
-```
-## rgeos version: 0.3-19, (SVN revision 524)
-##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
-##  Linking to sp version: 1.1-1 
-##  Polygon checking: TRUE
-```
 
 ```r
 data=
@@ -1051,7 +977,7 @@ data=
 ```
 
 ```
-## Joining by: "dest"
+## Joining, by = "dest"
 ```
 
 ```r
@@ -1074,6 +1000,7 @@ gcircles <- left_join(rts.ff,
 ```
 
 
+Now build a basemap using data in the `maps` package.
 
 
 ```r
@@ -1089,7 +1016,11 @@ wrld <- c(geom_polygon(
   alpha = 1,
   data = worldmap
 ))
+```
 
+Now draw the map using `ggplot`
+
+```r
 base + wrld +
   geom_path(
     data = gcircles,
@@ -1112,7 +1043,7 @@ base + wrld +
        title = "Count of Flights from New York in 2013")
 ```
 
-![](02_DataWrangling_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
+![](02_DataWrangling_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 ## Colophon
 This exercise based on code from [here](http://spatial.ly/2012/06/mapping-worlds-biggest-airlines/).

@@ -10,7 +10,19 @@ knitr::purl(input,output,documentation=1,quiet=T)
 knitr::opts_chunk$set(cache=T, warnings=F, messages=F)
 options(width=50)
 ```
+
+<div>
+<object data="02_assets/02_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
+  <p>It appears you don't have a PDF plugin for this browser.
+   No biggie... you can <a href="02_assets/02_DataWrangling.pdf">click here to
+  download the PDF file.</a></p>  
+ </object>
+ </div>
+ <p><a href="02_assets/02_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
+
+
 This file is available as a `R` script [here](`r output`)
+
 
 # RStudio Shortcuts
 
@@ -31,7 +43,7 @@ This file is available as a `R` script [here](`r output`)
 
 [Cheat sheets on website](https://www.rstudio.com/resources/cheatsheets/) for [Data Wrangling](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
 
-```{r,results='hide'}
+```{r,results='hide', message=FALSE, warning=F}
 library(dplyr)
 library(tidyr)
 ```
@@ -41,7 +53,7 @@ Remember use `install.packages("dplyr")` to install a new package.
 
 ## New York City Flights
 Data from [US Bureau of Transportation Statistics](http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&Link=0) (see `?nycflights13`)
-```{r,results='hide'}
+```{r,results='hide', warning=F}
 library(nycflights13)
 ```
 Check out the `flights` object
@@ -122,13 +134,18 @@ filter(flights, month == 1, day == 1)`
 ```
 
 
-## Filter excercise
-> Filter the `flights` data set to keep only evening flights (`dep_time` after 1600) in June.
+<div class="well">
+Filter the `flights` data set to keep only evening flights (`dep_time` after 1600) in June.
 
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+<div id="demo1" class="collapse">
 
-```{r, purl=FALSE}
+```{r, purl=F}
 filter(flights,dep_time>1600,month==6)
 ```
+</div>
+</div>
+
 
 
 ## Other _boolean_ expressions
@@ -143,8 +160,8 @@ filter(flights, month == 1 | month == 2)
 Filter the `flights` data set to keep only 'redeye' flights where the departure time
 (`dep_time`) is "after" the arrival time (`arr_time`), indicating it arrived the next day:
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-<div id="demo1" class="collapse"> <br>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+<div id="demo2" class="collapse"> <br>
 
 ```{r, purl=FALSE}
 filter(flights,dep_time>arr_time)
@@ -196,6 +213,7 @@ distinct(
 ```
 
 
+
 ## Mutate: Derive new variables
 
 Adds columns with calculations based on other columns.
@@ -213,6 +231,13 @@ select(
 ## Chaining Operations
 Performing multiple operations sequentially with a _pipe_ character
 
+1. Group by a variable
+2. Select some columns
+3. Summarize observations
+4. Filter by results
+
+
+With temporary objects:
 ```{r}
 a1 <- group_by(flights, year, month, day)
 a2 <- select(a1, arr_delay, dep_delay)
@@ -222,7 +247,6 @@ a3 <- summarise(a2,
 a4 <- filter(a3, arr > 30 | dep > 30)
 head(a4)
 ```
-
 
 If you don’t want to save the intermediate results: wrap the function calls inside each other:
 
@@ -301,8 +325,8 @@ flights %>%
 <div class="well">
 Which destination airport (`dest`) is the farthest (`distance`) from NYC?
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
-<div id="demo2" class="collapse">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+<div id="demo3" class="collapse">
 
 ```{r, purl=F}
 flights %>% 
@@ -374,8 +398,8 @@ Hints:
 * Figure out which column connects the two tables.
 * You may need to rename the column names before joining.
 
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
-<div id="demo3" class="collapse"> <br>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+<div id="demo4" class="collapse"> <br>
 
 ```{r purl=F}
 select(airports,
@@ -395,21 +419,20 @@ select(airports,
 
 ## Plot the `flights` data
 
-Join destination airports.  First select and rename needed variables:
+The section below shows some 'advanced' coding to extract the geographic locations for all flights and plotting.  This is just meant as an example to illustrate how one might use these functions to perform a mini-analysis that results in a map.  
 
-```{r}
-select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)
-``` 
+### Join destination airports
 
-
-
-```{r}
+```{r, result=F, warning=F}
 library(geosphere)
 library(maps)
 library(ggplot2)
 library(sp)
 library(rgeos)
+```
 
+
+```{r}
 data=
   select(airports,
          dest=faa,
@@ -450,6 +473,7 @@ gcircles <- left_join(rts.ff,
 ```
 
 
+Now build a basemap using data in the `maps` package.
 
 ```{r fig.width=10,fig.height=6,dpi=300}
 base = ggplot()
@@ -464,7 +488,10 @@ wrld <- c(geom_polygon(
   alpha = 1,
   data = worldmap
 ))
+```
 
+Now draw the map using `ggplot`
+```{r}
 base + wrld +
   geom_path(
     data = gcircles,

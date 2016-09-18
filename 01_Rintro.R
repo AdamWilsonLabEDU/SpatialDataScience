@@ -111,16 +111,6 @@ mean(x)
 #' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
 #' <div id="demo2" class="collapse">
 #' 
-## ------------------------------------------------------------------------
-y=c(3,6,12,89)
-sqrt((sum((y-mean(y))^2))/(length(y)-1))
-
-#or
-sd(y)
-
-#or
-sd(c(3,6,12,89))
-
 #' </div>
 #' </div>
 #' 

@@ -121,7 +121,7 @@ Calculate the standard deviation of `c(3,6,12,89)`.
 <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
 <div id="demo2" class="collapse">
 
-```{r}
+```{r, purl=F}
 y=c(3,6,12,89)
 sqrt((sum((y-mean(y))^2))/(length(y)-1))
 

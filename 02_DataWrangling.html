@@ -66,9 +66,6 @@ h5 {
 h6 {
   font-size: 12px;
 }
-.table th:not([align]) {
-  text-align: left;
-}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -169,12 +166,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -183,7 +174,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: ".toc-ignore",
+      ignoreSelector: "h1.title, .toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -364,11 +355,21 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data Wrangling</h1>
+<h1 class="title">Data Wrangling</h1>
 
 </div>
 
 
+<div>
+<object data="02_assets/02_DataWrangling.pdf" type="application/pdf" width="100%" height="600px">
+<p>
+It appears you don’t have a PDF plugin for this browser. No biggie… you can <a href="02_assets/02_DataWrangling.pdf">click here to download the PDF file.</a>
+</p>
+</object>
+</div>
+<p>
+<a href="02_assets/02_DataWrangling.pdf">Download the PDF of the presentation</a>
+</p>
 <p>This file is available as a <code>R</code> script <a href="02_DataWrangling.R">here</a></p>
 <div id="rstudio-shortcuts" class="section level1">
 <h1>RStudio Shortcuts</h1>
@@ -396,18 +397,8 @@ div.tocify {
 <div id="useful-packages-dplyr-and-tidyr" class="section level2">
 <h2>Useful packages: <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html"><code>dplyr</code></a> and <a href=""><code>tidyr</code></a></h2>
 <p><a href="https://www.rstudio.com/resources/cheatsheets/">Cheat sheets on website</a> for <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data Wrangling</a></p>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(tidyr)</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version
-## 3.2.3</code></pre>
+<pre class="r"><code>library(dplyr)
+library(tidyr)</code></pre>
 <p>Remember use <code>install.packages(&quot;dplyr&quot;)</code> to install a new package.</p>
 <div id="example-operations-from-here" class="section level3">
 <h3>Example operations from <a href="https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html">here</a></h3>
@@ -417,8 +408,6 @@ div.tocify {
 <h2>New York City Flights</h2>
 <p>Data from <a href="http://www.transtats.bts.gov/DatabaseInfo.asp?DB_ID=120&amp;Link=0">US Bureau of Transportation Statistics</a> (see <code>?nycflights13</code>)</p>
 <pre class="r"><code>library(nycflights13)</code></pre>
-<pre><code>## Warning: package &#39;nycflights13&#39; was built under R
-## version 3.2.5</code></pre>
 <p>Check out the <code>flights</code> object</p>
 <pre class="r"><code>head(flights)</code></pre>
 <pre><code>## Source: local data frame [6 x 19]
@@ -624,12 +613,12 @@ div.tocify {
 ##   time_hour (time)</code></pre>
 <p>Compare with <code>dplyr</code> method:</p>
 <pre class="r"><code>filter(flights, month == 1, day == 1)`</code></pre>
-</div>
-<div id="filter-excercise" class="section level2">
-<h2>Filter excercise</h2>
-<blockquote>
+<div class="well">
 <p>Filter the <code>flights</code> data set to keep only evening flights (<code>dep_time</code> after 1600) in June.</p>
-</blockquote>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
 <pre class="r"><code>filter(flights,dep_time&gt;1600,month==6)</code></pre>
 <pre><code>## Source: local data frame [10,117 x 19]
 ## 
@@ -652,6 +641,8 @@ div.tocify {
 ##   origin (chr), dest (chr), air_time (dbl),
 ##   distance (dbl), hour (dbl), minute (dbl),
 ##   time_hour (time)</code></pre>
+</div>
+</div>
 </div>
 <div id="other-boolean-expressions" class="section level2">
 <h2>Other <em>boolean</em> expressions</h2>
@@ -681,10 +672,10 @@ div.tocify {
 ##   time_hour (time)</code></pre>
 <div class="well">
 <p>Filter the <code>flights</code> data set to keep only ‘redeye’ flights where the departure time (<code>dep_time</code>) is “after” the arrival time (<code>arr_time</code>), indicating it arrived the next day:</p>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
 Show Solution
 </button>
-<div id="demo1" class="collapse">
+<div id="demo2" class="collapse">
 <p><br></p>
 <pre class="r"><code>filter(flights,dep_time&gt;arr_time)</code></pre>
 <pre><code>## Source: local data frame [10,633 x 19]
@@ -842,6 +833,13 @@ Show Solution
 <div id="chaining-operations" class="section level2">
 <h2>Chaining Operations</h2>
 <p>Performing multiple operations sequentially with a <em>pipe</em> character</p>
+<ol style="list-style-type: decimal">
+<li>Group by a variable</li>
+<li>Select some columns</li>
+<li>Summarize observations</li>
+<li>Filter by results</li>
+</ol>
+<p>With temporary objects:</p>
 <pre class="r"><code>a1 &lt;- group_by(flights, year, month, day)
 a2 &lt;- select(a1, arr_delay, dep_delay)
 a3 &lt;- summarise(a2,
@@ -978,10 +976,10 @@ Show Solution
 </div>
 <div class="well">
 <p>Which destination airport (<code>dest</code>) is the farthest (<code>distance</code>) from NYC?</p>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
 Show Solution
 </button>
-<div id="demo2" class="collapse">
+<div id="demo3" class="collapse">
 <pre class="r"><code>flights %&gt;% 
   arrange(desc(distance)) %&gt;% 
   select(dest,distance) %&gt;% 
@@ -1063,10 +1061,10 @@ Show Solution
 <li>Figure out which column connects the two tables.</li>
 <li>You may need to rename the column names before joining.</li>
 </ul>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
 Show Solution
 </button>
-<div id="demo3" class="collapse">
+<div id="demo4" class="collapse">
 <p><br></p>
 <pre class="r"><code>select(airports,
        dest=faa,
@@ -1087,45 +1085,14 @@ Show Solution
 </div>
 <div id="plot-the-flights-data" class="section level2">
 <h2>Plot the <code>flights</code> data</h2>
-<p>Join destination airports. First select and rename needed variables:</p>
-<pre class="r"><code>select(airports,dest=faa,destName=name,destLat=lat,destLon=lon)</code></pre>
-<pre><code>## Source: local data frame [1,396 x 4]
-## 
-##     dest                       destName  destLat
-##    (chr)                          (chr)    (dbl)
-## 1    04G              Lansdowne Airport 41.13047
-## 2    06A  Moton Field Municipal Airport 32.46057
-## 3    06C            Schaumburg Regional 41.98934
-## 4    06N                Randall Airport 41.43191
-## 5    09J          Jekyll Island Airport 31.07447
-## 6    0A9 Elizabethton Municipal Airport 36.37122
-## 7    0G6        Williams County Airport 41.46731
-## 8    0G7  Finger Lakes Regional Airport 42.88356
-## 9    0P2   Shoestring Aviation Airfield 39.79482
-## 10   0S9          Jefferson County Intl 48.05381
-## ..   ...                            ...      ...
-## Variables not shown: destLon (dbl)</code></pre>
-<pre class="r"><code>library(geosphere)</code></pre>
-<pre><code>## Warning: package &#39;geosphere&#39; was built under R
-## version 3.2.3</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre class="r"><code>library(maps)</code></pre>
-<pre><code>## Warning: package &#39;maps&#39; was built under R version
-## 3.2.3</code></pre>
-<pre><code>## 
-##  # maps v3.1: updated &#39;world&#39;: all lakes moved to separate new #
-##  # &#39;lakes&#39; database. Type &#39;?world&#39; or &#39;news(package=&quot;maps&quot;)&#39;.  #</code></pre>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R
-## version 3.2.4</code></pre>
-<pre class="r"><code>library(sp)
+<p>The section below shows some ‘advanced’ coding to extract the geographic locations for all flights and plotting. This is just meant as an example to illustrate how one might use these functions to perform a mini-analysis that results in a map.</p>
+<div id="join-destination-airports" class="section level3">
+<h3>Join destination airports</h3>
+<pre class="r"><code>library(geosphere)
+library(maps)
+library(ggplot2)
+library(sp)
 library(rgeos)</code></pre>
-<pre><code>## Warning: package &#39;rgeos&#39; was built under R version
-## 3.2.5</code></pre>
-<pre><code>## rgeos version: 0.3-19, (SVN revision 524)
-##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
-##  Linking to sp version: 1.1-1 
-##  Polygon checking: TRUE</code></pre>
 <pre class="r"><code>data=
   select(airports,
          dest=faa,
@@ -1145,7 +1112,7 @@ library(rgeos)</code></pre>
          distance)%&gt;%
   mutate(id=row_number())%&gt;%
   na.omit()</code></pre>
-<pre><code>## Joining by: &quot;dest&quot;</code></pre>
+<pre><code>## Joining, by = &quot;dest&quot;</code></pre>
 <pre class="r"><code>NYCll=airports%&gt;%filter(faa==&quot;JFK&quot;)%&gt;%select(lon,lat)  # get NYC coordinates
 
 # calculate great circle routes
@@ -1162,6 +1129,7 @@ rts.ff$id=as.integer(rts.ff$id)
 gcircles &lt;- left_join(rts.ff,
                       data,
                       by=&quot;id&quot;) # join attributes, we keep them all, just in case</code></pre>
+<p>Now build a basemap using data in the <code>maps</code> package.</p>
 <pre class="r"><code>base = ggplot()
 worldmap &lt;- map_data(&quot;world&quot;,
                      ylim = c(10, 70),
@@ -1173,9 +1141,9 @@ wrld &lt;- c(geom_polygon(
   fill = &quot;grey&quot;,
   alpha = 1,
   data = worldmap
-))
-
-base + wrld +
+))</code></pre>
+<p>Now draw the map using <code>ggplot</code></p>
+<pre class="r"><code>base + wrld +
   geom_path(
     data = gcircles,
     aes(
@@ -1195,7 +1163,8 @@ base + wrld +
   theme(panel.background = element_rect(fill = &#39;white&#39;, colour = &#39;white&#39;)) +
   labs(y = &quot;Latitude&quot;, x = &quot;Longitude&quot;,
        title = &quot;Count of Flights from New York in 2013&quot;)</code></pre>
-<p><img src="02_DataWrangling_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<p><img src="02_DataWrangling_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+</div>
 </div>
 <div id="colophon" class="section level2">
 <h2>Colophon</h2>
