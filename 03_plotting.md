@@ -2,12 +2,20 @@
 
 
 
-<div class="well">
-  This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script with documentation](03_plotting_codedoc.R) 
-  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
-</div>
-  
+<div>
+<object data="03_assets/03_plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+  <p>It appears you don't have a PDF plugin for this browser.
+   No biggie... you can <a href="03_plotting/03_plotting.pdf">click here to
+  download the PDF file.</a></p>  
+ </object>
+ </div>
+ <p><a href="03_assets/03_plotting.pdf">Download the PDF of the presentation</a></p>  
 
+
+[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](03_plotting.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+
+
+## Data
 In this module, we'll primarily use the `mtcars` data object.  The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
 
 A data frame with 32 observations on 11 variables.
@@ -159,8 +167,8 @@ summary(p)
 ```
 
 ```
-## data: mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
-##   [32x11]
+## data: mpg, cyl, disp, hp, drat, wt, qsec,
+##   vs, am, gear, carb [32x11]
 ## mapping:  x = wt, y = mpg
 ## faceting: facet_null()
 ```
@@ -423,20 +431,6 @@ Old Faithful Geyser Data on duration and waiting times.
 
 ```r
 library("MASS")
-```
-
-```
-## 
-## Attaching package: 'MASS'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     select
-```
-
-```r
 data(geyser)
 m <- ggplot(geyser, aes(x = duration, y = waiting))
 ```
@@ -798,10 +792,6 @@ Quickly change plot appearance with themes.
 
 ```r
 library(ggthemes)
-```
-
-```
-## Warning: package 'ggthemes' was built under R version 3.2.4
 ```
 
 Or build your own!

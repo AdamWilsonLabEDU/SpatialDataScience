@@ -66,9 +66,6 @@ h5 {
 h6 {
   font-size: 12px;
 }
-.table th:not([align]) {
-  text-align: left;
-}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -169,12 +166,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -183,7 +174,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: ".toc-ignore",
+      ignoreSelector: "h1.title, .toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -364,7 +355,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Course Schedule</h1>
+<h1 class="title">Course Schedule</h1>
 
 </div>
 

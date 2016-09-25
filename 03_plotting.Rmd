@@ -3,19 +3,29 @@ title: "Getting Graphic"
 subtitle: "Base graphics and `ggplot2`"
 ---
 
-```{r, echo=F, message=F, results="hide",purl=F}
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE} 
+## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
 input  = knitr::current_input()  # filename of input document
-output = paste(tools::file_path_sans_ext(input), '_codedoc.R', sep = '')
-knitr::purl(input,output,documentation=2,quiet=T)
-knitr::opts_chunk$set(cache=T,fig.width=7,fig.height=3,dpi=250)
+output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
+knitr::purl(input,output,documentation=1,quiet=T)
+knitr::opts_chunk$set(cache=T, warnings=F, messages=F)
+options(width=50)
 ```
 
-<div class="well">
-  This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script with documentation](`r output`) 
-  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
-</div>
-  
+<div>
+<object data="03_assets/03_plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+  <p>It appears you don't have a PDF plugin for this browser.
+   No biggie... you can <a href="03_plotting/03_plotting.pdf">click here to
+  download the PDF file.</a></p>  
+ </object>
+ </div>
+ <p><a href="03_assets/03_plotting.pdf">Download the PDF of the presentation</a></p>  
 
+
+[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+
+
+## Data
 In this module, we'll primarily use the `mtcars` data object.  The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
 
 A data frame with 32 observations on 11 variables.

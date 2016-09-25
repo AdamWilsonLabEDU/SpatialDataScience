@@ -66,9 +66,6 @@ h5 {
 h6 {
   font-size: 12px;
 }
-.table th:not([align]) {
-  text-align: left;
-}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -169,12 +166,6 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
     // establish options
     var options = {
       selectors: "h1,h2,h3",
@@ -183,7 +174,7 @@ $(document).ready(function ()  {
       hashGenerator: function (text) {
         return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
       },
-      ignoreSelector: ".toc-ignore",
+      ignoreSelector: "h1.title, .toc-ignore",
       scrollTo: 0
     };
     options.showAndHide = true;
@@ -364,15 +355,25 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Getting Graphic</h1>
+<h1 class="title">Getting Graphic</h1>
 <h3 class="subtitle"><em>Base graphics and <code>ggplot2</code></em></h3>
 
 </div>
 
 
-<div class="well">
-<p>This file is available as a <a href="03_plotting_codedoc.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script with documentation</a> Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<div>
+<object data="03_assets/03_plotting.pdf" type="application/pdf" width="100%" height="600px">
+<p>
+It appears you don’t have a PDF plugin for this browser. No biggie… you can <a href="03_plotting/03_plotting.pdf">click here to download the PDF file.</a>
+</p>
+</object>
 </div>
+<p>
+<a href="03_assets/03_plotting.pdf">Download the PDF of the presentation</a>
+</p>
+<p><a href="03_plotting.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<div id="data" class="section level2">
+<h2>Data</h2>
 <p>In this module, we’ll primarily use the <code>mtcars</code> data object. The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).</p>
 <p>A data frame with 32 observations on 11 variables.</p>
 <table>
@@ -537,6 +538,7 @@ kable(head(mtcars))</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
 <div id="base-graphics" class="section level1">
 <h1>Base graphics</h1>
 <div id="base-plot" class="section level2">
@@ -604,8 +606,8 @@ kable(head(mtcars))</code></pre>
 <p>First, create a <em>blank</em> ggplot object with the data and x-y geometry set up.</p>
 <pre class="r"><code>p &lt;- ggplot(mtcars, aes(x=wt, y=mpg))
 summary(p)</code></pre>
-<pre><code>## data: mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb
-##   [32x11]
+<pre><code>## data: mpg, cyl, disp, hp, drat, wt, qsec,
+##   vs, am, gear, carb [32x11]
 ## mapping:  x = wt, y = mpg
 ## faceting: facet_null()</code></pre>
 <pre class="r"><code>p</code></pre>
@@ -768,13 +770,8 @@ p + geom_point()</code></pre>
 <div id="d-kernel-density-estimation" class="section level3">
 <h3>2D kernel density estimation</h3>
 <p>Old Faithful Geyser Data on duration and waiting times.</p>
-<pre class="r"><code>library(&quot;MASS&quot;)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     select</code></pre>
-<pre class="r"><code>data(geyser)
+<pre class="r"><code>library(&quot;MASS&quot;)
+data(geyser)
 m &lt;- ggplot(geyser, aes(x = duration, y = waiting))</code></pre>
 <p><img src="03_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small><a href="https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg">photo: Greg Willis</a></small></p>
 <p>See <code>?geyser</code> for details.</p>
@@ -971,7 +968,6 @@ sp</code></pre>
 <div id="more-options-in-the-ggthemes-package." class="section level3">
 <h3>More options in the <code>ggthemes</code> package.</h3>
 <pre class="r"><code>library(ggthemes)</code></pre>
-<pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 3.2.4</code></pre>
 <p>Or build your own!</p>
 </div>
 <div id="theme-examples-default" class="section level3">
