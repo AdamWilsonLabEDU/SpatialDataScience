@@ -13,13 +13,13 @@ options(width=50)
 ```
 
 <div>
-<object data="03_assets/03_plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+<object data="03_assets/03_Plotting.pdf" type="application/pdf" width="100%" height="600px"> 
   <p>It appears you don't have a PDF plugin for this browser.
-   No biggie... you can <a href="03_plotting/03_plotting.pdf">click here to
+   No biggie... you can <a href="03_assets/03_Plotting.pdf">click here to
   download the PDF file.</a></p>  
  </object>
  </div>
- <p><a href="03_assets/03_plotting.pdf">Download the PDF of the presentation</a></p>  
+ <p><a href="03_assets/03_Plotting.pdf">Download the PDF of the presentation</a></p>  
 
 
 [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  

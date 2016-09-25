@@ -3,16 +3,16 @@
 
 
 <div>
-<object data="03_assets/03_plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+<object data="03_assets/03_Plotting.pdf" type="application/pdf" width="100%" height="600px"> 
   <p>It appears you don't have a PDF plugin for this browser.
-   No biggie... you can <a href="03_plotting/03_plotting.pdf">click here to
+   No biggie... you can <a href="03_assets/03_Plotting.pdf">click here to
   download the PDF file.</a></p>  
  </object>
  </div>
- <p><a href="03_assets/03_plotting.pdf">Download the PDF of the presentation</a></p>  
+ <p><a href="03_assets/03_Plotting.pdf">Download the PDF of the presentation</a></p>  
 
 
-[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](03_plotting.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](03_Plotting.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 
 
 ## Data
@@ -65,7 +65,7 @@ R has a set of 'base graphics' that can do many plotting tasks (scatterplots, li
 plot(y=mtcars$mpg,x=mtcars$wt)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 Or you can use the more common *formula* notation:
 
@@ -74,7 +74,7 @@ Or you can use the more common *formula* notation:
 plot(mpg~wt,data=mtcars)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 And you can customize with various parameters:
 
@@ -88,7 +88,7 @@ plot(mpg~wt,data=mtcars,
   )
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 
 Or switch to a line plot:
@@ -104,7 +104,7 @@ plot(mpg~wt,data=mtcars,
   )
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
 See `?plot` for details.
@@ -124,7 +124,7 @@ Plot a histogram of the fuel efficiencies in the `mtcars` dataset.
 hist(mtcars$mpg)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 
 # [`ggplot2`](http://ggplot2.org)
@@ -177,7 +177,7 @@ summary(p)
 p
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 
 
@@ -185,7 +185,7 @@ p
 p + geom_point()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 Or you can do both at the same time:
 
@@ -194,7 +194,7 @@ ggplot(mtcars, aes(x=wt, y=mpg)) +
   geom_point()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 
 ### Aesthetic map: color by # of cylinders
@@ -205,7 +205,7 @@ p +
   geom_point(aes(colour = factor(cyl)))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 ### Set shape using # of cylinders 
 
@@ -214,7 +214,7 @@ p +
   geom_point(aes(shape = factor(cyl)))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 ### Adjust size by `qsec` 
 
@@ -223,7 +223,7 @@ p +
   geom_point(aes(size = qsec))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ### Color by cylinders and size by `qsec` 
 
@@ -232,7 +232,7 @@ p +
   geom_point(aes(colour = factor(cyl),size = qsec))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ### Multiple aesthetics
 
@@ -241,7 +241,7 @@ p +
   geom_point(aes(colour = factor(cyl),size = qsec,shape=factor(gear)))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ### Add a linear model
 
@@ -250,7 +250,7 @@ p + geom_point() +
   geom_smooth(method="lm")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 ### Add a LOESS smooth
 
@@ -259,7 +259,7 @@ p + geom_point() +
   geom_smooth(method="loess")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 
 ### Change scale color
@@ -270,7 +270,7 @@ p + geom_point(aes(colour = cyl)) +
   scale_colour_gradient(low = "blue")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 ### Change scale shapes
 
@@ -280,7 +280,7 @@ p + geom_point(aes(shape = factor(cyl))) +
   scale_shape(solid = FALSE)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 ### Set aesthetics to fixed value
 
@@ -289,7 +289,7 @@ ggplot(mtcars, aes(wt, mpg)) +
   geom_point(colour = "red", size = 3)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 ### Transparancy: alpha=0.2
 
@@ -298,7 +298,7 @@ d <- ggplot(diamonds, aes(carat, price))
 d + geom_point(alpha = 0.2)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 Varying alpha useful for large data sets
 
@@ -310,7 +310,7 @@ d +
   geom_point(alpha = 0.1)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 ### Transparancy: alpha=0.01
 
@@ -320,7 +320,7 @@ d +
   geom_point(alpha = 0.01)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 
 ## Building ggplots
@@ -354,7 +354,7 @@ p+
   geom_rug()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
 </div>
 </div>
 
@@ -375,7 +375,7 @@ p <- ggplot(mtcars, aes(factor(cyl), mpg))
 p + geom_point()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 ### Discrete X, Continuous Y + geom_jitter()
 
@@ -385,7 +385,7 @@ p +
   geom_jitter()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
 ### Discrete X, Continuous Y + geom_violin()
 
@@ -395,7 +395,7 @@ p +
   geom_violin()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
 ### Discrete X, Continuous Y + geom_violin()
 
@@ -405,7 +405,7 @@ p +
   geom_violin() + geom_jitter(position = position_jitter(width = .1))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
 
 <img src="03_assets/ggplot06.png" alt="alt text" width="100%">
 
@@ -445,7 +445,7 @@ m +
   geom_point()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
 
 
 ```r
@@ -453,7 +453,7 @@ m +
   geom_point() +  stat_density2d(geom="contour")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
 
 Check `?geom_density2d()` for details
 
@@ -464,7 +464,7 @@ m +
   xlim(0.5, 6) + ylim(40, 110)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 Update limits to show full contours.  Check `?geom_density2d()` for details
 
@@ -477,7 +477,7 @@ m + stat_density2d(aes(fill = ..level..), geom="polygon") +
   geom_point(col="red")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
 
 Check `?geom_density2d()` for details
 
@@ -511,7 +511,7 @@ m + stat_binhex(bins=10) +
   geom_point(col="red")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
 </div>
 </div>
@@ -531,7 +531,7 @@ b=ggplot(mpg,aes(fl))+
   geom_bar( aes(fill = fl)); b
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 
 
@@ -544,7 +544,7 @@ b + scale_fill_grey( start = 0.2, end = 0.8,
                    na.value = "red")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
 
 
 
@@ -556,7 +556,7 @@ a <- ggplot(mpg, aes(x=hwy,y=cty,col=displ)) +
   geom_point(); a
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
 
 
 
@@ -568,7 +568,7 @@ a +  scale_color_gradient( low = "red",
                           high = "yellow")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
 
 
@@ -580,7 +580,7 @@ a + scale_color_gradient2(low = "red", high = "blue",
                        mid = "white", midpoint = 4)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
 
 
 
@@ -592,7 +592,7 @@ a + scale_color_gradientn(
   colours = rainbow(10))
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
 
 
 
@@ -604,7 +604,7 @@ b +
   scale_fill_brewer( palette = "Blues")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-42-1.png)<!-- -->
 
 ## [colorbrewer2.org](http://colorbrewer2.org)
 
@@ -654,7 +654,7 @@ m + stat_density2d(aes(fill = ..level..), geom="polygon") +
   ylab("Waiting time (minutes)")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
 
 Or use `geom=tile` for a raster representation.
 
@@ -669,7 +669,7 @@ m + stat_density2d(aes(fill = ..density..), geom="tile",contour=F) +
   ylab("Waiting time (minutes)")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
 
 
 </div>
@@ -700,7 +700,7 @@ sp <- ggplot(dat, aes(xval, yval)) + geom_point()
 sp
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 <small> Example from [R Cookbook](http://www.cookbook-r.com/Graphs/Axes_(ggplot2)/) </small>
 
@@ -713,7 +713,7 @@ log10 scaling of the y axis (with visually-equal spacing)
 sp + scale_y_log10()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
 ## Coordinate Systems
 
@@ -733,7 +733,7 @@ sp + scale_y_log10()
 ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 
 
@@ -745,7 +745,7 @@ ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
 ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
 
 
 # Facets
@@ -761,7 +761,7 @@ ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
   facet_wrap(~year)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
 
 
 
@@ -774,7 +774,7 @@ ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
   facet_grid(year~cyl)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
 
 *Small multiples* (via facets) are very useful for visualization of timeseries (and especially timeseries of spatial data.)
 
@@ -818,7 +818,7 @@ p=ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
 p
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-54-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-54-1.png)<!-- -->
 
  
 
@@ -828,7 +828,7 @@ p
 p + theme_solarized()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-55-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-55-1.png)<!-- -->
 
  
 
@@ -838,7 +838,7 @@ p + theme_solarized()
 p +  theme_solarized(light=FALSE)
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-56-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-56-1.png)<!-- -->
 
  
 
@@ -848,7 +848,7 @@ p +  theme_solarized(light=FALSE)
 p + theme_excel() 
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-57-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-57-1.png)<!-- -->
 
  
 
@@ -858,7 +858,7 @@ p + theme_excel()
 p + theme_economist()
 ```
 
-![](03_plotting_files/figure-html/unnamed-chunk-58-1.png)<!-- -->
+![](03_Plotting_files/figure-html/unnamed-chunk-58-1.png)<!-- -->
 
 
 # Saving/exporting
