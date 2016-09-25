@@ -19,7 +19,7 @@ left:
       - text: "02 Data Wrangling"
         href: 02_DataWrangling.html
       - text: "03 Plotting"
-        href: 03_Plotting.html
+        href: 03_plotting.html
       - text: "-----------------"
       - text: "Module 2: Spatial Analyses"
       - text: "Spatial Data"
