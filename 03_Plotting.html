@@ -770,8 +770,16 @@ p + geom_point()</code></pre>
 <div id="d-kernel-density-estimation" class="section level3">
 <h3>2D kernel density estimation</h3>
 <p>Old Faithful Geyser Data on duration and waiting times.</p>
-<pre class="r"><code>library(&quot;MASS&quot;)
-data(geyser)
+<pre class="r"><code>library(&quot;MASS&quot;)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:raster&#39;:
+## 
+##     area, select</code></pre>
+<pre class="r"><code>data(geyser)
 m &lt;- ggplot(geyser, aes(x = duration, y = waiting))</code></pre>
 <p><img src="03_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small><a href="https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg">photo: Greg Willis</a></small></p>
 <p>See <code>?geyser</code> for details.</p>

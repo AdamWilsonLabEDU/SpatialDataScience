@@ -11,10 +11,27 @@
 ```r
 library(sp)
 library(rgdal)
+```
+
+```
+## rgdal: version: 1.1-10, (SVN revision 622)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal
+##  Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj
+##  Linking to sp version: 1.2-3
+```
+
+```r
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(maptools)
+```
+
+```
+## Checking rgeos availability: TRUE
 ```
 
 # Point data
@@ -156,12 +173,14 @@ subset(spdf, group=="a")
 ```
 
 ```
-##                 coordinates ID group
-## 1  (-0.775517, -0.01594804)  1     a
-## 21   (0.3812662, -2.206719) 21     a
-## 41  (0.7711842, 0.02331766) 41     a
-## 61 (-0.01874341, -2.460687) 61     a
-## 81    (1.043132, 0.8615845) 81     a
+## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -0.775517, 1.043132, -2.460687, 0.8615845  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a
 ```
 
 Or using `[]`
@@ -171,12 +190,14 @@ spdf[spdf$group=="a",]
 ```
 
 ```
-##                 coordinates ID group
-## 1  (-0.775517, -0.01594804)  1     a
-## 21   (0.3812662, -2.206719) 21     a
-## 41  (0.7711842, 0.02331766) 41     a
-## 61 (-0.01874341, -2.460687) 61     a
-## 81    (1.043132, 0.8615845) 81     a
+## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -0.775517, 1.043132, -2.460687, 0.8615845  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a
 ```
 
 Unfortunately, `dplyr` functions do not directly filter spatial objects.

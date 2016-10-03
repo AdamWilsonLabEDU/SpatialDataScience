@@ -17,4 +17,4 @@ The presentation must include:
 
 There will not be time to actually run any code *on-the-fly* during your presentation.  Instead, copy the code and output into a presentation (powerpoint, etc.) so that you can simply display it.  See an [example presentation here](assets/PackagePresentation.pptx).
 
-To select a package, I recommend starting with the [views on CRAN](INSERT LINK) for a topic of interest.
+To select a package, I recommend starting with the [views on CRAN](https://cran.r-project.org/web/views/) for a topic of interest.

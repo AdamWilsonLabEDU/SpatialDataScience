@@ -366,11 +366,19 @@ div.tocify {
 <div id="load-packages" class="section level2">
 <h2>Load packages</h2>
 <pre class="r"><code>library(sp)
-library(rgdal)
-library(ggplot2)
+library(rgdal)</code></pre>
+<pre><code>## rgdal: version: 1.1-10, (SVN revision 622)
+##  Geospatial Data Abstraction Library extensions to R successfully loaded
+##  Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
+##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/gdal
+##  Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
+##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj
+##  Linking to sp version: 1.2-3</code></pre>
+<pre class="r"><code>library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(maptools)</code></pre>
+<pre><code>## Checking rgeos availability: TRUE</code></pre>
 </div>
 </div>
 <div id="point-data" class="section level1">
@@ -461,20 +469,24 @@ str(spdf)</code></pre>
 <div id="subset-data" class="section level2">
 <h2>Subset data</h2>
 <pre class="r"><code>subset(spdf, group==&quot;a&quot;)</code></pre>
-<pre><code>##                 coordinates ID group
-## 1  (-0.775517, -0.01594804)  1     a
-## 21   (0.3812662, -2.206719) 21     a
-## 41  (0.7711842, 0.02331766) 41     a
-## 61 (-0.01874341, -2.460687) 61     a
-## 81    (1.043132, 0.8615845) 81     a</code></pre>
+<pre><code>## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -0.775517, 1.043132, -2.460687, 0.8615845  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a</code></pre>
 <p>Or using <code>[]</code></p>
 <pre class="r"><code>spdf[spdf$group==&quot;a&quot;,]</code></pre>
-<pre><code>##                 coordinates ID group
-## 1  (-0.775517, -0.01594804)  1     a
-## 21   (0.3812662, -2.206719) 21     a
-## 41  (0.7711842, 0.02331766) 41     a
-## 61 (-0.01874341, -2.460687) 61     a
-## 81    (1.043132, 0.8615845) 81     a</code></pre>
+<pre><code>## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -0.775517, 1.043132, -2.460687, 0.8615845  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a</code></pre>
 <p>Unfortunately, <code>dplyr</code> functions do not directly filter spatial objects.</p>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>

@@ -55,22 +55,21 @@ head(flights)
 ```
 
 ```
-## Source: local data frame [6 x 19]
-## 
+## # A tibble: 6 × 19
 ##    year month   day dep_time sched_dep_time
-##   (int) (int) (int)    (int)          (int)
+##   <int> <int> <int>    <int>          <int>
 ## 1  2013     1     1      517            515
 ## 2  2013     1     1      533            529
 ## 3  2013     1     1      542            540
 ## 4  2013     1     1      544            545
 ## 5  2013     1     1      554            600
 ## 6  2013     1     1      554            558
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 14 more variables: dep_delay <dbl>,
+## #   arr_time <int>, sched_arr_time <int>,
+## #   arr_delay <dbl>, carrier <chr>, flight <int>,
+## #   tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>,
+## #   minute <dbl>, time_hour <dttm>
 ```
 
 ### Object _Structure_
@@ -83,25 +82,25 @@ glimpse(flights)
 ```
 ## Observations: 336,776
 ## Variables: 19
-## $ year           (int) 2013, 2013, 2013, 2013...
-## $ month          (int) 1, 1, 1, 1, 1, 1, 1, 1...
-## $ day            (int) 1, 1, 1, 1, 1, 1, 1, 1...
-## $ dep_time       (int) 517, 533, 542, 544, 55...
-## $ sched_dep_time (int) 515, 529, 540, 545, 60...
-## $ dep_delay      (dbl) 2, 4, 2, -1, -6, -4, -...
-## $ arr_time       (int) 830, 850, 923, 1004, 8...
-## $ sched_arr_time (int) 819, 830, 850, 1022, 8...
-## $ arr_delay      (dbl) 11, 20, 33, -18, -25, ...
-## $ carrier        (chr) "UA", "UA", "AA", "B6"...
-## $ flight         (int) 1545, 1714, 1141, 725,...
-## $ tailnum        (chr) "N14228", "N24211", "N...
-## $ origin         (chr) "EWR", "LGA", "JFK", "...
-## $ dest           (chr) "IAH", "IAH", "MIA", "...
-## $ air_time       (dbl) 227, 227, 160, 183, 11...
-## $ distance       (dbl) 1400, 1416, 1089, 1576...
-## $ hour           (dbl) 5, 5, 5, 5, 6, 5, 6, 6...
-## $ minute         (dbl) 15, 29, 40, 45, 0, 58,...
-## $ time_hour      (time) 2013-01-01 05:00:00, ...
+## $ year           <int> 2013, 2013, 2013, 2013...
+## $ month          <int> 1, 1, 1, 1, 1, 1, 1, 1...
+## $ day            <int> 1, 1, 1, 1, 1, 1, 1, 1...
+## $ dep_time       <int> 517, 533, 542, 544, 55...
+## $ sched_dep_time <int> 515, 529, 540, 545, 60...
+## $ dep_delay      <dbl> 2, 4, 2, -1, -6, -4, -...
+## $ arr_time       <int> 830, 850, 923, 1004, 8...
+## $ sched_arr_time <int> 819, 830, 850, 1022, 8...
+## $ arr_delay      <dbl> 11, 20, 33, -18, -25, ...
+## $ carrier        <chr> "UA", "UA", "AA", "B6"...
+## $ flight         <int> 1545, 1714, 1141, 725,...
+## $ tailnum        <chr> "N14228", "N24211", "N...
+## $ origin         <chr> "EWR", "LGA", "JFK", "...
+## $ dest           <chr> "IAH", "IAH", "MIA", "...
+## $ air_time       <dbl> 227, 227, 160, 183, 11...
+## $ distance       <dbl> 1400, 1416, 1089, 1576...
+## $ hour           <dbl> 5, 5, 5, 5, 6, 5, 6, 6...
+## $ minute         <dbl> 15, 29, 40, 45, 0, 58,...
+## $ time_hour      <dttm> 2013-01-01 05:00:00, ...
 ```
 
 # `dplyr` "verbs"
@@ -134,10 +133,9 @@ select(flights,year, month, day)
 ```
 
 ```
-## Source: local data frame [336,776 x 3]
-## 
+## # A tibble: 336,776 × 3
 ##     year month   day
-##    (int) (int) (int)
+##    <int> <int> <int>
 ## 1   2013     1     1
 ## 2   2013     1     1
 ## 3   2013     1     1
@@ -148,7 +146,7 @@ select(flights,year, month, day)
 ## 8   2013     1     1
 ## 9   2013     1     1
 ## 10  2013     1     1
-## ..   ...   ...   ...
+## # ... with 336,766 more rows
 ```
 
 ### `select()` examples
@@ -160,10 +158,9 @@ select(flights,-tailnum)
 ```
 
 ```
-## Source: local data frame [336,776 x 18]
-## 
+## # A tibble: 336,776 × 18
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -174,12 +171,12 @@ select(flights,-tailnum)
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), origin (chr), dest
-##   (chr), air_time (dbl), distance (dbl), hour
-##   (dbl), minute (dbl), time_hour (time)
+## # ... with 336,766 more rows, and 13 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, origin <chr>,
+## #   dest <chr>, air_time <dbl>, distance <dbl>,
+## #   hour <dbl>, minute <dbl>, time_hour <dttm>
 ```
 
 Select all columns containing the string `"time"`:
@@ -189,10 +186,9 @@ select(flights,contains("time"))
 ```
 
 ```
-## Source: local data frame [336,776 x 6]
-## 
+## # A tibble: 336,776 × 6
 ##    dep_time sched_dep_time arr_time
-##       (int)          (int)    (int)
+##       <int>          <int>    <int>
 ## 1       517            515      830
 ## 2       533            529      850
 ## 3       542            540      923
@@ -203,9 +199,9 @@ select(flights,contains("time"))
 ## 8       557            600      709
 ## 9       557            600      838
 ## 10      558            600      753
-## ..      ...            ...      ...
-## Variables not shown: sched_arr_time (int),
-##   air_time (dbl), time_hour (time)
+## # ... with 336,766 more rows, and 3 more
+## #   variables: sched_arr_time <int>,
+## #   air_time <dbl>, time_hour <dttm>
 ```
 
 You can also rename columns with `select()`
@@ -215,10 +211,9 @@ select(flights,year,carrier,destination=dest)
 ```
 
 ```
-## Source: local data frame [336,776 x 3]
-## 
+## # A tibble: 336,776 × 3
 ##     year carrier destination
-##    (int)   (chr)       (chr)
+##    <int>   <chr>       <chr>
 ## 1   2013      UA         IAH
 ## 2   2013      UA         IAH
 ## 3   2013      AA         MIA
@@ -229,7 +224,7 @@ select(flights,year,carrier,destination=dest)
 ## 8   2013      EV         IAD
 ## 9   2013      B6         MCO
 ## 10  2013      AA         ORD
-## ..   ...     ...         ...
+## # ... with 336,766 more rows
 ```
 
 ## `filter()` observations
@@ -242,10 +237,9 @@ filter(flights, month == 1, day == 1)
 ```
 
 ```
-## Source: local data frame [842 x 19]
-## 
+## # A tibble: 842 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -256,13 +250,13 @@ filter(flights, month == 1, day == 1)
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 832 more rows, and 14 more variables:
+## #   dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 
 
@@ -275,10 +269,9 @@ flights[flights$month == 1 & flights$day == 1, ]
 ```
 
 ```
-## Source: local data frame [842 x 19]
-## 
+## # A tibble: 842 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -289,13 +282,13 @@ flights[flights$month == 1 & flights$day == 1, ]
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 832 more rows, and 14 more variables:
+## #   dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 
 Compare with `dplyr` method: 
@@ -317,10 +310,9 @@ filter(flights,dep_time>1600,month==6)
 ```
 
 ```
-## Source: local data frame [10,117 x 19]
-## 
+## # A tibble: 10,117 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     6     1     1602           1505
 ## 2   2013     6     1     1602           1605
 ## 3   2013     6     1     1602           1610
@@ -331,13 +323,13 @@ filter(flights,dep_time>1600,month==6)
 ## 8   2013     6     1     1605           1614
 ## 9   2013     6     1     1608           1600
 ## 10  2013     6     1     1609           1615
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 10,107 more rows, and 14 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 </div>
 </div>
@@ -354,10 +346,9 @@ filter(flights, month == 1 | month == 2)
 ```
 
 ```
-## Source: local data frame [51,955 x 19]
-## 
+## # A tibble: 51,955 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -368,13 +359,13 @@ filter(flights, month == 1 | month == 2)
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 51,945 more rows, and 14 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 
 <div class="well">
@@ -390,10 +381,9 @@ filter(flights,dep_time>arr_time)
 ```
 
 ```
-## Source: local data frame [10,633 x 19]
-## 
+## # A tibble: 10,633 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1     1929           1920
 ## 2   2013     1     1     1939           1840
 ## 3   2013     1     1     2058           2100
@@ -404,13 +394,13 @@ filter(flights,dep_time>arr_time)
 ## 8   2013     1     1     2128           2135
 ## 9   2013     1     1     2134           2045
 ## 10  2013     1     1     2136           2145
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 10,623 more rows, and 14 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 </div>
 </div>
@@ -424,10 +414,9 @@ slice(flights, 1:10)
 ```
 
 ```
-## Source: local data frame [10 x 19]
-## 
+## # A tibble: 10 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -438,12 +427,12 @@ slice(flights, 1:10)
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 14 more variables: dep_delay <dbl>,
+## #   arr_time <int>, sched_arr_time <int>,
+## #   arr_delay <dbl>, carrier <chr>, flight <int>,
+## #   tailnum <chr>, origin <chr>, dest <chr>,
+## #   air_time <dbl>, distance <dbl>, hour <dbl>,
+## #   minute <dbl>, time_hour <dttm>
 ```
 
 
@@ -457,10 +446,9 @@ arrange(flights, year, month, day)
 ```
 
 ```
-## Source: local data frame [336,776 x 19]
-## 
+## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     1      517            515
 ## 2   2013     1     1      533            529
 ## 3   2013     1     1      542            540
@@ -471,13 +459,13 @@ arrange(flights, year, month, day)
 ## 8   2013     1     1      557            600
 ## 9   2013     1     1      557            600
 ## 10  2013     1     1      558            600
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 336,766 more rows, and 14 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 
 _Base_ R method:
@@ -495,10 +483,9 @@ arrange(flights, desc(arr_delay))
 ```
 
 ```
-## Source: local data frame [336,776 x 19]
-## 
+## # A tibble: 336,776 × 19
 ##     year month   day dep_time sched_dep_time
-##    (int) (int) (int)    (int)          (int)
+##    <int> <int> <int>    <int>          <int>
 ## 1   2013     1     9      641            900
 ## 2   2013     6    15     1432           1935
 ## 3   2013     1    10     1121           1635
@@ -509,13 +496,13 @@ arrange(flights, desc(arr_delay))
 ## 8   2013     7    22     2257            759
 ## 9   2013    12     5      756           1700
 ## 10  2013     5     3     1133           2055
-## ..   ...   ...   ...      ...            ...
-## Variables not shown: dep_delay (dbl), arr_time
-##   (int), sched_arr_time (int), arr_delay (dbl),
-##   carrier (chr), flight (int), tailnum (chr),
-##   origin (chr), dest (chr), air_time (dbl),
-##   distance (dbl), hour (dbl), minute (dbl),
-##   time_hour (time)
+## # ... with 336,766 more rows, and 14 more
+## #   variables: dep_delay <dbl>, arr_time <int>,
+## #   sched_arr_time <int>, arr_delay <dbl>,
+## #   carrier <chr>, flight <int>, tailnum <chr>,
+## #   origin <chr>, dest <chr>, air_time <dbl>,
+## #   distance <dbl>, hour <dbl>, minute <dbl>,
+## #   time_hour <dttm>
 ```
 
 _Base_ R method:
@@ -536,10 +523,9 @@ distinct(
 ```
 
 ```
-## Source: local data frame [16 x 1]
-## 
+## # A tibble: 16 × 1
 ##    carrier
-##      (chr)
+##      <chr>
 ## 1       UA
 ## 2       AA
 ## 3       B6
@@ -574,10 +560,9 @@ select(
 ```
 
 ```
-## Source: local data frame [336,776 x 3]
-## 
+## # A tibble: 336,776 × 3
 ##    distance air_time ave_speed
-##       (dbl)    (dbl)     (dbl)
+##       <dbl>    <dbl>     <dbl>
 ## 1      1400      227  370.0441
 ## 2      1416      227  374.2731
 ## 3      1089      160  408.3750
@@ -588,7 +573,7 @@ select(
 ## 8       229       53  259.2453
 ## 9       944      140  404.5714
 ## 10      733      138  318.6957
-## ..      ...      ...       ...
+## # ... with 336,766 more rows
 ```
 
 
@@ -607,6 +592,13 @@ With temporary objects:
 ```r
 a1 <- group_by(flights, year, month, day)
 a2 <- select(a1, arr_delay, dep_delay)
+```
+
+```
+## Adding missing grouping variables: `year`, `month`, `day`
+```
+
+```r
 a3 <- summarise(a2,
                 arr = mean(arr_delay, na.rm = TRUE),
                 dep = mean(dep_delay, na.rm = TRUE))
@@ -619,7 +611,7 @@ head(a4)
 ## Groups: year, month [3]
 ## 
 ##    year month   day      arr      dep
-##   (int) (int) (int)    (dbl)    (dbl)
+##   <int> <int> <int>    <dbl>    <dbl>
 ## 1  2013     1    16 34.24736 24.61287
 ## 2  2013     1    31 32.60285 28.65836
 ## 3  2013     2    11 36.29009 39.07360
@@ -646,11 +638,15 @@ filter(
 ```
 
 ```
+## Adding missing grouping variables: `year`, `month`, `day`
+```
+
+```
 ## Source: local data frame [49 x 5]
 ## Groups: year, month [11]
 ## 
 ##     year month   day      arr      dep
-##    (int) (int) (int)    (dbl)    (dbl)
+##    <int> <int> <int>    <dbl>    <dbl>
 ## 1   2013     1    16 34.24736 24.61287
 ## 2   2013     1    31 32.60285 28.65836
 ## 3   2013     2    11 36.29009 39.07360
@@ -661,7 +657,7 @@ filter(
 ## 8   2013     4    12 36.04814 34.83843
 ## 9   2013     4    18 36.02848 34.91536
 ## 10  2013     4    19 47.91170 46.12783
-## ..   ...   ...   ...      ...      ...
+## # ... with 39 more rows
 ```
 
 Arguments are distant from function -> difficult to read!  
@@ -688,11 +684,15 @@ flights %>%
 ```
 
 ```
+## Adding missing grouping variables: `year`, `month`, `day`
+```
+
+```
 ## Source: local data frame [49 x 5]
 ## Groups: year, month [11]
 ## 
 ##     year month   day      arr      dep
-##    (int) (int) (int)    (dbl)    (dbl)
+##    <int> <int> <int>    <dbl>    <dbl>
 ## 1   2013     1    16 34.24736 24.61287
 ## 2   2013     1    31 32.60285 28.65836
 ## 3   2013     2    11 36.29009 39.07360
@@ -703,7 +703,7 @@ flights %>%
 ## 8   2013     4    12 36.04814 34.83843
 ## 9   2013     4    18 36.02848 34.91536
 ## 10  2013     4    19 47.91170 46.12783
-## ..   ...   ...   ...      ...      ...
+## # ... with 39 more rows
 ```
 
 
@@ -718,10 +718,9 @@ flights %>%
 ```
 
 ```
-## Source: local data frame [3 x 2]
-## 
+## # A tibble: 3 × 2
 ##   origin meanDelay
-##    (chr)     (dbl)
+##    <chr>     <dbl>
 ## 1    EWR  15.10795
 ## 2    JFK  12.11216
 ## 3    LGA  10.34688
@@ -738,10 +737,9 @@ flights %>%
 ```
 
 ```
-## Source: local data frame [16 x 3]
-## 
+## # A tibble: 16 × 3
 ##    carrier meanDelay  sdDelay
-##      (chr)     (dbl)    (dbl)
+##      <chr>     <dbl>    <dbl>
 ## 1       9E 16.725769 45.90604
 ## 2       AA  8.586016 37.35486
 ## 3       AS  5.804775 31.36303
@@ -776,10 +774,9 @@ flights %>%
 ```
 
 ```
-## Source: local data frame [3 x 2]
-## 
+## # A tibble: 3 × 2
 ##   origin  meanDist
-##    (chr)     (dbl)
+##    <chr>     <dbl>
 ## 1    EWR 1056.7428
 ## 2    JFK 1266.2491
 ## 3    LGA  779.8357
@@ -803,10 +800,9 @@ flights %>%
 ```
 
 ```
-## Source: local data frame [1 x 2]
-## 
+## # A tibble: 1 × 2
 ##    dest distance
-##   (chr)    (dbl)
+##   <chr>    <dbl>
 ## 1   HNL     4983
 ```
 
@@ -864,18 +860,18 @@ flights%>%
 ```
 ## Observations: 336,776
 ## Variables: 12
-## $ sched_dep_time (int) 515, 529, 540, 545, 60...
-## $ arr_time       (int) 830, 850, 923, 1004, 8...
-## $ sched_arr_time (int) 819, 830, 850, 1022, 8...
-## $ arr_delay      (dbl) 11, 20, 33, -18, -25, ...
-## $ carrier        (chr) "UA", "UA", "AA", "B6"...
-## $ flight         (int) 1545, 1714, 1141, 725,...
-## $ tailnum        (chr) "N14228", "N24211", "N...
-## $ origin         (chr) "EWR", "LGA", "JFK", "...
-## $ dest           (chr) "IAH", "IAH", "MIA", "...
-## $ air_time       (dbl) 227, 227, 160, 183, 11...
-## $ distance       (dbl) 1400, 1416, 1089, 1576...
-## $ time_hour      (time) 2013-01-01 05:00:00, ...
+## $ sched_dep_time <int> 515, 529, 540, 545, 60...
+## $ arr_time       <int> 830, 850, 923, 1004, 8...
+## $ sched_arr_time <int> 819, 830, 850, 1022, 8...
+## $ arr_delay      <dbl> 11, 20, 33, -18, -25, ...
+## $ carrier        <chr> "UA", "UA", "AA", "B6"...
+## $ flight         <int> 1545, 1714, 1141, 725,...
+## $ tailnum        <chr> "N14228", "N24211", "N...
+## $ origin         <chr> "EWR", "LGA", "JFK", "...
+## $ dest           <chr> "IAH", "IAH", "MIA", "...
+## $ air_time       <dbl> 227, 227, 160, 183, 11...
+## $ distance       <dbl> 1400, 1416, 1089, 1576...
+## $ time_hour      <dttm> 2013-01-01 05:00:00, ...
 ```
 
 Let's look at the `airports` data table (`?airports` for documentation):
@@ -887,13 +883,13 @@ glimpse(airports)
 ```
 ## Observations: 1,396
 ## Variables: 7
-## $ faa  (chr) "04G", "06A", "06C", "06N", "09J...
-## $ name (chr) "Lansdowne Airport", "Moton Fiel...
-## $ lat  (dbl) 41.13047, 32.46057, 41.98934, 41...
-## $ lon  (dbl) -80.61958, -85.68003, -88.10124,...
-## $ alt  (int) 1044, 264, 801, 523, 11, 1593, 7...
-## $ tz   (dbl) -5, -5, -6, -5, -4, -4, -5, -5, ...
-## $ dst  (chr) "A", "A", "A", "A", "A", "A", "A...
+## $ faa  <chr> "04G", "06A", "06C", "06N", "09J...
+## $ name <chr> "Lansdowne Airport", "Moton Fiel...
+## $ lat  <dbl> 41.13047, 32.46057, 41.98934, 41...
+## $ lon  <dbl> -80.61958, -85.68003, -88.10124,...
+## $ alt  <int> 1044, 264, 801, 523, 11, 1593, 7...
+## $ tz   <dbl> -5, -5, -6, -5, -4, -4, -5, -5, ...
+## $ dst  <chr> "A", "A", "A", "A", "A", "A", "A...
 ```
 
 
@@ -919,14 +915,13 @@ select(airports,
 ```
 
 ```
-## Joining by: "dest"
+## Joining, by = "dest"
 ```
 
 ```
-## Source: local data frame [1 x 1]
-## 
+## # A tibble: 1 × 1
 ##        destName
-##           (chr)
+##           <chr>
 ## 1 Honolulu Intl
 ```
 </div>
@@ -949,6 +944,13 @@ library(maps)
 library(ggplot2)
 library(sp)
 library(rgeos)
+```
+
+```
+## rgeos version: 0.3-20, (SVN revision 535)
+##  GEOS runtime version: 3.4.2-CAPI-1.8.2 r3921 
+##  Linking to sp version: 1.2-3 
+##  Polygon checking: TRUE
 ```
 
 

@@ -6,7 +6,9 @@ title: "Working with Spatial Data"
 ## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
 input  = knitr::current_input()  # filename of input document
 output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
+outputpdf = paste(tools::file_path_sans_ext(input), 'pdf', sep = '.')
 knitr::purl(input,output,documentation=2,quiet=T)
+#rmarkdown::render(input,rmarkdown::pdf_document())
 source("knitr_header.R")
 ```
 
