@@ -22,9 +22,9 @@ left:
         href: 03_Plotting.html
       - text: "-----------------"
       - text: "Module 2: Spatial Analyses"
-      - text: "Spatial Data"
+      - text: "04 Spatial Data"
         href: 04_Spatial.html
-      - text: "Spatial Raster Data"
+      - text: "05 Spatial Raster Data"
         href: 05_Raster.html
       - text: "-----------------"
       - text: "Module 2: Advanced Programming"

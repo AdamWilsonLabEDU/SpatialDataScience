@@ -39,21 +39,21 @@ Figures (maps and other graphics) are a vital component of scientific communicat
 
 ### Source and Output Files
 
-You will upload 1) the source (`.Rmd`) 	file and 2) a PDF version of the formatted document.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
+You will upload 1) the source (`.Rmd`) 	file, 2) an html version, and 3) a PDF version of the formatted document.  The HTML is for archival and sharing in the class projects.  Let me know if you would prefer your final project to not be posted on the course website.  The PDF version will be graded, the `.Rmd` file will be used only if there are technical questions about the analysis.   You can create the PDF version in either of the following ways:
 
-* Compile the `.Rmd` document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf.
+* Compile the `.Rmd` document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf.  This is the prefered route as you also get the HTML version this way.
 * Compile the `.Rmd` document directly to PDF as explained [here](http://rmarkdown.rstudio.com/pdf_document_format.html) 
 
 ### References
-You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section at the end.  You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained [here](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.  
+You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section.  You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained [here](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.  
 
 ## Grading
 
 To achieve a perfect score a final project would have the following characteristics: 
 
-* **Organization:** The 'story' is very well organized, makes good use of graphics, and is easy to understand. Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. The summary at the start of the paper briefly summarises approach and findings. Conclusions at the end present further questions and ways to investigate more. Tables and graphics carefully tuned and placed for desired purpose.
+* **Organization:** The 'story' is very well organized, makes good use of graphics, and is easy to understand. Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. The summary adequately describes approach and results.  Conclusions at the end present further questions and ways to investigate more. Tables and graphics carefully tuned and placed for desired purpose.
 * **Curiosity:** Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final result. The author has gone beyond what was asked: additional techniques from other sources used to help understand/explain findings. The explanation and presentation is creative.
-* **Skepticism:** The author suggests multiple explanations for a given finding, and uses multiple tools to explore surprising results. One or two results are presented as the most plausible, but the paper allows for the possibility that results are wrong. The project is self-critical: What was done well? What was done poorly? What may have been missed? How could it be done better next time? 
+* **Skepticism:** Author suggests multiple explanations for a given finding and uses multiple tools to explore surprising results. One or two results are presented as the most plausible, but the project allows for the possibility that results are wrong. The project is self-critical and flaws are identified: What was done well? What was done poorly? What may have been missed? How could it be done better next time? 
 * **Grammar:**  All language is well constructed with varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.
 * **Code:** The code associated with the project is well organized and easy to follow.   Demonstrates mastery of R graphics and functions.
 
@@ -81,7 +81,7 @@ The first draft of your project will be assessed by your peers in UBlearns.  You
 
 The more complete the first draft, the more feedback I'll be able to provide to ensure an excellent final project.  So it's in your interest to finish as much as possible.  However, the grading of the first draft will be limited to the introduction and methods/data sections.  You should have acquired (downloaded, etc) all the data you plan to use and worked out most of the details of the methods, though you may not have any results or summary figures yet.  I would like to see at least one figure illustrating the data you are working with.  If you include drafts of the results and discussion/conclusion I will also give you feedback on those sections.  
 
-The first draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion.  If you have questions or comments, feel free to include them in the draft (e.g., "I'm planning to do X, but I'm not sure how to organize the data appropriately") or as a _comment_ in the UBLearns submission webpage.  
+The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion.  If you have questions or comments, feel free to include them in the draft (e.g., "I'm planning to do X, but I'm not sure how to organize the data appropriately") or as a _comment_ in the UBLearns submission webpage.  
 
 ### Final Draft
 

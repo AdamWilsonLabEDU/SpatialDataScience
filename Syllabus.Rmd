@@ -51,9 +51,10 @@ The final project will consist of a poster-length summary of an analysis that te
 
 ## Timeline & Grading:
 
-* 10/5  Project proposal due (<1 page, 5 points)
-* 11/16  Peer review of project drafts (5 points)
-* 12/14: Final project presentations (40 points)
+* 10/10  Project proposal due (<1 page, 5 points)
+* 10/31-11/7  First draft: Peer review (5 points)
+* 11/14: Second draft of final project (5 points)
+* 12/14: Final project presentations (35 points)
 Unexcused late submissions will be docked 10 percentage points per 24 hour period.  
 
 See full [Project Description](Project.html) for more details.  
