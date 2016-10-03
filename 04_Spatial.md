@@ -431,7 +431,7 @@ str(SLDF)
 
 ## Getting complicated
 
-<img src="05_assets/polygons.png" alt="alt text" width="75%">
+<img src="04_assets/polygons.png" alt="alt text" width="75%">
 
 ### Issues
 
