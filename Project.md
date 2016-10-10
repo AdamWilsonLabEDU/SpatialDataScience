@@ -96,3 +96,17 @@ Sites with examples of visual display of quantitative information
 * [https://visual.ly/m/design-portfolio/](https://visual.ly/m/design-portfolio/) 
 * [40 Brilliant and Complex Topics Explained Perfectly By Infographics](https://designschool.canva.com/blog/best-infographics/)
 * [NY Times Graphics Department](https://twitter.com/nytgraphics)
+
+## Project Titles
+
+* Understanding the influence of environmental variables on the distribution of mosses -- a data driven analysis
+* Food Security
+* Soil Radiation
+* Obesity
+* Space-time clustering-based analysis on lighting distribution
+* The role of recruitment on octocoral community dynamics
+* Spatial accessibility of primary care in Erie County, NY
+* Flint Michigan water crisis
+* Relationship between the unemployment and the gross domestic production (GDP)
+* Zimbabwean Bushmeat
+* U.S. Unemployment rates

@@ -6,3 +6,5 @@ packrat/lib*/
 _site
 *_cache*/
 index_files
+wc10*
+*rds

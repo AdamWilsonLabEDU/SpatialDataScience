@@ -7,12 +7,12 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 8/29    | **Introduction & Overview** | Course Motivation & Objectives. Workflow & repeatable research in an era of big data for spatial environmental analysis. Getting started with the R Project for Statistical Computing & RStudio.|   |
 | 9/5 | **Labor day** | (no class)   | Read [Introduction to R](https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf) |
 | 9/12 | **Data Wrangling ** | Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). |  Practice homework submitted during class. |
-| 9/19 | **Data Wrangling 2** | For loops, conditional statements, and custom functions. Data gymnastics with dplyr. |  Homework #1  |
+| 9/19 | **Data Wrangling 2** | Filtering, selecting, joining data sets. Data gymnastics with dplyr. |  Homework #1  |
 | 9/26 | **Graphics** | More base graphics (scatterplots, histograms).  The _grammar of graphics_: ggplot2 and extensions (ggmap, rasterVis, etc.). |  |
-| 10/3 | **Spatial Data** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. | Homework # 2 |
-| 10/10 | **Spatial Rasters** | Working with gridded spatial data using examples from the MODIS satellite. | Project Proposal Due |
-| 10/17 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.  | Homework # 3    |
-| 10/24 | **Version Control** | Managing code with “version control" using Github. Figshare and other data repositories. | |
+| 10/3 | **Spatial Data** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics | Homework # 2 |
+| 10/10 | **Spatial Rasters** | Working with gridded spatial data, raster calculations, working with climate datasets. | Project Proposal Due |
+| 10/17 | **Spatial Analysis** | Measuring autocorrelation (e.g. Moran’s I), spatial regression models   | Homework # 3    |
+| 10/24 | **Reproducible Research & Literate Programming & Version Control** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. Managing code with “version control" using Github. Figshare and other data repositories. | |
 | 10/31 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | First draft of project for peer assessment |
 | 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  | Homework # 4   |
 | 11/14 | **Software Integration** | Calling other programs from within R. | Second draft of project |
