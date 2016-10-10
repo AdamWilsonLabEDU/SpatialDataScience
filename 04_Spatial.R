@@ -8,7 +8,7 @@
 #' # Setup
 #' 
 #' ## Load packages
-## ----messages=F,warning=F------------------------------------------------
+## ----messages=F,warning=F, results="hide"--------------------------------
 library(sp)
 library(rgdal)
 library(ggplot2)

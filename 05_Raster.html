@@ -360,13 +360,15 @@ div.tocify {
 </div>
 
 
-<p>This file is available as a <a href="05_Raster.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="05_Raster.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
 <pre class="r"><code>library(dplyr)
 library(tidyr)
 library(sp)
 library(ggplot2)
+library(rgeos)
+library(maptools)
 
 # New libraries
 library(raster)
@@ -393,31 +395,73 @@ library(rasterVis)  #visualization library for raster</code></pre>
 <div id="gadm-global-administrative-areas" class="section level2">
 <h2>GADM: Global Administrative Areas</h2>
 <p>Administrative areas in this database are countries and lower level subdivisions.</p>
-<p><img src="assets/gadm25.png" alt="alt text" width="70%"></p>
+<p><img src="05_assets/gadm25.png" alt="alt text" width="70%"></p>
 <p>Divided by country (see website for full dataset). Explore country list:</p>
 <pre class="r"><code>getData(&quot;ISO3&quot;)%&gt;%
   as.data.frame%&gt;%
   filter(NAME==&quot;South Africa&quot;)</code></pre>
+<pre><code>##   ISO3         NAME
+## 1  ZAF South Africa</code></pre>
 <p>Download data for South Africa</p>
 <pre class="r"><code>za=getData(&#39;GADM&#39;, country=&#39;ZAF&#39;, level=1)</code></pre>
 <pre class="r"><code>plot(za)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
 <p>Danger: <code>plot()</code> works, but can be slow for complex polygons.</p>
 <div id="check-out-attribute-table" class="section level3">
 <h3>Check out attribute table</h3>
 <pre class="r"><code>za@data</code></pre>
+<pre><code>##   OBJECTID ID_0 ISO       NAME_0 ID_1        NAME_1 HASC_1 CCN_1 CCA_1
+## 1        1  211 ZAF South Africa    1  Eastern Cape  ZA.EC    NA    EC
+## 2        2  211 ZAF South Africa    2    Free State  ZA.FS    NA    FS
+## 3        3  211 ZAF South Africa    3       Gauteng  ZA.GT    NA    GT
+## 4        4  211 ZAF South Africa    4 KwaZulu-Natal  ZA.NL    NA   KZN
+## 5        5  211 ZAF South Africa    5       Limpopo  ZA.NP    NA   LIM
+## 6        6  211 ZAF South Africa    6    Mpumalanga  ZA.MP    NA    MP
+## 7        7  211 ZAF South Africa    7    North West  ZA.NW    NA    NW
+## 8        8  211 ZAF South Africa    8 Northern Cape  ZA.NC    NA    NC
+## 9        9  211 ZAF South Africa    9  Western Cape  ZA.WC    NA    WC
+##      TYPE_1 ENGTYPE_1 NL_NAME_1
+## 1 Provinsie  Province          
+## 2 Provinsie  Province          
+## 3 Provinsie  Province          
+## 4 Provinsie  Province          
+## 5 Provinsie  Province          
+## 6 Provinsie  Province          
+## 7 Provinsie  Province          
+## 8 Provinsie  Province          
+## 9 Provinsie  Province          
+##                                                   VARNAME_1
+## 1                                                  Oos-Kaap
+## 2                                Orange Free State|Vrystaat
+## 3                               Pretoria/Witwatersrand/Vaal
+## 4                                        Natal and Zululand
+## 5 Noordelike Provinsie|Northern Transvaal|Northern Province
+## 6                                         Eastern Transvaal
+## 7                                       North-West|Noordwes
+## 8                                                Noord-Kaap
+## 9                                                  Wes-Kaap</code></pre>
 <pre class="r"><code>za=subset(za,NAME_1!=&quot;Prince Edward Islands&quot;)
+
 plot(za)</code></pre>
-</div>
-</div>
-<div id="your-turn" class="section level2">
-<h2>Your turn</h2>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-7-1.png" alt="" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
 <p>Use the method above to download and plot the boundaries for a country of your choice.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
 <pre class="r"><code>getData(&quot;ISO3&quot;)%&gt;%
   as.data.frame%&gt;%
-  filter(NAME==&quot;Tunisia&quot;)
-
-tun=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
-plot(tun)</code></pre>
+  filter(NAME==&quot;Tunisia&quot;)</code></pre>
+<pre><code>##   ISO3    NAME
+## 1  TUN Tunisia</code></pre>
+<pre class="r"><code>country=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
+plot(country)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="raster-data" class="section level1">
@@ -433,44 +477,116 @@ plot(tun)</code></pre>
 </ul>
 <pre class="r"><code>x &lt;- raster()
 x</code></pre>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 180, 360, 64800  (nrow, ncol, ncell)
+## resolution  : 1, 1  (x, y)
+## extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</code></pre>
 <pre class="r"><code>str(x)</code></pre>
+<pre><code>## Formal class &#39;RasterLayer&#39; [package &quot;raster&quot;] with 12 slots
+##   ..@ file    :Formal class &#39;.RasterFile&#39; [package &quot;raster&quot;] with 13 slots
+##   .. .. ..@ name        : chr &quot;&quot;
+##   .. .. ..@ datanotation: chr &quot;FLT4S&quot;
+##   .. .. ..@ byteorder   : chr &quot;little&quot;
+##   .. .. ..@ nodatavalue : num -Inf
+##   .. .. ..@ NAchanged   : logi FALSE
+##   .. .. ..@ nbands      : int 1
+##   .. .. ..@ bandorder   : chr &quot;BIL&quot;
+##   .. .. ..@ offset      : int 0
+##   .. .. ..@ toptobottom : logi TRUE
+##   .. .. ..@ blockrows   : int 0
+##   .. .. ..@ blockcols   : int 0
+##   .. .. ..@ driver      : chr &quot;&quot;
+##   .. .. ..@ open        : logi FALSE
+##   ..@ data    :Formal class &#39;.SingleLayerData&#39; [package &quot;raster&quot;] with 13 slots
+##   .. .. ..@ values    : logi(0) 
+##   .. .. ..@ offset    : num 0
+##   .. .. ..@ gain      : num 1
+##   .. .. ..@ inmemory  : logi FALSE
+##   .. .. ..@ fromdisk  : logi FALSE
+##   .. .. ..@ isfactor  : logi FALSE
+##   .. .. ..@ attributes: list()
+##   .. .. ..@ haveminmax: logi FALSE
+##   .. .. ..@ min       : num Inf
+##   .. .. ..@ max       : num -Inf
+##   .. .. ..@ band      : int 1
+##   .. .. ..@ unit      : chr &quot;&quot;
+##   .. .. ..@ names     : chr &quot;&quot;
+##   ..@ legend  :Formal class &#39;.RasterLegend&#39; [package &quot;raster&quot;] with 5 slots
+##   .. .. ..@ type      : chr(0) 
+##   .. .. ..@ values    : logi(0) 
+##   .. .. ..@ color     : logi(0) 
+##   .. .. ..@ names     : logi(0) 
+##   .. .. ..@ colortable: logi(0) 
+##   ..@ title   : chr(0) 
+##   ..@ extent  :Formal class &#39;Extent&#39; [package &quot;raster&quot;] with 4 slots
+##   .. .. ..@ xmin: num -180
+##   .. .. ..@ xmax: num 180
+##   .. .. ..@ ymin: num -90
+##   .. .. ..@ ymax: num 90
+##   ..@ rotated : logi FALSE
+##   ..@ rotation:Formal class &#39;.Rotation&#39; [package &quot;raster&quot;] with 2 slots
+##   .. .. ..@ geotrans: num(0) 
+##   .. .. ..@ transfun:function ()  
+##   ..@ ncols   : int 360
+##   ..@ nrows   : int 180
+##   ..@ crs     :Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##   ..@ history : list()
+##   ..@ z       : list()</code></pre>
 <pre class="r"><code>x &lt;- raster(ncol=36, nrow=18, xmn=-1000, xmx=1000, ymn=-100, ymx=900)
-res(x)
-res(x) &lt;- 100
-res(x)
-ncol(x)</code></pre>
+res(x)</code></pre>
+<pre><code>## [1] 55.55556 55.55556</code></pre>
+<pre class="r"><code>res(x) &lt;- 100
+res(x)</code></pre>
+<pre><code>## [1] 100 100</code></pre>
+<pre class="r"><code>ncol(x)</code></pre>
+<pre><code>## [1] 20</code></pre>
 <pre class="r"><code># change the numer of columns (affects resolution)
 ncol(x) &lt;- 18
-ncol(x)
-res(x)</code></pre>
+ncol(x)</code></pre>
+<pre><code>## [1] 18</code></pre>
+<pre class="r"><code>res(x)</code></pre>
+<pre><code>## [1] 111.1111 100.0000</code></pre>
 </div>
 <div id="raster-data-storage" class="section level2">
 <h2>Raster data storage</h2>
 <pre class="r"><code>r &lt;- raster(ncol=10, nrow=10)
 ncell(r)</code></pre>
+<pre><code>## [1] 100</code></pre>
 <p>But it is an empty raster</p>
 <pre class="r"><code>hasValues(r)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 <p>Use <code>values()</code> function:</p>
 <pre class="r"><code>values(r) &lt;- 1:ncell(r)
-hasValues(r)
-values(r)[1:10]</code></pre>
-</div>
-<div id="your-turn-1" class="section level2">
-<h2>Your Turn</h2>
+hasValues(r)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>values(r)[1:10]</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="well">
+<h2 id="your-turn-1">Your turn</h2>
 <p>Create and then plot a new raster with:</p>
 <ol style="list-style-type: decimal">
 <li>100 rows</li>
 <li>50 columns</li>
 <li>Fill it with random values (<code>rnorm()</code>)</li>
 </ol>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
 <pre class="r"><code>x=raster(nrow=100,ncol=50,vals=rnorm(100*50))
 # OR
 x= raster(nrow=100,ncol=50)
 values(x)= rnorm(5000)
 
 plot(x)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-16-1.png" alt="" /><!-- --></p>
+</div>
+</div>
 <p>Raster memory usage</p>
 <pre class="r"><code>inMemory(r)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 <blockquote>
 <p>You can change the memory options using the <code>maxmemory</code> option in <code>rasterOptions()</code></p>
 </blockquote>
@@ -479,17 +595,21 @@ plot(x)</code></pre>
 <h2>Raster Plotting</h2>
 <p>Plotting is easy (but slow) with <code>plot</code>.</p>
 <pre class="r"><code>plot(r, main=&#39;Raster with 100 cells&#39;)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-18-1.png" alt="" /><!-- --></p>
 <div id="ggplot-and-rastervis" class="section level3">
 <h3>ggplot and rasterVis</h3>
 <p>rasterVis package has <code>gplot()</code> for plotting raster data in the <code>ggplot()</code> framework.</p>
 <pre class="r"><code>gplot(r,maxpixels=50000)+
   geom_raster(aes(fill=value))</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
 <p>Adjust <code>maxpixels</code> for faster plotting of large datasets.</p>
 <pre class="r"><code>gplot(r,maxpixels=10)+
   geom_raster(aes(fill=value))</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-20-1.png" alt="" /><!-- --></p>
 <p>Can use all the <code>ggplot</code> color ramps, etc.</p>
 <pre class="r"><code>gplot(r)+geom_raster(aes(fill=value))+
     scale_fill_distiller(palette=&quot;OrRd&quot;)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="spatial-projections" class="section level2">
@@ -497,14 +617,17 @@ plot(x)</code></pre>
 <p>Raster package uses standard <a href="http://www.spatialreference.org">coordinate reference system (CRS)</a>.</p>
 <p>For example, see the projection format for the <a href="http://www.spatialreference.org/ref/epsg/4326/"><em>standard</em> WGS84</a>.</p>
 <pre class="r"><code>projection(r)</code></pre>
+<pre><code>## [1] &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;</code></pre>
 </div>
 <div id="warping-rasters" class="section level2">
 <h2>Warping rasters</h2>
 <p>Use <code>projectRaster()</code> to <em>warp</em> to a different projection.</p>
 <p><code>method=</code> <code>ngb</code> (for categorical) or <code>bilinear</code> (continuous)</p>
-<pre class="r"><code>r2=projectRaster(r,crs=&quot;+proj=sinu +lon_0=0&quot;,method = )
-
-par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
+<pre class="r"><code>r2=projectRaster(r,crs=&quot;+proj=sinu +lon_0=0&quot;,method = )</code></pre>
+<pre><code>## Warning in rgdal::rawTransform(projto_int, projfrom, nrow(xy), xy[, 1], :
+## 48 projected point(s) not finite</code></pre>
+<pre class="r"><code>par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="worldclim" class="section level1">
@@ -607,17 +730,26 @@ par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
 <div id="download-climate-data" class="section level2">
 <h2>Download climate data</h2>
 <p>Download the data:</p>
-<pre class="r"><code>clim=getData(&#39;worldclim&#39;, var=&#39;bio&#39;, res=10)</code></pre>
+<pre class="r"><code>clim=getData(&#39;worldclim&#39;, var=&#39;bio&#39;, res=10) </code></pre>
 <p><code>res</code> is resolution (0.5, 2.5, 5, and 10 minutes of a degree)</p>
 <div id="gain-and-offset" class="section level3">
 <h3>Gain and Offset</h3>
 <pre class="r"><code>clim</code></pre>
+<pre><code>## class       : RasterStack 
+## dimensions  : 900, 2160, 1944000, 19  (nrow, ncol, ncell, nlayers)
+## resolution  : 0.1666667, 0.1666667  (x, y)
+## extent      : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+## names       :  bio1,  bio2,  bio3,  bio4,  bio5,  bio6,  bio7,  bio8,  bio9, bio10, bio11, bio12, bio13, bio14, bio15, ... 
+## min values  :  -269,     9,     8,    72,   -59,  -547,    53,  -251,  -450,   -97,  -488,     0,     0,     0,     0, ... 
+## max values  :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   380,   289,  9916,  2088,   652,   261, ...</code></pre>
 <p>Note the min/max of the raster. What are the units? Always check metadata, the <a href="http://www.worldclim.org/formats">WorldClim temperature dataset</a> has a <code>gain</code> of 0.1, meaning that it must be multipled by 0.1 to convert back to degrees Celsius. Precipitation is in mm, so a gain of 0.1 would turn that into cm.</p>
 <pre class="r"><code>gain(clim)=0.1</code></pre>
 </div>
 <div id="plot-with-plot" class="section level3">
 <h3>Plot with <code>plot()</code></h3>
 <pre class="r"><code>plot(clim)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="faceting-in-ggplot" class="section level2">
@@ -627,41 +759,62 @@ par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
   facet_wrap(~variable)+
   scale_fill_gradientn(colours=c(&quot;brown&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;darkgreen&quot;,&quot;green&quot;),trans=&quot;log10&quot;)+
   coord_equal()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-28-1.png" alt="" /><!-- --></p>
 <p>Let’s dig a little deeper into the data object:</p>
 <pre class="r"><code>## is it held in RAM?
-inMemory(clim)
-## How big is it?
-object.size(clim)
-
-## can we work with it directly in RAM?
+inMemory(clim)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>## How big is it?
+object.size(clim)</code></pre>
+<pre><code>## 226400 bytes</code></pre>
+<pre class="r"><code>## can we work with it directly in RAM?
 canProcessInMemory(clim)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="subsetting-and-spatial-cropping" class="section level2">
 <h2>Subsetting and spatial cropping</h2>
 <p>Use <code>[[1:3]]</code> to select raster layers from raster stack.</p>
-<pre class="r"><code>r1 &lt;- crop(clim[[1]], bbox(za))
-## crop to a latitude/longitude box
-r1 &lt;- crop(clim[[1]], extent(10,35,-35,-20))</code></pre>
-<pre class="r"><code>r1
-plot(r1)</code></pre>
+<pre class="r"><code>## crop to a latitude/longitude box
+r1 &lt;- crop(clim[[1]], extent(10,35,-35,-20))
+## Crop using a Spatial polygon
+r1 &lt;- crop(clim[[1]], bbox(za))</code></pre>
+<pre class="r"><code>r1</code></pre>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 90, 150, 13500  (nrow, ncol, ncell)
+## resolution  : 0.1666667, 0.1666667  (x, y)
+## extent      : 10, 35, -35, -20  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+## data source : in memory
+## names       : bio1 
+## values      : 5.8, 24.8  (min, max)</code></pre>
+<pre class="r"><code>plot(r1)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
 </div>
 <div id="spatial-aggregation" class="section level2">
 <h2>Spatial aggregation</h2>
 <pre class="r"><code>## aggregate using a function
 aggregate(r1, 3, fun=mean) %&gt;%
   plot()</code></pre>
-</div>
-<div id="your-turn-2" class="section level2">
-<h2>Your turn</h2>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-2">Your turn</h2>
 <p>Create a new raster by aggregating to the minimum (<code>min</code>) value of <code>r1</code> within a 10 pixel window</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
+Show Solution
+</button>
+<div id="demo3" class="collapse">
 <pre class="r"><code>aggregate(r1, 10, fun=min) %&gt;%
   plot()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+</div>
+</div>
 </div>
 <div id="focal-moving-window" class="section level2">
 <h2>Focal (“moving window”)</h2>
 <pre class="r"><code>## apply a function over a moving window
 focal(r1, w=matrix(1,3,3), fun=mean) %&gt;% 
   plot()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-34-1.png" alt="" /><!-- --></p>
 <pre class="r"><code>## apply a function over a moving window
 rf_min &lt;- focal(r1, w=matrix(1,11,11), fun=min)
 rf_max &lt;- focal(r1, w=matrix(1,11,11), fun=max)
@@ -670,38 +823,48 @@ rf_range=rf_max-rf_min
 ## or just use the range function
 rf_range2 &lt;- focal(r1, w=matrix(1,11,11), fun=range)
 plot(rf_range2)</code></pre>
-</div>
-<div id="your-turn-3" class="section level2">
-<h2>Your turn</h2>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-3">Your turn</h2>
 <p>Plot the focal standard deviation of <code>r1</code> over a 3x3 window.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
+Show Solution
+</button>
+<div id="demo4" class="collapse">
 <pre class="r"><code>focal(r1,w=matrix(1,3,3),fun=sd)%&gt;%
   plot()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+</div>
+</div>
 </div>
 <div id="raster-calculations" class="section level2">
 <h2>Raster calculations</h2>
 <p>the <code>raster</code> package has many options for <em>raster algebra</em>, including <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, logical operators such as <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>==</code>, <code>!</code> and functions such as <code>abs</code>, <code>round</code>, <code>ceiling</code>, <code>floor</code>, <code>trunc</code>, <code>sqrt</code>, <code>log</code>, <code>log10</code>, <code>exp</code>, <code>cos</code>, <code>sin</code>, <code>max</code>, <code>min</code>, <code>range</code>, <code>prod</code>, <code>sum</code>, <code>any</code>, <code>all</code>.</p>
 <p>So, for example, you can</p>
-<pre class="r"><code>cellStats(r1,range)
-
-## add 10
+<pre class="r"><code>cellStats(r1,range)</code></pre>
+<pre><code>## [1]  5.8 24.8</code></pre>
+<pre class="r"><code>## add 10
 s = r1 + 10
 cellStats(s,range)</code></pre>
+<pre><code>## [1] 15.8 34.8</code></pre>
 <pre class="r"><code>## take the square root
 s = sqrt(r1)
-cellStats(s,range)
-
-# round values
+cellStats(s,range)</code></pre>
+<pre><code>## [1] 2.408319 4.979960</code></pre>
+<pre class="r"><code># round values
 r = round(r1)
-cellStats(r,range)
-
-# find cells with values less than 15 degrees C
+cellStats(r,range)</code></pre>
+<pre><code>## [1]  6 25</code></pre>
+<pre class="r"><code># find cells with values less than 15 degrees C
 r = r1 &lt; 15
 plot(r)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
 <div id="apply-algebraic-functions" class="section level3">
 <h3>Apply algebraic functions</h3>
 <pre class="r"><code># multiply s times r and add 5
 s = s * r1 + 5
 cellStats(s,range)</code></pre>
+<pre><code>## [1]  18.96825 128.50300</code></pre>
 </div>
 </div>
 <div id="extracting-raster-data" class="section level2">
@@ -716,30 +879,58 @@ cellStats(s,range)</code></pre>
 <p>Extract all intersecting values OR apply a summarizing function with <code>fun</code>.</p>
 <div id="point-data" class="section level3">
 <h3>Point data</h3>
-<pre class="r"><code>## define which species to query
-library(spocc)
-sp=&#39;Protea repens&#39;
-
-## run the query and convert to data.frame()
-d = occ(query=sp, from=&#39;gbif&#39;,limit = 1000, has_coords=T) %&gt;% occ2df()
-coordinates(d)=c(&quot;longitude&quot;,&quot;latitude&quot;)
-projection(d)=&quot;+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs&quot;
-dc=raster::extract(clim[[1:4]],d,df=T)
-head(dc)</code></pre>
+<p><code>sampleRandom()</code> generates random points and automatically extracts the raster values for those points. Also check out <code>?sampleStratified</code> and <code>sampleRegular()</code>.</p>
+<p>Generate 100 random points and the associated climate variables at those points.</p>
+<pre class="r"><code>## define a new dataset of points to play with
+pts=sampleRandom(clim,100,xy=T,sp=T)
+plot(pts);axis(1);axis(2)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+</div>
+<div id="extract-data-using-a-spatialpoints-object" class="section level3">
+<h3>Extract data using a <code>SpatialPoints</code> object</h3>
+<p>Often you will have some locations (points) for which you want data from a raster* object. You can use the <code>extract</code> function here with the <code>pts</code> object (we’ll pretend it’s a new point dataset for which you want climate variables).</p>
+<pre class="r"><code>pts_data=raster::extract(clim[[1:4]],pts,df=T)
+head(pts_data)</code></pre>
+<pre><code>##   ID  bio1 bio2 bio3   bio4
+## 1  1 -11.9  6.7  1.5 1286.7
+## 2  2   4.4 12.1  2.3 1418.4
+## 3  3  11.3  9.4  3.1  706.5
+## 4  4 -10.1  6.6  2.2  829.3
+## 5  5  26.2  7.6  7.3   98.8
+## 6  6  -5.4  7.0  2.1  897.1</code></pre>
 <blockquote>
 <p>Use <code>package::function</code> to avoid confusion with similar functions.</p>
 </blockquote>
-<pre class="r"><code>gplot(r1)+geom_raster(aes(fill=value))+
-  geom_point(data=as.data.frame(d),
-             aes(x=longitude,y=latitude),col=&quot;red&quot;)+
+</div>
+<div id="plot-the-global-dataset-with-the-random-points" class="section level3">
+<h3>Plot the global dataset with the random points</h3>
+<pre class="r"><code>gplot(clim[[1]])+
+  geom_raster(aes(fill=value))+
+  geom_point(
+    data=as.data.frame(pts),
+    aes(x=x,y=y),col=&quot;red&quot;)+
   coord_equal()</code></pre>
-<pre class="r"><code>d2=dc%&gt;%
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
+</div>
+<div id="summarize-climate-data-at-point-locations" class="section level3">
+<h3>Summarize climate data at point locations</h3>
+<p>Use <code>gather()</code> to reshape the climate data for easy plotting with ggplot.</p>
+<pre class="r"><code>d2=pts_data%&gt;%
   gather(ID)
 colnames(d2)[1]=&quot;cell&quot;
-
-ggplot(d2,aes(x=value))+
+head(d2)</code></pre>
+<pre><code>##   cell   ID value
+## 1    1 bio1 -11.9
+## 2    2 bio1   4.4
+## 3    3 bio1  11.3
+## 4    4 bio1 -10.1
+## 5    5 bio1  26.2
+## 6    6 bio1  -5.4</code></pre>
+<p>And plot density plots (like histograms).</p>
+<pre class="r"><code>ggplot(d2,aes(x=value))+
   geom_density()+
   facet_wrap(~ID,scales=&quot;free&quot;)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-44-1.png" alt="" /><!-- --></p>
 </div>
 <div id="lines" class="section level3">
 <h3>Lines</h3>
@@ -750,11 +941,15 @@ ggplot(d2,aes(x=value))+
   data.frame(Z = c(&quot;transect&quot;), row.names = c(&quot;ZAF&quot;)))
 
 gplot(r1)+geom_tile(aes(fill=value))+
-  geom_line(aes(x=long,y=lat),data=fortify(transect))</code></pre>
+  geom_line(aes(x=long,y=lat),data=fortify(transect),col=&quot;red&quot;)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-45-1.png" alt="" /><!-- --></p>
 </div>
 <div id="plot-transect" class="section level3">
 <h3>Plot Transect</h3>
-<pre class="r"><code>trans=raster::extract(clim,transect,along=T,cellnumbers=T)%&gt;% 
+<pre class="r"><code>trans=raster::extract(x=clim[[12:14]],
+                      y=transect,
+                      along=T,
+                      cellnumbers=T)%&gt;% 
   as.data.frame()
 trans[,c(&quot;lon&quot;,&quot;lat&quot;)]=coordinates(clim)[trans$cell]
 trans$order=as.integer(rownames(trans))
@@ -763,73 +958,135 @@ transl=group_by(trans,lon,lat)%&gt;%
   gather(variable, value, -lon, -lat, -cell, -order)
 
 ggplot(transl,aes(x=lon,y=value,
-                  colour=variable,group=variable,
+                  colour=variable,
+                  group=variable,
                   order=order))+
   geom_line()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-46-1.png" alt="" /><!-- --></p>
 </div>
 <div id="zonal-statistics" class="section level3">
 <h3><em>Zonal</em> statistics</h3>
-<pre class="r"><code>rsp=raster::extract(r1,za,mean,sp=T)
-spplot(rsp,zcol=&quot;bio1&quot;)</code></pre>
+<p>Calculate mean annual temperature averaged by province (polygons).</p>
+<pre class="r"><code>rsp=raster::extract(x=r1,
+                    y=za,
+                    fun=mean,
+                    sp=T)
+#spplot(rsp,zcol=&quot;bio1&quot;)</code></pre>
+<pre class="r"><code>## add the ID to the dataframe itself for easier indexing in the map
+rsp$id=as.numeric(rownames(rsp@data))
+## create fortified version for plotting with ggplot()
+frsp=fortify(rsp,region=&quot;id&quot;)
+
+ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
+    expand_limits(x = frsp$long, y = frsp$lat)+
+    scale_fill_gradientn(
+      colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
+    coord_map()+
+    geom_map(map = frsp)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-48-1.png" alt="" /><!-- --></p>
 </div>
 </div>
-<div id="your-turn-4" class="section level2">
-<h2>Your turn</h2>
+<div id="example-workflow" class="section level2">
+<h2>Example Workflow</h2>
 <ol style="list-style-type: decimal">
 <li>Download the Maximum Temperature dataset using <code>getData()</code></li>
+<li>Set the gain to 0.1 (to convert to degrees Celcius)</li>
 <li>Crop it to the country you downloaded (or ZA?)</li>
 <li>Calculate the overall range for each variable with <code>cellStats()</code></li>
 <li>Calculate the focal median with an 11x11 window with <code>focal()</code></li>
 <li>Create a transect across the region and extract the temperature data.</li>
 </ol>
-</div>
-<div id="example" class="section level2">
-<h2>Example</h2>
-<ol style="list-style-type: decimal">
-<li>Download the Maximum Temperature dataset using <code>getData()</code></li>
-<li>Crop it to the country you downloaded (or ZA?)</li>
-<li>Calculate the overall range for each variable with <code>cellStats()</code></li>
-</ol>
-<pre class="r"><code>tun=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
+<pre class="r"><code>country=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
 tmax=getData(&#39;worldclim&#39;, var=&#39;tmax&#39;, res=10)
 gain(tmax)=0.1
-tmax_tun=crop(tmax,tun)
-
-cellStats(tmax_tun,&quot;range&quot;)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Calculate the focal median with an 11x11 window with <code>focal()</code></li>
-<li>Create a transect across the region and extract the temperature data.</li>
-</ol>
-<pre class="r"><code>tmax_tunf=list()
-for(i in 1:nlayers(tmax_tun))
-  tmax_tunf[[i]]=focal(tmax_tun[[i]],w=matrix(1,11,11),fun=median)
-tmax_tunf=stack(tmax_tunf)
-
-# Transect
-transect = SpatialLinesDataFrame(
+tmax_crop=crop(tmax,country)
+tmaxave_crop=mean(tmax_crop)  # calculate mean annual maximum temperature 
+tmaxavefocal_crop=focal(tmaxave_crop,
+                        fun=median,
+                        w=matrix(1,11,11))</code></pre>
+<p>Report quantiles for each layer in a raster* object</p>
+<pre class="r"><code>cellStats(tmax_crop,&quot;quantile&quot;)</code></pre>
+<pre><code>##      tmax1 tmax2 tmax3 tmax4 tmax5 tmax6 tmax7 tmax8 tmax9 tmax10 tmax11
+## 0%     8.4  10.1  13.8  17.4  21.9  26.4  29.6  30.3  26.6   19.7   14.1
+## 25%   14.1  15.8  18.3  21.3  25.7  30.4  34.6  34.0  30.3   25.3   20.2
+## 50%   15.3  17.4  21.0  25.0  28.9  33.3  36.4  35.8  32.8   27.6   21.7
+## 75%   16.3  19.0  23.0  27.4  31.9  36.4  39.7  39.0  35.3   29.0   22.4
+## 100%  18.1  21.2  25.6  31.2  35.9  41.4  43.3  42.6  38.5   31.9   24.5
+##      tmax12
+## 0%      9.6
+## 25%    15.4
+## 50%    16.6
+## 75%    17.4
+## 100%   18.9</code></pre>
+</div>
+<div id="create-a-transect-spatiallinesdataframe" class="section level2">
+<h2>Create a Transect (SpatialLinesDataFrame)</h2>
+<pre class="r"><code>transect = SpatialLinesDataFrame(
   SpatialLines(list(Lines(list(Line(
-    cbind(c(8, 10),c(36, 36)))), ID = &quot;TUN&quot;))),
-  data.frame(Z = c(&quot;transect&quot;), row.names = c(&quot;TUN&quot;)))</code></pre>
-<pre class="r"><code>gplot(tmax_tun)+geom_tile(aes(fill=value))+
+    cbind(c(8, 10),c(36, 36)))), ID = &quot;T1&quot;))),
+  data.frame(Z = c(&quot;transect&quot;), row.names = c(&quot;T1&quot;)))</code></pre>
+</div>
+<div id="plot-the-timeseries-of-climate-data" class="section level2">
+<h2>Plot the timeseries of climate data</h2>
+<pre class="r"><code>gplot(tmax_crop)+
+  geom_tile(aes(fill=value))+
+  scale_fill_gradientn(
+    colours=c(&quot;brown&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;darkgreen&quot;,&quot;green&quot;),
+    trans=&quot;log10&quot;,
+    name=&quot;Temp&quot;)+
   facet_wrap(~variable)+
-  geom_path(data=fortify(tun),
+  geom_path(data=fortify(country),
             mapping=aes(x=long,y=lat,
-                        group=group,order=order))+
+                        group=group,
+                        order=order))+
   geom_line(aes(x=long,y=lat),
             data=fortify(transect),col=&quot;red&quot;)+
   coord_equal()</code></pre>
-<pre class="r"><code>trans=raster::extract(tmax_tun,transect,along=T,cellnumbers=T)%&gt;% 
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-52-1.png" alt="" /><!-- --></p>
+</div>
+<div id="extract-and-clean-up-the-transect-data" class="section level2">
+<h2>Extract and clean up the transect data</h2>
+<pre class="r"><code>trans=raster::extract(tmax_crop,
+                      transect,
+                      along=T,
+                      cellnumbers=T)%&gt;% 
   as.data.frame()
-trans[,c(&quot;lon&quot;,&quot;lat&quot;)]=coordinates(clim)[trans$cell]
+trans[,c(&quot;lon&quot;,&quot;lat&quot;)]=coordinates(tmax_crop)[trans$cell]
 trans$order=as.integer(rownames(trans))
-  
-transl=group_by(trans,lon,lat)%&gt;%
-  gather(variable, value, -lon, -lat, -cell, -order)
-
-ggplot(transl,aes(x=lon,y=value,
-                  colour=variable,group=variable,
-                  order=order))+
-  geom_line()</code></pre>
+head(trans)</code></pre>
+<pre><code>##   cell tmax1 tmax2 tmax3 tmax4 tmax5 tmax6 tmax7 tmax8 tmax9 tmax10 tmax11
+## 1  229  12.0  13.3  16.7  20.4  24.5  30.4  34.5  33.9  29.4   23.0   17.3
+## 2  230  12.6  14.1  17.4  21.1  25.3  31.4  35.5  34.9  30.3   23.8   18.0
+## 3  231  12.8  14.3  17.6  21.3  25.6  31.8  36.1  35.4  30.7   24.1   18.2
+## 4  232  11.8  13.3  16.8  20.6  25.0  31.1  35.7  34.8  30.0   23.4   17.4
+## 5  233  11.6  13.1  16.6  20.4  25.0  30.9  35.7  34.7  29.9   23.3   17.4
+## 6  234  11.3  12.7  16.3  20.0  24.8  30.5  35.4  34.4  29.6   23.2   17.3
+##   tmax12      lon      lat order
+## 1   13.0 8.083333 8.083333     1
+## 2   13.8 8.250000 8.250000     2
+## 3   14.0 8.416667 8.416667     3
+## 4   13.1 8.583333 8.583333     4
+## 5   13.0 8.750000 8.750000     5
+## 6   12.8 8.916667 8.916667     6</code></pre>
+<pre class="r"><code>transl=group_by(trans,lon,lat)%&gt;%
+  gather(variable, value, -lon, -lat, -cell, -order)%&gt;%
+  separate(variable,into = c(&quot;temp&quot;,&quot;month&quot;),4)%&gt;%
+  mutate(month=as.numeric(month))</code></pre>
+</div>
+<div id="plot-the-transect-data" class="section level2">
+<h2>Plot the transect data</h2>
+<pre class="r"><code>ggplot(transl,
+       aes(x=lon,y=value,
+           colour=month,
+           group=month,
+           order=order))+
+  ylab(&quot;Maximum Temp&quot;)+
+    scale_color_gradientn(
+      colors=c(&quot;blue&quot;,&quot;green&quot;,&quot;red&quot;),
+      name=&quot;Month&quot;)+
+    geom_line()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-54-1.png" alt="" /><!-- --></p>
 </div>
 <div id="raster-processing" class="section level2">
 <h2>Raster Processing</h2>

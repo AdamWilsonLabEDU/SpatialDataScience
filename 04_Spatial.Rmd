@@ -17,7 +17,7 @@ source("knitr_header.R")
 # Setup
 
 ## Load packages
-```{r,messages=F,warning=F}
+```{r,messages=F,warning=F, results="hide"}
 library(sp)
 library(rgdal)
 library(ggplot2)
