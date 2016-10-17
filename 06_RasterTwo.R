@@ -3,8 +3,7 @@
 #' ---
 #' 
 #' 
-#' 
-#' This file is available as a [<i class="fa fa-file-text" aria-hidden="true"></i> R script here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
 #' 
 #' ## Libraries
@@ -43,7 +42,8 @@ getData("ISO3")%>%
 #' 
 #' Often good idea to keep data in separate folder.  You will need to edit this for your machine!
 ## ------------------------------------------------------------------------
-datadir="~/GoogleDrive/Work/courses/2015_UB503/SpatialR/data"
+datadir="~/Downloads/data"
+if(!exists(datadir)) dir.create(datadir, recursive=T)
 
 #' Download country border.
 ## ------------------------------------------------------------------------
@@ -209,7 +209,10 @@ gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
 
 #' Negative values indicate valleys, near zero flat or mid-slope, and positive ridge and hill tops
 #' 
-#' ## Your Turn
+#' 
+#' 
+#' <div class="well">
+#' ## Your turn
 #' 
 #' * Identify all the pixels with a TPI less than -15 or greater than 15.
 #' * Use `plot()` to:
@@ -219,9 +222,11 @@ gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
 #' 
 #' Hint: use `transparent` to plot a transparent pixel.  
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+#' <div id="demo1" class="collapse">
 #' 
-#' 
-#' Extract peaks/ridges and valleys:
+#' </div>
+#' </div>
 #' 
 #' 
 #' 
@@ -311,10 +316,12 @@ ss=c(2.5,10)
 #' 
 #' WGS84 data is unprojected, must account for cell area (in km^2)...
 ## ------------------------------------------------------------------------
-area=area(dem)
+area=raster::area(dem)
 plot(area)
 
 #' 
+#' 
+#' <div class="well">
 #' ## Your Turn
 #' 
 #' 1. How much area is likely to be flooded by rising sea levels for two scenarios:
@@ -327,12 +334,18 @@ plot(area)
 #' * Multiply by cell area
 #' * Use `cellStats()` to calculate potentially flooded areas.
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+#' <div id="demo2" class="collapse">
 #' ## Identify pixels below thresholds
 #' 
 #' 
 #' 
-#' 
 #' ## Multiply by area and sum
+#' 
+#' 
+#' </div>
+#' </div>
+#' 
 #' 
 #' 
 #' 
@@ -340,7 +353,7 @@ plot(area)
 #' 
 #' Socioeconomic Data and Applications Center (SEDAC)
 #' [http://sedac.ciesin.columbia.edu](http://sedac.ciesin.columbia.edu)
-#' <img src="assets/sedac.png" alt="alt text" width="70%">
+#' <img src="06_assets/sedac.png" alt="alt text" width="70%">
 #' 
 #' * Population
 #' * Pollution
@@ -356,10 +369,9 @@ plot(area)
 #' 
 #' * Log into SEDAC with an Earth Data Account
 #' [http://sedac.ciesin.columbia.edu](http://sedac.ciesin.columbia.edu)
-#' * Download Population Density Grid for 2000
+#' * Download Population Density Grid for 2015
 #' 
-#' <img src="assets/sedacData.png" alt="alt text" width="80%">
-#' 
+#' <img src="06_assets/sedacData.png" alt="alt text" width="80%">
 #' 
 #' 
 #' ### Load population data
@@ -367,10 +379,9 @@ plot(area)
 #' Use `raster()` to load a raster from disk.
 #' 
 ## ------------------------------------------------------------------------
-pop=raster(file.path(datadir,"gl_gpwv3_pdens_00_bil_25/glds00g.bil"))
+pop=raster(file.path(datadir,"gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif"))
 plot(pop)
 
-#' 
 #' 
 #' 
 #' A nicer plot...
@@ -424,7 +435,8 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
 
 #' 
 #' 
-#' ## Your Turn
+#' <div class="well">
+#' ## Your turn
 #' 
 #' How many people are likely to be displaced?
 #' 
@@ -434,13 +446,17 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
 #' * Summarize with `cellStats()`
 #' * Plot a map of the number of people potentially affected by `flood2`
 #' 
-#' 
-#' 
-#' 
-#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+#' <div id="demo3" class="collapse">
 #' 
 #' 
 #' Number of potentially affected people across the region.
+#' 
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
 #' 
 #' 
 #' ## Raster Distances
@@ -454,7 +470,6 @@ plot(popcenter,col="red",legend=F)
 
 #' 
 #' 
-#' 
 #' In meters if the RasterLayer is not projected (`+proj=longlat`) and in map units (typically also meters) when it is projected.
 #' 
 ## ---- warning=F----------------------------------------------------------
@@ -462,6 +477,8 @@ popcenterdist=distance(popcenter)
 plot(popcenterdist)
 
 #' 
+#' 
+#' <div class="well">
 #' ## Your Turn
 #' 
 #' Will sea level rise affect any major population centers?
@@ -472,9 +489,14 @@ plot(popcenterdist)
 #' * Identify `popcenter` areas that flood according to `flood2`.
 #' 
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+#' <div id="demo4" class="collapse">
 #' 
 #' Will sea level rise affect any major population centers?
 #' 
+#' 
+#' </div>
+#' </div>
 #' 
 #' ## Vectorize raster
 #' 
@@ -500,7 +522,7 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
 ## decorate3d()
 
 #' 
-#' <img src="assets/plot3d.png" alt="alt text" width="70%">
+#' <img src="06_assets/plot3d.png" alt="alt text" width="70%">
 #' 
 #' 50 different styles illustrated [here](https://cran.r-project.org/web/packages/plot3D/vignettes/volcano.pdf).
 #' 
@@ -518,4 +540,3 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
 #' * Perform many GIS operations
 #' * Convenient processing and workflows
 #' * Some functions (e.g. `distance()` can be slow!
-#' 

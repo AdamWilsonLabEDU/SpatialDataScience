@@ -305,6 +305,9 @@ div.tocify {
     <li>
       <a href="05_Raster.html">05 Spatial Raster Data</a>
     </li>
+    <li>
+      <a href="06_RasterTwo.html">06 More Raster Data</a>
+    </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Advanced Programming</li>
     <li>
@@ -360,7 +363,7 @@ div.tocify {
 </div>
 
 
-<p>This file is available as a <a href="07_RasterTwo.R"><i class="fa fa-file-text" aria-hidden="true"></i> R script here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="06_RasterTwo.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
 <pre class="r"><code>library(knitr)
@@ -388,13 +391,19 @@ library(rgeos)</code></pre>
 <pre class="r"><code>getData(&quot;ISO3&quot;)%&gt;%
   as.data.frame%&gt;%
   filter(NAME==&quot;Bangladesh&quot;)</code></pre>
+<pre><code>##   ISO3       NAME
+## 1  BGD Bangladesh</code></pre>
 <div id="download-bangladesh-border" class="section level3">
 <h3>Download Bangladesh Border</h3>
 <p>Often good idea to keep data in separate folder. You will need to edit this for your machine!</p>
-<pre class="r"><code>datadir=&quot;~/GoogleDrive/Work/courses/2015_UB503/SpatialR/data&quot;</code></pre>
+<pre class="r"><code>datadir=&quot;~/Downloads/data&quot;
+if(!exists(datadir)) dir.create(datadir, recursive=T)</code></pre>
+<pre><code>## Warning in dir.create(datadir, recursive = T): &#39;/Users/adamw/Downloads/
+## data&#39; already exists</code></pre>
 <p>Download country border.</p>
 <pre class="r"><code>bgd=getData(&#39;GADM&#39;, country=&#39;BGD&#39;, level=0,path = datadir)
 plot(bgd)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="topography" class="section level2">
@@ -402,27 +411,51 @@ plot(bgd)</code></pre>
 <p>SRTM Elevation data with <code>getData()</code> as 5deg tiles.</p>
 <pre class="r"><code>bgdc=gCentroid(bgd)%&gt;%coordinates()
 
-dem1=getData(&quot;SRTM&quot;,lat=bgdc[2],lon=bgdc[1],path=datadir)
-plot(dem1)
+dem1=getData(&quot;SRTM&quot;,lat=bgdc[2],lon=bgdc[1],path=datadir)</code></pre>
+<pre><code>## Warning in utils::download.file(url = aurl, destfile = fn, method =
+## &quot;auto&quot;, : unable to resolve &#39;hypersphere.telascience.org&#39;</code></pre>
+<pre class="r"><code>plot(dem1)
 plot(bgd,add=T)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-6-1.png" alt="" /><!-- --></p>
 <div id="mosaicingmerging-rasters" class="section level3">
 <h3>Mosaicing/Merging rasters</h3>
 <p>Download the remaining necessary tiles</p>
 <pre class="r"><code>dem2=getData(&quot;SRTM&quot;,lat=23.7,lon=85,path=datadir)</code></pre>
+<pre><code>## Warning in utils::download.file(url = aurl, destfile = fn, method =
+## &quot;auto&quot;, : unable to resolve &#39;hypersphere.telascience.org&#39;</code></pre>
 <p>Use <code>merge()</code> to join two aligned rasters (origin, resolution, and projection). Or <code>mosaic()</code> combines with a function.</p>
 <pre class="r"><code>dem=merge(dem1,dem2)
 plot(dem)
 plot(bgd,add=T)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="savingexporting-rasters" class="section level2">
 <h2>Saving/exporting rasters</h2>
 <p>Beware of massive temporary files!</p>
-<pre class="r"><code>inMemory(dem)
-dem@file@name
-file.size(sub(&quot;grd&quot;,&quot;gri&quot;,dem@file@name))*1e-6
-showTmpFiles()</code></pre>
+<pre class="r"><code>inMemory(dem)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>dem@file@name</code></pre>
+<pre><code>## [1] &quot;/private/var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T/Rtmpv6y1fG/raster/r_tmp_2016-10-16_211114_5026_12958.grd&quot;</code></pre>
+<pre class="r"><code>file.size(sub(&quot;grd&quot;,&quot;gri&quot;,dem@file@name))*1e-6</code></pre>
+<pre><code>## [1] 144.036</code></pre>
+<pre class="r"><code>showTmpFiles()</code></pre>
+<pre><code>## r_tmp_2016-10-16_211114_5026_12958</code></pre>
 <pre class="r"><code>rasterOptions()</code></pre>
+<pre><code>## format        : raster 
+## datatype      : FLT8S 
+## overwrite     : FALSE 
+## progress      : none 
+## timer         : FALSE 
+## chunksize     : 1e+07 
+## maxmemory     : 1e+08 
+## tmpdir        : /var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T//Rtmpv6y1fG/raster// 
+## tmptime       : 168 
+## setfileext    : TRUE 
+## tolerance     : 0.1 
+## standardnames : TRUE 
+## warn depracat.: TRUE 
+## header        : none</code></pre>
 <p>Set with <code>rasterOptions(tmpdir = &quot;/tmp&quot;)</code></p>
 <p>Saving raster to file: <em>two options</em></p>
 <p>Save while creating</p>
@@ -503,6 +536,7 @@ showTmpFiles()</code></pre>
 <h3>Crop to Bangladesh</h3>
 <pre class="r"><code>dem=crop(dem,bgd,filename=file.path(datadir,&quot;dem_bgd.tif&quot;),overwrite=T)
 plot(dem); plot(bgd,add=T)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
 <pre class="r"><code>gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;red&quot;,&quot;yellow&quot;,&quot;grey30&quot;,&quot;grey20&quot;,&quot;grey10&quot;),
@@ -510,6 +544,8 @@ plot(dem); plot(bgd,add=T)</code></pre>
   coord_equal(ylim=c(21,25))+
   geom_path(data=fortify(bgd),
             aes(x=long,y=lat,order=order,group=group),size=.5)</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 <div id="terrain-analysis-an-aside" class="section level1">
@@ -528,16 +564,19 @@ plot(dem); plot(bgd,add=T)</code></pre>
 <p>Use a smaller region:</p>
 <pre class="r"><code>reg1=crop(dem1,extent(93.8,94,21.05,21.15))
 plot(reg1)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-15-1.png" alt="" /><!-- --></p>
 <p>The terrain indices are according to Wilson et al. (2007), as in <a href="http://www.gdal.org/gdaldem.html">gdaldem</a>.</p>
 <div id="calculate-slope" class="section level3">
 <h3>Calculate slope</h3>
 <pre class="r"><code>slope=terrain(reg1,opt=&quot;slope&quot;,unit=&quot;degrees&quot;)
 plot(slope)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-16-1.png" alt="" /><!-- --></p>
 </div>
 <div id="calculate-aspect" class="section level3">
 <h3>Calculate aspect</h3>
 <pre class="r"><code>aspect=terrain(reg1,opt=&quot;aspect&quot;,unit=&quot;degrees&quot;)
 plot(aspect)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-17-1.png" alt="" /><!-- --></p>
 </div>
 <div id="tpi-topographic-position-index" class="section level3">
 <h3>TPI (Topographic Position Index)</h3>
@@ -547,11 +586,9 @@ plot(aspect)</code></pre>
 gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradient2(low=&quot;blue&quot;,high=&quot;red&quot;,midpoint=0)+
   coord_equal()</code></pre>
-<p>Negative values indicate valleys, near zero flat or mid-slope, and positive ridge and hill tops</p>
-</div>
-</div>
-<div id="your-turn" class="section level2">
-<h2>Your Turn</h2>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-18-1.png" alt="" /><!-- --> Negative values indicate valleys, near zero flat or mid-slope, and positive ridge and hill tops</p>
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
 <ul>
 <li>Identify all the pixels with a TPI less than -15 or greater than 15.</li>
 <li>Use <code>plot()</code> to:
@@ -562,21 +599,30 @@ gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
 </ul></li>
 </ul>
 <p>Hint: use <code>transparent</code> to plot a transparent pixel.</p>
-<p>Extract peaks/ridges and valleys:</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
 <pre class="r"><code>plot(reg1)
 plot(tpi&gt;15,col=c(&quot;transparent&quot;,&quot;red&quot;),add=T,legend=F)
-plot(tpi&lt;(-12),col=c(&quot;transparent&quot;,&quot;blue&quot;),add=T,legend=F)</code></pre>
+plot(tpi&lt;(-15),col=c(&quot;transparent&quot;,&quot;blue&quot;),add=T,legend=F)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+</div>
 <div id="tri-terrain-ruggedness-index" class="section level3">
 <h3>TRI (Terrain Ruggedness Index)</h3>
 <p>Mean of the absolute differences between the value of a cell and the value of its 8 surrounding cells.</p>
 <pre class="r"><code>tri=terrain(reg1,opt=&quot;TRI&quot;)
 plot(tri)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-20-1.png" alt="" /><!-- --></p>
 </div>
 <div id="roughness" class="section level3">
 <h3>Roughness</h3>
 <p>Difference between the maximum and the minimum value of a cell and its 8 surrounding cells.</p>
 <pre class="r"><code>rough=terrain(reg1,opt=&quot;roughness&quot;)
 plot(rough)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
 </div>
 <div id="hillshade-pretty" class="section level3">
 <h3>Hillshade (pretty…)</h3>
@@ -585,6 +631,7 @@ plot(rough)</code></pre>
 
 plot(hs, col=grey(0:100/100), legend=FALSE)
 plot(reg1, col=terrain.colors(25, alpha=0.5), add=TRUE)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-22-1.png" alt="" /><!-- --></p>
 </div>
 <div id="flow-direction" class="section level3">
 <h3>Flow Direction</h3>
@@ -614,7 +661,7 @@ plot(reg1, col=terrain.colors(25, alpha=0.5), add=TRUE)</code></pre>
 <pre class="r"><code>flowdir=terrain(reg1,opt=&quot;flowdir&quot;)
 
 plot(flowdir)</code></pre>
-<p>Much more powerful hydrologic modeling in <a href="https://grass.osgeo.org">GRASS GIS</a></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --> Much more powerful hydrologic modeling in <a href="https://grass.osgeo.org">GRASS GIS</a></p>
 </div>
 </div>
 </div>
@@ -627,6 +674,42 @@ plot(flowdir)</code></pre>
                low=c(0.26,0.32,0.33,0.53),
                high=c(0.54,0.62,0.62,0.97))
 kable(slr)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">year</th>
+<th align="left">scenario</th>
+<th align="right">low</th>
+<th align="right">high</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2100</td>
+<td align="left">RCP2.6</td>
+<td align="right">0.26</td>
+<td align="right">0.54</td>
+</tr>
+<tr class="even">
+<td align="right">2100</td>
+<td align="left">RCP4.5</td>
+<td align="right">0.32</td>
+<td align="right">0.62</td>
+</tr>
+<tr class="odd">
+<td align="right">2100</td>
+<td align="left">RCP6.0</td>
+<td align="right">0.33</td>
+<td align="right">0.62</td>
+</tr>
+<tr class="even">
+<td align="right">2100</td>
+<td align="left">RCP8.5</td>
+<td align="right">0.53</td>
+<td align="right">0.97</td>
+</tr>
+</tbody>
+</table>
 <p><a href="https://www.ipcc.ch/pdf/assessment-report/ar5/wg1/drafts/fgd/WGIAR5_WGI-12Doc2b_FinalDraft_Chapter13.pdf">IPCC AR5 WG1 Section 13-4</a></p>
 </div>
 <div id="storm-surges" class="section level2">
@@ -638,11 +721,11 @@ kable(slr)</code></pre>
 <h2>Raster area</h2>
 <p>1st Question: How much area is likely to be flooded by rising sea levels?</p>
 <p>WGS84 data is unprojected, must account for cell area (in km^2)…</p>
-<pre class="r"><code>area=area(dem)
+<pre class="r"><code>area=raster::area(dem)
 plot(area)</code></pre>
-</div>
-<div id="your-turn-1" class="section level2">
-<h2>Your Turn</h2>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-26-1.png" alt="" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-1">Your Turn</h2>
 <ol style="list-style-type: decimal">
 <li>How much area is likely to be flooded by rising sea levels for two scenarios:</li>
 </ol>
@@ -656,26 +739,31 @@ plot(area)</code></pre>
 <li>Multiply by cell area</li>
 <li>Use <code>cellStats()</code> to calculate potentially flooded areas.</li>
 </ul>
-</div>
-<div id="identify-pixels-below-thresholds" class="section level2">
-<h2>Identify pixels below thresholds</h2>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<h2 id="identify-pixels-below-thresholds">Identify pixels below thresholds</h2>
 <pre class="r"><code>flood1=dem&lt;=2.76
 flood2=dem&lt;=10.97
 
 plot(flood2,col=c(&quot;transparent&quot;,&quot;darkred&quot;))
 plot(flood1,col=c(&quot;transparent&quot;,&quot;red&quot;),add=T)</code></pre>
-</div>
-<div id="multiply-by-area-and-sum" class="section level2">
-<h2>Multiply by area and sum</h2>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
+<h2 id="multiply-by-area-and-sum">Multiply by area and sum</h2>
 <pre class="r"><code>flood1a=flood1*area
 flood2a=flood2*area
 
-cellStats(flood1a,sum)
-cellStats(flood2a,sum)</code></pre>
+cellStats(flood1a,sum)</code></pre>
+<pre><code>## [1] 6357.565</code></pre>
+<pre class="r"><code>cellStats(flood2a,sum)</code></pre>
+<pre><code>## [1] 68057.65</code></pre>
+</div>
+</div>
 </div>
 <div id="socioeconomic-data" class="section level2">
 <h2>Socioeconomic Data</h2>
-<p>Socioeconomic Data and Applications Center (SEDAC) <a href="http://sedac.ciesin.columbia.edu" class="uri">http://sedac.ciesin.columbia.edu</a> <img src="assets/sedac.png" alt="alt text" width="70%"></p>
+<p>Socioeconomic Data and Applications Center (SEDAC) <a href="http://sedac.ciesin.columbia.edu" class="uri">http://sedac.ciesin.columbia.edu</a> <img src="06_assets/sedac.png" alt="alt text" width="70%"></p>
 <ul>
 <li>Population</li>
 <li>Pollution</li>
@@ -688,21 +776,23 @@ cellStats(flood2a,sum)</code></pre>
 <p>Data <em>not</em> available for direct download (e.g. <code>download.file()</code>)</p>
 <ul>
 <li>Log into SEDAC with an Earth Data Account <a href="http://sedac.ciesin.columbia.edu" class="uri">http://sedac.ciesin.columbia.edu</a></li>
-<li>Download Population Density Grid for 2000</li>
+<li>Download Population Density Grid for 2015</li>
 </ul>
-<p><img src="assets/sedacData.png" alt="alt text" width="80%"></p>
+<p><img src="06_assets/sedacData.png" alt="alt text" width="80%"></p>
 </div>
 <div id="load-population-data" class="section level3">
 <h3>Load population data</h3>
 <p>Use <code>raster()</code> to load a raster from disk.</p>
-<pre class="r"><code>pop=raster(file.path(datadir,&quot;gl_gpwv3_pdens_00_bil_25/glds00g.bil&quot;))
+<pre class="r"><code>pop=raster(file.path(datadir,&quot;gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif&quot;))
 plot(pop)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
 <p>A nicer plot…</p>
 <pre class="r"><code>gplot(pop,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png" alt="" /><!-- --></p>
 </div>
 <div id="crop-to-region-with-the-dem-object" class="section level3">
 <h3>Crop to region with the <code>dem</code> object</h3>
@@ -713,6 +803,7 @@ gplot(pop2,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
                        trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
 </div>
 <div id="resample-to-dem" class="section level3">
 <h3>Resample to DEM</h3>
@@ -724,15 +815,14 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
                        trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
 <p>Or resample elevation to resolution of population:</p>
 <pre class="r"><code>res(pop2)/res(dem)
 demc=dem%&gt;%
   aggregate(fact=50,fun=min,expand=T)%&gt;%
   resample(pop2,method=&quot;bilinear&quot;)</code></pre>
-</div>
-</div>
-<div id="your-turn-2" class="section level2">
-<h2>Your Turn</h2>
+<div class="well">
+<h2 id="your-turn-2">Your turn</h2>
 <p>How many people are likely to be displaced?</p>
 <p>Steps:</p>
 <ul>
@@ -740,15 +830,23 @@ demc=dem%&gt;%
 <li>Summarize with <code>cellStats()</code></li>
 <li>Plot a map of the number of people potentially affected by <code>flood2</code></li>
 </ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
+Show Solution
+</button>
+<div id="demo3" class="collapse">
 <pre class="r"><code>floodpop2=flood2a*pop3
-
 cellStats(floodpop2,sum)</code></pre>
+<pre><code>## [1] 96692231</code></pre>
 <p>Number of potentially affected people across the region.</p>
 <pre class="r"><code>gplot(floodpop2,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e4)))+
   coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+</div>
 </div>
 <div id="raster-distances" class="section level2">
 <h2>Raster Distances</h2>
@@ -756,18 +854,23 @@ cellStats(floodpop2,sum)</code></pre>
 <pre class="r"><code>popcenter=pop2&gt;5000
 popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col=&quot;red&quot;,legend=F)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
 <p>In meters if the RasterLayer is not projected (<code>+proj=longlat</code>) and in map units (typically also meters) when it is projected.</p>
 <pre class="r"><code>popcenterdist=distance(popcenter)
 plot(popcenterdist)</code></pre>
-</div>
-<div id="your-turn-3" class="section level2">
-<h2>Your Turn</h2>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-3">Your Turn</h2>
 <p>Will sea level rise affect any major population centers?</p>
 <p>Steps:</p>
 <ul>
 <li>Resample <code>popcenter</code> to resolution of <code>dem</code> using <code>method=ngb</code></li>
 <li>Identify <code>popcenter</code> areas that flood according to <code>flood2</code>.</li>
 </ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
+Show Solution
+</button>
+<div id="demo4" class="collapse">
 <p>Will sea level rise affect any major population centers?</p>
 <pre class="r"><code>popcenter2=resample(popcenter,dem,method=&quot;ngb&quot;)
 
@@ -775,6 +878,9 @@ floodpop2= flood2==1 &amp; popcenter2
 floodpop2=mask(floodpop2,floodpop2,maskval=0)
 
 plot(flood2);plot(floodpop2,add=T,col=&quot;red&quot;,legend=F);plot(bgd,add=T)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+</div>
+</div>
 </div>
 <div id="vectorize-raster" class="section level2">
 <h2>Vectorize raster</h2>
@@ -787,14 +893,14 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   coord_equal(ylim=c(21,25))+
   geom_path(data=fortify(bgd),aes(x=long,y=lat,order=order,group=group),size=.5)+
   geom_path(data=fortify(vpop),aes(x=long,y=lat,order=order,group=group),size=1,col=&quot;green&quot;)</code></pre>
-<p>Warning: very slow on large rasters…</p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png" alt="" /><!-- --> Warning: very slow on large rasters…</p>
 </div>
 <div id="d-visualization" class="section level2">
 <h2>3D Visualization</h2>
 <p>Uses <code>rgl</code> library.</p>
 <pre class="r"><code>plot3D(dem)
 decorate3d()</code></pre>
-<p><img src="assets/plot3d.png" alt="alt text" width="70%"></p>
+<p><img src="06_assets/plot3d.png" alt="alt text" width="70%"></p>
 <p>50 different styles illustrated <a href="https://cran.r-project.org/web/packages/plot3D/vignettes/volcano.pdf">here</a>.</p>
 <p>Overlay population with <code>drape</code></p>
 <pre class="r"><code>plot3D(dem,drape=pop3, zfac=1)
