@@ -43,7 +43,7 @@ getData("ISO3")%>%
 #' Often good idea to keep data in separate folder.  You will need to edit this for your machine!
 ## ------------------------------------------------------------------------
 datadir="~/Downloads/data"
-if(!exists(datadir)) dir.create(datadir, recursive=T)
+if(!file.exists(datadir)) dir.create(datadir, recursive=T)
 
 #' Download country border.
 ## ------------------------------------------------------------------------

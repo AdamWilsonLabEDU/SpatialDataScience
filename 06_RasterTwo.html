@@ -397,9 +397,7 @@ library(rgeos)</code></pre>
 <h3>Download Bangladesh Border</h3>
 <p>Often good idea to keep data in separate folder. You will need to edit this for your machine!</p>
 <pre class="r"><code>datadir=&quot;~/Downloads/data&quot;
-if(!exists(datadir)) dir.create(datadir, recursive=T)</code></pre>
-<pre><code>## Warning in dir.create(datadir, recursive = T): &#39;/Users/adamw/Downloads/
-## data&#39; already exists</code></pre>
+if(!file.exists(datadir)) dir.create(datadir, recursive=T)</code></pre>
 <p>Download country border.</p>
 <pre class="r"><code>bgd=getData(&#39;GADM&#39;, country=&#39;BGD&#39;, level=0,path = datadir)
 plot(bgd)</code></pre>

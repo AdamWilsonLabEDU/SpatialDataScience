@@ -50,12 +50,7 @@ Often good idea to keep data in separate folder.  You will need to edit this for
 
 ```r
 datadir="~/Downloads/data"
-if(!exists(datadir)) dir.create(datadir, recursive=T)
-```
-
-```
-## Warning in dir.create(datadir, recursive = T): '/Users/adamw/Downloads/
-## data' already exists
+if(!file.exists(datadir)) dir.create(datadir, recursive=T)
 ```
 Download country border.
 
