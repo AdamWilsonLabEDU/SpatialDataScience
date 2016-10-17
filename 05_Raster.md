@@ -875,8 +875,15 @@ Extract values along a transect.
 ```r
 transect = SpatialLinesDataFrame(
   SpatialLines(list(Lines(list(Line(
-    cbind(c(19, 26),c(-33.5, -33.5)))), ID = "ZAF"))),
+    rbind(c(19, -33.5),c(26, -33.5)))), ID = "ZAF"))),
   data.frame(Z = c("transect"), row.names = c("ZAF")))
+
+# OR
+
+transect=SpatialLinesDataFrame(
+  readWKT("LINESTRING(19 -33.5,26 -33.5)"),
+  data.frame(Z = c("transect")))
+
 
 gplot(r1)+geom_tile(aes(fill=value))+
   geom_line(aes(x=long,y=lat),data=fortify(transect),col="red")
@@ -893,14 +900,62 @@ gplot(r1)+geom_tile(aes(fill=value))+
 trans=raster::extract(x=clim[[12:14]],
                       y=transect,
                       along=T,
-                      cellnumbers=T)%>% 
-  as.data.frame()
+                      cellnumbers=T)%>%
+  data.frame()
+head(trans)
+```
+
+```
+##      cell bio12 bio13 bio14
+## 1 1601755  81.4  13.0   2.0
+## 2 1601756  71.9  11.6   1.7
+## 3 1601757  56.8   8.8   1.5
+## 4 1601758  47.9   7.2   1.3
+## 5 1601759  41.5   6.1   1.3
+## 6 1601760  36.1   5.0   1.2
+```
+
+#### Add other metadata and reshape
+
+```r
 trans[,c("lon","lat")]=coordinates(clim)[trans$cell]
 trans$order=as.integer(rownames(trans))
-  
+head(trans)  
+```
+
+```
+##      cell bio12 bio13 bio14      lon      lat order
+## 1 1601755  81.4  13.0   2.0 19.08333 19.08333     1
+## 2 1601756  71.9  11.6   1.7 19.25000 19.25000     2
+## 3 1601757  56.8   8.8   1.5 19.41667 19.41667     3
+## 4 1601758  47.9   7.2   1.3 19.58333 19.58333     4
+## 5 1601759  41.5   6.1   1.3 19.75000 19.75000     5
+## 6 1601760  36.1   5.0   1.2 19.91667 19.91667     6
+```
+
+
+```r
 transl=group_by(trans,lon,lat)%>%
   gather(variable, value, -lon, -lat, -cell, -order)
+head(transl)
+```
 
+```
+## Source: local data frame [6 x 6]
+## Groups: lon, lat [6]
+## 
+##      cell      lon      lat order variable value
+##     <dbl>    <dbl>    <dbl> <int>    <chr> <dbl>
+## 1 1601755 19.08333 19.08333     1    bio12  81.4
+## 2 1601756 19.25000 19.25000     2    bio12  71.9
+## 3 1601757 19.41667 19.41667     3    bio12  56.8
+## 4 1601758 19.58333 19.58333     4    bio12  47.9
+## 5 1601759 19.75000 19.75000     5    bio12  41.5
+## 6 1601760 19.91667 19.91667     6    bio12  36.1
+```
+
+
+```r
 ggplot(transl,aes(x=lon,y=value,
                   colour=variable,
                   group=variable,
@@ -908,7 +963,7 @@ ggplot(transl,aes(x=lon,y=value,
   geom_line()
 ```
 
-![](05_Raster_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](05_Raster_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
 
 
 
@@ -939,9 +994,9 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
     geom_map(map = frsp)
 ```
 
-![](05_Raster_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](05_Raster_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
 
-
+> For more details about plotting spatialPolygons, see [here](https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles)
 
 ## Example Workflow
 
@@ -958,12 +1013,75 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
 country=getData('GADM', country='TUN', level=1)
 tmax=getData('worldclim', var='tmax', res=10)
 gain(tmax)=0.1
+names(tmax)
+```
+
+```
+##  [1] "tmax1"  "tmax2"  "tmax3"  "tmax4"  "tmax5"  "tmax6"  "tmax7" 
+##  [8] "tmax8"  "tmax9"  "tmax10" "tmax11" "tmax12"
+```
+
+Default layer names can be problematic/undesirable.
+
+```r
+sort(names(tmax))
+```
+
+```
+##  [1] "tmax1"  "tmax10" "tmax11" "tmax12" "tmax2"  "tmax3"  "tmax4" 
+##  [8] "tmax5"  "tmax6"  "tmax7"  "tmax8"  "tmax9"
+```
+
+```r
+## Options
+month.name
+```
+
+```
+##  [1] "January"   "February"  "March"     "April"     "May"      
+##  [6] "June"      "July"      "August"    "September" "October"  
+## [11] "November"  "December"
+```
+
+```r
+month.abb
+```
+
+```
+##  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov"
+## [12] "Dec"
+```
+
+```r
+sprintf("%02d",1:12)
+```
+
+```
+##  [1] "01" "02" "03" "04" "05" "06" "07" "08" "09" "10" "11" "12"
+```
+
+```r
+sprintf("%04d",1:12)
+```
+
+```
+##  [1] "0001" "0002" "0003" "0004" "0005" "0006" "0007" "0008" "0009" "0010"
+## [11] "0011" "0012"
+```
+See `?sprintf` for details
+
+
+```r
+names(tmax)=sprintf("%02d",1:12)
+
 tmax_crop=crop(tmax,country)
 tmaxave_crop=mean(tmax_crop)  # calculate mean annual maximum temperature 
 tmaxavefocal_crop=focal(tmaxave_crop,
                         fun=median,
                         w=matrix(1,11,11))
 ```
+
+> Only a few datasets are available usig `getData()` in the raster package, but you can download almost any file on the web with `file.download()`.
 
 Report quantiles for each layer in a raster* object
 
@@ -972,28 +1090,21 @@ cellStats(tmax_crop,"quantile")
 ```
 
 ```
-##      tmax1 tmax2 tmax3 tmax4 tmax5 tmax6 tmax7 tmax8 tmax9 tmax10 tmax11
-## 0%     8.4  10.1  13.8  17.4  21.9  26.4  29.6  30.3  26.6   19.7   14.1
-## 25%   14.1  15.8  18.3  21.3  25.7  30.4  34.6  34.0  30.3   25.3   20.2
-## 50%   15.3  17.4  21.0  25.0  28.9  33.3  36.4  35.8  32.8   27.6   21.7
-## 75%   16.3  19.0  23.0  27.4  31.9  36.4  39.7  39.0  35.3   29.0   22.4
-## 100%  18.1  21.2  25.6  31.2  35.9  41.4  43.3  42.6  38.5   31.9   24.5
-##      tmax12
-## 0%      9.6
-## 25%    15.4
-## 50%    16.6
-## 75%    17.4
-## 100%   18.9
+##       X01  X02  X03  X04  X05  X06  X07  X08  X09  X10  X11  X12
+## 0%    8.4 10.1 13.8 17.4 21.9 26.4 29.6 30.3 26.6 19.7 14.1  9.6
+## 25%  14.1 15.8 18.3 21.3 25.7 30.4 34.6 34.0 30.3 25.3 20.2 15.4
+## 50%  15.3 17.4 21.0 25.0 28.9 33.3 36.4 35.8 32.8 27.6 21.7 16.6
+## 75%  16.3 19.0 23.0 27.4 31.9 36.4 39.7 39.0 35.3 29.0 22.4 17.4
+## 100% 18.1 21.2 25.6 31.2 35.9 41.4 43.3 42.6 38.5 31.9 24.5 18.9
 ```
 
 
 ## Create a Transect  (SpatialLinesDataFrame)
 
 ```r
-transect = SpatialLinesDataFrame(
-  SpatialLines(list(Lines(list(Line(
-    cbind(c(8, 10),c(36, 36)))), ID = "T1"))),
-  data.frame(Z = c("transect"), row.names = c("T1")))
+transect=SpatialLinesDataFrame(
+  readWKT("LINESTRING(8 36,10 36)"),
+  data.frame(Z = c("T1")))
 ```
 
 
@@ -1004,23 +1115,24 @@ gplot(tmax_crop)+
   geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c("brown","red","yellow","darkgreen","green"),
-    trans="log10",
     name="Temp")+
   facet_wrap(~variable)+
+  ## now add country overlays
   geom_path(data=fortify(country),
             mapping=aes(x=long,y=lat,
                         group=group,
                         order=order))+
+  # now add transect line
   geom_line(aes(x=long,y=lat),
-            data=fortify(transect),col="red")+
-  coord_equal()
+            data=fortify(transect),col="red",size=3)+
+  coord_map()
 ```
 
 ```
 ## Regions defined for each Polygons
 ```
 
-![](05_Raster_files/figure-html/unnamed-chunk-52-1.png)<!-- -->
+![](05_Raster_files/figure-html/unnamed-chunk-57-1.png)<!-- -->
 
 
 ## Extract and clean up the transect data
@@ -1037,27 +1149,44 @@ head(trans)
 ```
 
 ```
-##   cell tmax1 tmax2 tmax3 tmax4 tmax5 tmax6 tmax7 tmax8 tmax9 tmax10 tmax11
-## 1  229  12.0  13.3  16.7  20.4  24.5  30.4  34.5  33.9  29.4   23.0   17.3
-## 2  230  12.6  14.1  17.4  21.1  25.3  31.4  35.5  34.9  30.3   23.8   18.0
-## 3  231  12.8  14.3  17.6  21.3  25.6  31.8  36.1  35.4  30.7   24.1   18.2
-## 4  232  11.8  13.3  16.8  20.6  25.0  31.1  35.7  34.8  30.0   23.4   17.4
-## 5  233  11.6  13.1  16.6  20.4  25.0  30.9  35.7  34.7  29.9   23.3   17.4
-## 6  234  11.3  12.7  16.3  20.0  24.8  30.5  35.4  34.4  29.6   23.2   17.3
-##   tmax12      lon      lat order
-## 1   13.0 8.083333 8.083333     1
-## 2   13.8 8.250000 8.250000     2
-## 3   14.0 8.416667 8.416667     3
-## 4   13.1 8.583333 8.583333     4
-## 5   13.0 8.750000 8.750000     5
-## 6   12.8 8.916667 8.916667     6
+##   cell  X01  X02  X03  X04  X05  X06  X07  X08  X09  X10  X11  X12
+## 1  229 12.0 13.3 16.7 20.4 24.5 30.4 34.5 33.9 29.4 23.0 17.3 13.0
+## 2  230 12.6 14.1 17.4 21.1 25.3 31.4 35.5 34.9 30.3 23.8 18.0 13.8
+## 3  231 12.8 14.3 17.6 21.3 25.6 31.8 36.1 35.4 30.7 24.1 18.2 14.0
+## 4  232 11.8 13.3 16.8 20.6 25.0 31.1 35.7 34.8 30.0 23.4 17.4 13.1
+## 5  233 11.6 13.1 16.6 20.4 25.0 30.9 35.7 34.7 29.9 23.3 17.4 13.0
+## 6  234 11.3 12.7 16.3 20.0 24.8 30.5 35.4 34.4 29.6 23.2 17.3 12.8
+##        lon      lat order
+## 1 8.083333 8.083333     1
+## 2 8.250000 8.250000     2
+## 3 8.416667 8.416667     3
+## 4 8.583333 8.583333     4
+## 5 8.750000 8.750000     5
+## 6 8.916667 8.916667     6
 ```
+
+Reformat to 'long' format.
 
 ```r
 transl=group_by(trans,lon,lat)%>%
   gather(variable, value, -lon, -lat, -cell, -order)%>%
-  separate(variable,into = c("temp","month"),4)%>%
-  mutate(month=as.numeric(month))
+  separate(variable,into = c("X","month"),1)%>%
+  mutate(month=as.numeric(month),monthname=factor(month.name[month],ordered=T,levels=month.name))
+head(transl)
+```
+
+```
+## Source: local data frame [6 x 8]
+## Groups: lon, lat [6]
+## 
+##    cell      lon      lat order     X month value monthname
+##   <dbl>    <dbl>    <dbl> <int> <chr> <dbl> <dbl>     <ord>
+## 1   229 8.083333 8.083333     1     X     1  12.0   January
+## 2   230 8.250000 8.250000     2     X     1  12.6   January
+## 3   231 8.416667 8.416667     3     X     1  12.8   January
+## 4   232 8.583333 8.583333     4     X     1  11.8   January
+## 5   233 8.750000 8.750000     5     X     1  11.6   January
+## 6   234 8.916667 8.916667     6     X     1  11.3   January
 ```
 
 ## Plot the transect data
@@ -1075,7 +1204,22 @@ ggplot(transl,
     geom_line()
 ```
 
-![](05_Raster_files/figure-html/unnamed-chunk-54-1.png)<!-- -->
+![](05_Raster_files/figure-html/unnamed-chunk-60-1.png)<!-- -->
+
+Or the same data in a levelplot:
+
+```r
+ggplot(transl,
+       aes(x=lon,y=monthname,
+           fill=value))+
+  ylab("Month")+
+    scale_fill_distiller(
+      palette="PuBuGn",
+      name="Tmax")+
+    geom_raster()
+```
+
+![](05_Raster_files/figure-html/unnamed-chunk-61-1.png)<!-- -->
 
 
 ## Raster Processing
@@ -1086,4 +1230,3 @@ Things to consider:
 * Disk space and temporary files
 * Use of external programs (e.g. GDAL)
 * Use of external GIS viewer (e.g. QGIS)
-

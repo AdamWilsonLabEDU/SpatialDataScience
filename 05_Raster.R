@@ -509,8 +509,15 @@ ggplot(d2,aes(x=value))+
 ## ------------------------------------------------------------------------
 transect = SpatialLinesDataFrame(
   SpatialLines(list(Lines(list(Line(
-    cbind(c(19, 26),c(-33.5, -33.5)))), ID = "ZAF"))),
+    rbind(c(19, -33.5),c(26, -33.5)))), ID = "ZAF"))),
   data.frame(Z = c("transect"), row.names = c("ZAF")))
+
+# OR
+
+transect=SpatialLinesDataFrame(
+  readWKT("LINESTRING(19 -33.5,26 -33.5)"),
+  data.frame(Z = c("transect")))
+
 
 gplot(r1)+geom_tile(aes(fill=value))+
   geom_line(aes(x=long,y=lat),data=fortify(transect),col="red")
@@ -524,14 +531,25 @@ gplot(r1)+geom_tile(aes(fill=value))+
 trans=raster::extract(x=clim[[12:14]],
                       y=transect,
                       along=T,
-                      cellnumbers=T)%>% 
-  as.data.frame()
+                      cellnumbers=T)%>%
+  data.frame()
+head(trans)
+
+#' 
+#' #### Add other metadata and reshape
+## ------------------------------------------------------------------------
 trans[,c("lon","lat")]=coordinates(clim)[trans$cell]
 trans$order=as.integer(rownames(trans))
-  
+head(trans)  
+
+#' 
+## ------------------------------------------------------------------------
 transl=group_by(trans,lon,lat)%>%
   gather(variable, value, -lon, -lat, -cell, -order)
+head(transl)
 
+#' 
+## ------------------------------------------------------------------------
 ggplot(transl,aes(x=lon,y=value,
                   colour=variable,
                   group=variable,
@@ -567,7 +585,7 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
 
 
 #' 
-#' 
+#' > For more details about plotting spatialPolygons, see [here](https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles)
 #' 
 #' ## Example Workflow
 #' 
@@ -583,12 +601,32 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
 country=getData('GADM', country='TUN', level=1)
 tmax=getData('worldclim', var='tmax', res=10)
 gain(tmax)=0.1
+names(tmax)
+
+#' 
+#' Default layer names can be problematic/undesirable.
+## ------------------------------------------------------------------------
+sort(names(tmax))
+
+## Options
+month.name
+month.abb
+sprintf("%02d",1:12)
+sprintf("%04d",1:12)
+
+#' See `?sprintf` for details
+#' 
+## ------------------------------------------------------------------------
+names(tmax)=sprintf("%02d",1:12)
+
 tmax_crop=crop(tmax,country)
 tmaxave_crop=mean(tmax_crop)  # calculate mean annual maximum temperature 
 tmaxavefocal_crop=focal(tmaxave_crop,
                         fun=median,
                         w=matrix(1,11,11))
 
+#' 
+#' > Only a few datasets are available usig `getData()` in the raster package, but you can download almost any file on the web with `file.download()`.
 #' 
 #' Report quantiles for each layer in a raster* object
 ## ------------------------------------------------------------------------
@@ -598,10 +636,9 @@ cellStats(tmax_crop,"quantile")
 #' 
 #' ## Create a Transect  (SpatialLinesDataFrame)
 ## ------------------------------------------------------------------------
-transect = SpatialLinesDataFrame(
-  SpatialLines(list(Lines(list(Line(
-    cbind(c(8, 10),c(36, 36)))), ID = "T1"))),
-  data.frame(Z = c("transect"), row.names = c("T1")))
+transect=SpatialLinesDataFrame(
+  readWKT("LINESTRING(8 36,10 36)"),
+  data.frame(Z = c("T1")))
 
 #' 
 #' 
@@ -611,16 +648,17 @@ gplot(tmax_crop)+
   geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c("brown","red","yellow","darkgreen","green"),
-    trans="log10",
     name="Temp")+
   facet_wrap(~variable)+
+  ## now add country overlays
   geom_path(data=fortify(country),
             mapping=aes(x=long,y=lat,
                         group=group,
                         order=order))+
+  # now add transect line
   geom_line(aes(x=long,y=lat),
-            data=fortify(transect),col="red")+
-  coord_equal()
+            data=fortify(transect),col="red",size=3)+
+  coord_map()
 
 #' 
 #' 
@@ -635,10 +673,15 @@ trans[,c("lon","lat")]=coordinates(tmax_crop)[trans$cell]
 trans$order=as.integer(rownames(trans))
 head(trans)
   
+
+#' 
+#' Reformat to 'long' format.
+## ------------------------------------------------------------------------
 transl=group_by(trans,lon,lat)%>%
   gather(variable, value, -lon, -lat, -cell, -order)%>%
-  separate(variable,into = c("temp","month"),4)%>%
-  mutate(month=as.numeric(month))
+  separate(variable,into = c("X","month"),1)%>%
+  mutate(month=as.numeric(month),monthname=factor(month.name[month],ordered=T,levels=month.name))
+head(transl)
 
 #' 
 #' ## Plot the transect data
@@ -655,6 +698,18 @@ ggplot(transl,
     geom_line()
 
 #' 
+#' Or the same data in a levelplot:
+## ------------------------------------------------------------------------
+ggplot(transl,
+       aes(x=lon,y=monthname,
+           fill=value))+
+  ylab("Month")+
+    scale_fill_distiller(
+      palette="PuBuGn",
+      name="Tmax")+
+    geom_raster()
+
+#' 
 #' 
 #' ## Raster Processing
 #' 
@@ -664,4 +719,3 @@ ggplot(transl,
 #' * Disk space and temporary files
 #' * Use of external programs (e.g. GDAL)
 #' * Use of external GIS viewer (e.g. QGIS)
-#' 
