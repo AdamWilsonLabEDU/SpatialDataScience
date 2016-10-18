@@ -140,7 +140,6 @@ plot(dem); plot(bgd,add=T)
 
 #' 
 #' 
-#' 
 ## ----warning=F-----------------------------------------------------------
 gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
@@ -220,14 +219,13 @@ gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
 #'     * overlay the valley pixels in blue
 #'     * overlay the ridge pixels in red
 #' 
-#' Hint: use `transparent` to plot a transparent pixel.  
+#' Hint: use `transparent` to plot a transparent pixel and `add=T` to add a layer to an existing plot. 
 #' 
 #' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
 #' <div id="demo1" class="collapse">
 #' 
 #' </div>
 #' </div>
-#' 
 #' 
 #' 
 #' ### TRI (Terrain Ruggedness Index)
@@ -285,6 +283,21 @@ flowdir=terrain(reg1,opt="flowdir")
 plot(flowdir)
 
 #' Much more powerful hydrologic modeling in [GRASS GIS](https://grass.osgeo.org) 
+#' 
+#' ## Reclassification
+#' 
+#' Another useful function for raster processing is `reclass()`.
+#' 
+## ------------------------------------------------------------------------
+rcl=matrix(c(-Inf,2,1,
+           2,5,2,
+           5,10,3),byrow=T,nrow=3)
+rcl
+regclass=reclassify(dem,rcl)
+gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
+  scale_fill_gradient2(low="blue",high="red",midpoint=0)+
+  coord_equal()
+
 #' 
 #' # Sea Level Rise
 #' 

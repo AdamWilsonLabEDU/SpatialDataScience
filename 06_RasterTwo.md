@@ -220,7 +220,6 @@ plot(dem); plot(bgd,add=T)
 
 
 
-
 ```r
 gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
@@ -318,7 +317,7 @@ Negative values indicate valleys, near zero flat or mid-slope, and positive ridg
     * overlay the valley pixels in blue
     * overlay the ridge pixels in red
 
-Hint: use `transparent` to plot a transparent pixel.  
+Hint: use `transparent` to plot a transparent pixel and `add=T` to add a layer to an existing plot. 
 
 <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
 <div id="demo1" class="collapse">
@@ -331,9 +330,21 @@ plot(tpi<(-15),col=c("transparent","blue"),add=T,legend=F)
 ```
 
 ![](06_RasterTwo_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
-</div>
-</div>
 
+```r
+#OR (ggplot solution, sort of)
+rcl=matrix(c(-Inf,-15,1,
+           -15,15,2,
+           15,Inf,3),byrow=T,nrow=3)
+regclass=reclassify(tpi,rcl)
+gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
+  scale_fill_gradient2(low="blue",high="red",midpoint=2)+
+  coord_equal()
+```
+
+![](06_RasterTwo_files/figure-html/unnamed-chunk-19-2.png)<!-- -->
+</div>
+</div>
 
 
 ### TRI (Terrain Ruggedness Index)
@@ -404,6 +415,34 @@ plot(flowdir)
 ![](06_RasterTwo_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 Much more powerful hydrologic modeling in [GRASS GIS](https://grass.osgeo.org) 
 
+## Reclassification
+
+Another useful function for raster processing is `reclass()`.
+
+
+```r
+rcl=matrix(c(-Inf,2,1,
+           2,5,2,
+           5,10,3),byrow=T,nrow=3)
+rcl
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,] -Inf    2    1
+## [2,]    2    5    2
+## [3,]    5   10    3
+```
+
+```r
+regclass=reclassify(dem,rcl)
+gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
+  scale_fill_gradient2(low="blue",high="red",midpoint=0)+
+  coord_equal()
+```
+
+![](06_RasterTwo_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
+
 # Sea Level Rise
 
 
@@ -450,7 +489,7 @@ area=raster::area(dem)
 plot(area)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
 
 <div class="well">
@@ -479,7 +518,7 @@ plot(flood2,col=c("transparent","darkred"))
 plot(flood1,col=c("transparent","red"),add=T)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
 
 ## Multiply by area and sum
@@ -545,7 +584,7 @@ pop=raster(file.path(datadir,"gpw-v4-population-density-2015/gpw-v4-population-d
 plot(pop)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-29-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 A nicer plot...
@@ -558,7 +597,7 @@ gplot(pop,max=1e6)+geom_tile(aes(fill=value))+
   coord_equal()
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
 
 
 
@@ -575,7 +614,7 @@ gplot(pop2,max=1e6)+geom_tile(aes(fill=value))+
   coord_equal()
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
 
 
 
@@ -593,7 +632,7 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
   coord_equal()
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 
 
@@ -643,7 +682,7 @@ gplot(floodpop2,max=1e6)+geom_tile(aes(fill=value))+
   coord_equal()
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 </div>
 </div>
@@ -662,7 +701,7 @@ popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col="red",legend=F)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
 
 
 In meters if the RasterLayer is not projected (`+proj=longlat`) and in map units (typically also meters) when it is projected.
@@ -673,7 +712,7 @@ popcenterdist=distance(popcenter)
 plot(popcenterdist)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
 
 
 <div class="well">
@@ -702,7 +741,7 @@ floodpop2=mask(floodpop2,floodpop2,maskval=0)
 plot(flood2);plot(floodpop2,add=T,col="red",legend=F);plot(bgd,add=T)
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
 
 </div>
 </div>
@@ -722,7 +761,7 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   geom_path(data=fortify(vpop),aes(x=long,y=lat,order=order,group=group),size=1,col="green")
 ```
 
-![](06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![](06_RasterTwo_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
 Warning: very slow on large rasters...
 
 ## 3D Visualization
