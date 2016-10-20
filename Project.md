@@ -97,6 +97,9 @@ Sites with examples of visual display of quantitative information
 * [40 Brilliant and Complex Topics Explained Perfectly By Infographics](https://designschool.canva.com/blog/best-infographics/)
 * [NY Times Graphics Department](https://twitter.com/nytgraphics)
 
+[Open Data through R](https://github.com/ropensci/opendata): This Task View contains information about using R to obtain, parse, manipulate, create, and share open data. Much open data is available on the web, and the WebTechnologies TaskView addresses how to obtain and parse web-based data. There is obvious overlap between the two TaskViews, so some packages are described on both. There is also a considerable amount of open data available as R packages on CRAN.
+
+
 ## Project Titles
 
 * Understanding the influence of environmental variables on the distribution of mosses -- a data driven analysis

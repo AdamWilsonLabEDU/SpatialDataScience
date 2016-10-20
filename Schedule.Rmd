@@ -12,12 +12,13 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 9/19 | **Data Wrangling 2** | Filtering, selecting, joining data sets. Data gymnastics with dplyr. |  Homework #1  |
 | 9/26 | **Graphics** | More base graphics (scatterplots, histograms).  The _grammar of graphics_: ggplot2 and extensions (ggmap, rasterVis, etc.). |  |
 | 10/3 | **Spatial Data** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics | Homework # 2 |
-| 10/10 | **Spatial Rasters** | Working with gridded spatial data, raster calculations, working with climate datasets. | Project Proposal Due |
-| 10/17 | **Spatial Analysis** | Measuring autocorrelation (e.g. Moran’s I), spatial regression models   | Homework # 3    |
-| 10/24 | **Reproducible Research & Literate Programming & Version Control** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. Managing code with “version control" using Github. Figshare and other data repositories. | |
-| 10/31 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | First draft of project for peer assessment |
-| 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  | Homework # 4   |
-| 11/14 | **Software Integration** | Calling other programs from within R. | Second draft of project |
+| 10/10 | **Spatial Rasters** | Working with gridded spatial data | Project Proposal Due |
+| 10/17 | **Spatial Rasters two** | , raster calculations, working with climate datasets.  | Homework # 3    |
+| 10/24 | **Spatial Analysis** | Measuring autocorrelation (e.g. Moran’s I), spatial regression models | |
+| 10/31 | **Reproducible Research & Literate Programming & Version Control** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. Managing code with “version control" using Github. Figshare and other data repositories. | First draft of project for peer assessment  |
+| 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  |  Peer Evaluation Due  |
+| 11/14 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | Homework # 4 |
+| 11/21 | **Software Integration** | Calling other programs from within R. | Second draft of project |
 | 11/21 |  **Package Development** |  Package structure and necessary components.  Things to consider when developing an R package. |  |
 | 11/28 | **Final Project Presentations** | | |
 | 12/5  | **Final Project Presentations** | | |
