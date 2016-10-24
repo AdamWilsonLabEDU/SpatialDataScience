@@ -785,7 +785,7 @@ res(pop)/res(dem)
 
 ```r
 dem_coarse=dem%>%
-  aggregate(fact=50,fun=min,expand=T)%>%
+  aggregate(fact=10,fun=min,expand=T)%>%
   resample(pop,method="bilinear")
 ```
 

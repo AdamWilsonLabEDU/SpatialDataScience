@@ -505,7 +505,7 @@ gplot(pop_fine,max=1e5)+geom_tile(aes(fill=value))+
 ## ------------------------------------------------------------------------
 res(pop)/res(dem)
 dem_coarse=dem%>%
-  aggregate(fact=50,fun=min,expand=T)%>%
+  aggregate(fact=10,fun=min,expand=T)%>%
   resample(pop,method="bilinear")
 
 #' 
