@@ -106,7 +106,7 @@ rasterOptions()
 #' 
 #' Save while creating
 ## ----eval=F--------------------------------------------------------------
-## dem=merge(dem1,dem2,filename=file.path(datadir,"dem.tif"))
+## dem=merge(dem1,dem2,filename=file.path(datadir,"dem.tif"),overwrite=T)
 
 #' 
 #' Or after
@@ -132,20 +132,25 @@ rasterOptions()
 #' 
 #' `rgdal` package does even more...
 #' 
-#' ### Crop to Bangladesh
+#' ### Crop to Coastal area of Bangladesh
 #' 
 ## ------------------------------------------------------------------------
-dem=crop(dem,bgd,filename=file.path(datadir,"dem_bgd.tif"),overwrite=T)
+#  Crop using border polygon 
+# dem=crop(dem,bgd,filename=file.path(datadir,"dem_bgd.tif"),overwrite=T)
+
+# Or crop to a lat-lon box
+dem=crop(dem,extent(89,91.5,21.5,24),filename=file.path(datadir,"dem_bgd.tif"),overwrite=T)
+
 plot(dem); plot(bgd,add=T)
 
 #' 
-#' 
+#' # Use ggplot
 ## ----warning=F-----------------------------------------------------------
 gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c("red","yellow","grey30","grey20","grey10"),
     trans="log1p",breaks= log_breaks(n = 5, base = 10)(c(1, 1e3)))+
-  coord_equal(ylim=c(21,25))+
+  coord_equal(ylim=c(21.5,24))+
   geom_path(data=fortify(bgd),
             aes(x=long,y=lat,order=order,group=group),size=.5)
 
@@ -284,21 +289,6 @@ plot(flowdir)
 
 #' Much more powerful hydrologic modeling in [GRASS GIS](https://grass.osgeo.org) 
 #' 
-#' ## Reclassification
-#' 
-#' Another useful function for raster processing is `reclass()`.
-#' 
-## ------------------------------------------------------------------------
-rcl=matrix(c(-Inf,2,1,
-           2,5,2,
-           5,10,3),byrow=T,nrow=3)
-rcl
-regclass=reclassify(dem,rcl)
-gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
-  scale_fill_gradient2(low="blue",high="red",midpoint=0)+
-  coord_equal()
-
-#' 
 #' # Sea Level Rise
 #' 
 #' 
@@ -359,6 +349,34 @@ plot(area)
 #' </div>
 #' </div>
 #' 
+#' ## Reclassification
+#' 
+#' Another useful function for raster processing is `reclass()`.
+#' 
+## ------------------------------------------------------------------------
+rcl=matrix(c(-Inf,2.76,1,
+           2.76,10.97,2,
+           10.97,Inf,3),byrow=T,ncol=3)
+rcl
+regclass=reclassify(dem,rcl)
+
+gplot(regclass,max=1e5)+
+  geom_tile(aes(fill=as.factor(value)))+
+  scale_fill_manual(values=c("red","orange","blue"),
+                    name="Flood Class")+
+  coord_equal()
+
+#' 
+#' 
+#' Or, do reclassification 'on the fly in the plotting function
+#' 
+## ------------------------------------------------------------------------
+gplot(dem,max=1e5)+
+  geom_tile(aes(fill=cut(value,c(-Inf,2.76,10.97,Inf))))+
+  scale_fill_manual(values=c("red","orange","blue"),
+                    name="Flood Class")+
+  coord_equal()
+
 #' 
 #' 
 #' 
@@ -392,14 +410,14 @@ plot(area)
 #' Use `raster()` to load a raster from disk.
 #' 
 ## ------------------------------------------------------------------------
-pop=raster(file.path(datadir,"gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif"))
-plot(pop)
+pop_global=raster(file.path(datadir,"gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif"))
+plot(pop_global)
 
 #' 
 #' 
 #' A nicer plot...
 ## ------------------------------------------------------------------------
-gplot(pop,max=1e6)+geom_tile(aes(fill=value))+
+gplot(pop_global,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c("grey90","grey60","darkblue","blue","red"),
     trans="log1p",breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
@@ -411,10 +429,10 @@ gplot(pop,max=1e6)+geom_tile(aes(fill=value))+
 #' ### Crop to region with the `dem` object
 #' 
 ## ------------------------------------------------------------------------
-pop2=pop%>%
+pop=pop_global%>%
   crop(dem)
 
-gplot(pop2,max=1e6)+geom_tile(aes(fill=value))+
+gplot(pop,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(colours=c("grey90","grey60","darkblue","blue","red"),
                        trans="log1p",breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()
@@ -424,27 +442,36 @@ gplot(pop2,max=1e6)+geom_tile(aes(fill=value))+
 #' 
 #' ### Resample to DEM
 #' 
+#' Compare the resolution and origin of `pop2` and `dem`.
+#' 
+## ------------------------------------------------------------------------
+pop
+dem
+
+res(pop)
+res(dem)
+
+origin(pop)
+origin(dem)
+
+# Look at average cell area in km^2 
+cellStats(raster::area(pop),"mean")
+cellStats(raster::area(dem),"mean")
+
+#' 
+#' So to work with these rasters (population and elevation), it is easiest to "adjust" them to have the same resolution.  But there is no good way to do this.  Do you aggregate the finer raster or resample the coarser one?
+#' 
 #' Assume equal density within each grid cell and resample
 ## ---- warning=F----------------------------------------------------------
-pop3=pop2%>%
+pop_fine=pop%>%
   resample(dem,method="bilinear")
 
-gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
-  scale_fill_gradientn(colours=c("grey90","grey60","darkblue","blue","red"),
-                       trans="log1p",breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
+gplot(pop_fine,max=1e5)+geom_tile(aes(fill=value))+
+  scale_fill_gradientn(
+    colours=c("grey90","grey60","darkblue","blue","red"),
+    trans="log1p",breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()
 
-
-#' 
-#' 
-#' 
-#' Or resample elevation to resolution of population:
-#' 
-## ----eval=F--------------------------------------------------------------
-## res(pop2)/res(dem)
-## demc=dem%>%
-##   aggregate(fact=50,fun=min,expand=T)%>%
-##   resample(pop2,method="bilinear")
 
 #' 
 #' 
@@ -462,6 +489,8 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
 #' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
 #' <div id="demo3" class="collapse">
 #' 
+#' For the fine resolution population data
+#' 
 #' 
 #' Number of potentially affected people across the region.
 #' 
@@ -469,7 +498,18 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
 #' </div>
 #' </div>
 #' 
+#' Or resample elevation to resolution of population:
+#' 1. First aggregate to approximate spatial resolution
+#' 2. Resample to align grids perfectly
 #' 
+## ------------------------------------------------------------------------
+res(pop)/res(dem)
+dem_coarse=dem%>%
+  aggregate(fact=50,fun=min,expand=T)%>%
+  resample(pop,method="bilinear")
+
+#' 
+#' For the coarse resolution data
 #' 
 #' 
 #' ## Raster Distances
@@ -477,7 +517,7 @@ gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
 #' `distance()` calculates distances for all cells that are NA to the nearest cell that is not NA.
 #' 
 ## ------------------------------------------------------------------------
-popcenter=pop2>5000
+popcenter=pop>5000
 popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col="red",legend=F)
 

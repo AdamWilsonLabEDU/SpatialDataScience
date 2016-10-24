@@ -409,18 +409,14 @@ plot(bgd)</code></pre>
 <p>SRTM Elevation data with <code>getData()</code> as 5deg tiles.</p>
 <pre class="r"><code>bgdc=gCentroid(bgd)%&gt;%coordinates()
 
-dem1=getData(&quot;SRTM&quot;,lat=bgdc[2],lon=bgdc[1],path=datadir)</code></pre>
-<pre><code>## Warning in utils::download.file(url = aurl, destfile = fn, method =
-## &quot;auto&quot;, : unable to resolve &#39;hypersphere.telascience.org&#39;</code></pre>
-<pre class="r"><code>plot(dem1)
+dem1=getData(&quot;SRTM&quot;,lat=bgdc[2],lon=bgdc[1],path=datadir)
+plot(dem1)
 plot(bgd,add=T)</code></pre>
 <p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-6-1.png" alt="" /><!-- --></p>
 <div id="mosaicingmerging-rasters" class="section level3">
 <h3>Mosaicing/Merging rasters</h3>
 <p>Download the remaining necessary tiles</p>
 <pre class="r"><code>dem2=getData(&quot;SRTM&quot;,lat=23.7,lon=85,path=datadir)</code></pre>
-<pre><code>## Warning in utils::download.file(url = aurl, destfile = fn, method =
-## &quot;auto&quot;, : unable to resolve &#39;hypersphere.telascience.org&#39;</code></pre>
 <p>Use <code>merge()</code> to join two aligned rasters (origin, resolution, and projection). Or <code>mosaic()</code> combines with a function.</p>
 <pre class="r"><code>dem=merge(dem1,dem2)
 plot(dem)
@@ -434,11 +430,11 @@ plot(bgd,add=T)</code></pre>
 <pre class="r"><code>inMemory(dem)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>dem@file@name</code></pre>
-<pre><code>## [1] &quot;/private/var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T/Rtmpv6y1fG/raster/r_tmp_2016-10-16_211114_5026_12958.grd&quot;</code></pre>
+<pre><code>## [1] &quot;/private/var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T/RtmpNAxz5l/raster/r_tmp_2016-10-23_204503_5034_04978.grd&quot;</code></pre>
 <pre class="r"><code>file.size(sub(&quot;grd&quot;,&quot;gri&quot;,dem@file@name))*1e-6</code></pre>
 <pre><code>## [1] 144.036</code></pre>
 <pre class="r"><code>showTmpFiles()</code></pre>
-<pre><code>## r_tmp_2016-10-16_211114_5026_12958</code></pre>
+<pre><code>## r_tmp_2016-10-23_204503_5034_04978</code></pre>
 <pre class="r"><code>rasterOptions()</code></pre>
 <pre><code>## format        : raster 
 ## datatype      : FLT8S 
@@ -447,7 +443,7 @@ plot(bgd,add=T)</code></pre>
 ## timer         : FALSE 
 ## chunksize     : 1e+07 
 ## maxmemory     : 1e+08 
-## tmpdir        : /var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T//Rtmpv6y1fG/raster// 
+## tmpdir        : /var/folders/lg/gz_jcfk5617dlpzdtg23x3rh0000gn/T//RtmpNAxz5l/raster// 
 ## tmptime       : 168 
 ## setfileext    : TRUE 
 ## tolerance     : 0.1 
@@ -457,7 +453,7 @@ plot(bgd,add=T)</code></pre>
 <p>Set with <code>rasterOptions(tmpdir = &quot;/tmp&quot;)</code></p>
 <p>Saving raster to file: <em>two options</em></p>
 <p>Save while creating</p>
-<pre class="r"><code>dem=merge(dem1,dem2,filename=file.path(datadir,&quot;dem.tif&quot;))</code></pre>
+<pre class="r"><code>dem=merge(dem1,dem2,filename=file.path(datadir,&quot;dem.tif&quot;),overwrite=T)</code></pre>
 <p>Or after</p>
 <pre class="r"><code>writeRaster(dem, filename = file.path(datadir,&quot;dem.tif&quot;))</code></pre>
 <div id="writeraster-formats" class="section level3">
@@ -530,21 +526,29 @@ plot(bgd,add=T)</code></pre>
 </table>
 <p><code>rgdal</code> package does even more…</p>
 </div>
-<div id="crop-to-bangladesh" class="section level3">
-<h3>Crop to Bangladesh</h3>
-<pre class="r"><code>dem=crop(dem,bgd,filename=file.path(datadir,&quot;dem_bgd.tif&quot;),overwrite=T)
+<div id="crop-to-coastal-area-of-bangladesh" class="section level3">
+<h3>Crop to Coastal area of Bangladesh</h3>
+<pre class="r"><code>#  Crop using border polygon 
+# dem=crop(dem,bgd,filename=file.path(datadir,&quot;dem_bgd.tif&quot;),overwrite=T)
+
+# Or crop to a lat-lon box
+dem=crop(dem,extent(89,91.5,21.5,24),filename=file.path(datadir,&quot;dem_bgd.tif&quot;),overwrite=T)
+
 plot(dem); plot(bgd,add=T)</code></pre>
 <p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
+</div>
+</div>
+<div id="use-ggplot" class="section level1">
+<h1>Use ggplot</h1>
 <pre class="r"><code>gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;red&quot;,&quot;yellow&quot;,&quot;grey30&quot;,&quot;grey20&quot;,&quot;grey10&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e3)))+
-  coord_equal(ylim=c(21,25))+
+  coord_equal(ylim=c(21.5,24))+
   geom_path(data=fortify(bgd),
             aes(x=long,y=lat,order=order,group=group),size=.5)</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
 <p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
-</div>
 </div>
 <div id="terrain-analysis-an-aside" class="section level1">
 <h1>Terrain analysis (an aside)</h1>
@@ -671,23 +675,6 @@ plot(flowdir)</code></pre>
 <p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --> Much more powerful hydrologic modeling in <a href="https://grass.osgeo.org">GRASS GIS</a></p>
 </div>
 </div>
-<div id="reclassification" class="section level2">
-<h2>Reclassification</h2>
-<p>Another useful function for raster processing is <code>reclass()</code>.</p>
-<pre class="r"><code>rcl=matrix(c(-Inf,2,1,
-           2,5,2,
-           5,10,3),byrow=T,nrow=3)
-rcl</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,] -Inf    2    1
-## [2,]    2    5    2
-## [3,]    5   10    3</code></pre>
-<pre class="r"><code>regclass=reclassify(dem,rcl)
-gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
-  scale_fill_gradient2(low=&quot;blue&quot;,high=&quot;red&quot;,midpoint=0)+
-  coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-24-1.png" alt="" /><!-- --></p>
-</div>
 </div>
 <div id="sea-level-rise" class="section level1">
 <h1>Sea Level Rise</h1>
@@ -747,7 +734,7 @@ kable(slr)</code></pre>
 <p>WGS84 data is unprojected, must account for cell area (in km^2)…</p>
 <pre class="r"><code>area=raster::area(dem)
 plot(area)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-26-1.png" alt="" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-1">Your Turn</h2>
 <ol style="list-style-type: decimal">
@@ -773,17 +760,44 @@ flood2=dem&lt;=10.97
 
 plot(flood2,col=c(&quot;transparent&quot;,&quot;darkred&quot;))
 plot(flood1,col=c(&quot;transparent&quot;,&quot;red&quot;),add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-28-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
 <h2 id="multiply-by-area-and-sum">Multiply by area and sum</h2>
-<pre class="r"><code>flood1a=flood1*area
-flood2a=flood2*area
+<pre class="r"><code>flood1_area=flood1*area
+flood2_area=flood2*area
 
-cellStats(flood1a,sum)</code></pre>
-<pre><code>## [1] 6357.565</code></pre>
-<pre class="r"><code>cellStats(flood2a,sum)</code></pre>
-<pre><code>## [1] 68057.65</code></pre>
+cellStats(flood1_area,sum)</code></pre>
+<pre><code>## [1] 3843.93</code></pre>
+<pre class="r"><code>cellStats(flood2_area,sum)</code></pre>
+<pre><code>## [1] 40818.03</code></pre>
 </div>
 </div>
+</div>
+<div id="reclassification" class="section level2">
+<h2>Reclassification</h2>
+<p>Another useful function for raster processing is <code>reclass()</code>.</p>
+<pre class="r"><code>rcl=matrix(c(-Inf,2.76,1,
+           2.76,10.97,2,
+           10.97,Inf,3),byrow=T,ncol=3)
+rcl</code></pre>
+<pre><code>##       [,1]  [,2] [,3]
+## [1,]  -Inf  2.76    1
+## [2,]  2.76 10.97    2
+## [3,] 10.97   Inf    3</code></pre>
+<pre class="r"><code>regclass=reclassify(dem,rcl)
+
+gplot(regclass,max=1e5)+
+  geom_tile(aes(fill=as.factor(value)))+
+  scale_fill_manual(values=c(&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;),
+                    name=&quot;Flood Class&quot;)+
+  coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
+<p>Or, do reclassification ’on the fly in the plotting function</p>
+<pre class="r"><code>gplot(dem,max=1e5)+
+  geom_tile(aes(fill=cut(value,c(-Inf,2.76,10.97,Inf))))+
+  scale_fill_manual(values=c(&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;),
+                    name=&quot;Flood Class&quot;)+
+  coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png" alt="" /><!-- --></p>
 </div>
 <div id="socioeconomic-data" class="section level2">
 <h2>Socioeconomic Data</h2>
@@ -807,44 +821,73 @@ cellStats(flood1a,sum)</code></pre>
 <div id="load-population-data" class="section level3">
 <h3>Load population data</h3>
 <p>Use <code>raster()</code> to load a raster from disk.</p>
-<pre class="r"><code>pop=raster(file.path(datadir,&quot;gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif&quot;))
-plot(pop)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png" alt="" /><!-- --></p>
+<pre class="r"><code>pop_global=raster(file.path(datadir,&quot;gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif&quot;))
+plot(pop_global)</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
 <p>A nicer plot…</p>
-<pre class="r"><code>gplot(pop,max=1e6)+geom_tile(aes(fill=value))+
+<pre class="r"><code>gplot(pop_global,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
 </div>
 <div id="crop-to-region-with-the-dem-object" class="section level3">
 <h3>Crop to region with the <code>dem</code> object</h3>
-<pre class="r"><code>pop2=pop%&gt;%
+<pre class="r"><code>pop=pop_global%&gt;%
   crop(dem)
 
-gplot(pop2,max=1e6)+geom_tile(aes(fill=value))+
-  scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
-                       trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
-  coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
-</div>
-<div id="resample-to-dem" class="section level3">
-<h3>Resample to DEM</h3>
-<p>Assume equal density within each grid cell and resample</p>
-<pre class="r"><code>pop3=pop2%&gt;%
-  resample(dem,method=&quot;bilinear&quot;)
-
-gplot(pop3,max=1e6)+geom_tile(aes(fill=value))+
+gplot(pop,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
                        trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
 <p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
-<p>Or resample elevation to resolution of population:</p>
-<pre class="r"><code>res(pop2)/res(dem)
-demc=dem%&gt;%
-  aggregate(fact=50,fun=min,expand=T)%&gt;%
-  resample(pop2,method=&quot;bilinear&quot;)</code></pre>
+</div>
+<div id="resample-to-dem" class="section level3">
+<h3>Resample to DEM</h3>
+<p>Compare the resolution and origin of <code>pop2</code> and <code>dem</code>.</p>
+<pre class="r"><code>pop</code></pre>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 300, 300, 90000  (nrow, ncol, ncell)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : 89, 91.5, 21.5, 24  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## data source : in memory
+## names       : gpw.v4.population.density_2015 
+## values      : 97.13571, 154258.4  (min, max)</code></pre>
+<pre class="r"><code>dem</code></pre>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 3000, 3000, 9e+06  (nrow, ncol, ncell)
+## resolution  : 0.0008333333, 0.0008333333  (x, y)
+## extent      : 88.99958, 91.49958, 21.49958, 23.99958  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## data source : /Users/adamw/Downloads/data/dem_bgd.tif 
+## names       : dem_bgd 
+## values      : -27, 152  (min, max)</code></pre>
+<pre class="r"><code>res(pop)</code></pre>
+<pre><code>## [1] 0.008333333 0.008333333</code></pre>
+<pre class="r"><code>res(dem)</code></pre>
+<pre><code>## [1] 0.0008333333 0.0008333333</code></pre>
+<pre class="r"><code>origin(pop)</code></pre>
+<pre><code>## [1] 0 0</code></pre>
+<pre class="r"><code>origin(dem)</code></pre>
+<pre><code>## [1] -0.000416061 -0.000416207</code></pre>
+<pre class="r"><code># Look at average cell area in km^2 
+cellStats(raster::area(pop),&quot;mean&quot;)</code></pre>
+<pre><code>## [1] 0.7886268</code></pre>
+<pre class="r"><code>cellStats(raster::area(dem),&quot;mean&quot;)</code></pre>
+<pre><code>## [1] 0.007886292</code></pre>
+<p>So to work with these rasters (population and elevation), it is easiest to “adjust” them to have the same resolution. But there is no good way to do this. Do you aggregate the finer raster or resample the coarser one?</p>
+<p>Assume equal density within each grid cell and resample</p>
+<pre class="r"><code>pop_fine=pop%&gt;%
+  resample(dem,method=&quot;bilinear&quot;)
+
+gplot(pop_fine,max=1e5)+geom_tile(aes(fill=value))+
+  scale_fill_gradientn(
+    colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
+    trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
+  coord_equal()</code></pre>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-2">Your turn</h2>
 <p>How many people are likely to be displaced?</p>
@@ -858,31 +901,45 @@ demc=dem%&gt;%
 Show Solution
 </button>
 <div id="demo3" class="collapse">
-<pre class="r"><code>floodpop2=flood2a*pop3
+<p>For the fine resolution population data</p>
+<pre class="r"><code>floodpop2=flood2_area*pop_fine
 cellStats(floodpop2,sum)</code></pre>
-<pre><code>## [1] 96692231</code></pre>
+<pre><code>## [1] 50587408</code></pre>
 <p>Number of potentially affected people across the region.</p>
 <pre class="r"><code>gplot(floodpop2,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e4)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
 </div>
 </div>
+<p>Or resample elevation to resolution of population: 1. First aggregate to approximate spatial resolution 2. Resample to align grids perfectly</p>
+<pre class="r"><code>res(pop)/res(dem)</code></pre>
+<pre><code>## [1] 10 10</code></pre>
+<pre class="r"><code>dem_coarse=dem%&gt;%
+  aggregate(fact=50,fun=min,expand=T)%&gt;%
+  resample(pop,method=&quot;bilinear&quot;)</code></pre>
+<p>For the coarse resolution data</p>
+<pre class="r"><code>flood_coarse=dem_coarse&lt;=10.97
+dem_coarse_area=area(dem_coarse)
+flood_coarse_area=flood_coarse*dem_coarse_area
+floodpop_coarse=flood_coarse_area*pop
+cellStats(floodpop_coarse,sum)</code></pre>
+<pre><code>## [1] 71478698</code></pre>
 </div>
 </div>
 <div id="raster-distances" class="section level2">
 <h2>Raster Distances</h2>
 <p><code>distance()</code> calculates distances for all cells that are NA to the nearest cell that is not NA.</p>
-<pre class="r"><code>popcenter=pop2&gt;5000
+<pre class="r"><code>popcenter=pop&gt;5000
 popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col=&quot;red&quot;,legend=F)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
 <p>In meters if the RasterLayer is not projected (<code>+proj=longlat</code>) and in map units (typically also meters) when it is projected.</p>
 <pre class="r"><code>popcenterdist=distance(popcenter)
 plot(popcenterdist)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-41-1.png" alt="" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-3">Your Turn</h2>
 <p>Will sea level rise affect any major population centers?</p>
@@ -902,7 +959,7 @@ floodpop2= flood2==1 &amp; popcenter2
 floodpop2=mask(floodpop2,floodpop2,maskval=0)
 
 plot(flood2);plot(floodpop2,add=T,col=&quot;red&quot;,legend=F);plot(bgd,add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -917,7 +974,7 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   coord_equal(ylim=c(21,25))+
   geom_path(data=fortify(bgd),aes(x=long,y=lat,order=order,group=group),size=.5)+
   geom_path(data=fortify(vpop),aes(x=long,y=lat,order=order,group=group),size=1,col=&quot;green&quot;)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --> Warning: very slow on large rasters…</p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-43-1.png" alt="" /><!-- --> Warning: very slow on large rasters…</p>
 </div>
 <div id="d-visualization" class="section level2">
 <h2>3D Visualization</h2>
