@@ -14,9 +14,6 @@
 <title>Getting Graphic</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -66,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 
 <style type="text/css">
 /* padding for bootstrap navbar */
@@ -152,7 +153,7 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -162,93 +163,6 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: "h1.title, .toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -358,7 +272,7 @@ div.tocify {
 
 
 
-<h1 class="title">Getting Graphic</h1>
+<h1 class="title toc-ignore">Getting Graphic</h1>
 <h3 class="subtitle"><em>Base graphics and <code>ggplot2</code></em></h3>
 
 </div>
@@ -440,7 +354,7 @@ kable(head(mtcars))</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="right">mpg</th>
 <th align="right">cyl</th>
 <th align="right">disp</th>
@@ -456,7 +370,7 @@ kable(head(mtcars))</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Mazda RX4</td>
+<td>Mazda RX4</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -470,7 +384,7 @@ kable(head(mtcars))</code></pre>
 <td align="right">4</td>
 </tr>
 <tr class="even">
-<td align="left">Mazda RX4 Wag</td>
+<td>Mazda RX4 Wag</td>
 <td align="right">21.0</td>
 <td align="right">6</td>
 <td align="right">160</td>
@@ -484,7 +398,7 @@ kable(head(mtcars))</code></pre>
 <td align="right">4</td>
 </tr>
 <tr class="odd">
-<td align="left">Datsun 710</td>
+<td>Datsun 710</td>
 <td align="right">22.8</td>
 <td align="right">4</td>
 <td align="right">108</td>
@@ -498,7 +412,7 @@ kable(head(mtcars))</code></pre>
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">Hornet 4 Drive</td>
+<td>Hornet 4 Drive</td>
 <td align="right">21.4</td>
 <td align="right">6</td>
 <td align="right">258</td>
@@ -512,7 +426,7 @@ kable(head(mtcars))</code></pre>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">Hornet Sportabout</td>
+<td>Hornet Sportabout</td>
 <td align="right">18.7</td>
 <td align="right">8</td>
 <td align="right">360</td>
@@ -526,7 +440,7 @@ kable(head(mtcars))</code></pre>
 <td align="right">2</td>
 </tr>
 <tr class="even">
-<td align="left">Valiant</td>
+<td>Valiant</td>
 <td align="right">18.1</td>
 <td align="right">6</td>
 <td align="right">225</td>
@@ -548,10 +462,10 @@ kable(head(mtcars))</code></pre>
 <h2>Base <code>plot()</code></h2>
 <p>R has a set of ‘base graphics’ that can do many plotting tasks (scatterplots, line plots, histograms, etc.)</p>
 <pre class="r"><code>plot(y=mtcars$mpg,x=mtcars$wt)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-3-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
 <p>Or you can use the more common <em>formula</em> notation:</p>
 <pre class="r"><code>plot(mpg~wt,data=mtcars)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-4-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
 <p>And you can customize with various parameters:</p>
 <pre class="r"><code>plot(mpg~wt,data=mtcars,
   ylab=&quot;Miles per gallon (mpg)&quot;,
@@ -559,7 +473,7 @@ kable(head(mtcars))</code></pre>
   main=&quot;Fuel Efficiency vs. Weight&quot;,
   col=&quot;red&quot;
   )</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 <p>Or switch to a line plot:</p>
 <pre class="r"><code>plot(mpg~wt,data=mtcars,
   type=&quot;l&quot;,
@@ -568,7 +482,7 @@ kable(head(mtcars))</code></pre>
   main=&quot;Fuel Efficiency vs. Weight&quot;,
   col=&quot;blue&quot;
   )</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-6-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <p>See <code>?plot</code> for details.</p>
 </div>
 <div id="histograms" class="section level2">
@@ -577,7 +491,7 @@ kable(head(mtcars))</code></pre>
 <pre class="r"><code>?hist</code></pre>
 <p>Plot a histogram of the fuel efficiencies in the <code>mtcars</code> dataset.</p>
 <pre class="r"><code>hist(mtcars$mpg)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="ggplot2" class="section level1">
@@ -614,91 +528,91 @@ summary(p)</code></pre>
 ## mapping:  x = wt, y = mpg
 ## faceting: facet_null()</code></pre>
 <pre class="r"><code>p</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-9-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
 <pre class="r"><code>p + geom_point()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-10-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-10-1.png" /><!-- --></p>
 <p>Or you can do both at the same time:</p>
 <pre class="r"><code>ggplot(mtcars, aes(x=wt, y=mpg)) + 
   geom_point()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-11-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <div id="aesthetic-map-color-by-of-cylinders" class="section level3">
 <h3>Aesthetic map: color by # of cylinders</h3>
 <pre class="r"><code>p + 
   geom_point(aes(colour = factor(cyl)))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-12-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 </div>
 <div id="set-shape-using-of-cylinders" class="section level3">
 <h3>Set shape using # of cylinders</h3>
 <pre class="r"><code>p + 
   geom_point(aes(shape = factor(cyl)))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-13-1.png" /><!-- --></p>
 </div>
 <div id="adjust-size-by-qsec" class="section level3">
 <h3>Adjust size by <code>qsec</code></h3>
 <pre class="r"><code>p + 
   geom_point(aes(size = qsec))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
 </div>
 <div id="color-by-cylinders-and-size-by-qsec" class="section level3">
 <h3>Color by cylinders and size by <code>qsec</code></h3>
 <pre class="r"><code>p + 
   geom_point(aes(colour = factor(cyl),size = qsec))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-15-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-15-1.png" /><!-- --></p>
 </div>
 <div id="multiple-aesthetics" class="section level3">
 <h3>Multiple aesthetics</h3>
 <pre class="r"><code>p + 
   geom_point(aes(colour = factor(cyl),size = qsec,shape=factor(gear)))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-16-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
 </div>
 <div id="add-a-linear-model" class="section level3">
 <h3>Add a linear model</h3>
 <pre class="r"><code>p + geom_point() + 
   geom_smooth(method=&quot;lm&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-17-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
 </div>
 <div id="add-a-loess-smooth" class="section level3">
 <h3>Add a LOESS smooth</h3>
 <pre class="r"><code>p + geom_point() + 
   geom_smooth(method=&quot;loess&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-18-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-18-1.png" /><!-- --></p>
 </div>
 <div id="change-scale-color" class="section level3">
 <h3>Change scale color</h3>
 <pre class="r"><code>p + geom_point(aes(colour = cyl)) + 
   scale_colour_gradient(low = &quot;blue&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
 </div>
 <div id="change-scale-shapes" class="section level3">
 <h3>Change scale shapes</h3>
 <pre class="r"><code>p + geom_point(aes(shape = factor(cyl))) + 
   scale_shape(solid = FALSE)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-20-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 </div>
 <div id="set-aesthetics-to-fixed-value" class="section level3">
 <h3>Set aesthetics to fixed value</h3>
 <pre class="r"><code>ggplot(mtcars, aes(wt, mpg)) + 
   geom_point(colour = &quot;red&quot;, size = 3)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 </div>
 <div id="transparancy-alpha0.2" class="section level3">
 <h3>Transparancy: alpha=0.2</h3>
 <pre class="r"><code>d &lt;- ggplot(diamonds, aes(carat, price))
 d + geom_point(alpha = 0.2)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-22-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
 <p>Varying alpha useful for large data sets</p>
 </div>
 <div id="transparancy-alpha0.1" class="section level3">
 <h3>Transparancy: alpha=0.1</h3>
 <pre class="r"><code>d + 
   geom_point(alpha = 0.1)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
 </div>
 <div id="transparancy-alpha0.01" class="section level3">
 <h3>Transparancy: alpha=0.01</h3>
 <pre class="r"><code>d + 
   geom_point(alpha = 0.01)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-24-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="building-ggplots" class="section level2">
@@ -724,7 +638,7 @@ Show Solution
   geom_point()+
   geom_smooth()+
   geom_rug()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-25-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
 </div>
 </div>
 <p><img src="03_assets/ggplot02.png" alt="alt text" width="100%"></p>
@@ -734,25 +648,25 @@ Show Solution
 <h3>Discrete X, Continuous Y</h3>
 <pre class="r"><code>p &lt;- ggplot(mtcars, aes(factor(cyl), mpg))
 p + geom_point()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-26-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
 </div>
 <div id="discrete-x-continuous-y-geom_jitter" class="section level3">
 <h3>Discrete X, Continuous Y + geom_jitter()</h3>
 <pre class="r"><code>p + 
   geom_jitter()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
 </div>
 <div id="discrete-x-continuous-y-geom_violin" class="section level3">
 <h3>Discrete X, Continuous Y + geom_violin()</h3>
 <pre class="r"><code>p + 
   geom_violin()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-28-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
 </div>
 <div id="discrete-x-continuous-y-geom_violin-1" class="section level3">
 <h3>Discrete X, Continuous Y + geom_violin()</h3>
 <pre class="r"><code>p + 
   geom_violin() + geom_jitter(position = position_jitter(width = .1))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
 <p><img src="03_assets/ggplot06.png" alt="alt text" width="100%"></p>
 </div>
 <div id="three-variables" class="section level3">
@@ -788,19 +702,19 @@ m &lt;- ggplot(geyser, aes(x = duration, y = waiting))</code></pre>
 <p>See <code>?geyser</code> for details.</p>
 <pre class="r"><code>m + 
   geom_point()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 <pre class="r"><code>m + 
   geom_point() +  stat_density2d(geom=&quot;contour&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
 <p>Check <code>?geom_density2d()</code> for details</p>
 <pre class="r"><code>m + 
   geom_point() +  stat_density2d(geom=&quot;contour&quot;) +
   xlim(0.5, 6) + ylim(40, 110)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 <p>Update limits to show full contours. Check <code>?geom_density2d()</code> for details</p>
 <pre class="r"><code>m + stat_density2d(aes(fill = ..level..), geom=&quot;polygon&quot;) + 
   geom_point(col=&quot;red&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-34-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
 <p>Check <code>?geom_density2d()</code> for details</p>
 <p><img src="03_assets/ggplotStat03.png" alt="alt text" width="80%"></p>
 <div class="well">
@@ -819,7 +733,7 @@ Show Solution
 <div id="demo2" class="collapse">
 <pre class="r"><code>m + stat_binhex(bins=10) + 
   geom_point(col=&quot;red&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-35-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -831,43 +745,43 @@ Show Solution
 <h3>Discrete color: default</h3>
 <pre class="r"><code>b=ggplot(mpg,aes(fl))+
   geom_bar( aes(fill = fl)); b</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-36-1.png" /><!-- --></p>
 </div>
 <div id="discrete-color-greys" class="section level3">
 <h3>Discrete color: greys</h3>
 <pre class="r"><code>b + scale_fill_grey( start = 0.2, end = 0.8, 
                    na.value = &quot;red&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
 </div>
 <div id="continuous-color-defaults" class="section level3">
 <h3>Continuous color: defaults</h3>
 <pre class="r"><code>a &lt;- ggplot(mpg, aes(x=hwy,y=cty,col=displ)) + 
   geom_point(); a</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
 </div>
 <div id="continuous-color-gradient" class="section level3">
 <h3>Continuous color: <code>gradient</code></h3>
 <pre class="r"><code>a +  scale_color_gradient( low = &quot;red&quot;, 
                           high = &quot;yellow&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-39-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-39-1.png" /><!-- --></p>
 </div>
 <div id="continuous-color-gradient2" class="section level3">
 <h3>Continuous color: <code>gradient2</code></h3>
 <pre class="r"><code>a + scale_color_gradient2(low = &quot;red&quot;, high = &quot;blue&quot;, 
                        mid = &quot;white&quot;, midpoint = 4)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
 </div>
 <div id="continuous-color-gradientn" class="section level3">
 <h3>Continuous color: <code>gradientn</code></h3>
 <pre class="r"><code>a + scale_color_gradientn(
   colours = rainbow(10))</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-41-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-41-1.png" /><!-- --></p>
 </div>
 <div id="discrete-color-brewer" class="section level3">
 <h3>Discrete color: brewer</h3>
 <pre class="r"><code>b + 
   scale_fill_brewer( palette = &quot;Blues&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="colorbrewer2.org" class="section level2">
@@ -904,7 +818,7 @@ Show Solution
       xlim(0.5, 6) + ylim(40, 110)+
   xlab(&quot;Eruption Duration (minutes)&quot;)+
   ylab(&quot;Waiting time (minutes)&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-43-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-43-1.png" /><!-- --></p>
 <p>Or use <code>geom=tile</code> for a raster representation.</p>
 <pre class="r"><code>m + stat_density2d(aes(fill = ..density..), geom=&quot;tile&quot;,contour=F) + 
   geom_point(size=.75)+
@@ -913,7 +827,7 @@ Show Solution
       xlim(0.5, 6) + ylim(40, 110)+
   xlab(&quot;Eruption Duration (minutes)&quot;)+
   ylab(&quot;Waiting time (minutes)&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-44-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-44-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -929,11 +843,11 @@ dat &lt;- data.frame(
 <p>Make scatter plot with regular (linear) axis scaling</p>
 <pre class="r"><code>sp &lt;- ggplot(dat, aes(xval, yval)) + geom_point()
 sp</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-46-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-46-1.png" /><!-- --></p>
 <p><small> Example from <a href="http://www.cookbook-r.com/Graphs/Axes_(ggplot2)/">R Cookbook</a> </small></p>
 <p>log10 scaling of the y axis (with visually-equal spacing)</p>
 <pre class="r"><code>sp + scale_y_log10()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-47-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-47-1.png" /><!-- --></p>
 </div>
 <div id="coordinate-systems" class="section level2">
 <h2>Coordinate Systems</h2>
@@ -945,12 +859,12 @@ sp</code></pre>
 <div id="stacked-bars" class="section level3">
 <h3>Stacked bars</h3>
 <pre class="r"><code>ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-48-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-48-1.png" /><!-- --></p>
 </div>
 <div id="dodged-bars" class="section level3">
 <h3>Dodged bars</h3>
 <pre class="r"><code>ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position=&quot;dodge&quot;)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-49-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-49-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -961,12 +875,12 @@ sp</code></pre>
 <pre class="r"><code>ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
   geom_point()+
   facet_wrap(~year)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-50-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-50-1.png" /><!-- --></p>
 <p><code>facet_grid()</code>: two variables</p>
 <pre class="r"><code>ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
   geom_point()+
   facet_grid(year~cyl)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-51-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-51-1.png" /><!-- --></p>
 <p><em>Small multiples</em> (via facets) are very useful for visualization of timeseries (and especially timeseries of spatial data.)</p>
 </div>
 <div id="themes" class="section level1">
@@ -994,27 +908,27 @@ sp</code></pre>
 <div id="theme-examples-default-1" class="section level3">
 <h3>Theme examples: default</h3>
 <pre class="r"><code>p</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-54-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-54-1.png" /><!-- --></p>
 </div>
 <div id="theme-examples-solarized" class="section level3">
 <h3>Theme examples: Solarized</h3>
 <pre class="r"><code>p + theme_solarized()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-55-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-55-1.png" /><!-- --></p>
 </div>
 <div id="theme-examples-solarized-dark" class="section level3">
 <h3>Theme examples: Solarized Dark</h3>
 <pre class="r"><code>p +  theme_solarized(light=FALSE)</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-56-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-56-1.png" /><!-- --></p>
 </div>
 <div id="theme-examples-excel" class="section level3">
 <h3>Theme examples: Excel</h3>
 <pre class="r"><code>p + theme_excel() </code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-57-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-57-1.png" /><!-- --></p>
 </div>
 <div id="theme-examples-the-economist" class="section level3">
 <h3>Theme examples: <em>The Economist</em></h3>
 <pre class="r"><code>p + theme_economist()</code></pre>
-<p><img src="03_Plotting_files/figure-html/unnamed-chunk-58-1.png" alt="" /><!-- --></p>
+<p><img src="03_Plotting_files/figure-html/unnamed-chunk-58-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -1136,8 +1050,6 @@ dev.off()</code></pre>
 </footer>
 
 
-</div>
-</div>
 
 </div>
 
@@ -1147,6 +1059,7 @@ dev.off()</code></pre>
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

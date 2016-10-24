@@ -14,9 +14,6 @@
 <title>Introduction to Raster Package</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -66,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 
 <style type="text/css">
 /* padding for bootstrap navbar */
@@ -152,7 +153,7 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -162,93 +163,6 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: "h1.title, .toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -358,7 +272,7 @@ div.tocify {
 
 
 
-<h1 class="title">Introduction to Raster Package</h1>
+<h1 class="title toc-ignore">Introduction to Raster Package</h1>
 
 </div>
 
@@ -408,7 +322,7 @@ library(rasterVis)  #visualization library for raster</code></pre>
 <p>Download data for South Africa</p>
 <pre class="r"><code>za=getData(&#39;GADM&#39;, country=&#39;ZAF&#39;, level=1)</code></pre>
 <pre class="r"><code>plot(za)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 <p>Danger: <code>plot()</code> works, but can be slow for complex polygons.</p>
 <div id="check-out-attribute-table" class="section level3">
 <h3>Check out attribute table</h3>
@@ -446,7 +360,7 @@ library(rasterVis)  #visualization library for raster</code></pre>
 <pre class="r"><code>za=subset(za,NAME_1!=&quot;Prince Edward Islands&quot;)
 
 plot(za)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-7-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
 <p>Use the method above to download and plot the boundaries for a country of your choice.</p>
@@ -461,7 +375,7 @@ Show Solution
 ## 1  TUN Tunisia</code></pre>
 <pre class="r"><code>country=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
 plot(country)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -584,7 +498,7 @@ x= raster(nrow=100,ncol=50)
 values(x)= rnorm(5000)
 
 plot(x)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-16-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
 </div>
 </div>
 <p>Raster memory usage</p>
@@ -598,21 +512,21 @@ plot(x)</code></pre>
 <h2>Raster Plotting</h2>
 <p>Plotting is easy (but slow) with <code>plot</code>.</p>
 <pre class="r"><code>plot(r, main=&#39;Raster with 100 cells&#39;)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-18-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-18-1.png" /><!-- --></p>
 <div id="ggplot-and-rastervis" class="section level3">
 <h3>ggplot and rasterVis</h3>
 <p>rasterVis package has <code>gplot()</code> for plotting raster data in the <code>ggplot()</code> framework.</p>
 <pre class="r"><code>gplot(r,maxpixels=50000)+
   geom_raster(aes(fill=value))</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
 <p>Adjust <code>maxpixels</code> for faster plotting of large datasets.</p>
 <pre class="r"><code>gplot(r,maxpixels=10)+
   geom_raster(aes(fill=value))</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-20-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 <p>Can use all the <code>ggplot</code> color ramps, etc.</p>
 <pre class="r"><code>gplot(r)+geom_raster(aes(fill=value))+
     scale_fill_distiller(palette=&quot;OrRd&quot;)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="spatial-projections" class="section level2">
@@ -630,7 +544,7 @@ plot(x)</code></pre>
 <pre><code>## Warning in rgdal::rawTransform(projto_int, projfrom, nrow(xy), xy[, 1], :
 ## 48 projected point(s) not finite</code></pre>
 <pre class="r"><code>par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="worldclim" class="section level1">
@@ -645,86 +559,86 @@ plot(x)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Varia</th>
-<th align="left">ble Description</th>
+<th>Varia</th>
+<th>ble Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">BIO1</td>
-<td align="left">Annual Mean Temperature</td>
+<td>BIO1</td>
+<td>Annual Mean Temperature</td>
 </tr>
 <tr class="even">
-<td align="left">BIO2</td>
-<td align="left">Mean Diurnal Range (Mean of monthly (max temp – min temp))</td>
+<td>BIO2</td>
+<td>Mean Diurnal Range (Mean of monthly (max temp – min temp))</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO3</td>
-<td align="left">Isothermality (BIO2/BIO7) (* 100)</td>
+<td>BIO3</td>
+<td>Isothermality (BIO2/BIO7) (* 100)</td>
 </tr>
 <tr class="even">
-<td align="left">BIO4</td>
-<td align="left">Temperature Seasonality (standard deviation *100)</td>
+<td>BIO4</td>
+<td>Temperature Seasonality (standard deviation *100)</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO5</td>
-<td align="left">Max Temperature of Warmest Month</td>
+<td>BIO5</td>
+<td>Max Temperature of Warmest Month</td>
 </tr>
 <tr class="even">
-<td align="left">BIO6</td>
-<td align="left">Min Temperature of Coldest Month</td>
+<td>BIO6</td>
+<td>Min Temperature of Coldest Month</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO7</td>
-<td align="left">Temperature Annual Range (BIO5-BIO6)</td>
+<td>BIO7</td>
+<td>Temperature Annual Range (BIO5-BIO6)</td>
 </tr>
 <tr class="even">
-<td align="left">BIO8</td>
-<td align="left">Mean Temperature of Wettest Quarter</td>
+<td>BIO8</td>
+<td>Mean Temperature of Wettest Quarter</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO9</td>
-<td align="left">Mean Temperature of Driest Quarter</td>
+<td>BIO9</td>
+<td>Mean Temperature of Driest Quarter</td>
 </tr>
 <tr class="even">
-<td align="left">BIO10</td>
-<td align="left">Mean Temperature of Warmest Quarter</td>
+<td>BIO10</td>
+<td>Mean Temperature of Warmest Quarter</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO11</td>
-<td align="left">Mean Temperature of Coldest Quarter</td>
+<td>BIO11</td>
+<td>Mean Temperature of Coldest Quarter</td>
 </tr>
 <tr class="even">
-<td align="left">BIO12</td>
-<td align="left">Annual Precipitation</td>
+<td>BIO12</td>
+<td>Annual Precipitation</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO13</td>
-<td align="left">Precipitation of Wettest Month</td>
+<td>BIO13</td>
+<td>Precipitation of Wettest Month</td>
 </tr>
 <tr class="even">
-<td align="left">BIO14</td>
-<td align="left">Precipitation of Driest Month</td>
+<td>BIO14</td>
+<td>Precipitation of Driest Month</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO15</td>
-<td align="left">Precipitation Seasonality (Coefficient of Variation)</td>
+<td>BIO15</td>
+<td>Precipitation Seasonality (Coefficient of Variation)</td>
 </tr>
 <tr class="even">
-<td align="left">BIO16</td>
-<td align="left">Precipitation of Wettest Quarter</td>
+<td>BIO16</td>
+<td>Precipitation of Wettest Quarter</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO17</td>
-<td align="left">Precipitation of Driest Quarter</td>
+<td>BIO17</td>
+<td>Precipitation of Driest Quarter</td>
 </tr>
 <tr class="even">
-<td align="left">BIO18</td>
-<td align="left">Precipitation of Warmest Quarter</td>
+<td>BIO18</td>
+<td>Precipitation of Warmest Quarter</td>
 </tr>
 <tr class="odd">
-<td align="left">BIO19</td>
-<td align="left">Precipitation of Coldest Quarter</td>
+<td>BIO19</td>
+<td>Precipitation of Coldest Quarter</td>
 </tr>
 </tbody>
 </table>
@@ -752,7 +666,7 @@ plot(x)</code></pre>
 <div id="plot-with-plot" class="section level3">
 <h3>Plot with <code>plot()</code></h3>
 <pre class="r"><code>plot(clim)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="faceting-in-ggplot" class="section level2">
@@ -762,7 +676,7 @@ plot(x)</code></pre>
   facet_wrap(~variable)+
   scale_fill_gradientn(colours=c(&quot;brown&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;darkgreen&quot;,&quot;green&quot;),trans=&quot;log10&quot;)+
   coord_equal()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-28-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
 <p>Let’s dig a little deeper into the data object:</p>
 <pre class="r"><code>## is it held in RAM?
 inMemory(clim)</code></pre>
@@ -791,14 +705,14 @@ r1 &lt;- crop(clim[[1]], bbox(za))</code></pre>
 ## names       : bio1 
 ## values      : 5.8, 24.8  (min, max)</code></pre>
 <pre class="r"><code>plot(r1)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 </div>
 <div id="spatial-aggregation" class="section level2">
 <h2>Spatial aggregation</h2>
 <pre class="r"><code>## aggregate using a function
 aggregate(r1, 3, fun=mean) %&gt;%
   plot()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-2">Your turn</h2>
 <p>Create a new raster by aggregating to the minimum (<code>min</code>) value of <code>r1</code> within a 10 pixel window</p>
@@ -808,7 +722,7 @@ Show Solution
 <div id="demo3" class="collapse">
 <pre class="r"><code>aggregate(r1, 10, fun=min) %&gt;%
   plot()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -817,7 +731,7 @@ Show Solution
 <pre class="r"><code>## apply a function over a moving window
 focal(r1, w=matrix(1,3,3), fun=mean) %&gt;% 
   plot()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-34-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
 <pre class="r"><code>## apply a function over a moving window
 rf_min &lt;- focal(r1, w=matrix(1,11,11), fun=min)
 rf_max &lt;- focal(r1, w=matrix(1,11,11), fun=max)
@@ -826,7 +740,7 @@ rf_range=rf_max-rf_min
 ## or just use the range function
 rf_range2 &lt;- focal(r1, w=matrix(1,11,11), fun=range)
 plot(rf_range2)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-35-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-3">Your turn</h2>
 <p>Plot the focal standard deviation of <code>r1</code> over a 3x3 window.</p>
@@ -836,7 +750,7 @@ Show Solution
 <div id="demo4" class="collapse">
 <pre class="r"><code>focal(r1,w=matrix(1,3,3),fun=sd)%&gt;%
   plot()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-36-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-36-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -861,7 +775,7 @@ cellStats(r,range)</code></pre>
 <pre class="r"><code># find cells with values less than 15 degrees C
 r = r1 &lt; 15
 plot(r)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
 <div id="apply-algebraic-functions" class="section level3">
 <h3>Apply algebraic functions</h3>
 <pre class="r"><code># multiply s times r and add 5
@@ -887,7 +801,7 @@ cellStats(s,range)</code></pre>
 <pre class="r"><code>## define a new dataset of points to play with
 pts=sampleRandom(clim,100,xy=T,sp=T)
 plot(pts);axis(1);axis(2)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
 </div>
 <div id="extract-data-using-a-spatialpoints-object" class="section level3">
 <h3>Extract data using a <code>SpatialPoints</code> object</h3>
@@ -913,7 +827,7 @@ head(pts_data)</code></pre>
     data=as.data.frame(pts),
     aes(x=x,y=y),col=&quot;red&quot;)+
   coord_equal()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 </div>
 <div id="summarize-climate-data-at-point-locations" class="section level3">
 <h3>Summarize climate data at point locations</h3>
@@ -933,7 +847,7 @@ head(d2)</code></pre>
 <pre class="r"><code>ggplot(d2,aes(x=value))+
   geom_density()+
   facet_wrap(~ID,scales=&quot;free&quot;)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-44-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-44-1.png" /><!-- --></p>
 </div>
 <div id="lines" class="section level3">
 <h3>Lines</h3>
@@ -952,7 +866,7 @@ transect=SpatialLinesDataFrame(
 
 gplot(r1)+geom_tile(aes(fill=value))+
   geom_line(aes(x=long,y=lat),data=fortify(transect),col=&quot;red&quot;)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-45-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-45-1.png" /><!-- --></p>
 </div>
 <div id="plot-transect" class="section level3">
 <h3>Plot Transect</h3>
@@ -1000,7 +914,7 @@ head(transl)</code></pre>
                   group=variable,
                   order=order))+
   geom_line()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-49-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-49-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="zonal-statistics" class="section level3">
@@ -1022,7 +936,7 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
       colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
     coord_map()+
     geom_map(map = frsp)</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-51-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-51-1.png" /><!-- --></p>
 <blockquote>
 <p>For more details about plotting spatialPolygons, see <a href="https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles">here</a></p>
 </blockquote>
@@ -1105,7 +1019,7 @@ tmaxavefocal_crop=focal(tmaxave_crop,
             data=fortify(transect),col=&quot;red&quot;,size=3)+
   coord_map()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-57-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-57-1.png" /><!-- --></p>
 </div>
 <div id="extract-and-clean-up-the-transect-data" class="section level2">
 <h2>Extract and clean up the transect data</h2>
@@ -1161,7 +1075,7 @@ head(transl)</code></pre>
       colors=c(&quot;blue&quot;,&quot;green&quot;,&quot;red&quot;),
       name=&quot;Month&quot;)+
     geom_line()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-60-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-60-1.png" /><!-- --></p>
 <p>Or the same data in a levelplot:</p>
 <pre class="r"><code>ggplot(transl,
        aes(x=lon,y=monthname,
@@ -1171,7 +1085,7 @@ head(transl)</code></pre>
       palette=&quot;PuBuGn&quot;,
       name=&quot;Tmax&quot;)+
     geom_raster()</code></pre>
-<p><img src="05_Raster_files/figure-html/unnamed-chunk-61-1.png" alt="" /><!-- --></p>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-61-1.png" /><!-- --></p>
 </div>
 <div id="raster-processing" class="section level2">
 <h2>Raster Processing</h2>
@@ -1231,8 +1145,6 @@ head(transl)</code></pre>
 </footer>
 
 
-</div>
-</div>
 
 </div>
 
@@ -1242,6 +1154,7 @@ head(transl)</code></pre>
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

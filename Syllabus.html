@@ -14,9 +14,6 @@
 <title>Syllabus</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -66,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 
 <style type="text/css">
 /* padding for bootstrap navbar */
@@ -152,7 +153,7 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -162,93 +163,6 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: "h1.title, .toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -358,7 +272,7 @@ div.tocify {
 
 
 
-<h1 class="title">Syllabus</h1>
+<h1 class="title toc-ignore">Syllabus</h1>
 
 </div>
 
@@ -434,75 +348,69 @@ div.tocify {
 <div id="grading-scale" class="section level2">
 <h2>Grading Scale</h2>
 <p>Course grading will follow the <a href="http://grad.buffalo.edu/Academics/Policies-Procedures/Grading-Procedures.html">grading procedures of the UB Graduate School</a>.</p>
-<table style="width:110%;">
-<colgroup>
-<col width="30%" />
-<col width="31%" />
-<col width="25%" />
-<col width="22%" />
-</colgroup>
+<table>
 <thead>
 <tr class="header">
-<th align="left">Quality of Work</th>
-<th align="left">Weighted Percentage</th>
-<th align="left">Quality Points</th>
-<th align="left">Weighted Grade</th>
+<th>Quality of Work</th>
+<th>Weighted Percentage</th>
+<th>Quality Points</th>
+<th>Weighted Grade</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Superb</td>
-<td align="left">92+%</td>
-<td align="left">4</td>
-<td align="left">A</td>
+<td>Superb</td>
+<td>92+%</td>
+<td>4</td>
+<td>A</td>
 </tr>
 <tr class="even">
-<td align="left">Excellent</td>
-<td align="left">90+%</td>
-<td align="left">3.67</td>
-<td align="left">A–</td>
+<td>Excellent</td>
+<td>90+%</td>
+<td>3.67</td>
+<td>A–</td>
 </tr>
 <tr class="odd">
-<td align="left">Very Good</td>
-<td align="left">88+%</td>
-<td align="left">3.33</td>
-<td align="left">B+</td>
+<td>Very Good</td>
+<td>88+%</td>
+<td>3.33</td>
+<td>B+</td>
 </tr>
 <tr class="even">
-<td align="left">Good</td>
-<td align="left">85+%</td>
-<td align="left">3.0</td>
-<td align="left">B</td>
+<td>Good</td>
+<td>85+%</td>
+<td>3.0</td>
+<td>B</td>
 </tr>
 <tr class="odd">
-<td align="left">Acceptable</td>
-<td align="left">80+%</td>
-<td align="left">2.67</td>
-<td align="left">B–</td>
+<td>Acceptable</td>
+<td>80+%</td>
+<td>2.67</td>
+<td>B–</td>
 </tr>
 <tr class="even">
-<td align="left">Adequate</td>
-<td align="left">75+%</td>
-<td align="left">2.33</td>
-<td align="left">C+</td>
+<td>Adequate</td>
+<td>75+%</td>
+<td>2.33</td>
+<td>C+</td>
 </tr>
 <tr class="odd">
-<td align="left">Barely Adequate</td>
-<td align="left">70+%</td>
-<td align="left">2.0</td>
-<td align="left">C</td>
+<td>Barely Adequate</td>
+<td>70+%</td>
+<td>2.0</td>
+<td>C</td>
 </tr>
 <tr class="even">
-<td align="left">Substantially Flawed</td>
-<td align="left">60+%</td>
-<td align="left">1.0</td>
-<td align="left">D</td>
+<td>Substantially Flawed</td>
+<td>60+%</td>
+<td>1.0</td>
+<td>D</td>
 </tr>
 <tr class="odd">
-<td align="left">Flawed</td>
-<td align="left">&lt;60%</td>
-<td align="left">0.5</td>
-<td align="left">F</td>
+<td>Flawed</td>
+<td>&lt;60%</td>
+<td>0.5</td>
+<td>F</td>
 </tr>
 </tbody>
 </table>
@@ -579,8 +487,6 @@ div.tocify {
 </footer>
 
 
-</div>
-</div>
 
 </div>
 
@@ -590,6 +496,7 @@ div.tocify {
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

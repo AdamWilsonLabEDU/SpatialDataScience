@@ -14,9 +14,6 @@
 <title>More Raster</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -66,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 
 <style type="text/css">
 /* padding for bootstrap navbar */
@@ -152,7 +153,7 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -162,93 +163,6 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: "h1.title, .toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -358,7 +272,7 @@ div.tocify {
 
 
 
-<h1 class="title">More Raster</h1>
+<h1 class="title toc-ignore">More Raster</h1>
 
 </div>
 
@@ -401,7 +315,7 @@ if(!file.exists(datadir)) dir.create(datadir, recursive=T)</code></pre>
 <p>Download country border.</p>
 <pre class="r"><code>bgd=getData(&#39;GADM&#39;, country=&#39;BGD&#39;, level=0,path = datadir)
 plot(bgd)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-5-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="topography" class="section level2">
@@ -412,7 +326,7 @@ plot(bgd)</code></pre>
 dem1=getData(&quot;SRTM&quot;,lat=bgdc[2],lon=bgdc[1],path=datadir)
 plot(dem1)
 plot(bgd,add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-6-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <div id="mosaicingmerging-rasters" class="section level3">
 <h3>Mosaicing/Merging rasters</h3>
 <p>Download the remaining necessary tiles</p>
@@ -421,7 +335,7 @@ plot(bgd,add=T)</code></pre>
 <pre class="r"><code>dem=merge(dem1,dem2)
 plot(dem)
 plot(bgd,add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-8-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="savingexporting-rasters" class="section level2">
@@ -461,66 +375,66 @@ plot(bgd,add=T)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Filetype</th>
-<th align="left">Long name</th>
-<th align="left">Default extension</th>
-<th align="left">Multiband support</th>
+<th>Filetype</th>
+<th>Long name</th>
+<th>Default extension</th>
+<th>Multiband support</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">raster</td>
-<td align="left">‘Native’ raster package format</td>
-<td align="left">.grd</td>
-<td align="left">Yes</td>
+<td>raster</td>
+<td>‘Native’ raster package format</td>
+<td>.grd</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
-<td align="left">ascii</td>
-<td align="left">ESRI Ascii</td>
-<td align="left">.asc</td>
-<td align="left">No</td>
+<td>ascii</td>
+<td>ESRI Ascii</td>
+<td>.asc</td>
+<td>No</td>
 </tr>
 <tr class="odd">
-<td align="left">SAGA</td>
-<td align="left">SAGA GIS</td>
-<td align="left">.sdat</td>
-<td align="left">No</td>
+<td>SAGA</td>
+<td>SAGA GIS</td>
+<td>.sdat</td>
+<td>No</td>
 </tr>
 <tr class="even">
-<td align="left">IDRISI</td>
-<td align="left">IDRISI</td>
-<td align="left">.rst</td>
-<td align="left">No</td>
+<td>IDRISI</td>
+<td>IDRISI</td>
+<td>.rst</td>
+<td>No</td>
 </tr>
 <tr class="odd">
-<td align="left">CDF</td>
-<td align="left">netCDF (requires <code>ncdf</code>)</td>
-<td align="left">.nc</td>
-<td align="left">Yes</td>
+<td>CDF</td>
+<td>netCDF (requires <code>ncdf</code>)</td>
+<td>.nc</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
-<td align="left">GTiff</td>
-<td align="left">GeoTiff (requires rgdal)</td>
-<td align="left">.tif</td>
-<td align="left">Yes</td>
+<td>GTiff</td>
+<td>GeoTiff (requires rgdal)</td>
+<td>.tif</td>
+<td>Yes</td>
 </tr>
 <tr class="odd">
-<td align="left">ENVI</td>
-<td align="left">ENVI .hdr Labelled</td>
-<td align="left">.envi</td>
-<td align="left">Yes</td>
+<td>ENVI</td>
+<td>ENVI .hdr Labelled</td>
+<td>.envi</td>
+<td>Yes</td>
 </tr>
 <tr class="even">
-<td align="left">EHdr</td>
-<td align="left">ESRI .hdr Labelled</td>
-<td align="left">.bil</td>
-<td align="left">Yes</td>
+<td>EHdr</td>
+<td>ESRI .hdr Labelled</td>
+<td>.bil</td>
+<td>Yes</td>
 </tr>
 <tr class="odd">
-<td align="left">HFA</td>
-<td align="left">Erdas Imagine Images (.img)</td>
-<td align="left">.img</td>
-<td align="left">Yes</td>
+<td>HFA</td>
+<td>Erdas Imagine Images (.img)</td>
+<td>.img</td>
+<td>Yes</td>
 </tr>
 </tbody>
 </table>
@@ -535,7 +449,7 @@ plot(bgd,add=T)</code></pre>
 dem=crop(dem,extent(89,91.5,21.5,24),filename=file.path(datadir,&quot;dem_bgd.tif&quot;),overwrite=T)
 
 plot(dem); plot(bgd,add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-13-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-13-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="use-ggplot" class="section level1">
@@ -548,7 +462,7 @@ plot(dem); plot(bgd,add=T)</code></pre>
   geom_path(data=fortify(bgd),
             aes(x=long,y=lat,order=order,group=group),size=.5)</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
 </div>
 <div id="terrain-analysis-an-aside" class="section level1">
 <h1>Terrain analysis (an aside)</h1>
@@ -566,19 +480,19 @@ plot(dem); plot(bgd,add=T)</code></pre>
 <p>Use a smaller region:</p>
 <pre class="r"><code>reg1=crop(dem1,extent(93.8,94,21.05,21.15))
 plot(reg1)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-15-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-15-1.png" /><!-- --></p>
 <p>The terrain indices are according to Wilson et al. (2007), as in <a href="http://www.gdal.org/gdaldem.html">gdaldem</a>.</p>
 <div id="calculate-slope" class="section level3">
 <h3>Calculate slope</h3>
 <pre class="r"><code>slope=terrain(reg1,opt=&quot;slope&quot;,unit=&quot;degrees&quot;)
 plot(slope)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-16-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
 </div>
 <div id="calculate-aspect" class="section level3">
 <h3>Calculate aspect</h3>
 <pre class="r"><code>aspect=terrain(reg1,opt=&quot;aspect&quot;,unit=&quot;degrees&quot;)
 plot(aspect)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-17-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
 </div>
 <div id="tpi-topographic-position-index" class="section level3">
 <h3>TPI (Topographic Position Index)</h3>
@@ -588,7 +502,7 @@ plot(aspect)</code></pre>
 gplot(tpi,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradient2(low=&quot;blue&quot;,high=&quot;red&quot;,midpoint=0)+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-18-1.png" alt="" /><!-- --> Negative values indicate valleys, near zero flat or mid-slope, and positive ridge and hill tops</p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-18-1.png" /><!-- --> Negative values indicate valleys, near zero flat or mid-slope, and positive ridge and hill tops</p>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
 <ul>
@@ -608,7 +522,7 @@ Show Solution
 <pre class="r"><code>plot(reg1)
 plot(tpi&gt;15,col=c(&quot;transparent&quot;,&quot;red&quot;),add=T,legend=F)
 plot(tpi&lt;(-15),col=c(&quot;transparent&quot;,&quot;blue&quot;),add=T,legend=F)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
 <pre class="r"><code>#OR (ggplot solution, sort of)
 rcl=matrix(c(-Inf,-15,1,
            -15,15,2,
@@ -617,7 +531,7 @@ regclass=reclassify(tpi,rcl)
 gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
   scale_fill_gradient2(low=&quot;blue&quot;,high=&quot;red&quot;,midpoint=2)+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-19-2.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-19-2.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -626,14 +540,14 @@ gplot(regclass,max=1e6)+geom_tile(aes(fill=value))+
 <p>Mean of the absolute differences between the value of a cell and the value of its 8 surrounding cells.</p>
 <pre class="r"><code>tri=terrain(reg1,opt=&quot;TRI&quot;)
 plot(tri)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-20-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 </div>
 <div id="roughness" class="section level3">
 <h3>Roughness</h3>
 <p>Difference between the maximum and the minimum value of a cell and its 8 surrounding cells.</p>
 <pre class="r"><code>rough=terrain(reg1,opt=&quot;roughness&quot;)
 plot(rough)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 </div>
 <div id="hillshade-pretty" class="section level3">
 <h3>Hillshade (pretty…)</h3>
@@ -642,7 +556,7 @@ plot(rough)</code></pre>
 
 plot(hs, col=grey(0:100/100), legend=FALSE)
 plot(reg1, col=terrain.colors(25, alpha=0.5), add=TRUE)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-22-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
 </div>
 <div id="flow-direction" class="section level3">
 <h3>Flow Direction</h3>
@@ -653,26 +567,26 @@ plot(reg1, col=terrain.colors(25, alpha=0.5), add=TRUE)</code></pre>
 <tr class="header">
 <th align="left">32</th>
 <th align="left">64</th>
-<th align="left">128</th>
+<th>128</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">16</td>
 <td align="left"><strong>x</strong></td>
-<td align="left">1</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <td align="left">8</td>
 <td align="left">4</td>
-<td align="left">2</td>
+<td>2</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code>flowdir=terrain(reg1,opt=&quot;flowdir&quot;)
 
 plot(flowdir)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-23-1.png" alt="" /><!-- --> Much more powerful hydrologic modeling in <a href="https://grass.osgeo.org">GRASS GIS</a></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-23-1.png" /><!-- --> Much more powerful hydrologic modeling in <a href="https://grass.osgeo.org">GRASS GIS</a></p>
 </div>
 </div>
 </div>
@@ -734,7 +648,7 @@ kable(slr)</code></pre>
 <p>WGS84 data is unprojected, must account for cell area (in km^2)…</p>
 <pre class="r"><code>area=raster::area(dem)
 plot(area)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-26-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-1">Your Turn</h2>
 <ol style="list-style-type: decimal">
@@ -760,7 +674,7 @@ flood2=dem&lt;=10.97
 
 plot(flood2,col=c(&quot;transparent&quot;,&quot;darkred&quot;))
 plot(flood1,col=c(&quot;transparent&quot;,&quot;red&quot;),add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
 <h2 id="multiply-by-area-and-sum">Multiply by area and sum</h2>
 <pre class="r"><code>flood1_area=flood1*area
 flood2_area=flood2*area
@@ -790,14 +704,14 @@ gplot(regclass,max=1e5)+
   scale_fill_manual(values=c(&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;),
                     name=&quot;Flood Class&quot;)+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
 <p>Or, do reclassification ’on the fly in the plotting function</p>
 <pre class="r"><code>gplot(dem,max=1e5)+
   geom_tile(aes(fill=cut(value,c(-Inf,2.76,10.97,Inf))))+
   scale_fill_manual(values=c(&quot;red&quot;,&quot;orange&quot;,&quot;blue&quot;),
                     name=&quot;Flood Class&quot;)+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-30-1.png" /><!-- --></p>
 </div>
 <div id="socioeconomic-data" class="section level2">
 <h2>Socioeconomic Data</h2>
@@ -823,14 +737,14 @@ gplot(regclass,max=1e5)+
 <p>Use <code>raster()</code> to load a raster from disk.</p>
 <pre class="r"><code>pop_global=raster(file.path(datadir,&quot;gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif&quot;))
 plot(pop_global)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 <p>A nicer plot…</p>
 <pre class="r"><code>gplot(pop_global,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
 </div>
 <div id="crop-to-region-with-the-dem-object" class="section level3">
 <h3>Crop to region with the <code>dem</code> object</h3>
@@ -841,7 +755,7 @@ gplot(pop,max=1e5)+geom_tile(aes(fill=value))+
   scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
                        trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 </div>
 <div id="resample-to-dem" class="section level3">
 <h3>Resample to DEM</h3>
@@ -887,7 +801,7 @@ gplot(pop_fine,max=1e5)+geom_tile(aes(fill=value))+
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-35-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-35-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-2">Your turn</h2>
 <p>How many people are likely to be displaced?</p>
@@ -911,7 +825,7 @@ cellStats(floodpop2,sum)</code></pre>
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e4)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
 </div>
 </div>
 <p>Or resample elevation to resolution of population: 1. First aggregate to approximate spatial resolution 2. Resample to align grids perfectly</p>
@@ -935,11 +849,11 @@ cellStats(floodpop_coarse,sum)</code></pre>
 <pre class="r"><code>popcenter=pop&gt;5000
 popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col=&quot;red&quot;,legend=F)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
 <p>In meters if the RasterLayer is not projected (<code>+proj=longlat</code>) and in map units (typically also meters) when it is projected.</p>
 <pre class="r"><code>popcenterdist=distance(popcenter)
 plot(popcenterdist)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-41-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-41-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-3">Your Turn</h2>
 <p>Will sea level rise affect any major population centers?</p>
@@ -959,7 +873,7 @@ floodpop2= flood2==1 &amp; popcenter2
 floodpop2=mask(floodpop2,floodpop2,maskval=0)
 
 plot(flood2);plot(floodpop2,add=T,col=&quot;red&quot;,legend=F);plot(bgd,add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -974,7 +888,7 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   coord_equal(ylim=c(21,25))+
   geom_path(data=fortify(bgd),aes(x=long,y=lat,order=order,group=group),size=.5)+
   geom_path(data=fortify(vpop),aes(x=long,y=lat,order=order,group=group),size=1,col=&quot;green&quot;)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-43-1.png" alt="" /><!-- --> Warning: very slow on large rasters…</p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-43-1.png" /><!-- --> Warning: very slow on large rasters…</p>
 </div>
 <div id="d-visualization" class="section level2">
 <h2>3D Visualization</h2>
@@ -1043,8 +957,6 @@ decorate3d()</code></pre>
 </footer>
 
 
-</div>
-</div>
 
 </div>
 
@@ -1054,6 +966,7 @@ decorate3d()</code></pre>
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

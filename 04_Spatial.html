@@ -14,9 +14,6 @@
 <title>Working with Spatial Data</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -66,6 +63,9 @@ h5 {
 h6 {
   font-size: 12px;
 }
+.table th:not([align]) {
+  text-align: left;
+}
 </style>
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -95,6 +95,7 @@ button.code-folding-btn:focus {
   outline: none;
 }
 </style>
+
 
 <style type="text/css">
 /* padding for bootstrap navbar */
@@ -152,7 +153,7 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.0/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -162,93 +163,6 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
-
-
-<script>
-$(document).ready(function ()  {
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: "h1.title, .toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.9em;
-  padding-left: 5px;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -358,7 +272,7 @@ div.tocify {
 
 
 
-<h1 class="title">Working with Spatial Data</h1>
+<h1 class="title toc-ignore">Working with Spatial Data</h1>
 
 </div>
 
@@ -389,7 +303,7 @@ str(coords)</code></pre>
 ##  $ x: num  -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##  $ y: num  -0.0159 0.7206 0.08 0.7659 0.5246 ...</code></pre>
 <pre class="r"><code>plot(coords)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
 </div>
 <div id="convert-to-spatialpoints" class="section level2">
 <h2>Convert to <code>SpatialPoints</code></h2>
@@ -527,7 +441,7 @@ Show Solution
 <div id="demo1" class="collapse">
 <pre class="r"><code>coordinates(df)=c(&quot;lon&quot;,&quot;lat&quot;)
 plot(df)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-14-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -593,7 +507,7 @@ str(meuse)</code></pre>
 <pre class="r"><code>  ggplot(as.data.frame(meuse),aes(x=x,y=y))+
     geom_point(col=&quot;red&quot;)+
     coord_equal()</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-17-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
 <p>Note that <code>ggplot</code> works only with data.frames. Convert with <code>as.data.frame()</code> or <code>fortify()</code>.</p>
 </div>
 </div>
@@ -614,7 +528,7 @@ L1</code></pre>
 ## [4,] -0.0470298 -1.2565673
 ## [5,]  0.4880012  0.3211727</code></pre>
 <pre class="r"><code>plot(coordinates(L1),type=&quot;l&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
 </div>
 <div id="a-lines-object-is-a-list-of-chains-with-an-id" class="section level3">
 <h3>A <code>Lines</code> object is a list of chains with an ID</h3>
@@ -653,7 +567,7 @@ Ls2</code></pre>
 <h3>A <code>SpatialLines</code> is a list of Lines</h3>
 <pre class="r"><code>SL12 = SpatialLines(list(Ls1,Ls2))
 plot(SL12)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-21-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 </div>
 <div id="a-spatiallinesdataframe-is-a-spatiallines-with-a-matching-dataframe" class="section level3">
 <h3>A <code>SpatialLinesDataFrame</code> is a <code>SpatialLines</code> with a matching <code>DataFrame</code></h3>
@@ -1015,7 +929,7 @@ sids &lt;- readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
 ##  Max.   :57.00   Max.   :11631.0  
 ## </code></pre>
 <pre class="r"><code>plot(sids)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
 <div id="maptools-package" class="section level3">
 <h3>Maptools package</h3>
 <p>The <code>maptools</code> package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).</p>
@@ -1081,14 +995,14 @@ ggplot(fortify(sids),aes(x=long,y=lat,order=order,group=group))+
   geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
   coord_equal()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
 <pre class="r"><code># Equal Area
 ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
   geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
   coord_equal()+
   ylab(&quot;Northing&quot;)+xlab(&quot;Easting&quot;)</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" /><!-- --></p>
 </div>
 </div>
 <div id="rgeos" class="section level1">
@@ -1120,7 +1034,7 @@ plot(l);title(&quot;Original&quot;)
 plot(gSimplify(l,tol=3));title(&quot;tol: 3&quot;)
 plot(gSimplify(l,tol=5));title(&quot;tol: 5&quot;)
 plot(gSimplify(l,tol=7));title(&quot;tol: 7&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
 </div>
 <div id="simplification-of-polygons" class="section level3">
 <h3>Simplification of polygons</h3>
@@ -1129,7 +1043,7 @@ plot(p);title(&quot;Original&quot;)
 plot(gSimplify(p,tol=10));title(&quot;tol: 10&quot;)
 plot(gSimplify(p,tol=20));title(&quot;tol: 20&quot;)
 plot(gSimplify(p,tol=25));title(&quot;tol: 25&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="use-rgeos-functions-with-real-spatial-data" class="section level2">
@@ -1164,14 +1078,14 @@ sids = readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
   geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
   coord_map()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
 <p>Now let’s overlay the simplified version to see how they differ.</p>
 <pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
   geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
   geom_polygon(data=fortify(sids2),col=&quot;red&quot;,fill=NA)+
   coord_map()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
 <p>How does changing the tolerance (<code>tol</code>) affect the map?</p>
 </div>
 </div>
@@ -1195,7 +1109,7 @@ ggplot(sids@data, aes(map_id = id)) +
     scale_fill_gradientn(colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
     coord_map()+
     geom_map(aes(fill = area), map = fsids)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="union" class="section level2">
@@ -1205,7 +1119,7 @@ ggplot(sids@data, aes(map_id = id)) +
 <pre class="r"><code>ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
   geom_path()+
   coord_map()</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" alt="" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 </div>
 <div id="colophon" class="section level2">
 <h2>Colophon</h2>
@@ -1268,8 +1182,6 @@ ggplot(sids@data, aes(map_id = id)) +
 </footer>
 
 
-</div>
-</div>
 
 </div>
 
@@ -1279,6 +1191,7 @@ ggplot(sids@data, aes(map_id = id)) +
 $(document).ready(function () {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
 });
+
 
 </script>
 

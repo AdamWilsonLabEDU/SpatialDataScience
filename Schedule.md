@@ -13,10 +13,10 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 10/10 | **Spatial Raster I** | Working with gridded spatial data | Project Proposal Due |
 | 10/17 | **Spatial Raster II** | Raster calculations, working with climate datasets.  | Homework # 3    |
 | 10/24 | **Spatial Raster III** | A 'mini' project - looking at sea level rise in Bangladesh | |
-| 10/31 | **Reproducible Research & Literate Programming & Version Control** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. Managing code with “version control" using Github. Figshare and other data repositories. | First draft of project for peer assessment  |
-| 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  |  Peer Evaluation Due  |
-| 11/14 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | Homework # 4 |
-| 11/21 | **Software Integration** | Calling other programs from within R. | Second draft of project |
-| 11/21 |  **Package Development** |  Package structure and necessary components.  Things to consider when developing an R package. |  |
+| 10/31 | **Reproducible Research & Literate Programming & Version Control** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. Managing code with “version control" using Github. Figshare and other data repositories. |  |
+| 11/7 | **High Performance Computing** | Parallel processing and high performance computing in R  |  First draft of project for peer assessment   |
+| 11/14 | **Web output** | [HTML Widgets](http://www.htmlwidgets.org) | Peer Evaluation Due |
+| 11/21 | **Software Integration** | Calling other programs from within R. | Homework # 4 |
+| 11/21 |  **Package Development** |  Package structure and necessary components.  Things to consider when developing an R package. | Second draft of project |
 | 11/28 | **Final Project Presentations** | | |
 | 12/5  | **Final Project Presentations** | | |
