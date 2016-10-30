@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Reproducible Research</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: R Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_DataWrangling.html">02 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">03 Plotting</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">04 Spatial Data</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li>
+      <a href="06_RasterTwo.html">06 More Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Resources.html">Resources</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Reproducible Research</h1>
+
+</div>
+
+
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<blockquote>
+<p>“The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified.” <small> Max Kuhn, CRAN Task View: Reproducible Research </small></p>
+</blockquote>
+<div id="history-of-reproducible-research" class="section level2">
+<h2>History of reproducible research</h2>
+<ul>
+<li>Mathematics (400 BC?)</li>
+<li>Write scientiﬁc paper, Galileo, Pasteur, etc. (1660s?)</li>
+<li>Publish a pidgin algorithm and describe simulation datasets (1950s?)</li>
+<li>Sell magtape of code and data (1970s?)</li>
+<li>Place idiosyncratic dataset &amp; software at website (1990s?)</li>
+<li>Publish datasets and scripts at website, eg. biology, political science, genetics, statistics (2000s?)</li>
+<li>Hosted integrated code and data (2020s?)</li>
+</ul>
+<p><small>Gavish &amp; Gonoho AAAS 2011, Oxberry 2013</small></p>
+</div>
+<div id="motivations-claerbouts-principle" class="section level2">
+<h2>Motivations: <br> Claerbout’s principle</h2>
+<blockquote>
+<p>“An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result.” <small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small></p>
+</blockquote>
+</div>
+<div id="benefits-are-straightforward" class="section level2">
+<h2>Benefits are straightforward</h2>
+<ul>
+<li><strong>Verification &amp; Reliability</strong>: Find and fix bugs. Today’s results == tomorrow’s.</li>
+<li><strong>Transparency</strong>: increased citation count, broader impact, improved institutional memory</li>
+<li><strong>Efficiency</strong>: Reduces duplication of effort. Payoff in the (not so) long run</li>
+<li><strong>Flexibility</strong>: When you don’t ‘point-and-click’ you gain many new analytic options.</li>
+</ul>
+</div>
+<div id="but-limitations-are-substantial" class="section level2">
+<h2>But limitations are substantial</h2>
+<p><strong>Technical</strong></p>
+<ul>
+<li>Classified/sensitive/big data</li>
+<li>Nondisclosure agreements &amp; intellectual property</li>
+<li>Software licensing issues</li>
+<li>Competition</li>
+<li>Neither necessary nor sufficient for correctness (but useful in disputes)</li>
+</ul>
+<p><strong>Cultural &amp; personal</strong></p>
+<ul>
+<li>Few follow even minimal reproducibility standards.</li>
+<li>Few expect reproducibility</li>
+<li>No uniform standards</li>
+<li>Inertia &amp; embarassment</li>
+</ul>
+</div>
+<div id="our-work-exists-on-a-spectrum-of-reproducibility" class="section level2">
+<h2>Our work exists on a spectrum of reproducibility</h2>
+<p><img src="07_assets/peng-spectrum.jpg" alt="alt text" width="800"></p>
+<p><small>Peng 2011, Science 334(6060) pp. 1226-1227</small></p>
+</div>
+<div id="goal-expose-more-of-the-research-workflow" class="section level2">
+<h2>Goal: expose more of the research workflow</h2>
+<p><img src="07_assets/peng-pipeline.jpg" alt="alt text" width="600"></p>
+<p><small><small><a href="http://www.stodden.net/AMP2011/slides/pengslides.pdf" class="uri">http://www.stodden.net/AMP2011/slides/pengslides.pdf</a></small></small></p>
+</div>
+<div id="common-practices-of-many-scientists" class="section level2 columns-2">
+<h2>Common practices of many scientists</h2>
+<ul>
+<li>Enter data in Excel</li>
+<li>Use Excel for data cleaning &amp; descriptive statistics</li>
+<li>Import data into SPSS/SAS/Stata for further analysis</li>
+<li>Use point-and-click options to run statistical analyses</li>
+<li>Copy &amp; paste output to Word document, repeatedly</li>
+</ul>
+<p><br><br> <br><br> <br><br></p>
+<p><small><img src="07_assets/lemon.png" alt="alt text" /></small></p>
+</div>
+<div id="common-practices-of-many-scientists-1" class="section level2 columns-2">
+<h2>Common practices of many scientists</h2>
+<ul>
+<li>Version control is ad hoc</li>
+<li>Excel handles missing data inconsistently and sometimes incorrectly</li>
+<li>Excel uses poor algorithms for many functions</li>
+<li>Scripting is possible but rare</li>
+</ul>
+<p><br><br><br><br><br><br><br><br><br><br></p>
+<p><img src="07_assets/phd-comic-VCS.gif" alt="alt text" width="400"></p>
+</div>
+<div id="click-trails-are-ephemeral-dangerous" class="section level2 columns-2">
+<h2>Click trails are ephemeral &amp; dangerous</h2>
+<ul>
+<li>Lots of human effort for tedious &amp; time-wasting tasks</li>
+<li>Error-prone due to manual &amp; ad hoc data handling</li>
+<li>Difficult to record - hard to reconstruct a ‘click history’</li>
+<li>Tiny changes in data or method require extensive reworking</li>
+</ul>
+<p><br><br><br><br></p>
+<p><img src="07_assets/contrails.jpg" alt="alt text" width="400"></p>
+</div>
+<div id="case-study-reinhart-and-rogoff-controversy" class="section level2 columns-2">
+<h2>Case study: Reinhart and Rogoff controversy</h2>
+<p><img src="07_assets/reinhart_rogoff_coding_error_0.png" alt="alt text" width="400"></p>
+<ul>
+<li>2010: Claimed high debt-to-GDP ratios led to low GDP growth</li>
+<li>Threshold to growth at a debt-to-GDP ratio of &gt;90%</li>
+<li>Substantial popular impact on autsterity politics</li>
+</ul>
+</div>
+<div id="case-study-reinhart-and-rogoff-controversy-1" class="section level2">
+<h2>Case study: Reinhart and Rogoff controversy</h2>
+<p><img src="07_assets/reinhart_rogoff_econ_mag.png" alt="alt text" width="500"></p>
+<p>A coding error in their Excel spreadsheet sliced several countries out of the data set…. <a href="http://www.economist.com/news/finance-and-economics/21576362-seminal-analysis-relationship-between-debt-and-growth-comes-under">The Economist</a></p>
+</div>
+<div id="case-study-gay-marrage" class="section level2">
+<h2>Case study: Gay Marrage</h2>
+<div id="in-may-2015-science-retracted-a-study-of-how-canvassers-can-sway-peoples-opinions-about-gay-marriage-published-just-5-months-ago." class="section level4">
+<h4>In May 2015 <em>Science</em> retracted a study of how canvassers can sway people’s opinions about gay marriage published just 5 months ago.</h4>
+<ul>
+<li>Original survey data not made available for independent reproduction of results</li>
+<li>Survey incentives misrepresented</li>
+<li>Sponsorship statement false.</li>
+</ul>
+<p><small>- Science Editor-in-Chief Marcia McNutt</small></p>
+<p>Two Berkeley grad students who attempted to replicate the study quickly discovered that the data must have been faked.</p>
+<p><a href="http://news.sciencemag.org/policy/2015/05/science-retracts-gay-marriage-paper-without-lead-author-s-consent">Source</a></p>
+</div>
+</div>
+<div id="case-study-seizure-medicine" class="section level2">
+<h2>Case study: Seizure Medicine</h2>
+<div id="seizure-study-retracted-after-authors-realize-data-got-terribly-mixed" class="section level4">
+<h4>2013 Seizure study retracted after authors realize data got “terribly mixed”</h4>
+<blockquote>
+<p>“The article has been retracted at the request of the authors. After carefully re-examining the data presented in the article, they identified that data of two different hospitals got terribly mixed. The published results cannot be reproduced in accordance with scientific and clinical correctness.”&quot; <small> Authors of Low Dose Lidocaine for Refractory Seizures in Preterm Neonates </small></p>
+</blockquote>
+<p><a href="http://retractionwatch.com/2013/02/01/seizure-study-retracted-after-authors-realize-data-got-terribly-mixed/">Source</a></p>
+</div>
+</div>
+<div id="bad-spreadsheet-merge-kills-depression-paper-quick-fix-resurrects-it" class="section level2">
+<h2>Bad spreadsheet merge kills depression paper, quick fix resurrects it</h2>
+<p>Authors informed the journal that the merge of lab results and other survey data used in the paper resulted in an error regarding the identification codes. Results of the analyses were based on the data set in which this error occurred.</p>
+<blockquote>
+<p>“<strong>Lower</strong> levels of CSF IL-6 were associated with current depression and with future depression […]” <small>Original conclusion</small></p>
+</blockquote>
+<blockquote>
+<p>“<strong>Higher</strong> levels of CSF IL-6 and IL-8 were associated with current depression […]” <small> Revised conclusion </small></p>
+</blockquote>
+<p><a href="http://retractionwatch.com/2014/07/01/bad-spreadsheet-merge-kills-depression-paper-quick-fix-resurrects-it/">Source</a></p>
+</div>
+<div id="scripted-analyses-are-superior" class="section level2 columns-2">
+<h2>Scripted analyses are superior</h2>
+<p><img src="07_assets/open-science.png" alt="alt text" width="100%"></p>
+<ul>
+<li>Plain text files readable for a <em>long</em> time</li>
+<li>Improved transparency, automation, maintanability, accessibility, standardisation, modularity, portability, efficiency, communicability of process (what more could we want?)</li>
+<li>Steeper learning curve</li>
+</ul>
+</div>
+<div id="literate-statistical-programming" class="section level2">
+<h2>Literate statistical programming</h2>
+<blockquote>
+<p>“Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.” <small>Donald E. Knuth, Literate Programming, 1984</small></p>
+</blockquote>
+<p>For example… Let’s calculate the current time in R.</p>
+<pre class="r"><code>time &lt;- format(Sys.time(), &quot;%a %d %b %X %Y&quot;)</code></pre>
+<p>The text and R code are interwoven in the output:</p>
+<p>The time is <code>`r time`</code></p>
+<p>The time is Sat 29 Oct 14:26:43 2016</p>
+</div>
+<div id="literate-programming-for-and-against" class="section level2 columns-2">
+<h2>Literate programming: for and against</h2>
+<p><strong>For</strong></p>
+<ul>
+<li>Text &amp; code in one place, in logical order</li>
+<li>Tables and figures automatically updated</li>
+<li>Automatic test when building document</li>
+</ul>
+<p><strong>Against</strong></p>
+<ul>
+<li>Text and code in one place; can be hard to read</li>
+<li>Can slow down the processing of documents (use caching!)</li>
+</ul>
+</div>
+</div>
+<div id="reproducible-research-in-r" class="section level1">
+<h1>Reproducible Research in R</h1>
+<div id="need-a-programming-language" class="section level2 columns-2">
+<h2>Need a programming language</h2>
+<p>The machine-readable part: R</p>
+<ul>
+<li>R: Free, open source, cross-platform, highly interactive, huge user community in academica and private sector</li>
+<li>R packages an ideal ‘Compendium’?</li>
+<li>Scriptability → R</li>
+<li>Literate programming → R Markdown</li>
+<li>Version control → Git / GitHub</li>
+</ul>
+<p><img src="07_assets/r-project.jpg" alt="alt text" width="100"></p>
+<blockquote>
+<p>“both a container for the different elements that make up the document and its computations (i.e. text, code, data, etc.), and as a means for distributing, managing and updating the collection… allow us to move from an era of advertisement to one where our scholarship itself is published” <small>Gentleman and Temple Lang 2004</small></p>
+</blockquote>
+</div>
+<div id="very-low-barrier-to-documentation-of-code-with-roxygen2" class="section level2">
+<h2>Very low barrier to documentation of code with roxygen2</h2>
+<p><img src="07_assets/roxygen2.jpg" alt="alt text" width="800"></p>
+</div>
+<div id="need-a-document-formatting-language" class="section level2 columns-2">
+<h2>Need a document formatting language</h2>
+<p><img src="07_assets/markdown.png" alt="alt text" width="300"></p>
+<p>Markdown: lightweight document formatting syntax. Easy to write, read and publish as-is.</p>
+<p>The human-readable part</p>
+<p><code>rmarkdown</code>: - minor extensions to allow R code display and execution - embed images in html files (convenient for sharing) - equations</p>
+<p>e.g.</p>
+<ul>
+<li><code>*</code> for bullet</li>
+<li><code>_</code> for underline</li>
+</ul>
+</div>
+<div id="dynamic-documents-in-r" class="section level2 columns-2">
+<h2>Dynamic documents in R</h2>
+<p><code>knitr</code> - descendant of Sweave</p>
+<p>Engine for dynamic report generation in R</p>
+<p><img src="07_assets/knitr.png" alt="alt text" width="200"></p>
+<p><br></p>
+<ul>
+<li>Narrative and code in the same file or explicitly linked</li>
+<li>When data or narrative are updated, the document is automatically updated</li>
+<li>Data treated as ‘read only’</li>
+<li>Output treated as disposable</li>
+</ul>
+</div>
+<div id="pandoc-document-converter" class="section level2 columns-2">
+<h2>Pandoc: document converter</h2>
+<p><img src="07_assets/pandoc-workflow-rmd-md.png" alt="alt text" width="100%"> <small><small><small><a href="http://kieranhealy.org/blog/archives/2014/01/23/plain-text/" class="uri">http://kieranhealy.org/blog/archives/2014/01/23/plain-text/</a> </small></small></small></p>
+<p>A universal document converter, open source, cross-platform</p>
+<ul>
+<li>Write code and narrative in rmarkdown<br />
+</li>
+<li>knitr-&gt;markdown (with computation)<br />
+</li>
+<li>use pandoc to get HTML/PDF/DOCX</li>
+</ul>
+</div>
+</div>
+<div id="version-control" class="section level1">
+<h1>Version Control</h1>
+<div id="tracking-changes-with-version-control" class="section level2">
+<h2>Tracking changes with version control</h2>
+<p><strong>Payoffs</strong></p>
+<ul>
+<li>Eases collaboration</li>
+<li>Can track changes in any file type (ideally plain text)</li>
+<li>Can revert file to any point in its tracked history</li>
+</ul>
+<p><strong>Costs</strong> - Learning curve</p>
+<p><img src="07_assets/git.png" alt="alt text" width="30%"> <img src="07_assets/github.png" alt="alt text" width="30%"> <img src="07_assets/bitbucket.png" alt="alt text" width="30%"></p>
+</div>
+<div id="environment-for-reproducible-research" class="section level2 columns-2">
+<h2>Environment for reproducible research</h2>
+<p><img src="07_assets/rstudio.png" alt="alt text" width="30%"></p>
+<ul>
+<li>integrated R console</li>
+<li>deep support for markdown and git</li>
+<li>package development tools, etc. etc.</li>
+</ul>
+<blockquote>
+<p>RStudio ‘projects’ make version control &amp; document preparation simple</p>
+</blockquote>
+</div>
+<div id="depositing-code-and-data" class="section level2">
+<h2>Depositing code and data</h2>
+<p><strong>Payoffs</strong> - Free space for hosting (and paid options) - Assignment of persistent DOIs - Tracking citation metrics</p>
+<p><strong>Costs</strong> - Sometimes license restrictions (CC-BY &amp; CC0) - Limited or no private storage space</p>
+<p><img src="07_assets/figshare.png" alt="alt text" width="30%"> <img src="07_assets/dryad.png" alt="alt text" width="30%"> <img src="07_assets/zenodo.png" alt="alt text" width="30%"></p>
+</div>
+<div id="a-hierarchy-of-reproducibility" class="section level2">
+<h2>A hierarchy of reproducibility</h2>
+<ul>
+<li><strong>Good</strong>: Use code with an integrated development environment (IDE). Minimize pointing and clicking (RStudio)</li>
+<li><strong>Better</strong>: Use version control. Help yourself keep track of changes, fix bugs and improve project management (RStudio &amp; Git &amp; GitHub or BitBucket)</li>
+<li><strong>Best</strong>: Use embedded narrative and code to explicitly link code, text and data, save yourself time, save reviewers time, improve your code. (RStudio &amp; Git &amp; GitHub or BitBucket &amp; rmarkdown &amp; knitr &amp; data repository)</li>
+</ul>
+</div>
+<div id="section" class="section level2">
+<h2></h2>
+<p><img src="07_assets/VictoriaStoddenIASSISTJune2010-reasons-to.png" alt="alt text" width="800"> <small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small></p>
+</div>
+<div id="section-1" class="section level2">
+<h2></h2>
+<p><img src="07_assets/VictoriaStoddenIASSISTJune2010-reasons.png" alt="alt text" width="800"> <small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small></p>
+</div>
+<div id="standards-to-normalise-reproducible-research" class="section level2">
+<h2>Standards to normalise reproducible research</h2>
+<p>Reproducible Research Standard (Stodden 2009)</p>
+<ul>
+<li>The full compendium on the internet</li>
+<li>Media such as text, figures, tables with Creative Commons Attribution license (CC-BY)</li>
+<li>Code with one of Apache 2.0, MIT, LGPL, BSD, etc.</li>
+<li>Original “selection and arrangement” of data with CC0 or CC-BY</li>
+</ul>
+</div>
+<div id="biggest-challenge-culture-change" class="section level2">
+<h2>Biggest challenge: culture change</h2>
+<p>Promote culture change through positive attribution</p>
+<p>Implement mechanisms to indicate &amp; encourage <strong>degrees of compliance</strong> (ie. clear definitions for different levels of reproducibility), cf. Stodden’s:</p>
+<ul>
+<li><strong>‘Reproducible’</strong>: compendium of text-code-data online</li>
+<li><strong>‘Reproduced’</strong>: compendium available and independently reproduced</li>
+<li><strong>‘Semi-Reproducible’</strong>: when the full compendium is not released</li>
+<li><strong>‘Semi-Reproduced’</strong>: independent reproduction with other data</li>
+<li><strong>‘Perpetually Reproducible’</strong>: streaming data</li>
+</ul>
+</div>
+<div id="our-role-in-the-future-of-reproducible-research-leveque-et-al-2012" class="section level2">
+<h2>Our role in the future of reproducible research (Leveque et al 2012)</h2>
+<ul>
+<li>Train students by putting homework, assignments &amp; dissertations on the reproducible research spectrum</li>
+<li>Publish examples of reproducible research in our field</li>
+<li>Request code &amp; data when reviewing</li>
+<li>Submit to &amp; review for journals that support reproducible research</li>
+<li>Critically review &amp; audit data management plans in grant proposals</li>
+<li>Consider reproducibility wherever possible in hiring, promotion &amp; reference letters.</li>
+</ul>
+</div>
+</div>
+<div id="demo-lets-get-started" class="section level1">
+<h1>Demo: let’s get started</h1>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>Cheatsheet:</p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
+<p><small><small><small><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf</a></small></small></small></p>
+</div>
+<div id="create-new-file" class="section level2">
+<h2>Create new file</h2>
+<p>File -&gt; New File -&gt; RMarkdown -&gt; Document -&gt; HTML</p>
+<p><img src="07_assets/rmarkdownwindow.png" alt="alt text" width="500"></p>
+</div>
+<div id="step-1-load-packages" class="section level2">
+<h2>Step 1: Load packages</h2>
+<p>All R code to be run must be in a <em>code chunk</em> like this:</p>
+<pre class="r"><code>#```{r,eval=F}
+CODE HERE
+#```</code></pre>
+<p>Load these packages in a code chunk (you may need to install some packages):</p>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(maps)
+library(spocc)</code></pre>
+<blockquote>
+<p>Do you think you should put <code>install.packages()</code> calls in your script?</p>
+</blockquote>
+</div>
+<div id="step-2-load-data" class="section level2">
+<h2>Step 2: Load data</h2>
+<p>Now use the <code>occ()</code> function to download all the <em>occurrence</em> records for the American robin (<em>Turdus migratorius</em>) from the <a href="gbif.org">Global Biodiversity Information Facility</a>.</p>
+<p><img src="07_assets/Turdus-migratorius-002.jpg" alt="alt text" width="200"></p>
+<p><small><small><small>Licensed under CC BY-SA 3.0 via <a href="https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg">Wikimedia Commons</a></small></small></small></p>
+<pre class="r"><code>## define which species to query
+sp=&#39;Turdus migratorius&#39;
+
+## run the query and convert to data.frame()
+d = occ(query=sp, from=&#39;ebird&#39;,limit = 1000) %&gt;% occ2df()</code></pre>
+<pre><code>## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.</code></pre>
+<p>This can take a few seconds.</p>
+</div>
+<div id="step-3-map-it" class="section level2">
+<h2>Step 3: Map it</h2>
+<pre class="r"><code># Load coastline
+map=map_data(&quot;world&quot;)
+
+ggplot(d,aes(x=longitude,y=latitude))+
+  geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
+  geom_point(col=&quot;red&quot;)+
+  coord_equal()</code></pre>
+<p><img src="07_Reproducibile_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
+</div>
+<div id="step-4" class="section level2">
+<h2>Step 4:</h2>
+<p>Update the YAML header to keep the markdown file</p>
+<p>From this:</p>
+<pre class="r"><code>title: &quot;Untitled&quot;
+author: &quot;Adam M. Wilson&quot;
+date: &quot;September 21, 2015&quot;
+output: html_document</code></pre>
+<p>To this:</p>
+<pre class="r"><code>title: &quot;Demo&quot;
+author: &quot;Adam M. Wilson&quot;
+date: &quot;September 21, 2015&quot;
+output: 
+  html_document:
+      keep_md: true</code></pre>
+<p>And click <code>knit HTML</code> to generate the output</p>
+</div>
+<div id="step-5-explore-markdown-functions" class="section level2">
+<h2>Step 5: Explore markdown functions</h2>
+<ol style="list-style-type: decimal">
+<li>Use the Cheatsheet to add sections and some example narrative.<br />
+</li>
+<li>Try changing changing the species name to your favorite species and re-run the report.</li>
+</ol>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
+</div>
+<div id="final" class="section level2">
+<h2>Final</h2>
+<blockquote>
+<p>Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.<small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small></p>
+</blockquote>
+</div>
+<div id="colophon" class="section level2">
+<h2>Colophon</h2>
+<p><a href="https://github.com/benmarwick/CSSS-Primer-Reproducible-Research">Slides based on Ben Marwick’s presentation to the UW Center for Statistics and Social Sciences (12 March 2014)</a> (<a href="http://orcid.org/0000-0001-7879-4531">OrcID</a>)</p>
+<p>Licensing: * Presentation: <a href="http://creativecommons.org/licenses/by/3.0/us/">CC-BY-3.0</a> * Source code: <a href="http://opensource.org/licenses/MIT">MIT</a></p>
+</div>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p>See Rmd file for full references and sources</p>
+</div>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+  <a rel="license" property="http://creativecommons.org/ns#license"
+  href="http://creativecommons.org/licenses/by/4.0/" ><img src="img/cc-by.svg" alt="cc-by"/></a> 
+  </div>
+</footer>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+
+</body>
+</html>

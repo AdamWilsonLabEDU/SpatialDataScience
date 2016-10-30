@@ -30,12 +30,9 @@ left:
         href: 06_RasterTwo.html
       - text: "-----------------"
       - text: "Module 2: Advanced Programming"
-      - text: "ioslides"
-        href: ioslides_presentation_format.html
+      - text: "07 Reproducible Research"
+        href: 07_Reproducibile.html
       - text: "-----------------"
-      - text: "Module 3: Spatial Data"
-      - text: "Tufte Handout"
-        href: tufte_handout_format.html
   - text: "Assignments"
     menu:
       - text: "Homeworks"
