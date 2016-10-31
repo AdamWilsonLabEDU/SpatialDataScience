@@ -178,7 +178,7 @@ The text and R code are interwoven in the output:
 
 The time is `` `r time` ``
 
-The time is Sun 30 Oct 21:22:48 2016
+The time is Sun 30 Oct 21:52:49 2016
 
 
 
@@ -454,14 +454,11 @@ And click `knit HTML` to generate the output
 ## Step 5:  Explore markdown functions
 
 1. Use the Cheatsheet to add sections and some example narrative.  
-2. Try changing changing the species name to your favorite species and re-run the report.  
+2. Try changing changing the species name to your favorite species and re-run the report. 
+3. Add more figures or different versions of a figure
+4. Check out the `kable()` function for tables (e.g. `kable(head(d))`)
 
 <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a>
-
-## Very low barrier to documentation of code with roxygen2
-
-
-<img src="07_assets/roxygen2.jpg" alt="alt text" width="800">
 
 
 ##  Final

@@ -186,8 +186,8 @@ dplyr::filter(st,
               between(longitude,coords[1]-1,coords[1]+1)&
          element=="TMAX")
 
-d=ghcnd("USW00014733")
-d$data[1:5,1:12]
+d=meteo_tidy_ghcnd("USW00014733",keep_flags=T,var = c("TMAX","TMIN","PRCP"))
+head(d)
 
 #' Could also filter using `over()` in sp package...
 #' 
@@ -223,28 +223,6 @@ d$data[1:5,1:12]
 #' ### Quality Control: SFLAG
 #' 
 #' Indicates the source of the data...
-#' 
-#' ### Reshape and clean data
-#' 
-#' `rnoaa` includes a function `ghcnd_splitvars()` for reshaping the original data.
-#' 
-## ------------------------------------------------------------------------
-d1=ghcnd_splitvars(d)
-str(d1,list.len = 3)
-
-#' 
-#' #### Merge datasets
-#' 
-## ------------------------------------------------------------------------
-d2=lapply(1:length(d1),function(i) {
-  x=d1[[i]]
-  ivar=names(d1)[i]
-  x$var=ivar
-  x$val=unlist(x[,ivar])
-  return(select(x,-contains(ivar)))})%>%
-  bind_rows()
-head(d2)
-
 #' 
 #' #### Filter with QC data and change units
 ## ------------------------------------------------------------------------
