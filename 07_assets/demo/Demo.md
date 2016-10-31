@@ -1,8 +1,6 @@
 # Demo
 Adam M. Wilson  
-September 21, 2015  
-
- 
+October 31, 2015  
 
 
 
@@ -17,13 +15,13 @@ library(spocc)
 
 The American Robin is a pretty bird (Figure 1).  
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Turdus-migratorius-002.jpg" alt="alt text" width="200">
+![Robin](https://upload.wikimedia.org/wikipedia/commons/b/b8/Turdus-migratorius-002.jpg)
 
-<small><small>Figure 1: Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)</small></small>
+Figure 1: Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)
 
 # Methods
 
-I aquired all the occurrence records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org) and mapped them.
+I aquired all available occurrence records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org) and mapped them.
 
 
 ```r
@@ -47,7 +45,7 @@ ggplot(d,aes(x=longitude,y=latitude))+
   coord_equal()
 ```
 
-![](Demo_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](Demo_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 ## Conclusion
 

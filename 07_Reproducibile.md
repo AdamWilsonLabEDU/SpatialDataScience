@@ -1,6 +1,5 @@
 # Reproducible Research
 
-
 # Overview
 
 > "The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified."  <small> Max Kuhn, CRAN Task View: Reproducible Research </small>
@@ -114,11 +113,9 @@
 - Threshold to growth at a debt-to-GDP ratio of >90%
 - Substantial popular impact on autsterity politics 
 
-## Case study: Reinhart and Rogoff controversy
+<img src="07_assets/reinhart_rogoff_econ_mag.png" alt="alt text" width="250">
 
-<img src="07_assets/reinhart_rogoff_econ_mag.png" alt="alt text" width="500">
-
-A coding error in their Excel spreadsheet sliced several countries out of the data set....
+Excel coding error sliced several countries out of the data set....
 [The Economist](http://www.economist.com/news/finance-and-economics/21576362-seminal-analysis-relationship-between-debt-and-growth-comes-under)
 
 ## Case study: Gay Marrage
@@ -156,7 +153,7 @@ Authors informed the journal that the merge of lab results and other survey data
 
 ## Scripted analyses are superior  {.columns-2}
 
-  <img src="07_assets/open-science.png" alt="alt text" width="100%">
+  <img src="07_assets/open-science.png" alt="alt text" width="250px">
 
 
   - Plain text files readable for a _long_ time
@@ -181,7 +178,7 @@ The text and R code are interwoven in the output:
 
 The time is `` `r time` ``
 
-The time is Sat 29 Oct 14:26:43 2016
+The time is Sun 30 Oct 21:22:48 2016
 
 
 
@@ -216,16 +213,9 @@ The machine-readable part: R
 
 > "both a container for the different elements that make up the document and its computations (i.e. text, code, data, etc.), and as a means for distributing, managing and updating the collection... allow us to move from an era of advertisement to one where our scholarship itself is published" <small>Gentleman and Temple Lang 2004</small>
 
-
-## Very low barrier to documentation of code with roxygen2
-
-
-<img src="07_assets/roxygen2.jpg" alt="alt text" width="800">
-
-
 ## Need a document formatting language  {.columns-2}
 
-<img src="07_assets/markdown.png" alt="alt text" width="300">
+<img src="07_assets/markdown.png" alt="alt text" width="100">
 
 Markdown: lightweight document formatting syntax. Easy to write, read and publish as-is.
 
@@ -282,13 +272,13 @@ A universal document converter, open source, cross-platform
 - Learning curve
 
 
-<img src="07_assets/git.png" alt="alt text" width="30%">
-<img src="07_assets/github.png" alt="alt text" width="30%">
-<img src="07_assets/bitbucket.png" alt="alt text" width="30%">
+<img src="07_assets/git.png" alt="alt text" width="25%">
+<img src="07_assets/github.png" alt="alt text" width="25%">
+<img src="07_assets/bitbucket.png" alt="alt text" width="25%">
 
 ## Environment for reproducible research   {.columns-2}
 
-<img src="07_assets/rstudio.png" alt="alt text" width="30%">
+<img src="07_assets/rstudio.png" alt="alt text" width="10%">
 
 * integrated R console
 * deep support for markdown and git
@@ -364,6 +354,7 @@ Implement mechanisms to indicate & encourage **degrees of compliance** (ie. clea
 
 #  Demo: let's get started
 
+[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](07_assets/demo/Demo.Rmd).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 
 ## R Markdown
 
@@ -375,7 +366,7 @@ Cheatsheet:
 
 
 ## Create new file
-File -> New File -> RMarkdown -> Document -> HTML
+**File -> New File -> RMarkdown -> Document -> HTML**
 
 <img src="07_assets/rmarkdownwindow.png" alt="alt text" width="500">
 
@@ -418,10 +409,6 @@ sp='Turdus migratorius'
 ## run the query and convert to data.frame()
 d = occ(query=sp, from='ebird',limit = 1000) %>% occ2df()
 ```
-
-```
-## Warning: `rbind_all()` is deprecated. Please use `bind_rows()` instead.
-```
 This can take a few seconds.
 
 ## Step 3: Map it
@@ -447,7 +434,7 @@ From this:
 ```r
 title: "Untitled"
 author: "Adam M. Wilson"
-date: "September 21, 2015"
+date: "October 31, 2016"
 output: html_document
 ```
 
@@ -456,7 +443,7 @@ To this:
 ```r
 title: "Demo"
 author: "Adam M. Wilson"
-date: "September 21, 2015"
+date: "October 31, 2016"
 output: 
   html_document:
       keep_md: true
@@ -470,6 +457,12 @@ And click `knit HTML` to generate the output
 2. Try changing changing the species name to your favorite species and re-run the report.  
 
 <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a>
+
+## Very low barrier to documentation of code with roxygen2
+
+
+<img src="07_assets/roxygen2.jpg" alt="alt text" width="800">
+
 
 ##  Final
 

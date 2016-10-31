@@ -1,20 +1,12 @@
 ---
 title: "Demo"
 author: "Adam M. Wilson"
-date: "September 21, 2015"
+date: "October 31, 2015"
 output: 
   html_document:
       keep_md: true
       type: standalone
 ---
-
- ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
-input  = knitr::current_input()  # filename of input document
-output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=1,quiet=T)
-knitr::opts_chunk$set(cache=T)
-```
 
 
 ```{r, message=F}
@@ -28,13 +20,13 @@ library(spocc)
 
 The American Robin is a pretty bird (Figure 1).  
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Turdus-migratorius-002.jpg" alt="alt text" width="200">
+![Robin](https://upload.wikimedia.org/wikipedia/commons/b/b8/Turdus-migratorius-002.jpg)
 
-<small><small>Figure 1: Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)</small></small>
+Figure 1: Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)
 
 # Methods
 
-I aquired all the occurrence records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org) and mapped them.
+I aquired all available occurrence records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org) and mapped them.
 
 ```{r, cache=T, warning=F} 
 ## define which species to query
