@@ -178,7 +178,7 @@ The text and R code are interwoven in the output:
 
 The time is `` `r time` ``
 
-The time is Sun 30 Oct 21:52:49 2016
+The time is Fri 04 Nov 11:56:53 2016
 
 
 

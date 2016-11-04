@@ -1,15 +1,18 @@
 ---
 title: "Demo"
 author: "Adam M. Wilson"
-date: "October 31, 2015"
-output: 
+date: "October 31, 2016"
+output:
   html_document:
-      keep_md: true
-      type: standalone
+    keep_md: yes
+    type: standalone
+  word_document: default
 ---
 
 
-```{r, message=F}
+```{r, message=F, echo=F}
+knitr::opts_chunk$set(echo=F, cache=T)
+
 library(dplyr)
 library(ggplot2)
 library(maps)
@@ -47,6 +50,15 @@ ggplot(d,aes(x=longitude,y=latitude))+
   geom_point(col="red")+
   coord_equal()
 ```
+
+```{r}
+x=rnorm(10) 
+y=rnorm(10)
+lm1=lm(y~x)
+plot(y~x)
+```
+
+The regression slope was `r coef(lm1)[2]`.
 
 ## Conclusion
 

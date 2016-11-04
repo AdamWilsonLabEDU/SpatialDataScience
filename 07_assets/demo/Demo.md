@@ -1,15 +1,9 @@
 # Demo
 Adam M. Wilson  
-October 31, 2015  
+October 31, 2016  
 
 
 
-```r
-library(dplyr)
-library(ggplot2)
-library(maps)
-library(spocc)
-```
 
 # Introduction
 
@@ -24,28 +18,14 @@ Figure 1: Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wi
 I aquired all available occurrence records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org) and mapped them.
 
 
-```r
-## define which species to query
-sp='Turdus migratorius'
-
-## run the query and convert to data.frame()
-d = occ(query=sp, from='ebird',limit = 1000) %>% occ2df()
-```
 
 ## Results
 
-
-```r
-# Load coastline
-map=map_data("world")
-
-ggplot(d,aes(x=longitude,y=latitude))+
-  geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
-  geom_point(col="red")+
-  coord_equal()
-```
-
 ![](Demo_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+![](Demo_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+The regression slope was -0.6019797.
 
 ## Conclusion
 
