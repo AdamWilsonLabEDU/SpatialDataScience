@@ -292,7 +292,7 @@ $(document).ready(function () {
 <div id="climate-metrics-climdex" class="section level2">
 <h2>Climate Metrics: ClimdEX</h2>
 <p>Indices representing extreme aspects of climate derived from daily data:</p>
-<p><img src="09_assets/climdex.png" alt="alt text" width="50%"></p>
+<p><img src="08_assets/climdex.png" alt="alt text" width="50%"></p>
 <p>Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) (<a href="http://www.climdex.org">climdex.org</a>).</p>
 <div id="core-indices" class="section level3">
 <h3>27 Core indices</h3>
@@ -316,14 +316,14 @@ $(document).ready(function () {
 <div id="climate-data-online" class="section level3">
 <h3>Climate Data Online</h3>
 <div class="figure">
-<img src="09_assets/climatedataonline.png" alt="CDO" />
+<img src="08_assets/climatedataonline.png" alt="CDO" />
 <p class="caption">CDO</p>
 </div>
 </div>
 <div id="ghcn" class="section level3">
 <h3>GHCN</h3>
 <div class="figure">
-<img src="09_assets/ghcn.png" alt="ghcn" />
+<img src="08_assets/ghcn.png" alt="ghcn" />
 <p class="caption">ghcn</p>
 </div>
 </div>
@@ -342,7 +342,7 @@ $(document).ready(function () {
 <div id="noaa-api" class="section level3">
 <h3>NOAA API</h3>
 <div class="figure">
-<img src="09_assets/noaa_api.png" alt="noaa api" />
+<img src="08_assets/noaa_api.png" alt="noaa api" />
 <p class="caption">noaa api</p>
 </div>
 <p><a href="http://www.ncdc.noaa.gov/cdo-web/webservices/v2">National Climatic Data Center application programming interface (API)</a>.</p>
@@ -640,7 +640,7 @@ ggplot(tp,aes(y=prcp,x=date))+
 <div id="time-series-analysis" class="section level1">
 <h1>Time Series analysis</h1>
 <p>Most timeseries functions use the time series class (<code>ts</code>)</p>
-<pre class="r"><code>tmin.ts=ts(d_filtered_recent$tmin,deltat=1/365)</code></pre>
+<pre class="r"><code>tmin.ts=ts(d_filtered_recent$tmin,frequency = 365)</code></pre>
 <div id="temporal-autocorrelation" class="section level2">
 <h2>Temporal autocorrelation</h2>
 <p>Values are highly correlated!</p>
@@ -664,27 +664,6 @@ ggplot(tp,aes(y=prcp,x=date))+
 <h4>Partial Autocorrelation</h4>
 <pre class="r"><code>pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
-</div>
-</div>
-<div id="seasonal-decomposition" class="section level3">
-<h3>Seasonal decomposition</h3>
-<p>Decompose data into seasonal, trend, and remaining components.</p>
-<pre class="r"><code>library(stlplus)</code></pre>
-<pre class="r"><code>seasd = stlplus(tmin.ts,s.window=&quot;periodic&quot;,t.window=365*10)
-plot(seasd)</code></pre>
-<img src="08_WeatherData_files/figure-html/unnamed-chunk-26-1.png" /><!-- -->
-<div class="well">
-<h2 id="your-turn-2">Your Turn</h2>
-<p>Compute the seasonal decomposition for precipitation</p>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">
-Show Solution
-</button>
-<div id="demo3" class="collapse">
-<pre class="r"><code>prcp.ts=ts(d_filtered$prcp,deltat=1/365) 
-pseasd = stlplus(prcp.ts,s.window=&quot;periodic&quot;,t.window=365*10,na.action=na.exclude)
-plot(pseasd) </code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
-</div>
 </div>
 </div>
 </div>
@@ -755,7 +734,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_smooth).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
 </div>
 <div id="kendal-seasonal-trend-test" class="section level3">
 <h3>Kendal Seasonal Trend Test</h3>
@@ -931,21 +910,21 @@ years=as.numeric(as.character(unique(ci@date.factors$annual)))</code></pre>
 <h3>Cumulative dry days</h3>
 <pre class="r"><code>cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-36-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 </div>
 <div id="diurnal-temperature-range" class="section level3">
 <h3>Diurnal Temperature Range</h3>
 <pre class="r"><code>dtr=climdex.dtr(ci, freq = c(&quot;annual&quot;))
 plot(dtr~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
 </div>
 <div id="frost-days" class="section level3">
 <h3>Frost Days</h3>
 <pre class="r"><code>fd=climdex.fd(ci)
 plot(fd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-35-1.png" /><!-- --></p>
 <div class="well">
-<h2 id="your-turn-3">Your Turn</h2>
+<h2 id="your-turn-2">Your Turn</h2>
 <p>See all available indices with:</p>
 <pre class="r"><code>climdex.get.available.indices(ci)</code></pre>
 <pre><code>##  [1] &quot;climdex.su&quot;      &quot;climdex.id&quot;      &quot;climdex.txx&quot;    
@@ -964,13 +943,13 @@ Show Solution
 <div id="demo4" class="collapse">
 <pre class="r"><code>r10mm=climdex.r10mm(ci)
 plot(r10mm~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
 <pre class="r"><code>prcptot=climdex.prcptot(ci)
 plot(prcptot~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-2.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-2.png" /><!-- --></p>
 <pre class="r"><code>gsl=climdex.gsl(ci)
 plot(gsl~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-3.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-3.png" /><!-- --></p>
 </div>
 </div>
 </div>

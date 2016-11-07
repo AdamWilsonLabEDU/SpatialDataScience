@@ -16,7 +16,7 @@
 ## Climate Metrics: ClimdEX
 Indices representing extreme aspects of climate derived from daily data:
 
-<img src="09_assets/climdex.png" alt="alt text" width="50%">
+<img src="08_assets/climdex.png" alt="alt text" width="50%">
 
 Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
 
@@ -39,11 +39,11 @@ For example:
 
 ### Climate Data Online
 
-![CDO](09_assets/climatedataonline.png)
+![CDO](08_assets/climatedataonline.png)
 
 ### GHCN 
 
-![ghcn](09_assets/ghcn.png)
+![ghcn](08_assets/ghcn.png)
 
 ## Options for downloading data
 
@@ -57,7 +57,7 @@ For example:
 
 ### NOAA API
 
-![noaa api](09_assets/noaa_api.png)
+![noaa api](08_assets/noaa_api.png)
 
 [National Climatic Data Center application programming interface (API)]( http://www.ncdc.noaa.gov/cdo-web/webservices/v2). 
 
@@ -490,7 +490,7 @@ Most timeseries functions use the time series class (`ts`)
 
 
 ```r
-tmin.ts=ts(d_filtered_recent$tmin,deltat=1/365)
+tmin.ts=ts(d_filtered_recent$tmin,frequency = 365)
 ```
 
 ## Temporal autocorrelation
@@ -530,40 +530,6 @@ pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 ```
 
 ![](08_WeatherData_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
-
-
-### Seasonal decomposition
-Decompose data into seasonal, trend, and remaining components.
-
-```r
-library(stlplus)
-```
-
-
-```r
-seasd = stlplus(tmin.ts,s.window="periodic",t.window=365*10)
-plot(seasd)
-```
-
-![](08_WeatherData_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
-<div class="well">
-## Your Turn
-Compute the seasonal decomposition for precipitation
-
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
-<div id="demo3" class="collapse">
-
-
-```r
-prcp.ts=ts(d_filtered$prcp,deltat=1/365) 
-pseasd = stlplus(prcp.ts,s.window="periodic",t.window=365*10,na.action=na.exclude)
-plot(pseasd) 
-```
-
-![](08_WeatherData_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
-</div>
-</div>
-
 
 
 # Checking for significant trends
@@ -672,7 +638,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
 ## Warning: Removed 12 rows containing non-finite values (stat_smooth).
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
 ### Kendal Seasonal Trend Test
 
@@ -867,7 +833,7 @@ cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 ### Diurnal Temperature Range
 
@@ -877,7 +843,7 @@ dtr=climdex.dtr(ci, freq = c("annual"))
 plot(dtr~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-34-1.png)<!-- -->
 
 ### Frost Days
 
@@ -887,7 +853,7 @@ fd=climdex.fd(ci)
 plot(fd~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
 
 <div class="well">
 ## Your Turn
@@ -921,21 +887,21 @@ r10mm=climdex.r10mm(ci)
 plot(r10mm~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
 
 ```r
 prcptot=climdex.prcptot(ci)
 plot(prcptot~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-40-2.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-37-2.png)<!-- -->
 
 ```r
 gsl=climdex.gsl(ci)
 plot(gsl~years,type="l")
 ```
 
-![](08_WeatherData_files/figure-html/unnamed-chunk-40-3.png)<!-- -->
+![](08_WeatherData_files/figure-html/unnamed-chunk-37-3.png)<!-- -->
 
 </div>
 </div>

@@ -17,7 +17,7 @@
 #' ## Climate Metrics: ClimdEX
 #' Indices representing extreme aspects of climate derived from daily data:
 #' 
-#' <img src="09_assets/climdex.png" alt="alt text" width="50%">
+#' <img src="08_assets/climdex.png" alt="alt text" width="50%">
 #' 
 #' Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
 #' 
@@ -40,11 +40,11 @@
 #' 
 #' ### Climate Data Online
 #' 
-#' ![CDO](09_assets/climatedataonline.png)
+#' ![CDO](08_assets/climatedataonline.png)
 #' 
 #' ### GHCN 
 #' 
-#' ![ghcn](09_assets/ghcn.png)
+#' ![ghcn](08_assets/ghcn.png)
 #' 
 #' ## Options for downloading data
 #' 
@@ -58,7 +58,7 @@
 #' 
 #' ### NOAA API
 #' 
-#' ![noaa api](09_assets/noaa_api.png)
+#' ![noaa api](08_assets/noaa_api.png)
 #' 
 #' [National Climatic Data Center application programming interface (API)]( http://www.ncdc.noaa.gov/cdo-web/webservices/v2). 
 #' 
@@ -330,7 +330,7 @@ d_rollmean%>%
 #' Most timeseries functions use the time series class (`ts`)
 #' 
 ## ------------------------------------------------------------------------
-tmin.ts=ts(d_filtered_recent$tmin,deltat=1/365)
+tmin.ts=ts(d_filtered_recent$tmin,frequency = 365)
 
 #' 
 #' ## Temporal autocorrelation
@@ -357,28 +357,6 @@ acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 ## ------------------------------------------------------------------------
 pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 
-#' 
-#' 
-#' ### Seasonal decomposition
-#' Decompose data into seasonal, trend, and remaining components.
-## ------------------------------------------------------------------------
-library(stlplus)
-
-#' 
-## ------------------------------------------------------------------------
-seasd = stlplus(tmin.ts,s.window="periodic",t.window=365*10)
-plot(seasd)
-
-#' <div class="well">
-#' ## Your Turn
-#' Compute the seasonal decomposition for precipitation
-#' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
-#' <div id="demo3" class="collapse">
-#' 
-#' </div>
-#' </div>
-#' 
 #' 
 #' 
 #' # Checking for significant trends
