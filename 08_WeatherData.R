@@ -40,11 +40,11 @@
 #' 
 #' ### Climate Data Online
 #' 
-#' ![CDO](assets/climatedataonline.png)
+#' ![CDO](09_assets/climatedataonline.png)
 #' 
 #' ### GHCN 
 #' 
-#' ![ghcn](assets/ghcn.png)
+#' ![ghcn](09_assets/ghcn.png)
 #' 
 #' ## Options for downloading data
 #' 
@@ -58,7 +58,7 @@
 #' 
 #' ### NOAA API
 #' 
-#' ![noaa api](assets/noaa_api.png)
+#' ![noaa api](09_assets/noaa_api.png)
 #' 
 #' [National Climatic Data Center application programming interface (API)]( http://www.ncdc.noaa.gov/cdo-web/webservices/v2). 
 #' 
@@ -138,15 +138,15 @@ st=dplyr::filter(st,element%in%c("TMAX","TMIN","PRCP"))
 #' 
 #' First, get a global country polygon
 ## ---- warning=F----------------------------------------------------------
-worldmap=map("world",fill=T,plot=F)
+worldmap=map_data("world")
 
 #' 
 #' Plot all stations:
 ## ------------------------------------------------------------------------
-ggplot() +
-  facet_wrap(~element)+
-  geom_point(aes(y=latitude,x=longitude),data=st,size=.75,col="red")+
-  geom_path(aes(x=long,y=lat,group=group,order=order),data=fortify(worldmap),size=.5)+
+ggplot(data=st,aes(y=latitude,x=longitude)) +
+  annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
+  geom_point(size=.1,col="red")+
+  facet_grid(element~1)+
   coord_equal()
 
 #' 
@@ -154,14 +154,14 @@ ggplot() +
 #' 
 ## ------------------------------------------------------------------------
 ggplot(st,aes(y=latitude,x=longitude)) +
-  facet_wrap(~element)+
-  stat_bin2d(bins=75)+
-  scale_fill_gradient(low="yellow",high="red",trans="log",
+  annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
+  facet_grid(element~1)+
+  stat_bin2d(bins=100)+
+  scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
                        breaks = c(1,10,100,1000))+
-  geom_path(aes(x=long,y=lat,group=group,order=order),data=fortify(worldmap),size=.5)+
   coord_equal()
 
-#' 
+#' <div class="well">
 #' ## Your turn
 #' 
 #' Produce a binned map (like above) with the following modifications:
@@ -169,16 +169,35 @@ ggplot(st,aes(y=latitude,x=longitude)) +
 #' * include only stations with data between 1950 and 2000
 #' * include only `tmax`
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+#' <div id="demo1" class="collapse">
+#' 
+#' </div>
+#' </div>
 #' 
 #' ## Download daily data from GHCN
 #' 
 #' `ghcnd()` will download a `.dly` file for a particular station.  But how to choose?
 #' 
+#' ### `geocode` in ggmap package useful for geocoding place names 
+#' Geocodes a location (find latitude and longitude) using either (1) the Data Science Toolkit (http://www.datasciencetoolkit.org/about) or (2) Google Maps. 
+#' 
+## ------------------------------------------------------------------------
+geocode("University at Buffalo, NY")
+
+#' 
+#' However, you have to be careful:
+## ------------------------------------------------------------------------
+geocode("My Grandma's house")
+
+#' 
+#' But this is pretty safe for well known places.
 ## ------------------------------------------------------------------------
 coords=as.matrix(geocode("Buffalo, NY"))
 coords
 
 #' 
+#' Now use that location to spatially filter stations with a rectangular box.
 ## ------------------------------------------------------------------------
 dplyr::filter(st,
               grepl("BUFFALO",name)&
@@ -186,12 +205,18 @@ dplyr::filter(st,
               between(longitude,coords[1]-1,coords[1]+1)&
          element=="TMAX")
 
-d=meteo_tidy_ghcnd("USW00014733",keep_flags=T,var = c("TMAX","TMIN","PRCP"))
+#' You could also spatially filter using `over()` in sp package...
+#' 
+#' 
+#' With the station ID, we can now download daily data from NOAA.
+## ------------------------------------------------------------------------
+d=meteo_tidy_ghcnd("USW00014733",
+                   var = c("TMAX","TMIN","PRCP"),
+                   keep_flags=T)
 head(d)
 
-#' Could also filter using `over()` in sp package...
 #' 
-#' See [CDO Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.
+#' See [CDO Daily Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.  If you want to download multiple stations at once, check out `meteo_pull_monitors()`
 #' 
 #' ### Quality Control: MFLAG
 #' 
@@ -224,53 +249,41 @@ head(d)
 #' 
 #' Indicates the source of the data...
 #' 
-#' #### Filter with QC data and change units
-## ------------------------------------------------------------------------
-d3=d2%>%
-  filter( 
-    qflag==" " &
-    var%in%c("tmax","tmin","prcp"))%>%                            # drop bad QC values
-  mutate(val=ifelse(val==-9999,NA,val))%>%
-  mutate(val=ifelse(var%in%c("tmax","tmin"), val/10,val))%>%  # convert to degrees C
-  arrange(var,date)
-
-#' 
 #' ## Summarize QC flags
 #' 
 #' Summarize the QC flags.  How many of which type are there?  Should we be more conservative?
 #' 
 ## ------------------------------------------------------------------------
-table(d3$mflag,d3$var)  
+table(d$qflag_tmax)  
+table(d$qflag_tmin)  
+table(d$qflag_prcp)  
 
 #' * **T** failed temporal consistency check
 #' 
-#' 
-#' ### Reshape by variable for easy plotting
-#' use `reshape2::dcast()` for flexible reshaping of data sets.  
-#' 
+#' #### Filter with QC data and change units
 ## ------------------------------------------------------------------------
-d3b=dcast(d3,id+date~var,value.var="val")%>%
-  arrange(date)%>%
-  na.omit() 
-head(d3b)
+d_filtered=d%>%
+  mutate(tmax=ifelse(qflag_tmax!=" "|tmax==-9999,NA,tmax/10))%>%  # convert to degrees C
+  mutate(tmin=ifelse(qflag_tmin!=" "|tmin==-9999,NA,tmin/10))%>%  # convert to degrees C
+  mutate(prcp=ifelse(qflag_tmin!=" "|prcp==-9999,NA,prcp))%>%  # convert to degrees C
+  arrange(date)
 
-#' Use `melt()` to _undo_ a `cast()`
-#' 
 #' 
 #' Plot temperatures
 ## ------------------------------------------------------------------------
-ggplot(d3b,
-       aes(ymax=tmax,ymin=tmin,x=date))+
-  geom_ribbon(col="grey")+
-  geom_line(aes(y=(tmax+tmin)/2),col="red")
+ggplot(d_filtered,
+       aes(y=tmax,x=date))+
+  geom_line(col="red")
 
 #' 
-#' Limit to a few years.
+#' Limit to a few years and plot the daily range and average temperatures.
 ## ------------------------------------------------------------------------
-ggplot(filter(d3b,date>as.Date("2014-01-01")),
-       aes(ymax=tmax,ymin=tmin,x=date))+
-  geom_ribbon(col="grey")+
-  geom_line(aes(y=(tmax+tmin)/2),col="red")
+d_filtered_recent=filter(d_filtered,date>as.Date("2013-01-01"))
+
+  ggplot(d_filtered_recent,
+         aes(ymax=tmax,ymin=tmin,x=date))+
+    geom_ribbon(col="grey",fill="grey")+
+    geom_line(aes(y=(tmax+tmin)/2),col="red")
 
 #' 
 #' ### Zoo package for rolling functions
@@ -286,25 +299,30 @@ ggplot(filter(d3b,date>as.Date("2014-01-01")),
 #' * `align` whether the index of the result should be left- or right-aligned or centered
 #' 
 ## ------------------------------------------------------------------------
-d4 = d3b %>% 
+d_rollmean = d_filtered_recent %>% 
   arrange(date) %>%
   mutate(tmax.60 = rollmean(x = tmax, 60, align = "center", fill = NA),
          tmax.b60 = rollmean(x = tmax, 60, align = "right", fill = NA))
 
 #' 
 ## ------------------------------------------------------------------------
-ggplot(filter(d4,date>as.Date("2014-01-01")),
-       aes(ymax=tmax,ymin=tmin,x=date))+
-  geom_ribbon(fill="grey")+
-  geom_line(aes(y=(tmin+tmax)/2),col=grey(0.4),size=.5)+
-  geom_line(aes(y=tmax.60),col="red")+
-  geom_line(aes(y=tmax.b60),col="darkred")
+d_rollmean%>%
+  ggplot(aes(ymax=tmax,ymin=tmin,x=date))+
+    geom_ribbon(fill="grey")+
+    geom_line(aes(y=(tmin+tmax)/2),col=grey(0.4),size=.5)+
+    geom_line(aes(y=tmax.60),col="red")+
+    geom_line(aes(y=tmax.b60),col="darkred")
 
 #' 
+#' <div class="well">
 #' ## Your Turn
 #' 
 #' Plot a 30-day rolling "right" aligned sum of precipitation.
 #' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+#' <div id="demo2" class="collapse">
+#' </div>
+#' </div>
 #' 
 #' 
 #' # Time Series analysis
@@ -312,7 +330,7 @@ ggplot(filter(d4,date>as.Date("2014-01-01")),
 #' Most timeseries functions use the time series class (`ts`)
 #' 
 ## ------------------------------------------------------------------------
-tmin.ts=ts(d3b$tmin,deltat=1/365)
+tmin.ts=ts(d_filtered_recent$tmin,deltat=1/365)
 
 #' 
 #' ## Temporal autocorrelation
@@ -320,7 +338,7 @@ tmin.ts=ts(d3b$tmin,deltat=1/365)
 #' Values are highly correlated!
 #' 
 ## ------------------------------------------------------------------------
-ggplot(d3b,aes(y=tmax,x=lag(tmax)))+
+ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
   geom_point()+
   geom_abline(intercept=0, slope=1)
 
@@ -330,28 +348,37 @@ ggplot(d3b,aes(y=tmax,x=lag(tmax)))+
 #' * autocorrelation  $x$ vs. $x_{t-1}$  (lag=1)
 #' * partial autocorrelation.  $x$  vs. $x_{n}$ _after_ controlling for correlations $\in t-1:n$
 #' 
-#' 
 #' #### Autocorrelation
 ## ------------------------------------------------------------------------
-acf(tmin.ts,lag.max = 365*3)
+acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 
 #' 
 #' #### Partial Autocorrelation
 ## ------------------------------------------------------------------------
-pacf(tmin.ts,lag.max = 365*3)
+pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 
 #' 
 #' 
 #' ### Seasonal decomposition
 #' Decompose data into seasonal, trend, and remaining components.
-#' 
 ## ------------------------------------------------------------------------
-seasd = stl(tmin.ts,"periodic",t.window=365*10)
-plot(seasd)
+library(stlplus)
 
 #' 
+## ------------------------------------------------------------------------
+seasd = stlplus(tmin.ts,s.window="periodic",t.window=365*10)
+plot(seasd)
+
+#' <div class="well">
 #' ## Your Turn
 #' Compute the seasonal decomposition for precipitation
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+#' <div id="demo3" class="collapse">
+#' 
+#' </div>
+#' </div>
+#' 
 #' 
 #' 
 #' # Checking for significant trends
@@ -369,7 +396,7 @@ floor(1938/10)*10
 #' 
 #' 
 ## ------------------------------------------------------------------------
-d5=d4%>%
+d_filtered2=d_filtered%>%
   mutate(month=as.numeric(format(date,"%m")),
         year=as.numeric(format(date,"%Y")),
         season=ifelse(month%in%c(12,1,2),"Winter",
@@ -377,7 +404,7 @@ d5=d4%>%
               ifelse(month%in%c(6,7,8),"Summer",
                 ifelse(month%in%c(9,10,11),"Fall",NA)))),
         dec=(floor(as.numeric(format(date,"%Y"))/10)*10))
-head(d5)
+head(d_filtered2)
 
 #' 
 #' ## Timeseries models
@@ -386,19 +413,23 @@ head(d5)
 #' How to assess change? Simple differences?
 #' 
 ## ------------------------------------------------------------------------
-d5%>%
+d_filtered2%>%
   mutate(period=ifelse(year<=1976-01-01,"early","late"))%>%
   group_by(period)%>%
-  summarize(n=n(),tmin=mean(tmin),tmax=mean(tmax),prcp=mean(prcp))
+  summarize(n=n(),
+            tmin=mean(tmin,na.rm=T),
+            tmax=mean(tmax,na.rm=T),
+            prcp=mean(prcp,na.rm=T))
 
 #' 
-#' #### Maximum Temperature
+#' #### Summarize by season
 ## ------------------------------------------------------------------------
-library(EnvStats)
-
-seasonal=d5%>%
+seasonal=d_filtered2%>%
   group_by(year,season)%>%
-  summarize(n=n(),tmin=mean(tmin),tmax=mean(tmax),prcp=mean(prcp))%>%
+  summarize(n=n(),
+            tmin=mean(tmin),
+            tmax=mean(tmax),
+            prcp=mean(prcp))%>%
   filter(n>75)
 
 ggplot(seasonal,aes(y=tmin,x=year))+
@@ -414,6 +445,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
 #' e.g. [Hirsch-Slack test](http://onlinelibrary.wiley.com/doi/10.1029/WR020i006p00727)
 #' 
 ## ------------------------------------------------------------------------
+library(EnvStats)
 t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
 t1
 
@@ -444,8 +476,8 @@ t2
 #' 
 ## ------------------------------------------------------------------------
 library(PCICt)
-    ## Parse the dates into PCICt.
-    pc.dates <- as.PCICt(as.POSIXct(d5$date),cal="gregorian")
+## Parse the dates into PCICt.
+pc.dates <- as.PCICt(as.POSIXct(d_filtered$date),cal="gregorian")
 
 #' 
 #' 
@@ -453,32 +485,36 @@ library(PCICt)
 ## ------------------------------------------------------------------------
   library(climdex.pcic)
     ci <- climdexInput.raw(
-      tmax=d5$tmax,tmin=d5$tmin,prec=d5$prcp,
+      tmax=d_filtered$tmax,
+      tmin=d_filtered$tmin,
+      prec=d_filtered$prcp,
       pc.dates,pc.dates,pc.dates, 
       base.range=c(1971, 2000))
+years=as.numeric(as.character(unique(ci@date.factors$annual)))
 
 #' 
 #' ### Cumulative dry days
 #' 
 ## ------------------------------------------------------------------------
 cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
-plot(cdd~as.numeric(names(cdd)),type="l")
+plot(cdd~years,type="l")
 
 #' 
 #' ### Diurnal Temperature Range
 #' 
 ## ------------------------------------------------------------------------
 dtr=climdex.dtr(ci, freq = c("annual"))
-plot(dtr,type="l")
+plot(dtr~years,type="l")
 
 #' 
 #' ### Frost Days
 #' 
 ## ------------------------------------------------------------------------
 fd=climdex.fd(ci)
-plot(fd,type="l")
+plot(fd~years,type="l")
 
 #' 
+#' <div class="well">
 #' ## Your Turn
 #' 
 #' See all available indices with:
@@ -486,24 +522,14 @@ plot(fd,type="l")
 climdex.get.available.indices(ci)
 
 #' 
-#' Select 3 indices and use the `kendallSeasonalTrendTest()` to assess trends over the available data period.  
+#' Select 3 indices, calculate them, and plot the timeseries.
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+#' <div id="demo4" class="collapse">
+#' 
+#' 
+#' </div>
+#' </div>
 #' 
 #' 
 #' 
-## ------------------------------------------------------------------------
-dtr=climdex.dtr(ci,freq = "annual")
-plot(dtr,type="l")
-
-dtr=climdex.dtr(ci,freq = "monthly")
-plot(dtr,type="l")
-
-
-dtrf=as.data.frame(dtr)
-dtrf$date=as.Date(paste0(
-  rownames(dtrf),"-15"),"%Y-%m-%d")
-dtrf$month=as.numeric(format(dtrf$date,"%m"))
-dtrf$year=as.numeric(format(dtrf$date,"%Y"))
-
-kendallSeasonalTrendTest(
-  dtr~month+year,data=dtrf)
-

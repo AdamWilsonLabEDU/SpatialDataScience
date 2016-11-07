@@ -32,6 +32,8 @@ left:
       - text: "Module 2: Advanced Programming"
       - text: "07 Reproducible Research"
         href: 07_Reproducibile.html
+      - text: "08 Weather Data Processing"
+        href: 08_WeatherData.html
       - text: "-----------------"
   - text: "Assignments"
     menu:
