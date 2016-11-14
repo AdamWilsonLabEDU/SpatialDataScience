@@ -204,9 +204,9 @@ head(lst_files)
 #' * Columns: data bands
 #' 
 ## ------------------------------------------------------------------------
-#lst_subset <- read.csv(lst_files[1],header = FALSE, as.is = TRUE)
-#dim(lst_subset)
-#lst_subset[1:5,1:15]
+lst_subset <- read.csv(lst_files[1],header = FALSE, as.is = TRUE)
+dim(lst_subset)
+lst_subset[1:5,1:15]
 
 #' 
 #' ## Convert to ASCII Grid raster files
@@ -258,7 +258,7 @@ lstqc_files=list.files(file.path(lstdir,"modgrid"),recursive=T,
 
 #' 
 #' ## Create raster stacks of evi and evi qc data
-## ------------------------------------------------------------------------
+## ----cache=F-------------------------------------------------------------
 lst=stack(lst_files)
 plot(lst[[1:2]])
 

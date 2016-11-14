@@ -953,7 +953,7 @@ head(lst_files)
 ```
 
 ```
-## character(0)
+## [1] "09_data/lst/Lat43.00075Lon-78.78820Start2001-01-01End2013-12-31___MOD11A2.asc"
 ```
 
 Output:
@@ -964,9 +964,43 @@ Output:
 
 
 ```r
-#lst_subset <- read.csv(lst_files[1],header = FALSE, as.is = TRUE)
-#dim(lst_subset)
-#lst_subset[1:5,1:15]
+lst_subset <- read.csv(lst_files[1],header = FALSE, as.is = TRUE)
+dim(lst_subset)
+```
+
+```
+## [1] 1180  451
+```
+
+```r
+lst_subset[1:5,1:15]
+```
+
+```
+##   V1 V2       V3      V4       V5
+## 1 21 21 -6416881 4772121 926.6254
+## 2 21 21 -6416881 4772121 926.6254
+## 3 21 21 -6416881 4772121 926.6254
+## 4 21 21 -6416881 4772121 926.6254
+## 5 21 21 -6416881 4772121 926.6254
+##                                                      V6      V7       V8
+## 1 MOD11A2.A2001001.h12v04.005.2006350190920.LST_Day_1km MOD11A2 A2001001
+## 2 MOD11A2.A2001009.h12v04.005.2006352085909.LST_Day_1km MOD11A2 A2001009
+## 3 MOD11A2.A2001017.h12v04.005.2006354035616.LST_Day_1km MOD11A2 A2001017
+## 4 MOD11A2.A2001025.h12v04.005.2006355204922.LST_Day_1km MOD11A2 A2001025
+## 5 MOD11A2.A2001033.h12v04.005.2006357090922.LST_Day_1km MOD11A2 A2001033
+##                                      V9          V10   V11   V12   V13
+## 1 Lat43.000753Lon-78.788195Samp21Line21 2.006350e+12 13321 13306 13296
+## 2 Lat43.000753Lon-78.788195Samp21Line21 2.006352e+12 13417 13407 13409
+## 3 Lat43.000753Lon-78.788195Samp21Line21 2.006354e+12 13388 13373 13395
+## 4 Lat43.000753Lon-78.788195Samp21Line21 2.006355e+12     0     0     0
+## 5 Lat43.000753Lon-78.788195Samp21Line21 2.006357e+12 13662     0     0
+##     V14   V15
+## 1 13297 13314
+## 2 13400 13396
+## 3 13403 13400
+## 4     0     0
+## 5     0     0
 ```
 
 ## Convert to ASCII Grid raster files
@@ -1240,31 +1274,25 @@ QC_Data%>%
   dplyr::select(everything(),-contains("Bit"))%>%
   mutate(Var1=as.character(Integer_Value),
          keep=Integer_Value%in%keepvals)%>%
-  inner_join(data.frame(qcvals)) 
+  inner_join(data.frame(qcvals))%>%
+  kable()
 ```
 
 ```
 ## Joining, by = "Var1"
 ```
 
-```
-##   Integer_Value                   QA_word1  QA_word2             QA_word3
-## 1             0                   LST GOOD Good Data   Emiss Error <= .01
-## 2             2            No Pixel,clouds Good Data   Emiss Error <= .01
-## 3            17 LST Produced,Other Quality Good Data Emiss Err >.01 <=.02
-## 4            65 LST Produced,Other Quality Good Data   Emiss Error <= .01
-## 5            81 LST Produced,Other Quality Good Data Emiss Err >.01 <=.02
-## 6           129 LST Produced,Other Quality Good Data   Emiss Error <= .01
-## 7           145 LST Produced,Other Quality Good Data Emiss Err >.01 <=.02
-##                   QA_word4 Var1  keep  Freq
-## 1             LST Err <= 1    0  TRUE 62819
-## 2             LST Err <= 1    2 FALSE 30750
-## 3             LST Err <= 1   17  TRUE 11244
-## 4 LST Err > 2 LST Err <= 3   65  TRUE 47211
-## 5 LST Err > 2 LST Err <= 3   81  TRUE 99852
-## 6 LST Err > 1 LST Err <= 2  129  TRUE     8
-## 7 LST Err > 1 LST Err <= 2  145  TRUE  8306
-```
+
+
+ Integer_Value  QA_word1                     QA_word2    QA_word3               QA_word4                   Var1   keep      Freq
+--------------  ---------------------------  ----------  ---------------------  -------------------------  -----  ------  ------
+             0  LST GOOD                     Good Data   Emiss Error <= .01     LST Err <= 1               0      TRUE     62819
+             2  No Pixel,clouds              Good Data   Emiss Error <= .01     LST Err <= 1               2      FALSE    30750
+            17  LST Produced,Other Quality   Good Data   Emiss Err >.01 <=.02   LST Err <= 1               17     TRUE     11244
+            65  LST Produced,Other Quality   Good Data   Emiss Error <= .01     LST Err > 2 LST Err <= 3   65     TRUE     47211
+            81  LST Produced,Other Quality   Good Data   Emiss Err >.01 <=.02   LST Err > 2 LST Err <= 3   81     TRUE     99852
+           129  LST Produced,Other Quality   Good Data   Emiss Error <= .01     LST Err > 1 LST Err <= 2   129    TRUE         8
+           145  LST Produced,Other Quality   Good Data   Emiss Err >.01 <=.02   LST Err > 1 LST Err <= 2   145    TRUE      8306
 
 Do you want to update the values you are keeping?
 
