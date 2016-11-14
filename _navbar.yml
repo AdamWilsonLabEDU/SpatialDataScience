@@ -34,6 +34,8 @@ left:
         href: 07_Reproducibile.html
       - text: "08 Weather Data Processing"
         href: 08_WeatherData.html
+      - text: "09 Satellite Data Processing"
+        href: 09_RemoteSensing.html
       - text: "-----------------"
   - text: "Assignments"
     menu:
