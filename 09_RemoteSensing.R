@@ -3,6 +3,11 @@
 #' ---
 #' 
 #' 
+#' <div>
+#' <iframe src="09_presentation/09_RemoteSensing.html" width="100%" height="600px"> </iframe>
+#' </div>
+#' 
+#' 
 #' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r #output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
 #' 
