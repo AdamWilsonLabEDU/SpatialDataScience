@@ -278,7 +278,7 @@ plot(lst[[1:2]])
 #' ## MOD11A2 (Land Surface Temperature) Quality Control
 #' [MOD11A2 QC Layer table](https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod11a2)
 #' 
-#' ![](09_assets/lst_qc.png)
+#' ![](09_presentation/09_assets/lst_qc.png)
 #' 
 ## ------------------------------------------------------------------------
 lstqc=stack(lstqc_files)
@@ -294,7 +294,7 @@ values(lstqc[[1:2]])%>%table()
 
 #' 
 #' 
-#' ![](09_assets/QCdata.png)
+#' ![](09_presentation/09_assets/QCdata.png)
 #' 
 ## ------------------------------------------------------------------------
 intToBits(65)
@@ -388,7 +388,8 @@ QC_Data%>%
   dplyr::select(everything(),-contains("Bit"))%>%
   mutate(Var1=as.character(Integer_Value),
          keep=Integer_Value%in%keepvals)%>%
-  inner_join(data.frame(qcvals)) 
+  inner_join(data.frame(qcvals))%>%
+  kable()
 
 #' 
 #' Do you want to update the values you are keeping?

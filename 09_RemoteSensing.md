@@ -1057,7 +1057,7 @@ See a detailed explaination [here](https://lpdaac.usgs.gov/sites/default/files/p
 ## MOD11A2 (Land Surface Temperature) Quality Control
 [MOD11A2 QC Layer table](https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod11a2)
 
-![](09_assets/lst_qc.png)
+![](09_presentation/09_assets/lst_qc.png)
 
 
 ```r
@@ -1083,7 +1083,7 @@ values(lstqc[[1:2]])%>%table()
 ```
 
 
-![](09_assets/QCdata.png)
+![](09_presentation/09_assets/QCdata.png)
 
 
 ```r
