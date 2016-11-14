@@ -3,6 +3,7 @@ Processing Data from Satellite Remote Sensing
 
 Objectives
 ==========
+
 * Brief introduction to remote sensing
 * Obtaining NASA remote sensing data
 * MODIS
@@ -39,7 +40,7 @@ Passive Remote Sensing
 
 Electromagnetic Radiation
 =============
-<img src="09_assets//spectrum.jpg" alt="alt text" width="75%">
+<img src="09_assets/spectrum.png" alt="alt text" width="100%">
 
 EarthData
 =============
@@ -62,7 +63,7 @@ Datasets, news, articles, information
 Moderate Resolution Imaging Spectroradiometer (MODIS)
 =============
 
-<img src="09_assets//TerraLauncy.png" alt="alt text" width="75%">
+<img src="09_assets//TerraLaunch.png" alt="alt text" width="75%">
 
 2 Satellites _Terra_ launched in 1999, _Aqua_ in 2002.
 
