@@ -23,7 +23,7 @@ From the [Union of Concerned Scientists Satellite Database](http://www.ucsusa.or
 Debris & Satellites in low Earth orbit
 =============
 
-![](09_assets//satellites.jpg)
+<img src="09_assets//satellites.jpg" alt="alt text" width="75%">
 
 Image courtesy of [European Space Agency](http://www.esa.int/spaceinimages/Images/2008/03/Debris_objects_-_mostly_debris_-_in_low_Earth_orbit_LEO_-_view_over_the_equator)
 
@@ -31,7 +31,7 @@ Image courtesy of [European Space Agency](http://www.esa.int/spaceinimages/Image
 
 NASA's Earth Observing System
 =============
-![](09_assets//eos.jpg)
+<img src="09_assets//eos.jpg" alt="alt text" width="75%">
 
 Passive Remote Sensing
 =============
@@ -39,17 +39,7 @@ Passive Remote Sensing
 
 Electromagnetic Radiation
 =============
-
-![](09_assets//spectrum.png)
-
-EarthData
-=============
-
-[EarthData.nasa.gov](https://earthdata.nasa.gov)
-
-Datasets, news, articles, information
-
-![](09_assets//Earthdata1.png)
+<img src="09_assets//spectrum.jpg" alt="alt text" width="75%">
 
 EarthData
 =============
@@ -58,12 +48,21 @@ EarthData
 
 Datasets, news, articles, information
 
-![](09_assets//Earthdata2.png)
+<img src="09_assets//Earthdata1.png" alt="alt text" width="75%">
+
+EarthData
+=============
+
+[EarthData.nasa.gov](https://earthdata.nasa.gov)
+
+Datasets, news, articles, information
+
+<img src="09_assets//Earthdata2.png" alt="alt text" width="75%">
 
 Moderate Resolution Imaging Spectroradiometer (MODIS)
 =============
 
-![](09_assets/TerraLaunch.png)
+<img src="09_assets//TerraLauncy.png" alt="alt text" width="75%">
 
 2 Satellites _Terra_ launched in 1999, _Aqua_ in 2002.
 
@@ -71,28 +70,28 @@ Moderate Resolution Imaging Spectroradiometer (MODIS)
 Technical Details: swath
 =============
 
-![](09_assets/terra.png)
+<img src="09_assets//terra.png" alt="alt text" width="75%">
 
 Viewing swath width of 2,330 km
 
 Technical Details: spatial coverage
 =============
 
-![](09_assets/first_complete_day_from_modis.jpg)
+<img src="09_assets//first_complete_day_from_modis.jpg" alt="alt text" width="75%">
 
 Covers Earth every one to two days
 
 Technical Details: spectral coverage
 =============
 
-![](09_assets/spectrum2.png)
+<img src="09_assets//spectrum2.png" alt="alt text" width="75%">
 
 36 spectral bands between 0.405 and 14.385 µm
 
 Technical Details: spatial resolution
 =============
 
-![](09_assets/resolution.jpg)
+<img src="09_assets//resolution.jpg" alt="alt text" width="50%">
 
 3 spatial resolutions -- 250m, 500m, and 1,000m 
 
@@ -143,7 +142,8 @@ Land Products
 Example product workflow
 =============
 
- ![](09_assets/VI_flow.png)
+ <img src="09_assets//VI_flow.png" alt="alt text" heigt="90%">
+
  
 MODIS Products used to generate vegetation indices. From the [MOD13 Algorithm Theoretical Basis Document](http://modis.gsfc.nasa.gov/data/atbd/atbd_mod13.pdf).  
 
@@ -153,12 +153,12 @@ Data formats
 
 Most NASA EOS data distributed as HDF files, which are very similar to netCDF.
 
- ![](09_assets/NETCDF4Library.jpg)
+<img src="09_assets//NETCDF4Library.jpg" alt="alt text" width="75%">
 
 NetCDF / HDF
 =============
 
-![](09_assets/netcdf2.png)
+<img src="09_assets//netcdf2.png" alt="alt text" width="75%">
 
 Collection-Level Naming Conventsions 
 =============
