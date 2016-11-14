@@ -1,10 +1,10 @@
 #' ---
-#' title: "Working With MODIS data"
+#' title: "Working With data from Satellite Remote Sensing"
 #' ---
 #' 
 #' 
 #' <div>
-#' <iframe src="09_presentation/09_RemoteSensing.html" width="75%" height="300px"> </iframe>
+#' <iframe src="09_presentation/09_RemoteSensing.html" width="75%" height="400px"> </iframe>
 #' </div>
 #' 
 #' 
