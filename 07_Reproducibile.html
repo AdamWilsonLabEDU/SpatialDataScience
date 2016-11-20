@@ -233,6 +233,9 @@ $(document).ready(function () {
     <li>
       <a href="09_RemoteSensing.html">09 Satellite Data Processing</a>
     </li>
+    <li>
+      <a href="10_ParallelProcessing.html">10 Parallel Processing</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -438,7 +441,7 @@ $(document).ready(function () {
 <pre class="r"><code>time &lt;- format(Sys.time(), &quot;%a %d %b %X %Y&quot;)</code></pre>
 <p>The text and R code are interwoven in the output:</p>
 <p>The time is <code>`r time`</code></p>
-<p>The time is Sun 13 Nov 23:04:21 2016</p>
+<p>The time is Sat 19 Nov 23:47:09 2016</p>
 </div>
 <div id="literate-programming-for-and-against" class="section level2 columns-2">
 <h2>Literate programming: for and against</h2>
@@ -641,6 +644,7 @@ ggplot(d,aes(x=longitude,y=latitude))+
   geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
   geom_point(col=&quot;red&quot;)+
   coord_equal()</code></pre>
+<pre><code>## Warning: Ignoring unknown aesthetics: order</code></pre>
 <p><img src="07_Reproducibile_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 </div>
 <div id="step-4" class="section level2">

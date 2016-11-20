@@ -36,6 +36,8 @@ left:
         href: 08_WeatherData.html
       - text: "09 Satellite Data Processing"
         href: 09_RemoteSensing.html
+      - text: "10 Parallel Processing"
+        href: 10_ParallelProcessing.html
       - text: "-----------------"
   - text: "Assignments"
     menu:

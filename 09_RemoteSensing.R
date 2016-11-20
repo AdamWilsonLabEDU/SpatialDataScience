@@ -50,14 +50,20 @@ gdalinfo(formats = T) %>% grep(pattern="HDF",value=T)
 #' 
 ## ------------------------------------------------------------------------
 hdf=file.path(datadir,"MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf")
-gdalinfo(hdf)
 
-#' More information available with `nomd=F`.
+#' 
+#' Use `gdalinfo()` to print information about the file.
+## ---- eval=F-------------------------------------------------------------
+## gdalinfo(hdf)
+
 #' 
 #' ### Subdatasets
 #' 
+#' An important component of the metadata of a HDF file is the list of 'subdatasets' that are inside the file.  HDF files can hold any number of different datasets and you need to use the specific subdataset
+#' 
 #' * SUBDATASET_1_NAME=HDF4_EOS:EOS_GRID:\"09_data/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf\":MOD12Q1:Land_Cover_Type_1
-#' * SUBDATASET_1_DESC=[2400x2400] Land_Cover_Type_1 MOD12Q1 (8-bit unsigned integer)                         SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:\"09_data/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf\":MOD12Q1:Land_Cover_Type_1_Assessment
+#' * SUBDATASET_1_DESC=[2400x2400] Land_Cover_Type_1 MOD12Q1 (8-bit unsigned integer)                         
+#' * SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:\"09_data/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf\":MOD12Q1:Land_Cover_Type_1_Assessment
 #' * SUBDATASET_2_DESC=[2400x2400] Land_Cover_Type_1_Assessment MOD12Q1 (8-bit unsigned integer)
 #' * SUBDATASET_3_NAME=HDF4_EOS:EOS_GRID:\"09_data/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf\":MOD12Q1:Land_Cover_Type_QC.Num_QC_Words_01
 #' * SUBDATASET_3_DESC=[2400x2400] Land_Cover_Type_QC.Num_QC_Words_01 MOD12Q1 (8-bit unsigned integer)
