@@ -5,7 +5,7 @@
 #' 
 #' 
 #' <div class="h_iframe"  width="75%">
-#' <iframe src="10_presentation/ParallelProcessingIntro.html"> </iframe>
+#' <iframe src="10_Presentation/ParallelProcessingIntro.html"> </iframe>
 #' </div>
 #' 
 #' 
