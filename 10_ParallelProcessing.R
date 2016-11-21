@@ -4,7 +4,7 @@
 #' 
 #' 
 #' 
-#' <div class="h_iframe"  width="75%">
+#' <div class="h_iframe">
 #' <iframe src="10_Presentation/ParallelProcessingIntro.html"> </iframe>
 #' </div>
 #' 
@@ -24,8 +24,6 @@ library(ggplot2)
 library(foreach)
 library(doParallel)
 library(arm)
-#library(coda)
-#library(ggmcmc)
 library(fields)
 library(snow)
 
@@ -107,7 +105,8 @@ getDoParWorkers()
 #' 
 ## ------------------------------------------------------------------------
 ## run the loop
-x <- foreach(i=1:3, .combine='c') %dopar% i^2
+x <- foreach(i=1:3, .combine='c') %dopar% 
+  i^2
 x
 
 #' 
@@ -172,11 +171,12 @@ tsize = 100
 
   ptime <- system.time({
   result <- foreach(i=1:trials,
-                    .combine = rbind.data.frame) %dopar% {
-  tdata=sample_n(data,tsize,replace=TRUE)
-  M1=glm(y ~ x1, data=tdata, family=binomial(link="logit"))
-  ## return parameter estimates
-  cbind.data.frame(trial=i,t(coefficients(M1)))
+                    .combine = rbind.data.frame) %dopar% 
+    {
+      tdata=sample_n(data,tsize,replace=TRUE)
+      M1=glm(y ~ x1, data=tdata, family=binomial(link="logit"))
+      ## return parameter estimates
+      cbind.data.frame(trial=i,t(coefficients(M1)))
     }
   })
 ptime
@@ -207,11 +207,12 @@ ggplot(dplyr::select(result,everything(),Intercept=contains("Intercept")))+
 ## ------------------------------------------------------------------------
   stime <- system.time({
   result <- foreach(i=1:trials,
-                    .combine = rbind.data.frame) %do% {
-  tdata=sample_n(data,tsize,replace=TRUE)
-  M1=glm(y ~ x1, data=tdata,family=binomial(link="logit"))
-  ## return parameter estimates
-  cbind.data.frame(trial=i,t(coefficients(M1)))
+                    .combine = rbind.data.frame) %do% 
+    {
+      tdata=sample_n(data,tsize,replace=TRUE)
+      M1=glm(y ~ x1, data=tdata,family=binomial(link="logit"))
+      ## return parameter estimates
+      cbind.data.frame(trial=i,t(coefficients(M1)))
     }
   })
 stime

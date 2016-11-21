@@ -3,7 +3,7 @@
 
 
 
-<div class="h_iframe"  width="75%">
+<div class="h_iframe">
 <iframe src="10_Presentation/ParallelProcessingIntro.html"> </iframe>
 </div>
 
@@ -24,8 +24,6 @@ library(ggplot2)
 library(foreach)
 library(doParallel)
 library(arm)
-#library(coda)
-#library(ggmcmc)
 library(fields)
 library(snow)
 ```
@@ -115,7 +113,8 @@ Write a `foreach()` loop that:
 
 
 ```r
-x <- foreach(i=1:10,.combine='cbind') %do% rnorm(100)
+x <- foreach(i=1:10,.combine='cbind') %do% 
+  rnorm(100)
 head(x)%>%kable()
 ```
 
@@ -167,7 +166,8 @@ To run in parallel, simply change the `%do%` to `%dopar%`.  Wasn't that easy?
 
 ```r
 ## run the loop
-x <- foreach(i=1:3, .combine='c') %dopar% i^2
+x <- foreach(i=1:3, .combine='c') %dopar% 
+  i^2
 x
 ```
 
@@ -263,11 +263,12 @@ tsize = 100
 
   ptime <- system.time({
   result <- foreach(i=1:trials,
-                    .combine = rbind.data.frame) %dopar% {
-  tdata=sample_n(data,tsize,replace=TRUE)
-  M1=glm(y ~ x1, data=tdata, family=binomial(link="logit"))
-  ## return parameter estimates
-  cbind.data.frame(trial=i,t(coefficients(M1)))
+                    .combine = rbind.data.frame) %dopar% 
+    {
+      tdata=sample_n(data,tsize,replace=TRUE)
+      M1=glm(y ~ x1, data=tdata, family=binomial(link="logit"))
+      ## return parameter estimates
+      cbind.data.frame(trial=i,t(coefficients(M1)))
     }
   })
 ptime
@@ -275,7 +276,7 @@ ptime
 
 ```
 ##    user  system elapsed 
-##  38.898   3.645  29.805
+##  54.312   4.793  67.195
 ```
 
 
@@ -316,17 +317,18 @@ ggplot(dplyr::select(result,everything(),Intercept=contains("Intercept")))+
 ![](10_ParallelProcessing_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 
-So we were able to perform 10^{4} separate model fits in 29.805 seconds.  Let's see how long it would have taken in sequence.
+So we were able to perform 10^{4} separate model fits in 67.195 seconds.  Let's see how long it would have taken in sequence.
 
 
 ```r
   stime <- system.time({
   result <- foreach(i=1:trials,
-                    .combine = rbind.data.frame) %do% {
-  tdata=sample_n(data,tsize,replace=TRUE)
-  M1=glm(y ~ x1, data=tdata,family=binomial(link="logit"))
-  ## return parameter estimates
-  cbind.data.frame(trial=i,t(coefficients(M1)))
+                    .combine = rbind.data.frame) %do% 
+    {
+      tdata=sample_n(data,tsize,replace=TRUE)
+      M1=glm(y ~ x1, data=tdata,family=binomial(link="logit"))
+      ## return parameter estimates
+      cbind.data.frame(trial=i,t(coefficients(M1)))
     }
   })
 stime
@@ -334,10 +336,10 @@ stime
 
 ```
 ##    user  system elapsed 
-##  42.977   2.775  47.911
+##  50.328   1.261  54.134
 ```
 
-So we were able to run 10^{4} separate model fits in 29.805 seconds when using 3 CPUs and 47.911 seconds on one CPU.  That's 1.6X faster for this simple example.
+So we were able to run 10^{4} separate model fits in 67.195 seconds when using 3 CPUs and 54.134 seconds on one CPU.  That's 0.8X faster for this simple example.
 <div class="well">
 ## Your turn
 * Generate some random as follows:
@@ -368,13 +370,14 @@ Hint: use `summary(M1)$r.squared` to extract the R^2 from model `M1` (see `?summ
 trials = 100
 tsize = 100
 
-  result <- foreach(i=1:trials,.combine = rbind.data.frame) %dopar% {
-  tdata=sample_n(data2,tsize,replace=TRUE)
-  M1=lm(y ~ x1, data=tdata)
-  cbind.data.frame(trial=i,
-                   t(coefficients(M1)),
-                   r2=summary(M1)$r.squared,
-                   aic=AIC(M1))
+  result <- foreach(i=1:trials,.combine = rbind.data.frame) %dopar% 
+    {
+      tdata=sample_n(data2,tsize,replace=TRUE)
+      M1=lm(y ~ x1, data=tdata)
+      cbind.data.frame(trial=i,
+        t(coefficients(M1)),
+        r2=summary(M1)$r.squared,
+        aic=AIC(M1))
   }
 ```
 
@@ -383,7 +386,8 @@ Plot it:
 ```r
 ggplot(data2,aes(y=y,x=x1))+
   geom_point(col="grey")+
-  geom_abline(data=dplyr::select(result,everything(),Intercept=contains("Intercept")),
+  geom_abline(data=dplyr::select(result,everything(),
+                                 Intercept=contains("Intercept")),
               aes(intercept=Intercept,slope=x1),alpha=.5)
 ```
 

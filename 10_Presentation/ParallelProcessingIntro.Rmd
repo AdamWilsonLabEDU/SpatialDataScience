@@ -5,8 +5,6 @@ output:
     css: present.css
 ---
 
-# Introduction
-
 ## Serial Computing
 Most (legacy) software is written for serial computation:
 
