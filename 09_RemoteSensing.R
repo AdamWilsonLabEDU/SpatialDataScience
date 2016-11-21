@@ -1,5 +1,5 @@
 #' ---
-#' title: "Working With data from Satellite Remote Sensing"
+#' title: "Satellite Remote Sensing"
 #' ---
 #' 
 #' 
