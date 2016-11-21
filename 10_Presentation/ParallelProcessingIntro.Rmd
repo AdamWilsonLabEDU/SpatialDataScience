@@ -2,7 +2,7 @@
 title: "Parallel Processing"
 output: 
   ioslides_presentation:
-    css: present.css
+    css: ../present.css
 ---
 
 ## Serial Computing
@@ -37,7 +37,9 @@ A classification of computer architectures ([Flynn, 1972](http://dx.doi.org/10.1
     * Examples: 
          * different species in species distribution model
          * same species under different climates
+
 ---
+
 3. *Multiple Instruction, Single Data (MISD)*
     * Run different code/analyses on the same data
     * Examples:
