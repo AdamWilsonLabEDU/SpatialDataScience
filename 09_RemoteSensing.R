@@ -264,7 +264,7 @@ lstqc_files=list.files(file.path(lstdir,"modgrid"),recursive=T,
 
 #' 
 #' ## Create raster stacks of evi and evi qc data
-## ----cache=F-------------------------------------------------------------
+## ------------------------------------------------------------------------
 lst=stack(lst_files)
 plot(lst[[1:2]])
 

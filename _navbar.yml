@@ -38,6 +38,8 @@ left:
         href: 09_RemoteSensing.html
       - text: "10 Parallel Processing"
         href: 10_ParallelProcessing.html
+      - text: "11 Version Control with Git"
+        href: 11_Git.html
       - text: "-----------------"
   - text: "Assignments"
     menu:
