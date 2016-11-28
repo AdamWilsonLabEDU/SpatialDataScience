@@ -257,8 +257,20 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
-<li>
-  <a href="Resources.html">Resources</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -425,15 +437,15 @@ st = ghcnd_stations()
 <pre class="r"><code>worldmap=map_data(&quot;world&quot;)</code></pre>
 <p>Plot all stations:</p>
 <pre class="r"><code>ggplot(data=st,aes(y=latitude,x=longitude)) +
+  facet_grid(element~.)+
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
   geom_point(size=.1,col=&quot;red&quot;)+
-  facet_grid(element~1)+
   coord_equal()</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <p>It’s hard to see all the points, let’s bin them…</p>
 <pre class="r"><code>ggplot(st,aes(y=latitude,x=longitude)) +
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
-  facet_grid(element~1)+
+  facet_grid(element~.)+
   stat_bin2d(bins=100)+
   scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
                        breaks = c(1,10,100,1000))+
@@ -736,7 +748,7 @@ head(d_filtered2)</code></pre>
   filter(n&gt;75)
 
 ggplot(seasonal,aes(y=tmin,x=year))+
-  facet_wrap(~season,scales = &quot;free_y&quot;)+
+  facet_grid(season~.,scales = &quot;free_y&quot;)+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_smooth).</code></pre>
@@ -746,8 +758,19 @@ ggplot(seasonal,aes(y=tmin,x=year))+
 <h3>Kendal Seasonal Trend Test</h3>
 <p>Nonparametric seasonal trend analysis.</p>
 <p>e.g. <a href="http://onlinelibrary.wiley.com/doi/10.1029/WR020i006p00727">Hirsch-Slack test</a></p>
-<pre class="r"><code>library(EnvStats)
-t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
+<pre class="r"><code>library(EnvStats)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;EnvStats&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:raster&#39;:
+## 
+##     cv, predict, print</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     predict, predict.lm</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     print.default</code></pre>
+<pre class="r"><code>t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
 t1</code></pre>
 <pre><code>## 
 ## Results of Hypothesis Test

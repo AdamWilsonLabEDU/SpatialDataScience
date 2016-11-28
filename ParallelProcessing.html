@@ -233,6 +233,9 @@ $(document).ready(function () {
     <li>
       <a href="09_RemoteSensing.html">09 Satellite Data Processing</a>
     </li>
+    <li>
+      <a href="10_ParallelProcessing.html">10 Parallel Processing</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -254,8 +257,20 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
-<li>
-  <a href="Resources.html">Resources</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -530,7 +545,7 @@ ptime</code></pre>
     }
   })
 stime</code></pre>
-<p>So we were able to run 10^{4} separate model fits in seconds when using 1 CPUs and seconds on one CPU. That’s X faster for this simple example.</p>
+<p>So we were able to run 10^{4} separate model fits in seconds when using 3 CPUs and seconds on one CPU. That’s X faster for this simple example.</p>
 </div>
 </div>
 <div id="your-turn-1" class="section level2">
@@ -722,7 +737,7 @@ ptime2=system.time({
   })</code></pre>
 <p>Are the outputs the same?</p>
 <pre class="r"><code>identical(r_focal,r_focal1)</code></pre>
-<p>So we were able to process the data in seconds when using 1 CPUs and seconds on one CPU. That’s X faster for this simple example.</p>
+<p>So we were able to process the data in seconds when using 3 CPUs and seconds on one CPU. That’s X faster for this simple example.</p>
 </div>
 <div id="parallelized-raster-functions" class="section level2">
 <h2>Parallelized Raster functions</h2>

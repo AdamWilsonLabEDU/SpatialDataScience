@@ -305,7 +305,7 @@ So we were able to perform 10^{4} separate model fits in  seconds.  Let's see ho
 stime
 ```
 
-So we were able to run 10^{4} separate model fits in  seconds when using 1 CPUs and  seconds on one CPU.  That's X faster for this simple example.
+So we were able to run 10^{4} separate model fits in  seconds when using 3 CPUs and  seconds on one CPU.  That's X faster for this simple example.
 
 ## Your Turn
 
@@ -551,7 +551,7 @@ Are the outputs the same?
 identical(r_focal,r_focal1)
 ```
 
-So we were able to process the data in  seconds when using 1 CPUs and  seconds on one CPU.  That's X faster for this simple example.
+So we were able to process the data in  seconds when using 3 CPUs and  seconds on one CPU.  That's X faster for this simple example.
 
 
 ## Parallelized Raster functions

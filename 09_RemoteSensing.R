@@ -413,7 +413,7 @@ lstkeep=calc(lstqc,function(x) x%in%keepvals)
 ## ----fig.height=12-------------------------------------------------------
 gplot(lstkeep[[4:8]])+
   geom_raster(aes(fill=as.factor(value)))+
-  facet_grid(variable~1)+
+  facet_grid(variable~.)+
   scale_fill_manual(values=c("blue","red"),name="Keep")+
   coord_equal()+
   theme(legend.position = "bottom")

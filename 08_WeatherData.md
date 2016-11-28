@@ -148,9 +148,9 @@ Plot all stations:
 
 ```r
 ggplot(data=st,aes(y=latitude,x=longitude)) +
+  facet_grid(element~.)+
   annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
   geom_point(size=.1,col="red")+
-  facet_grid(element~1)+
   coord_equal()
 ```
 
@@ -162,7 +162,7 @@ It's hard to see all the points, let's bin them...
 ```r
 ggplot(st,aes(y=latitude,x=longitude)) +
   annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
-  facet_grid(element~1)+
+  facet_grid(element~.)+
   stat_bin2d(bins=100)+
   scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
                        breaks = c(1,10,100,1000))+
@@ -629,7 +629,7 @@ seasonal=d_filtered2%>%
   filter(n>75)
 
 ggplot(seasonal,aes(y=tmin,x=year))+
-  facet_wrap(~season,scales = "free_y")+
+  facet_grid(season~.,scales = "free_y")+
   stat_smooth(method="lm", se=T)+
   geom_line()
 ```
@@ -649,6 +649,32 @@ e.g. [Hirsch-Slack test](http://onlinelibrary.wiley.com/doi/10.1029/WR020i006p00
 
 ```r
 library(EnvStats)
+```
+
+```
+## 
+## Attaching package: 'EnvStats'
+```
+
+```
+## The following objects are masked from 'package:raster':
+## 
+##     cv, predict, print
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     predict, predict.lm
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     print.default
+```
+
+```r
 t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
 t1
 ```

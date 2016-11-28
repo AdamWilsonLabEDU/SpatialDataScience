@@ -144,9 +144,9 @@ worldmap=map_data("world")
 #' Plot all stations:
 ## ------------------------------------------------------------------------
 ggplot(data=st,aes(y=latitude,x=longitude)) +
+  facet_grid(element~.)+
   annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
   geom_point(size=.1,col="red")+
-  facet_grid(element~1)+
   coord_equal()
 
 #' 
@@ -155,7 +155,7 @@ ggplot(data=st,aes(y=latitude,x=longitude)) +
 ## ------------------------------------------------------------------------
 ggplot(st,aes(y=latitude,x=longitude)) +
   annotation_map(map=worldmap,size=.1,fill="grey",colour="black")+
-  facet_grid(element~1)+
+  facet_grid(element~.)+
   stat_bin2d(bins=100)+
   scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
                        breaks = c(1,10,100,1000))+
@@ -411,7 +411,7 @@ seasonal=d_filtered2%>%
   filter(n>75)
 
 ggplot(seasonal,aes(y=tmin,x=year))+
-  facet_wrap(~season,scales = "free_y")+
+  facet_grid(season~.,scales = "free_y")+
   stat_smooth(method="lm", se=T)+
   geom_line()
 

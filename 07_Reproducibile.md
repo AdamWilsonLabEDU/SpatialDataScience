@@ -178,7 +178,7 @@ The text and R code are interwoven in the output:
 
 The time is `` `r time` ``
 
-The time is Mon 21 Nov 08:58:49 2016
+The time is Sun 27 Nov 22:42:32 2016
 
 
 
@@ -471,15 +471,11 @@ And click `knit HTML` to generate the output
 
 ## Colophon
 
-[Slides based on Ben Marwick's presentation to the UW Center for Statistics and Social Sciences (12 March 2014)](https://github.com/benmarwick/CSSS-Primer-Reproducible-Research) ([OrcID](http://orcid.org/0000-0001-7879-4531))
-
-
-Licensing: 
-* Presentation: [CC-BY-3.0 ](http://creativecommons.org/licenses/by/3.0/us/)
-* Source code: [MIT](http://opensource.org/licenses/MIT) 
+* [Slides based on Ben Marwick's presentation to the UW Center for Statistics and Social Sciences (12 March 2014)](https://github.com/benmarwick/CSSS-Primer-Reproducible-Research) ([OrcID](http://orcid.org/0000-0001-7879-4531))
 
 ## References
 
 See Rmd file for full references and sources
+
 
 
