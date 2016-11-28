@@ -17,5 +17,6 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 11/7 | **Weather/Climate Data Processing ** | Processing daily weather data from NOAA  |  First draft of project for peer assessment   |
 | 11/14 | **Satellite Data Processing** | Working with MODIS Satellite data | Peer Evaluation Due |
 | 11/21 | **High Performance Computing & Software Integration** | Parallel processing and high performance computing in R, Calling other programs from within R. | Homework # 4 |
-| 11/28 |  **Version Control** |  Managing code with "version control"" using Github. | Second draft of project |
-| 12/5 | **Final Project Presentations** | | |
+| 11/28 |  **Version Control** |  Managing code with "version control"" using Github. | Second draft of project Due 12/1 at midnight |
+| 12/5 | **Final Project Presentations** | | 5 minute presentation of your final project |
+| 12/14 | **Final Project Due in UBLearns at midnight** | | See <a href=Project.html>Project description for more information</a> |

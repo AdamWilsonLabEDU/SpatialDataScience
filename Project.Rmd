@@ -93,6 +93,10 @@ The more complete the second draft, the more feedback I'll be able to provide to
 
 The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion.  If you have questions or comments, feel free to include them in the draft (e.g., "I'm planning to do X, but I'm not sure how to organize the data appropriately") or as a _comment_ in the UBLearns submission webpage.  
 
+### Project Presentation
+
+On the last day of class, each student will give a 5 minute overview of their project to the class.  You can prepare a Powerpoint OR simply show your poster/infographic on the screen.  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution).    Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period.   The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.
+
 ### Final Draft
 
 The final draft will be uploaded to UBLearns at the end of the semester and posted on the course website.
