@@ -223,9 +223,9 @@ Or the [cheatsheet](https://training.github.com/kit/downloads/github-git-cheat-s
 Remember, the data and code are _real_, the products (tables, figures) are ephemeral...  
 
 
-# Git and RMarkdown
+## Git and RMarkdown
 
-## Visualize .md on GitHub
+### Visualize .md on GitHub
 
 Update the YAML header to keep the markdown file
 
@@ -250,10 +250,10 @@ output:
 And click `knit HTML` to generate the output
 
 ## Visualize example
-<img src="11_assets/ghmd.png" alt="alt text" width="75%">
+<img src="11_assets/ghmd.png" alt="alt text" width="50%">
 
 
-## Explore markdown<->Git
+### Explore markdown<->Git
 
 1. Use _File -> New File -> R Markdown_ to create a new markdown file.  
 2. Use the Cheatsheet to add sections (`#` and `##`) and some example narrative.  
