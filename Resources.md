@@ -23,3 +23,4 @@ For even more in-depth documentation see:
 
 * [Advanced R](http://adv-r.had.co.nz) book for R users who want to improve their programming skills and understanding of the language. It should also be useful for programmers coming to R from other languages, as it explains some of R’s quirks and shows how some parts that seem horrible do have a positive side.
 * The website for the [knitr package](http://yihui.name/knitr/). Knitr is an extremely powerful tool for dynamic content generation and the website has a wealth of documentation and examples to help you utilize it to its full potential.
+* A detailed overview about writing your own [R Packages](http://r-pkgs.had.co.nz) by Hadley Wickham.  
