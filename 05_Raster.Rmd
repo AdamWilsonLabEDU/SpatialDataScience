@@ -1,5 +1,6 @@
 ---
 title: "Introduction to Raster Package"
+output_dir: 'docs'
 ---
 
 
@@ -63,11 +64,16 @@ Download data for South Africa
 za=getData('GADM', country='ZAF', level=1)
 ```
 
-```{r}
+```{r, eval=F}
 plot(za)
 ```
+Danger: `plot()` works, but can be slow for complex polygons.  If you want to speed it up, you can plot a simplified version as follows:
 
-Danger: `plot()` works, but can be slow for complex polygons.
+
+```{r, eval=F}
+za %>% gSimplify(0.01) %>% plot()
+```
+
 
 ### Check out attribute table
 
@@ -76,12 +82,12 @@ za@data
 ```
 
 
+Plot a subsetted region:
 ```{r}
-za=subset(za,NAME_1!="Prince Edward Islands")
-
-plot(za)
+subset(za,NAME_1=="Western Cape") %>% 
+  gSimplify(0.01) %>% 
+  plot()
 ```
-
 
 
 <div class="well">
@@ -98,7 +104,10 @@ getData("ISO3")%>%
   filter(NAME=="Tunisia")
 
 country=getData('GADM', country='TUN', level=1)
-plot(country)
+
+country%>% 
+  gSimplify(0.01)%>%
+  plot()
 ```
 </div>
 </div>
@@ -304,11 +313,10 @@ BIO19         Precipitation of Coldest Quarter
 Download the data:
 
 ```{r}
-clim=getData('worldclim', var='bio', res=10) 
+clim=getData('worldclim', var='bio', res=10,path = tempdir())  
 ```
 
 `res` is resolution (0.5, 2.5, 5, and 10 minutes of a degree)
-
 
 
 ### Gain and Offset
@@ -364,9 +372,9 @@ Use `[[1:3]]` to select raster layers from raster stack.
 
 ```{r}
 ## crop to a latitude/longitude box
-r1 <- crop(clim[[1]], extent(10,35,-35,-20))
+r1 <- raster::crop(clim[[1]], extent(10,35,-35,-20))
 ## Crop using a Spatial polygon
-r1 <- crop(clim[[1]], bbox(za))
+r1 <- raster::crop(clim[[1]], bbox(za))
 ```
 
 

@@ -1,12 +1,16 @@
-output_dir: '.'
+output_dir: 'docs'
 output:
   html_document:
     theme: cosmo
     highlight: textmate
     mathjax: null
+    toc: true
     toc_depth: 2
     toc_float:
-      collapsed: true
+       collapsed: true
+       smooth_scroll: true
+       number_sections: true
+    df_print: paged
     includes:
       after_body: include/after_body.html
     css: styles.css

@@ -1,0 +1,152 @@
+
+.screenshot {
+  border: 1px solid #ccc;
+}
+
+table.table td a:only-child:link,
+table.table td a:only-child:visited {
+  text-decoration: none;
+}
+table.table td a:only-child:hover,
+table.table td a:only-child:active {
+  text-decoration: underline;
+}
+
+.well{
+  background-color: #F5F5DC;
+  border-radius: 40px 0px 40px 0px;
+}
+
+h1, h2, h3, h4, h5, h6{
+  margin-top:60px;
+}
+
+/*******  Footer ******/
+
+#site-footer {
+height: 50px;
+}
+
+#footer1{
+width: 80%;
+float: left;
+}
+#footer2{
+width: 20%;
+float: right
+}
+
+/*****
+Create class for scaled iframe content
+*****/
+html,body {height:75%;}
+.wrapper{
+  width:100%; 
+  max-width:1800px;
+  height:75%;
+  max-height:1000px;
+  margin:0 auto;
+  background:#CCC}
+.h_iframe{
+  position:relative;
+  padding-top: 100%}
+.h_iframe iframe {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  -ms-transform: scale(0.6);
+  -ms-transform-origin: top left;
+  -moz-transform: scale(0.6);
+  -moz-transform-origin: top left;
+  -o-transform: scale(0.6);
+  -o-transform-origin: top left;
+  -webkit-transform: scale(0.6);
+  -webkit-transform-origin: top left;
+  transform: scale(0.6);
+  transform-origin: top left;
+  overflow: hidden;
+}
+
+
+
+/**************************
+  DEFAULT BOOTSTRAP STYLES
+**************************/
+
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+  
+.btn-lg {
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+
+/***********************
+  ROUND BUTTONS
+************************/
+.round {
+  border-radius: 24px;
+}
+
+/***********************
+  CUSTON BTN VALUES from https://bootstrapbay.com/blog/bootstrap-button-styles/
+************************/
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+.btn-primary {
+    background: #0099cc;
+    color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #33a6cc;
+}
+.btn-primary:active, .btn-primary.active {
+    background: #007299;
+    box-shadow: none;
+}
