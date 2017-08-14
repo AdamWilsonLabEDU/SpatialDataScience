@@ -1,6 +1,5 @@
 #' ---
 #' title: "Introduction to Raster Package"
-#' output_dir: 'docs'
 #' ---
 #' 
 #' 
@@ -62,8 +61,8 @@ za=getData('GADM', country='ZAF', level=1)
 #' Danger: `plot()` works, but can be slow for complex polygons.  If you want to speed it up, you can plot a simplified version as follows:
 #' 
 #' 
-## ---- eval=F-------------------------------------------------------------
-## za %>% gSimplify(0.01) %>% plot()
+## ---- eval=T-------------------------------------------------------------
+za %>% gSimplify(0.01) %>% plot()
 
 #' 
 #' 

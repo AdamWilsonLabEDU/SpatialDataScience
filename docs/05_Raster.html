@@ -442,6 +442,7 @@ library(rasterVis)  #visualization library for raster</code></pre>
 <pre class="r"><code>plot(za)</code></pre>
 <p>Danger: <code>plot()</code> works, but can be slow for complex polygons. If you want to speed it up, you can plot a simplified version as follows:</p>
 <pre class="r"><code>za %&gt;% gSimplify(0.01) %&gt;% plot()</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <div id="check-out-attribute-table" class="section level3">
 <h3>Check out attribute table</h3>
 <pre class="r"><code>za@data</code></pre>

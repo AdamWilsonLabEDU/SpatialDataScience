@@ -74,6 +74,8 @@ Danger: `plot()` works, but can be slow for complex polygons.  If you want to sp
 za %>% gSimplify(0.01) %>% plot()
 ```
 
+![](05_Raster_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
 
 ### Check out attribute table
 
