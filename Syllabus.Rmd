@@ -8,7 +8,7 @@ Professor Adam M. Wilson ([adamwilson.us](adamwilson.us))
 Office Hours: Wednesdays 9:30-11:30am
 
 ## Schedule 
-Mondays 9:10-11:50am in 144 Wilkeson Quad.  
+Thursdays 9:30-12:10pm in 144 Wilkeson Quad.  
 
 ## Course Structure	
 The course will focus on programming in the R language. Typical class sessions will consist of a short (~30 minute) lecture followed by around two hours of interactive exercises.   All teaching and exercises are done from within [RStudio](rstudio.com). 
