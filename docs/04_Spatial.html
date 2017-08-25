@@ -25,8 +25,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-1.1/highlight.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -395,7 +393,7 @@ div.tocify {
 </div>
 
 
-<p><a href="04_Spatial.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="scripts/04_Spatial.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="setup" class="section level1">
 <h1>Setup</h1>
 <div id="load-packages" class="section level2">
@@ -410,9 +408,28 @@ library(rgdal)</code></pre>
 ##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.3/Resources/library/rgdal/proj
 ##  Linking to sp version: 1.2-4</code></pre>
 <pre class="r"><code>library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(maptools)</code></pre>
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:raster&#39;:
+## 
+##     intersect, select, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(tidyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;tidyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:raster&#39;:
+## 
+##     extract</code></pre>
+<pre class="r"><code>library(maptools)</code></pre>
 <pre><code>## Checking rgeos availability: TRUE</code></pre>
 </div>
 </div>
@@ -429,7 +446,7 @@ str(coords)</code></pre>
 ##  $ x: num  -0.7755 1.5926 1.038 -0.0797 -1.6608 ...
 ##  $ y: num  -0.0159 0.7206 0.08 0.7659 0.5246 ...</code></pre>
 <pre class="r"><code>plot(coords)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
 </div>
 <div id="convert-to-spatialpoints" class="section level2">
 <h2>Convert to <code>SpatialPoints</code></h2>
@@ -567,7 +584,7 @@ Show Solution
 <div id="demo1" class="collapse">
 <pre class="r"><code>coordinates(df)=c(&quot;lon&quot;,&quot;lat&quot;)
 plot(df)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-14-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -633,7 +650,7 @@ str(meuse)</code></pre>
 <pre class="r"><code>  ggplot(as.data.frame(meuse),aes(x=x,y=y))+
     geom_point(col=&quot;red&quot;)+
     coord_equal()</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-17-1.png" width="2100" /></p>
 <p>Note that <code>ggplot</code> works only with data.frames. Convert with <code>as.data.frame()</code> or <code>fortify()</code>.</p>
 </div>
 </div>
@@ -654,7 +671,7 @@ L1</code></pre>
 ## [4,] -0.0470298 -1.2565673
 ## [5,]  0.4880012  0.3211727</code></pre>
 <pre class="r"><code>plot(coordinates(L1),type=&quot;l&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" width="2100" /></p>
 </div>
 <div id="a-lines-object-is-a-list-of-chains-with-an-id" class="section level3">
 <h3>A <code>Lines</code> object is a list of chains with an ID</h3>
@@ -693,7 +710,7 @@ Ls2</code></pre>
 <h3>A <code>SpatialLines</code> is a list of Lines</h3>
 <pre class="r"><code>SL12 = SpatialLines(list(Ls1,Ls2))
 plot(SL12)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-21-1.png" width="2100" /></p>
 </div>
 <div id="a-spatiallinesdataframe-is-a-spatiallines-with-a-matching-dataframe" class="section level3">
 <h3>A <code>SpatialLinesDataFrame</code> is a <code>SpatialLines</code> with a matching <code>DataFrame</code></h3>
@@ -1277,7 +1294,7 @@ sids &lt;- readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
 ##  Max.   :11631.0  
 ## </code></pre>
 <pre class="r"><code>plot(sids)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
 <div id="maptools-package" class="section level3">
 <h3>Maptools package</h3>
 <p>The <code>maptools</code> package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).</p>
@@ -1346,20 +1363,24 @@ ggplot(fortify(sids),aes(x=long,y=lat,order=order,group=group))+
   geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
   coord_equal()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-1.png" width="2100" /></p>
 <pre class="r"><code># Equal Area
 ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
   geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
   coord_equal()+
   ylab(&quot;Northing&quot;)+xlab(&quot;Easting&quot;)</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" width="2100" /></p>
 </div>
 </div>
 <div id="rgeos" class="section level1">
 <h1>RGEOS</h1>
 <p>Interface to Geometry Engine - Open Source (GEOS) using a C API for topology operations (e.g. union, simplification) on geometries (lines and polygons).</p>
 <pre class="r"><code>library(rgeos)</code></pre>
+<pre><code>## rgeos version: 0.3-23, (SVN revision 546)
+##  GEOS runtime version: 3.6.1-CAPI-1.10.1 r0 
+##  Linking to sp version: 1.2-4 
+##  Polygon checking: TRUE</code></pre>
 <div id="rgeos-package-for-polygon-operations" class="section level2">
 <h2>RGEOS package for polygon operations</h2>
 <ul>
@@ -1385,7 +1406,7 @@ plot(l);title(&quot;Original&quot;)
 plot(gSimplify(l,tol=3));title(&quot;tol: 3&quot;)
 plot(gSimplify(l,tol=5));title(&quot;tol: 5&quot;)
 plot(gSimplify(l,tol=7));title(&quot;tol: 7&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" width="2100" /></p>
 </div>
 <div id="simplification-of-polygons" class="section level3">
 <h3>Simplification of polygons</h3>
@@ -1394,7 +1415,7 @@ plot(p);title(&quot;Original&quot;)
 plot(gSimplify(p,tol=10));title(&quot;tol: 10&quot;)
 plot(gSimplify(p,tol=20));title(&quot;tol: 20&quot;)
 plot(gSimplify(p,tol=25));title(&quot;tol: 25&quot;)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" width="2100" /></p>
 </div>
 </div>
 <div id="use-rgeos-functions-with-real-spatial-data" class="section level2">
@@ -1430,14 +1451,14 @@ sids = readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
   geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
   coord_map()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" width="2100" /></p>
 <p>Now let’s overlay the simplified version to see how they differ.</p>
 <pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
   geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
   geom_polygon(data=fortify(sids2),col=&quot;red&quot;,fill=NA)+
   coord_map()</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" width="2100" /></p>
 <p>How does changing the tolerance (<code>tol</code>) affect the map?</p>
 </div>
 </div>
@@ -1461,7 +1482,7 @@ ggplot(sids@data, aes(map_id = id)) +
     scale_fill_gradientn(colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
     coord_map()+
     geom_map(aes(fill = area), map = fsids)</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" width="2100" /></p>
 </div>
 </div>
 <div id="union" class="section level2">
@@ -1471,7 +1492,7 @@ ggplot(sids@data, aes(map_id = id)) +
 <pre class="r"><code>ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
   geom_path()+
   coord_map()</code></pre>
-<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" width="2100" /></p>
 </div>
 <div id="colophon" class="section level2">
 <h2>Colophon</h2>

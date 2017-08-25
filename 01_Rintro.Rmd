@@ -3,11 +3,7 @@ title: "Introduction to R"
 ---
 
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
-input  = knitr::current_input()  # filename of input document
-output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=2,quiet=T,envir=new.env())
-knitr::opts_chunk$set(cache=TRUE)
+source("knitr_header.R")
 ```
 
 <div>

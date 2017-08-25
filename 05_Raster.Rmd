@@ -2,14 +2,8 @@
 title: "Introduction to Raster Package"
 ---
 
-
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
-input  = knitr::current_input()  # filename of input document
-output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=2,quiet=T)
 source("knitr_header.R")
-knitr::opts_chunk$set(eval=T)
 ```
 
 [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
@@ -23,6 +17,10 @@ library(sp)
 library(ggplot2)
 library(rgeos)
 library(maptools)
+
+# load data for this course
+# devtools::install_github("adammwilson/DataScienceData")
+library(DataScienceData)
 
 # New libraries
 library(raster)
@@ -59,9 +57,16 @@ getData("ISO3")%>%
 ```
 
 Download data for South Africa
-```{r}
+```{r, eval=F}
 za=getData('GADM', country='ZAF', level=1)
 ```
+
+Or use the version in the DataScienceData
+```{r}
+data(southAfrica)
+za=southAfrica # rename for convenience
+```
+
 
 ```{r, eval=F}
 plot(za)
@@ -69,7 +74,7 @@ plot(za)
 Danger: `plot()` works, but can be slow for complex polygons.  If you want to speed it up, you can plot a simplified version as follows:
 
 
-```{r, eval=T}
+```{r}
 za %>% gSimplify(0.01) %>% plot()
 ```
 
@@ -83,8 +88,7 @@ za@data
 
 Plot a subsetted region:
 ```{r}
-subset(za,NAME_1=="Western Cape") %>% 
-  gSimplify(0.01) %>% 
+subset(za,NAME_1=="Western Cape") %>% gSimplify(0.01) %>%
   plot()
 ```
 
@@ -311,11 +315,20 @@ BIO19         Precipitation of Coldest Quarter
 
 Download the data:
 
-```{r}
-clim=getData('worldclim', var='bio', res=10,path = tempdir())  
+```{r, eval=F}
+clim=raster::getData('worldclim', var='bio', res=10)  
 ```
 
 `res` is resolution (0.5, 2.5, 5, and 10 minutes of a degree)
+
+Instead of downloading the full dataset, we'll use the copy in the `DataScienceData` package:
+
+```{r}
+data(worldclim)
+
+#rename for convenience
+clim=worldclim
+```
 
 
 ### Gain and Offset
@@ -324,10 +337,10 @@ clim=getData('worldclim', var='bio', res=10,path = tempdir())
 clim
 ```
 
-Note the min/max of the raster.  What are the units?  Always check metadata, the [WorldClim temperature dataset](http://www.worldclim.org/formats) has a `gain` of 0.1, meaning that it must be multipled by 0.1 to convert back to degrees Celsius. Precipitation is in mm, so a gain of 0.1 would turn that into cm.
+Note the min/max of the raster.  What are the units?  Always check metadata, the [WorldClim temperature dataset](http://www.worldclim.org/formats) has a `gain` of 0.1, meaning that it must be multipled by 0.1 to convert back to degrees Celsius. We'll set the temperature variables (see table above) to 0.1 and leave the others at 1.
 
 ```{r}
-gain(clim)=0.1
+gain(clim)=c(rep(0.1,11),rep(1,7))
 ```
 
 
@@ -603,7 +616,7 @@ Calculate mean annual temperature averaged by province (polygons).
 
 ```{r}
 rsp=raster::extract(x=r1,
-                    y=za,
+                    y=gSimplify(za,0.01),
                     fun=mean,
                     sp=T)
 #spplot(rsp,zcol="bio1")
@@ -637,7 +650,7 @@ ggplot(rsp@data, aes(map_id = id, fill=bio1)) +
 4. Create a transect across the region and extract the temperature data.
 
 ```{r}
-country=getData('GADM', country='TUN', level=1)
+country=getData('GADM', country='TUN', level=1)%>%gSimplify(0.01)
 tmax=getData('worldclim', var='tmax', res=10)
 gain(tmax)=0.1
 names(tmax)

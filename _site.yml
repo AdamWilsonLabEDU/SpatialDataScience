@@ -10,8 +10,7 @@ output:
        collapsed: true
        smooth_scroll: true
        number_sections: true
-    df_print: paged
     includes:
       after_body: include/after_body.html
     css: styles.css
-    keep_md: true
+    keep_md: false

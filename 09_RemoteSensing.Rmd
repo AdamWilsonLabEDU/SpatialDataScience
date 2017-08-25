@@ -3,12 +3,7 @@ title: "Satellite Remote Sensing"
 ---
 
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-## This chunk automatically generates a text .R version of this script when running within knitr.  You do not need to run this...
-input  = knitr::current_input()  # filename of input document
-output = paste(tools::file_path_sans_ext(input), 'R', sep = '.')
-knitr::purl(input,output,documentation=2,quiet=T)
 source("knitr_header.R")
-knitr::opts_chunk$set(eval=T)
 ```
 
 <div>
@@ -33,6 +28,8 @@ library(reshape2)
 library(knitr)
 library(tidyr)
 
+library(DataScienceData)
+
 # New Packages
 library(MODISTools)
 library(gdalUtils)
@@ -41,27 +38,24 @@ library(rts)
 
 
 ## Specify directory to store data (absolute or relative to current working directory). 
-```{r}
-download.file("http://adamwilson.us/RDataScience/09_data.zip",
-              destfile=file.path("09_data.zip"))
-datadir="09_data"
-unzip("09_data.zip",exdir = datadir)
-```
-
 
 ## Working with _raw_ HDF files 
 
 Will only work if your `gdal` was compiled with HDF support
 ```{r, eval=T}
+datadir=tempdir()
+
 gdalinfo(formats = T) %>% grep(pattern="HDF",value=T)
 ```
 
 ```{r}
-hdf=file.path(datadir,"MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf")
+hdf=system.file("extdata", 
+                "modis/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf", 
+                package = "DataScienceData")
 ```
 
 Use `gdalinfo()` to print information about the file.
-```{r, eval=F}
+```{r}
 gdalinfo(hdf)
 ```
 
@@ -78,7 +72,12 @@ An important component of the metadata of a HDF file is the list of 'subdatasets
 
 #### Translate to GEOtif
 ```{r, eval=F}
-gdal_translate("HDF4_EOS:EOS_GRID:\"09_data/MCD12Q1.A2012001.h12v04.051.2014288200441_subset.hdf\":MOD12Q1:Land_Cover_Type_1",
+gdalfile=paste0("HDF4_EOS:EOS_GRID:\"",
+                     hdf,
+                     "\":MOD12Q1:Land_Cover_Type_1")
+gdalfile
+
+gdal_translate(gdalfile,
                "test.tif")
 gdalinfo("test.tif",nomd=T)
 ```
@@ -116,8 +115,15 @@ coordinates(loc)=cbind(loc$long,loc$lat)
 ```
 
 ## Available dates
+
+Get them from the server like this:
+```{r, eval=F}
+modis_dates=GetDates(Product = "MOD11A2", Lat = loc$lat[1], Long = loc$long[1])
+```
+
+Or load a sample from the data package:
 ```{r}
-mdates=GetDates(Product = "MOD11A2", Lat = loc$lat[1], Long = loc$long[1])
+data(modis_dates)
 ```
 
 ### MODIS date codes:
@@ -130,7 +136,7 @@ Convert to a _proper_ date:
 * Specify date format with julian day `[1,365]`
 
 ```{r}
-td=mdates[1:5]
+td=modis_dates[1:5]
 td
 ```
 
@@ -152,7 +158,7 @@ sub("A","",td)%>%
 ## Add start and end dates to `loc` object
 
 ```{r}
-dates=mdates%>%sub(pattern="A",replacement="")%>%as.Date("%Y%j")
+dates=modis_dates%>%sub(pattern="A",replacement="")%>%as.Date("%Y%j")
 
 loc$start.date <- min(as.numeric(format(dates,"%Y")))
 loc$end.date <- max(as.numeric(format(dates,"%Y")))
@@ -166,12 +172,19 @@ Today we'll work with:
 * Land Surface Temperature (`lst`): MOD11A2
 * Land Cover (`lc`): MCD12Q1
 
-```{r}
+If you were going to download the files, create some directories first:
+```{r, eval=F}
 lstdir=file.path(datadir,"lst")
 if(!file.exists(lstdir)) dir.create(lstdir)
 
 lcdir=file.path(datadir,"lc")
 if(!file.exists(lcdir)) dir.create(lcdir)
+```
+
+We will use the data included in the data package:
+```{r}
+lstdir=system.file("extdata", "modis/lst",package = "DataScienceData")
+lcdir=system.file("extdata", "modis/lc",package = "DataScienceData")
 ```
 ##  Download subset
 
@@ -183,9 +196,9 @@ if(!file.exists(lcdir)) dir.create(lcdir)
 
 **Maximum** size tile `Size=c(100,100)`
 
-This can take a few minutes to run, so you can use the file provided in the data folder.  
+This can take a few minutes to run, so you can use the file provided in the data package.  
 
-### Get Land Surface Temperature Data
+### Download Land Surface Temperature Data
 ```{r, eval=F}
 MODISSubsets(LoadDat = loc,
              Products = c("MOD11A2"),
@@ -195,7 +208,7 @@ MODISSubsets(LoadDat = loc,
              StartDate=T)
 ```
 
-### Get LULC
+### Download LULC
 ```{r, eval=F}
 MODISSubsets(LoadDat = loc,
              Products = c("MCD12Q1"),
@@ -217,7 +230,7 @@ Output:
 * Rows: time-steps
 * Columns: data bands
 
-```{r}
+```{r, eval=F}
 lst_subset <- read.csv(lst_files[1],header = FALSE, as.is = TRUE)
 dim(lst_subset)
 lst_subset[1:5,1:15]

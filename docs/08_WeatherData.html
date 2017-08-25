@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,13 +19,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/textmate.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -153,7 +155,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -163,6 +164,101 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -297,7 +393,7 @@ $(document).ready(function () {
 </div>
 
 
-<p><a href="08_WeatherData.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="scripts/08_WeatherData.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="summary" class="section level1">
 <h1>Summary</h1>
 <ul>
@@ -444,7 +540,7 @@ st = ghcnd_stations()
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
   geom_point(size=.1,col=&quot;red&quot;)+
   coord_equal()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-6-1.png" width="2100" /></p>
 <p>It’s hard to see all the points, let’s bin them…</p>
 <pre class="r"><code>ggplot(st,aes(y=latitude,x=longitude)) +
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
@@ -453,7 +549,7 @@ st = ghcnd_stations()
   scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
                        breaks = c(1,10,100,1000))+
   coord_equal()</code></pre>
-<img src="08_WeatherData_files/figure-html/unnamed-chunk-7-1.png" /><!-- -->
+<img src="08_WeatherData_files/figure-html/unnamed-chunk-7-1.png" width="2100" />
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
 <p>Produce a binned map (like above) with the following modifications:</p>
@@ -475,7 +571,7 @@ Show Solution
   scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
     breaks = c(1,10,50))+
   coord_equal()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -487,17 +583,17 @@ Show Solution
 <h3><code>geocode</code> in ggmap package useful for geocoding place names</h3>
 <p>Geocodes a location (find latitude and longitude) using either (1) the Data Science Toolkit (<a href="http://www.datasciencetoolkit.org/about" class="uri">http://www.datasciencetoolkit.org/about</a>) or (2) Google Maps.</p>
 <pre class="r"><code>geocode(&quot;University at Buffalo, NY&quot;)</code></pre>
-<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=University%20at%20Buffalo,%20NY&amp;sensor=false</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=University%20at%20Buffalo%2C%20NY</code></pre>
 <pre><code>##         lon      lat
-## 1 -78.82296 42.95382</code></pre>
+## 1 -78.78897 43.00081</code></pre>
 <p>However, you have to be careful:</p>
 <pre class="r"><code>geocode(&quot;My Grandma&#39;s house&quot;)</code></pre>
-<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=My%20Grandma&#39;s%20house&amp;sensor=false</code></pre>
-<pre><code>##        lon      lat
-## 1 118.3912 31.30682</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=My%20Grandma%27s%20house</code></pre>
+<pre><code>##         lon      lat
+## 1 -104.9874 39.68546</code></pre>
 <p>But this is pretty safe for well known places.</p>
 <pre class="r"><code>coords=as.matrix(geocode(&quot;Buffalo, NY&quot;))</code></pre>
-<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Buffalo,%20NY&amp;sensor=false</code></pre>
+<pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Buffalo%2C%20NY</code></pre>
 <pre class="r"><code>coords</code></pre>
 <pre><code>##            lon      lat
 ## [1,] -78.87837 42.88645</code></pre>
@@ -507,7 +603,7 @@ Show Solution
               between(latitude,coords[2]-1,coords[2]+1) &amp;
               between(longitude,coords[1]-1,coords[1]+1)&amp;
          element==&quot;TMAX&quot;)</code></pre>
-<pre><code>## # A tibble: 3 × 11
+<pre><code>## # A tibble: 3 x 11
 ##            id latitude longitude elevation state       name gsn_flag
 ##         &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;
 ## 1 USC00301010  42.8833  -78.8833    -999.9    NY    BUFFALO         
@@ -521,7 +617,7 @@ Show Solution
                    var = c(&quot;TMAX&quot;,&quot;TMIN&quot;,&quot;PRCP&quot;),
                    keep_flags=T)
 head(d)</code></pre>
-<pre><code>## # A tibble: 6 × 14
+<pre><code>## # A tibble: 6 x 14
 ##            id       date mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
 ##         &lt;chr&gt;     &lt;date&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;      &lt;chr&gt;
 ## 1 USW00014733 1938-05-01          T                           0           
@@ -574,15 +670,15 @@ head(d)</code></pre>
 <pre class="r"><code>table(d$qflag_tmax)  </code></pre>
 <pre><code>## 
 ##           G     I 
-## 28662     2    10</code></pre>
+## 28782     2    10</code></pre>
 <pre class="r"><code>table(d$qflag_tmin)  </code></pre>
 <pre><code>## 
 ##           G     I     S 
-## 28661     2     7     4</code></pre>
+## 28781     2     7     4</code></pre>
 <pre class="r"><code>table(d$qflag_prcp)  </code></pre>
 <pre><code>## 
 ##           G 
-## 28673     1</code></pre>
+## 28793     1</code></pre>
 <ul>
 <li><strong>T</strong> failed temporal consistency check</li>
 </ul>
@@ -597,8 +693,8 @@ head(d)</code></pre>
 <pre class="r"><code>ggplot(d_filtered,
        aes(y=tmax,x=date))+
   geom_line(col=&quot;red&quot;)</code></pre>
-<pre><code>## Warning: Removed 10 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
+<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-16-1.png" width="2100" /></p>
 <p>Limit to a few years and plot the daily range and average temperatures.</p>
 <pre class="r"><code>d_filtered_recent=filter(d_filtered,date&gt;as.Date(&quot;2013-01-01&quot;))
 
@@ -606,8 +702,8 @@ head(d)</code></pre>
          aes(ymax=tmax,ymin=tmin,x=date))+
     geom_ribbon(col=&quot;grey&quot;,fill=&quot;grey&quot;)+
     geom_line(aes(y=(tmax+tmin)/2),col=&quot;red&quot;)</code></pre>
-<pre><code>## Warning: Removed 10 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-17-1.png" width="2100" /></p>
 </div>
 <div id="zoo-package-for-rolling-functions" class="section level3">
 <h3>Zoo package for rolling functions</h3>
@@ -631,11 +727,11 @@ head(d)</code></pre>
     geom_line(aes(y=(tmin+tmax)/2),col=grey(0.4),size=.5)+
     geom_line(aes(y=tmax.60),col=&quot;red&quot;)+
     geom_line(aes(y=tmax.b60),col=&quot;darkred&quot;)</code></pre>
-<pre><code>## Warning: Removed 10 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
 <pre><code>## Warning: Removed 72 rows containing missing values (geom_path).
 
 ## Warning: Removed 72 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-19-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-1">Your Turn</h2>
 <p>Plot a 30-day rolling “right” aligned sum of precipitation.</p>
@@ -651,8 +747,8 @@ ggplot(tp,aes(y=prcp,x=date))+
   geom_line(aes(y=prcp.30),col=&quot;black&quot;)+ 
   geom_line(col=&quot;red&quot;) </code></pre>
 <pre><code>## Warning: Removed 42 rows containing missing values (geom_path).</code></pre>
-<pre><code>## Warning: Removed 10 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -668,8 +764,8 @@ ggplot(tp,aes(y=prcp,x=date))+
 <pre class="r"><code>ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
   geom_point()+
   geom_abline(intercept=0, slope=1)</code></pre>
-<pre><code>## Warning: Removed 13 rows containing missing values (geom_point).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
+<pre><code>## Warning: Removed 14 rows containing missing values (geom_point).</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-22-1.png" width="2100" /></p>
 <div id="autocorrelation-functions" class="section level3">
 <h3>Autocorrelation functions</h3>
 <ul>
@@ -679,12 +775,12 @@ ggplot(tp,aes(y=prcp,x=date))+
 <div id="autocorrelation" class="section level4">
 <h4>Autocorrelation</h4>
 <pre class="r"><code>acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-23-1.png" width="2100" /></p>
 </div>
 <div id="partial-autocorrelation" class="section level4">
 <h4>Partial Autocorrelation</h4>
 <pre class="r"><code>pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -711,7 +807,7 @@ ggplot(tp,aes(y=prcp,x=date))+
                 ifelse(month%in%c(9,10,11),&quot;Fall&quot;,NA)))),
         dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))
 head(d_filtered2)</code></pre>
-<pre><code>## # A tibble: 6 × 18
+<pre><code>## # A tibble: 6 x 18
 ##            id       date mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
 ##         &lt;chr&gt;     &lt;date&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;      &lt;chr&gt;
 ## 1 USW00014733 1938-05-01          T                           0           
@@ -735,11 +831,11 @@ head(d_filtered2)</code></pre>
             tmin=mean(tmin,na.rm=T),
             tmax=mean(tmax,na.rm=T),
             prcp=mean(prcp,na.rm=T))</code></pre>
-<pre><code>## # A tibble: 2 × 5
+<pre><code>## # A tibble: 2 x 5
 ##   period     n     tmin     tmax     prcp
 ##    &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ## 1  early 13394 4.199753 13.67348 25.07871
-## 2   late 15280 4.732831 13.73153 28.35412</code></pre>
+## 2   late 15400 4.686079 13.66931 28.34146</code></pre>
 <div id="summarize-by-season" class="section level4">
 <h4>Summarize by season</h4>
 <pre class="r"><code>seasonal=d_filtered2%&gt;%
@@ -755,7 +851,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
 <pre><code>## Warning: Removed 12 rows containing non-finite values (stat_smooth).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" width="2100" /></p>
 </div>
 <div id="kendal-seasonal-trend-test" class="section level3">
 <h3>Kendal Seasonal Trend Test</h3>
@@ -790,9 +886,9 @@ t1</code></pre>
 ## Test Name:                       Seasonal Kendall Test for Trend
 ##                                  (with continuity correction)
 ## 
-## Estimated Parameter(s):          tau       = 0.021608882
-##                                  slope     = 0.001660562
-##                                  intercept = 4.548195250
+## Estimated Parameter(s):          tau       = 0.032397023
+##                                  slope     = 0.002718334
+##                                  intercept = 0.688521444
 ## 
 ## Estimation Method:               tau:        Weighted Average of
 ##                                              Seasonal Estimates
@@ -808,21 +904,21 @@ t1</code></pre>
 ## 
 ## Data Source:                     seasonal
 ## 
-## Sample Sizes:                    Fall   =  73
+## Sample Sizes:                    Fall   =  74
 ##                                  Summer =  79
 ##                                  Spring =  76
-##                                  Winter =  73
-##                                  Total  = 301
+##                                  Winter =  74
+##                                  Total  = 303
 ## 
 ## Number NA/NaN/Inf&#39;s:             11
 ## 
-## Test Statistics:                 Chi-Square (Het) = 7.0880781
-##                                  z (Trend)        = 0.5135024
+## Test Statistics:                 Chi-Square (Het) = 7.0304855
+##                                  z (Trend)        = 0.7833567
 ## 
 ## Test Statistic Parameter:        df = 3
 ## 
-## P-values:                        Chi-Square (Het) = 0.06914279
-##                                  z (Trend)        = 0.60759991
+## P-values:                        Chi-Square (Het) = 0.07093242
+##                                  z (Trend)        = 0.43341766
 ## 
 ## Confidence Interval for:         slope
 ## 
@@ -833,8 +929,8 @@ t1</code></pre>
 ## 
 ## Confidence Level:                95%
 ## 
-## Confidence Interval:             LCL = -0.004951691
-##                                  UCL =  0.008524673</code></pre>
+## Confidence Interval:             LCL = -0.004120115
+##                                  UCL =  0.009455621</code></pre>
 <div id="minimum-temperature" class="section level4">
 <h4>Minimum Temperature</h4>
 <pre class="r"><code>t2=kendallSeasonalTrendTest(tmin~season+year,data=seasonal)
@@ -854,9 +950,9 @@ t2</code></pre>
 ## Test Name:                       Seasonal Kendall Test for Trend
 ##                                  (with continuity correction)
 ## 
-## Estimated Parameter(s):          tau       =   0.2073749
-##                                  slope     =   0.0170920
-##                                  intercept = -27.3224921
+## Estimated Parameter(s):          tau       =   0.21614826
+##                                  slope     =   0.01765707
+##                                  intercept = -29.15769749
 ## 
 ## Estimation Method:               tau:        Weighted Average of
 ##                                              Seasonal Estimates
@@ -872,21 +968,21 @@ t2</code></pre>
 ## 
 ## Data Source:                     seasonal
 ## 
-## Sample Sizes:                    Fall   =  75
+## Sample Sizes:                    Fall   =  76
 ##                                  Summer =  78
 ##                                  Spring =  75
-##                                  Winter =  72
-##                                  Total  = 300
+##                                  Winter =  73
+##                                  Total  = 302
 ## 
 ## Number NA/NaN/Inf&#39;s:             12
 ## 
-## Test Statistics:                 Chi-Square (Het) = 5.575224
-##                                  z (Trend)        = 5.325074
+## Test Statistics:                 Chi-Square (Het) = 4.815361
+##                                  z (Trend)        = 5.552695
 ## 
 ## Test Statistic Parameter:        df = 3
 ## 
-## P-values:                        Chi-Square (Het) = 1.34208e-01
-##                                  z (Trend)        = 1.00912e-07
+## P-values:                        Chi-Square (Het) = 1.858274e-01
+##                                  z (Trend)        = 2.812991e-08
 ## 
 ## Confidence Interval for:         slope
 ## 
@@ -897,8 +993,8 @@ t2</code></pre>
 ## 
 ## Confidence Level:                95%
 ## 
-## Confidence Interval:             LCL = 0.01109957
-##                                  UCL = 0.02258634</code></pre>
+## Confidence Interval:             LCL = 0.01194139
+##                                  UCL = 0.02312301</code></pre>
 </div>
 </div>
 <div id="autoregressive-models" class="section level3">
@@ -942,19 +1038,19 @@ years=as.numeric(as.character(unique(ci@date.factors$annual)))</code></pre>
 <h3>Cumulative dry days</h3>
 <pre class="r"><code>cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" width="2100" /></p>
 </div>
 <div id="diurnal-temperature-range" class="section level3">
 <h3>Diurnal Temperature Range</h3>
 <pre class="r"><code>dtr=climdex.dtr(ci, freq = c(&quot;annual&quot;))
 plot(dtr~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" width="2100" /></p>
 </div>
 <div id="frost-days" class="section level3">
 <h3>Frost Days</h3>
 <pre class="r"><code>fd=climdex.fd(ci)
 plot(fd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-35-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-35-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-2">Your Turn</h2>
 <p>See all available indices with:</p>
@@ -975,13 +1071,13 @@ Show Solution
 <div id="demo4" class="collapse">
 <pre class="r"><code>r10mm=climdex.r10mm(ci)
 plot(r10mm~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-1.png" width="2100" /></p>
 <pre class="r"><code>prcptot=climdex.prcptot(ci)
 plot(prcptot~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-2.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-2.png" width="2100" /></p>
 <pre class="r"><code>gsl=climdex.gsl(ci)
 plot(gsl~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-3.png" /><!-- --></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-3.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -1033,14 +1129,19 @@ plot(gsl~years,type=&quot;l&quot;)</code></pre>
 </footer>
 
 
+</div>
+</div>
 
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

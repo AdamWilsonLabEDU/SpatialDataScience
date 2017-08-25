@@ -4,7 +4,7 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
@@ -19,13 +19,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
-<link rel="stylesheet"
-      href="site_libs/highlight/textmate.css"
-      type="text/css" />
-<script src="site_libs/highlight/highlight.js"></script>
 <style type="text/css">
   pre:not([class]) {
     background-color: white;
@@ -153,7 +155,6 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
@@ -163,6 +164,101 @@ $(document).ready(function () {
 <!-- code folding -->
 
 
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -301,7 +397,7 @@ $(document).ready(function () {
 <iframe src="10_Presentation/ParallelProcessingIntro.html">
 </iframe>
 </div>
-<p><a href="10_ParallelProcessing.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="scripts/10_ParallelProcessing.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <pre class="r"><code>library(knitr)
 library(raster)
 library(rasterVis)
@@ -391,76 +487,76 @@ head(x)%&gt;%kable()</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">-0.0314397</td>
-<td align="right">-0.5382347</td>
-<td align="right">0.5101308</td>
-<td align="right">0.7116450</td>
-<td align="right">-0.4909586</td>
-<td align="right">0.2903890</td>
-<td align="right">-0.1980866</td>
-<td align="right">-1.2170078</td>
-<td align="right">0.8841744</td>
-<td align="right">0.0800654</td>
+<td align="right">-0.0773054</td>
+<td align="right">-1.5728529</td>
+<td align="right">-0.3243112</td>
+<td align="right">-1.0652233</td>
+<td align="right">-1.3214372</td>
+<td align="right">1.3304639</td>
+<td align="right">0.2370458</td>
+<td align="right">0.9185750</td>
+<td align="right">0.4279154</td>
+<td align="right">0.0925846</td>
 </tr>
 <tr class="even">
-<td align="right">0.5902767</td>
-<td align="right">1.5609887</td>
-<td align="right">-0.4851392</td>
-<td align="right">0.3226546</td>
-<td align="right">-0.9402471</td>
-<td align="right">0.0366488</td>
-<td align="right">-0.0011294</td>
-<td align="right">-0.2108997</td>
-<td align="right">1.1405568</td>
-<td align="right">-0.6465423</td>
+<td align="right">1.0339478</td>
+<td align="right">0.8535099</td>
+<td align="right">-0.8891433</td>
+<td align="right">-0.6807314</td>
+<td align="right">0.3363599</td>
+<td align="right">-1.8421396</td>
+<td align="right">0.0134719</td>
+<td align="right">0.4761111</td>
+<td align="right">-0.0379040</td>
+<td align="right">-1.3190696</td>
 </tr>
 <tr class="odd">
-<td align="right">1.6793463</td>
-<td align="right">0.0419849</td>
-<td align="right">0.6045803</td>
-<td align="right">1.4033689</td>
-<td align="right">-0.8740170</td>
-<td align="right">-0.0115051</td>
-<td align="right">-1.5802956</td>
-<td align="right">0.3264865</td>
-<td align="right">0.8993002</td>
-<td align="right">-0.2937595</td>
+<td align="right">-1.0108169</td>
+<td align="right">0.6699759</td>
+<td align="right">0.5544240</td>
+<td align="right">1.0293936</td>
+<td align="right">-0.8657287</td>
+<td align="right">-0.5865363</td>
+<td align="right">-1.7551025</td>
+<td align="right">-0.7667719</td>
+<td align="right">-1.1515169</td>
+<td align="right">0.6205013</td>
 </tr>
 <tr class="even">
-<td align="right">1.9724369</td>
-<td align="right">-0.0795654</td>
-<td align="right">-1.8360148</td>
-<td align="right">0.2174571</td>
-<td align="right">0.5666962</td>
-<td align="right">-1.1618568</td>
-<td align="right">-0.5110359</td>
-<td align="right">0.8544830</td>
-<td align="right">-0.0305954</td>
-<td align="right">0.9821738</td>
+<td align="right">0.1289406</td>
+<td align="right">1.6546479</td>
+<td align="right">0.5251361</td>
+<td align="right">-3.0914047</td>
+<td align="right">1.9065680</td>
+<td align="right">-0.4378825</td>
+<td align="right">0.2018028</td>
+<td align="right">1.1876378</td>
+<td align="right">0.4940522</td>
+<td align="right">0.8353322</td>
 </tr>
 <tr class="odd">
-<td align="right">1.1544405</td>
-<td align="right">-0.5443492</td>
-<td align="right">-0.1121352</td>
-<td align="right">-0.4172557</td>
-<td align="right">0.0603528</td>
-<td align="right">1.3936704</td>
-<td align="right">0.2220363</td>
-<td align="right">2.0518995</td>
-<td align="right">-2.1767116</td>
-<td align="right">0.2805755</td>
+<td align="right">0.7592694</td>
+<td align="right">0.5310228</td>
+<td align="right">1.2051792</td>
+<td align="right">0.4365814</td>
+<td align="right">0.4582889</td>
+<td align="right">-0.4055223</td>
+<td align="right">-0.4332273</td>
+<td align="right">0.3159892</td>
+<td align="right">-0.0242161</td>
+<td align="right">-0.8269194</td>
 </tr>
 <tr class="even">
-<td align="right">1.6529577</td>
-<td align="right">1.4230887</td>
-<td align="right">-0.2664036</td>
-<td align="right">-0.4080211</td>
-<td align="right">2.4037057</td>
-<td align="right">-0.0876839</td>
-<td align="right">-1.3873558</td>
-<td align="right">-1.4938446</td>
-<td align="right">2.5453955</td>
-<td align="right">0.7780295</td>
+<td align="right">0.1019972</td>
+<td align="right">-0.4700157</td>
+<td align="right">0.0701480</td>
+<td align="right">-2.4834102</td>
+<td align="right">0.7909594</td>
+<td align="right">0.2832904</td>
+<td align="right">-0.2875504</td>
+<td align="right">0.6390696</td>
+<td align="right">0.8030214</td>
+<td align="right">-0.0693482</td>
 </tr>
 </tbody>
 </table>
@@ -520,33 +616,33 @@ data=cbind.data.frame(y=y,x1=x1,p=p)</code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">-0.58</td>
-<td align="right">0.94</td>
+<td align="right">-0.22</td>
+<td align="right">0.89</td>
 </tr>
 <tr class="even">
 <td align="right">1</td>
-<td align="right">0.13</td>
-<td align="right">0.83</td>
+<td align="right">-0.62</td>
+<td align="right">0.94</td>
 </tr>
 <tr class="odd">
-<td align="right">1</td>
-<td align="right">-0.23</td>
-<td align="right">0.90</td>
+<td align="right">0</td>
+<td align="right">0.22</td>
+<td align="right">0.81</td>
 </tr>
 <tr class="even">
 <td align="right">0</td>
-<td align="right">-0.04</td>
-<td align="right">0.87</td>
+<td align="right">1.67</td>
+<td align="right">0.33</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">0.93</td>
-<td align="right">0.60</td>
+<td align="right">-0.45</td>
+<td align="right">0.92</td>
 </tr>
 <tr class="even">
-<td align="right">1</td>
-<td align="right">-1.54</td>
-<td align="right">0.98</td>
+<td align="right">0</td>
+<td align="right">1.21</td>
+<td align="right">0.50</td>
 </tr>
 </tbody>
 </table>
@@ -556,17 +652,17 @@ data=cbind.data.frame(y=y,x1=x1,p=p)</code></pre>
   geom_line(aes(x=p+1,y=x1),col=&quot;red&quot;,size=2,alpha=.5)+
   xlab(&quot;Binary Response&quot;)+
   ylab(&quot;Covariate&quot;)</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-12-1.png" width="2100" /></p>
 <div id="sampling-from-a-dataset-with-sample_n" class="section level3">
 <h3>Sampling from a dataset with <code>sample_n()</code></h3>
 <pre class="r"><code>size=5
 sample_n(data,size,replace=T)</code></pre>
 <pre><code>##       y         x1         p
-## 48505 0  1.5988727 0.3547307
-## 76430 1 -0.6938768 0.9448420
-## 12927 1 -0.2604393 0.8994075
-## 21713 1 -1.9962321 0.9917915
-## 90429 1  0.5747678 0.7186648</code></pre>
+## 84584 1  0.6952521 0.6807285
+## 84731 1  0.3880398 0.7717009
+## 29398 1 -0.5164134 0.9292102
+## 9063  1 -0.1335980 0.8808388
+## 85336 1 -0.1835988 0.8884889</code></pre>
 </div>
 <div id="simple-generalized-linear-model" class="section level3">
 <h3>Simple Generalized Linear Model</h3>
@@ -589,7 +685,7 @@ tsize = 100
   })
 ptime</code></pre>
 <pre><code>##    user  system elapsed 
-##  54.312   4.793  67.195</code></pre>
+##  46.837   4.418  31.433</code></pre>
 <p>Look at <code>results</code> object containing slope and aspect from subsampled models. There is one row per sample (<code>1:trials</code>) with columns for the estimated intercept and slope for that sample.</p>
 <pre class="r"><code>kable(head(result),digits = 2)</code></pre>
 <table>
@@ -603,33 +699,33 @@ ptime</code></pre>
 <tbody>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">1.21</td>
-<td align="right">-1.77</td>
+<td align="right">1.95</td>
+<td align="right">-1.53</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">1.97</td>
-<td align="right">-1.65</td>
+<td align="right">1.57</td>
+<td align="right">-1.64</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">1.85</td>
-<td align="right">-1.34</td>
+<td align="right">1.54</td>
+<td align="right">-1.07</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">1.58</td>
-<td align="right">-1.63</td>
+<td align="right">1.27</td>
+<td align="right">-1.60</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">2.09</td>
-<td align="right">-2.02</td>
+<td align="right">1.64</td>
+<td align="right">-1.15</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">2.36</td>
-<td align="right">-2.83</td>
+<td align="right">2.29</td>
+<td align="right">-1.83</td>
 </tr>
 </tbody>
 </table>
@@ -641,9 +737,8 @@ ptime</code></pre>
   xlim(c(-5,5))+
   ylab(&quot;Parameter Value&quot;)+
   xlab(&quot;Density&quot;)</code></pre>
-<pre><code>## Warning: Removed 1 rows containing non-finite values (stat_density).</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
-<p>So we were able to perform 10^{4} separate model fits in 67.195 seconds. Let’s see how long it would have taken in sequence.</p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-16-1.png" width="2100" /></p>
+<p>So we were able to perform 10^{4} separate model fits in 31.433 seconds. Let’s see how long it would have taken in sequence.</p>
 <pre class="r"><code>  stime &lt;- system.time({
   result &lt;- foreach(i=1:trials,
                     .combine = rbind.data.frame) %do% 
@@ -656,8 +751,8 @@ ptime</code></pre>
   })
 stime</code></pre>
 <pre><code>##    user  system elapsed 
-##  50.328   1.261  54.134</code></pre>
-So we were able to run 10^{4} separate model fits in 67.195 seconds when using 3 CPUs and 54.134 seconds on one CPU. That’s 0.8X faster for this simple example.
+##  54.199   4.216  61.747</code></pre>
+So we were able to run 10^{4} separate model fits in 31.433 seconds when using 3 CPUs and 61.747 seconds on one CPU. That’s 2X faster for this simple example.
 <div class="well">
 <h2 id="your-turn-1">Your turn</h2>
 <ul>
@@ -698,7 +793,7 @@ tsize = 100
   geom_abline(data=dplyr::select(result,everything(),
                                  Intercept=contains(&quot;Intercept&quot;)),
               aes(intercept=Intercept,slope=x1),alpha=.5)</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -794,7 +889,7 @@ r</code></pre>
   geom_raster(aes(fill = value))+ 
   scale_fill_gradient(low = &#39;white&#39;, high = &#39;blue&#39;)+
   coord_equal()+ylab(&quot;Y&quot;)+xlab(&quot;X&quot;)</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-25-1.png" width="2100" /></p>
 </div>
 <div id="tile-the-region" class="section level2">
 <h2>“Tile” the region</h2>
@@ -897,7 +992,7 @@ kable(jobs,row.names = F,digits = 2)</code></pre>
   geom_text(aes(x=(xminb+xmax)/2,y=(yminb+ymax)/2,
                 label=tile),size=10)+
   coord_equal()+ylab(&quot;Y&quot;)+xlab(&quot;X&quot;)</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-28-1.png" width="2700" /></p>
 </div>
 <div id="run-a-simple-spatial-analysis-focal-moving-window" class="section level2">
 <h2>Run a simple spatial analysis: <code>focal</code> moving window</h2>
@@ -907,13 +1002,13 @@ kable(jobs,row.names = F,digits = 2)</code></pre>
   })
 stime2</code></pre>
 <pre><code>##    user  system elapsed 
-##  37.838   0.747  39.913</code></pre>
+##  39.643   0.293  40.704</code></pre>
 <p>Plot it:</p>
 <pre class="r"><code>gplot(r_focal1)+
   geom_raster(aes(fill = value))+ 
   scale_fill_gradient(low = &#39;white&#39;, high = &#39;blue&#39;)+
   coord_equal()+ylab(&quot;Y&quot;)+xlab(&quot;X&quot;)</code></pre>
-<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-30-1.png" /><!-- --></p>
+<p><img src="10_ParallelProcessing_files/figure-html/unnamed-chunk-30-1.png" width="2100" /></p>
 <p>That works great (and pretty fast) for this little example, but as the data (or the size of the window) get larger, it can become prohibitive.</p>
 </div>
 <div id="repeat-the-analysis-but-parallelize-using-the-tile-system." class="section level2">
@@ -943,7 +1038,7 @@ ptime2=system.time({
 <p>Are the outputs the same?</p>
 <pre class="r"><code>identical(r_focal,r_focal1)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<p>So we were able to process the data in 24.034 seconds when using 3 CPUs and 39.913 seconds on one CPU. That’s 1.7X faster for this simple example.</p>
+<p>So we were able to process the data in 19.28 seconds when using 3 CPUs and 40.704 seconds on one CPU. That’s 2.1X faster for this simple example.</p>
 </div>
 <div id="parallelized-raster-functions" class="section level2">
 <h2>Parallelized Raster functions</h2>
@@ -955,10 +1050,10 @@ fn=function(x) x^3
 
 system.time(fn(r))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.943   0.075   1.067</code></pre>
+##   0.127   0.004   0.136</code></pre>
 <pre class="r"><code>system.time(clusterR(r, fn, verbose=T))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.438   0.154   2.129</code></pre>
+##   0.424   0.094   1.933</code></pre>
 <pre class="r"><code>endCluster()</code></pre>
 <p>Does <em>not</em> work with:</p>
 <ul>
@@ -1155,14 +1250,19 @@ system(&quot;squeue -u adamw&quot;)</code></pre>
 </footer>
 
 
+</div>
+</div>
 
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
-$(document).ready(function () {
+function bootstrapStylePandocTables() {
   $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
 });
 
 

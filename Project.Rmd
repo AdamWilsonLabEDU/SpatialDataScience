@@ -68,6 +68,8 @@ To achieve a perfect score a final project would have the following characterist
 
 See the project rubric (see link near top of project submission page in UBlearns) for more details and examples.  
 
+![](assets/rubric.png)
+
 ## Project Phases
 
 ### Project proposal
@@ -95,13 +97,13 @@ The second draft will be graded using the same criteria as the full project (see
 
 ### Project Presentation
 
-On the last day of class, each student will give a 5 minute overview of their project to the class.  You can prepare a Powerpoint OR simply show your poster/infographic on the screen.  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution).    Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period.   The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.
+On the last day of class, each student will give a 5 minute overview of their project to the class.  You will open the html version on the screen (no need to make a seperate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution).    Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period.   The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.
 
 ### Final Draft
 
 The final draft will be uploaded to UBLearns at the end of the semester and posted on the course website.
 
-**Remember to upload the HTML, PDF, and  `.r`/`.Rmd` files! **
+**Remember to upload the HTML, PDF, and  `.Rmd` files! **
 
 ### Resources
 

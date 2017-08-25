@@ -2,10 +2,12 @@
 title: "Syllabus"
 ---
 
+# GEO503: R Data Science
+
 # Logistics
 Professor Adam M. Wilson ([adamwilson.us](adamwilson.us))
 
-Office Hours: Wednesdays 9:30-11:30am
+Office Hours: Tuesdays 9:00-11:00am
 
 ## Schedule 
 Thursdays 9:30-12:10pm in 144 Wilkeson Quad.  
