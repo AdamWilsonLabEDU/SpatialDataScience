@@ -51,15 +51,15 @@ Four homework assignments will be assigned throughout the semester and due befor
 ### Final Project and Presentation (50%)
 The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code and posted to the course website.  This project can be related to the student’s own research or a separate topic.  
 
-## Timeline & Grading:
+**Project stages**
 
-* 10/10  Project proposal due (<1 page, 5 points)
-* 10/31-11/7  First draft: Peer review (5 points)
-* 11/28: Second draft of final project (5 points)
-* 12/14: Final project presentations (35 points)
-Unexcused late submissions will be docked 10 percentage points per 24 hour period.  
+* Proposal (5%)
+* First draft (evaluated by your peers) (5%)
+* Second draft (5%)
+* Presentation (5%)
+* Final draft (30%)
 
-See full [Project Description](Project.html) for more details.  
+See the [schedule](Schedule.html) for details on deadlines.  Unexcused late submissions will be docked 10 percentage points per 24 hour period.  See full [Project Description](Project.html) for more details.  
 
 **There will be no final exam.**
 
@@ -87,19 +87,4 @@ The course will follow the university Academic Integrity Policy.   Please review
 
 # Course Content
 Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  See the [course schedule for detailed course content](Schedule.html).
-
-* **Data Gymnastics**:
-Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet).
-For loops, conditional statements, and custom functions.
-* **Graphics**: Basic plots and the “grammar of graphics" approach to building complex figures.
-* **Spatial Data**:
-Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics, measuring autocorrelation (e.g. Moran’s I), spatial regression models. 
-* **Use of raster, rgdal, and MODISTools** packages to process MODIS satellite data.
-* **Reproducible Research & Literate Programming**:
-Introduction to rmarkdown, creation of dynamic research outputs. 
-* **Version Control**: 
-Managing code and research products in a “version control’ repository such as Github. 
-* **High Performance Computing**: Introduction to parallel processing in R.  
-* **Software Integration**: Language/software integration.  Calling various other programs from within R.
-* **Package Development**: Package structure and necessary components.  Things to consider when developing an R package. 
 

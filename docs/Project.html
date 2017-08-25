@@ -395,73 +395,70 @@ div.tocify {
 
 <div id="description" class="section level2">
 <h2>Description</h2>
-<p>The final project will consist of a poster-length report summarizing your analysis. You can do this in either of two formats:</p>
-<ol style="list-style-type: decimal">
-<li>An academic poster</li>
-<li>An informal ‘infographic’ with background information</li>
-</ol>
-<p>The project will be uploaded to UBlearns as a PDF along with the underlying R source code. The topic can be related to the student’s research interests or a separate topic.</p>
+<p>The final project will consist of a poster-length report summarizing an analysis of your choice, coded in R and presented within a R Markdown document. The topic can be related to the student’s research interests or a separate topic.</p>
+<p>Your project does not have to involve big data or big, complicated analyses. I’m looking for a demonstration of your creativity and programming skills. A small but well designed project is better than a large but incomplete one. Please focus on quality over quantity.</p>
+<p>One limitation is that your project must use publicly accessible data. If you want to use your own data, you must make it available on a website (e.g. <a href="figshare.org">Figshare</a> or <a href="github.com">Github</a>) so that others are able to re-run your code. Also check out <a href="https://ropensci.org/packages/">ROpenSci</a> which has libraries that can pull data from many different sources. You can also download data from publicly accessible servers.</p>
 <div id="requirements" class="section level3">
 <h3>Requirements</h3>
+<p>Complete submissions will include and be graded as follows:</p>
 <ol style="list-style-type: decimal">
-<li>The project must include data from at least two sources that were integrated/merged using R.</li>
-<li>The underlying data must be publically accessible via the web and downloaded within the R/Rmd script. If you want to use your own data, you must make it available on a website (e.g. <a href="figshare.org">Figshare</a>) so that others are able to re-run your code.</li>
-<li>The graphic should convey at least three (and preferably four) dimensions of information (e.g. latitude, longitude, time, and one more)</li>
+<li><strong>Title</strong> (&lt;25 words)</li>
+<li><strong>Introduction [~ 200 words, 10%]</strong>
+<ul>
+<li>Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.</li>
+</ul></li>
+<li><strong>Materials and methods [~ 200 words]</strong>
+<ul>
+<li><strong>Narrative (10%)</strong>: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.</li>
+<li><strong>Code (25%)</strong>: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.</li>
+<li><strong>Data (5%)</strong>: The underlying data are publicly accessible via the web and downloaded/accessed within the Rmd script. If you want to use your own data, you must make it available on a website (e.g. <a href="figshare.org">Figshare</a>) so that others are able to re-run your code.</li>
+</ul></li>
+<li><strong>Results [~200 words, 25%]</strong>
+<ul>
+<li>Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.</li>
+</ul></li>
+<li><strong>Conclusions [~200 words, 5%]</strong>
+<ul>
+<li>Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.</li>
+</ul></li>
+<li><strong>References [5%]</strong></li>
 </ol>
-<p>Complete submissions will include:</p>
-<ol style="list-style-type: decimal">
-<li>Title (&lt;25 words)</li>
-<li>Introduction [~ 200 words]</li>
-<li>Materials and methods [~ 200 words]</li>
-<li>Results [~200 words]</li>
-<li>Conclusions [~200 words]</li>
-<li>References</li>
+<ul>
+<li>All sources are cited in a consistent manner</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li><strong>General Scores</strong></li>
 </ol>
+<ul>
+<li><strong>General organization (10%)</strong>: Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. Tables and graphics carefully tuned and placed for desired purpose.The ‘story’ is very well organized, makes good use of graphics, and is easy to understand.</li>
+<li><strong>General Grammar (5%)</strong>: All sentences are well constructed and have varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.</li>
+</ul>
+<p>See the project rubric below for more details and examples.<br />
+<img src="assets/rubric.png" /></p>
+<p>Note that the word counts are quite short (~200 words per section). This does not mean it’s <em>easy</em>! In fact, conveying all the necessary information succinctly often takes extra effort. If English is not your first language, you are encouraged to contact the UB Writing Center to get help writing succinctly and clearly.</p>
 </div>
 </div>
 <div id="formatting" class="section level2">
 <h2>Formatting</h2>
-<p>The final project should be organized as a <a href="http://rmarkdown.rstudio.com">RMarkdown document</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
-<p>If you prefer to generate the graphics in R and then import them to another graphical layout program (Powerpoint, Adobe Illustrator, InkScape, etc.) that is acceptable (though discouraged). The core graphics must be produced using R.</p>
+<p>The final project will be produced as a <a href="http://rmarkdown.rstudio.com">RMarkdown document</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
 <div id="figures" class="section level3">
 <h3>Figures</h3>
 <p>Figures (maps and other graphics) are a vital component of scientific communication and you should carefully plan your figures to convey the results of your analysis.</p>
 </div>
 <div id="source-and-output-files" class="section level3">
 <h3>Source and Output Files</h3>
-<p>You will upload:</p>
+<p>You will upload the following files to UBlearns:</p>
 <ol style="list-style-type: decimal">
-<li>the source (<code>.R</code> and/or <code>.Rmd</code>) file</li>
+<li>the source (<code>.Rmd</code>) file</li>
 <li>an html version</li>
-<li>a PDF version of the formatted document.</li>
+<li>a PDF version of the formatted document for feedback and grading.</li>
 </ol>
-<p>The HTML is for archival and sharing in the class projects. Let me know if you would prefer your final project to not be posted on the course website. The PDF version and your code (<code>.R</code> or <code>.Rmd</code> file) will be graded (see rubric below).</p>
-<p>You can create the PDF version in any of the following ways:</p>
-<ul>
-<li>Compile the <code>.Rmd</code> document to HTML (as explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a pdf. This is the prefered route as you also get the HTML version this way.</li>
-<li>Run the <code>.R</code> file exporting your graphics for assembly in another graphics program (e.g. PowerPoint, Illustrator, Inkscape). Then save two versions: HTML and pdf.</li>
-<li>Compile the <code>.Rmd</code> document directly to PDF as explained <a href="http://rmarkdown.rstudio.com/pdf_document_format.html">here</a></li>
-</ul>
+<p>The HTML is for archival and sharing in the class projects. Let me know if you would prefer your final project to not be posted on the course website. The PDF version and your code (<code>.R</code> or <code>.Rmd</code> file) will be graded (see rubric below). The only reason I need a PDF is UBLearns will not allow direct feedback on a HTML file. To make the pdf, I recommend you compile the <code>.Rmd</code> document to HTML (as explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF. This is the preferred route as you also get the HTML version this way.</p>
+<p>It is also possible to compile the <code>.Rmd</code> document directly to PDF as explained <a href="http://rmarkdown.rstudio.com/pdf_document_format.html">here</a>.</p>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
 <p>You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section. You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained <a href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">here</a>. Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.</p>
-</div>
-</div>
-<div id="grading" class="section level2">
-<h2>Grading</h2>
-<p>To achieve a perfect score a final project would have the following characteristics:</p>
-<ul>
-<li><strong>Organization:</strong> The ‘story’ is very well organized, makes good use of graphics, and is easy to understand. Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. The summary adequately describes approach and results. Conclusions at the end present further questions and ways to investigate more. Tables and graphics carefully tuned and placed for desired purpose.</li>
-<li><strong>Curiosity:</strong> Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final result. The author has gone beyond what was asked: additional techniques from other sources used to help understand/explain findings. The explanation and presentation is creative.</li>
-<li><strong>Skepticism:</strong> Author suggests multiple explanations for a given finding and uses multiple tools to explore surprising results. One or two results are presented as the most plausible, but the project allows for the possibility that results are wrong. The project is self-critical and flaws are identified: What was done well? What was done poorly? What may have been missed? How could it be done better next time?</li>
-<li><strong>Grammar:</strong> All language is well constructed with varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.</li>
-<li><strong>Code:</strong> The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.</li>
-</ul>
-<p>See the project rubric (see link near top of project submission page in UBlearns) for more details and examples.</p>
-<div class="figure">
-<img src="assets/rubric.png" />
-
 </div>
 </div>
 <div id="project-phases" class="section level2">
@@ -484,16 +481,30 @@ div.tocify {
 <li>Expose you to the work of your peers so you know what others are working on</li>
 <li>Provide an opportunity to share your knowledge to improve their project</li>
 </ul>
-<p>The grading of the first draft will be limited to the Title (&lt;25 words), Introduction [~ 200 words], and Materials and methods [~ 200 words] sections. You should have acquired (downloaded, etc) or at least identified all the data you plan to use and worked out most of the details of the methods (either in code or detailed descriptions), though you may not have any results or summary figures yet. You only need to upload the narrative sections mentioned above (Title, Introduction, and Methods) in a PDF. You do not need to upload any data or code. If you have made figures already, please include them in your document, but they are not required.</p>
+<p>You will download your peer’s .Rmd file, run it in RStudio, and assess it as follows:</p>
+<ol style="list-style-type: decimal">
+<li>The .Rmd produces HTML output with:</li>
+</ol>
+<ul>
+<li>section headers for all the major sections of the paper</li>
+<li>a draft of the complete introduction.<br />
+Be sure to install any required libraries (do not deduct points if it fails because you don’t have a library installed).</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Introduction [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.</li>
+<li>Data: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).</li>
+<li>The HTML file includes at least one figure of the data.</li>
+</ol>
 </div>
 <div id="second-draft" class="section level3">
 <h3>Second Draft</h3>
-<p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to see at least one figure illustrating the data you are working with. If you include drafts of the results and discussion/conclusion I will also give you feedback on those sections.</p>
+<p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to drafts of the text in each section as well as at least code that see at least one figure illustrating the data you are working with. If you include drafts of the results and discussion/conclusion I will also give you feedback on those sections.</p>
 <p>The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion. If you have questions or comments, feel free to include them in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage.</p>
 </div>
 <div id="project-presentation" class="section level3">
 <h3>Project Presentation</h3>
-<p>On the last day of class, each student will give a 5 minute overview of their project to the class. You will open the html version on the screen (no need to make a seperate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution). Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period. The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.</p>
+<p>On the last day of class, each student will give a 5 minute overview of their project to the class. You will open the html version on the screen (no need to make a separate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution).</p>
+<p>Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period. The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.</p>
 </div>
 <div id="final-draft" class="section level3">
 <h3>Final Draft</h3>
