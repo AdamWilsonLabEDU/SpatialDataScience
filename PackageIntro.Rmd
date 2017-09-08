@@ -17,4 +17,13 @@ The presentation must include:
 
 There will not be time to actually run any code *on-the-fly* during your presentation.  Instead, copy the code and output into a presentation (powerpoint, etc.) so that you can simply display it.  See an [example presentation here](assets/PackagePresentation.pptx).
 
-To select a package, I recommend starting with the [views on CRAN](https://cran.r-project.org/web/views/) for a topic of interest.
+To select a package, I recommend starting with the [views on CRAN](https://cran.r-project.org/web/views/) for a topic of interest.  Then read the narrative in the task view for something interesting to you and install the package in R with `install.package("packagename")` in R and take a look at what it can do.  Most package functions include sample code that performs a function.    For example, if I was introducing the `dplyr` package, I might choose the `filter()` function.  If you look in the help you will find a section called "Examples" that you can use for your example code in your presentation.  All you have to do is copy-paste it from the help into the R console and them summarize what it's doing in your presentation.  For example, I might demonstrate (from the `filter()` documentation) that the following code will select all characters from Star Wars that are human.
+
+```{r,message=FALSE}
+library(dplyr)
+filter(starwars, species == "Human")
+```
+
+
+
+
