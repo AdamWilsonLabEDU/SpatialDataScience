@@ -1060,6 +1060,20 @@ sp</code></pre>
 <p><img src="03_plotting_files/figure-html/unnamed-chunk-58-1.png" width="2100" /></p>
 </div>
 </div>
+<div id="theme-examples-xkcd" class="section level2">
+<h2>Theme examples: <em>XKCD</em></h2>
+<p>XKCD: A webcomic of romance, sarcasm, math, and language.</p>
+<p><img src="03_assets/convincing.png" alt="alt text" width="100%"> Note: the following code will only work if you have the xkcd font installed. See <code>xkcd::vignette(&quot;xkcd-intro&quot;)</code> for details.</p>
+<pre class="r"><code>library(xkcd)
+
+ggplot(mtcars, aes(mpg, wt)) + 
+     geom_point() +
+     geom_smooth()+
+     xkcdaxis(xrange=c(10,35), yrange=c(0,7))+
+      ylab(&quot;Weight&quot;)+xlab(&quot;Miles per Gallon&quot;)+
+      theme_xkcd() </code></pre>
+<p><img src="03_plotting_files/figure-html/unnamed-chunk-59-1.png" width="2100" /></p>
+</div>
 </div>
 <div id="savingexporting" class="section level1">
 <h1>Saving/exporting</h1>

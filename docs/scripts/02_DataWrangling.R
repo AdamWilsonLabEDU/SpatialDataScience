@@ -144,8 +144,7 @@ filter(flights, month == 1 | month == 2)
 
 #' 
 #' <div class="well">
-#' Filter the `flights` data set to keep only 'redeye' flights where the departure time
-#' (`dep_time`) is "after" the arrival time (`arr_time`), indicating it arrived the next day:
+#' Filter the `flights` data set to keep only flights where the `distance` is greater than 1000 OR the `air_time` is more than 100
 #' 
 #' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
 #' <div id="demo2" class="collapse"> <br>
@@ -204,9 +203,8 @@ distinct(
 #' 
 #' Average air speed (miles/hour):
 ## ------------------------------------------------------------------------
-select(
-  mutate(flights,ave_speed=distance/(air_time/60)),
-  distance, air_time,ave_speed)
+mutate(flights,ave_speed=distance/(air_time/60))%>%
+  select(distance, air_time,ave_speed)
 
 #' 
 #' 

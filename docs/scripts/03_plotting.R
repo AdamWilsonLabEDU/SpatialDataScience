@@ -659,6 +659,23 @@ p + theme_excel()
 p + theme_economist()
 
 #' 
+#' ## Theme examples: _XKCD_ 
+#' XKCD: A webcomic of romance, sarcasm, math, and language.
+#' 
+#' <img src="03_assets/convincing.png" alt="alt text" width="100%">
+#' Note: the following code will only work if you have the xkcd font installed.  See `xkcd::vignette("xkcd-intro")` for details.
+#' 
+## ---- warning=FALSE, message=F-------------------------------------------
+library(xkcd)
+
+ggplot(mtcars, aes(mpg, wt)) + 
+     geom_point() +
+     geom_smooth()+
+     xkcdaxis(xrange=c(10,35), yrange=c(0,7))+
+      ylab("Weight")+xlab("Miles per Gallon")+
+      theme_xkcd() 
+
+
 #' 
 #' # Saving/exporting
 #' 
