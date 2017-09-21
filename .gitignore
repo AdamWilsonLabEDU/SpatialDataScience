@@ -3,9 +3,6 @@
 .RData
 .Rproj.user
 packrat/lib*/
-_site
 *_cache*/
-index_files
 wc10*
-*rds
-09_data/*
+*rds*
