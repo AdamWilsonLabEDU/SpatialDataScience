@@ -24,6 +24,8 @@ left:
       - text: "Module 2: Spatial Analyses"
       - text: "04 Spatial Data"
         href: 04_Spatial.html
+      - text: "04 Spatial Data with sf"
+        href: 04_Spatial_with_sf.html
       - text: "05 Spatial Raster Data"
         href: 05_Raster.html
       - text: "06 More Raster Data"

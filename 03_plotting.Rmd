@@ -393,6 +393,8 @@ Experiment with the number of bins to find one that works.
 See `?stat_binhex` for details.
 
 ```
+#install.packages("hexbin")
+library(hexbin)
 m <- ggplot(geyser, aes(x = duration, y = waiting))
 ```
 

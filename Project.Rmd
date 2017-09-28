@@ -48,12 +48,15 @@ Figures (maps and other graphics) are a vital component of scientific communicat
 You will upload the following files to UBlearns:
 
 1) the source (`.Rmd`) 	file
-2) an html version
+2) an html version (see below)
 3) a PDF version of the formatted document for feedback and grading.  
 
 The HTML is for archival and sharing in the class projects.  Let me know if you would prefer your final project to not be posted on the course website.  The PDF version and your code (`.R` or `.Rmd` file) will be graded (see rubric below). The only reason I need a PDF is UBLearns will not allow direct feedback on a HTML file.   To make the pdf, I recommend you compile the `.Rmd` document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF.  This is the preferred route as you also get the HTML version this way.
 
 It is also possible to compile the `.Rmd` document directly to PDF as explained [here](http://rmarkdown.rstudio.com/pdf_document_format.html). 
+
+### Possible HTML Formats
+See the [RMarkdown page](http://rmarkdown.rstudio.com/formats.html) for ideas on different html output designs.  In particular, check out the [FlexaDashboard](http://rmarkdown.rstudio.com/flexdashboard/) options.
 
 ### References
 You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section.  You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained [here](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.  

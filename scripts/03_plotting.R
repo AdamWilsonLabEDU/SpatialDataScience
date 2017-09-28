@@ -384,6 +384,8 @@ m + stat_density2d(aes(fill = ..level..), geom="polygon") +
 #' See `?stat_binhex` for details.
 #' 
 #' ```
+#' #install.packages("hexbin")
+#' library(hexbin)
 #' m <- ggplot(geyser, aes(x = duration, y = waiting))
 #' ```
 #' 
