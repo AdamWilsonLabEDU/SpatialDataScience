@@ -13,8 +13,8 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 9/28 | **Spatial Data** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics | Homework # 2 | 3 |
 | 10/5 | **Spatial Raster I** | Working with gridded spatial data | Project Proposal Due | 4| 
 | 10/12 | **Spatial Raster II** | Raster calculations, working with climate datasets.  |     | 5| 
-| 10/19 | **Spatial Raster III** | A 'mini' project - looking at sea level rise in Bangladesh | Homework # 3 | 6 | 
-| 10/26 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.|  | 7| 
+| 10/19 | **Spatial Raster III** | A 'mini' project - looking at sea level rise in Bangladesh | | 6 | 
+| 10/26 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.| Homework # 3  | 7| 
 | 11/2 | **Weather/Climate Data Processing ** | Processing daily weather data from NOAA  |  First draft of project for peer assessment   | 8 |
 | 11/9 | **Satellite Data Processing** | Working with MODIS Satellite data | Peer Evaluation Due | 9 |
 | 11/16 | **High Performance Computing & Software Integration** | Parallel processing and high performance computing in R, Calling other programs from within R. | Homework # 4 | 10 |
