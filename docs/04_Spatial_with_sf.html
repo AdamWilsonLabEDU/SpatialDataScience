@@ -680,21 +680,23 @@ class(nc.no_sf)</code></pre>
 <pre><code>## MULTIPOLYGON (((-81.4727554321289 36.2343559265137, -81.5408401489258 36.2725067138672, -81.5619812011719 36.2735939025879, -81.6330642700195 36.3406867980957, -81.7410736083984 36.3917846679688, -81.6982803344727 36.4717788696289, -81.7027969360352 36.5193405151367, -81.6699981689453 36.5896492004395, -81.3452987670898 36.5728645324707, -81.347541809082 36.537914276123, -81.3247756958008 36.5136795043945, -81.3133239746094 36.4806976318359, -81.2662353515625 36.4372062683105, -81.2628402709961 36.4050407409668, -81.2406921386719 36.3794174194336, -81.2398910522461 36.365364074707, -81.2642440795898 36.3524131774902, -81.3289947509766 36.3635025024414, -81.3613739013672 36.3531608581543, -81.3656921386719 36.3390502929688, -81.354133605957 36.2997169494629, -81.3674545288086 36.2786979675293, -81.4063873291016 36.2850532531738, -81.4123306274414 36.2672920227051, -81.431037902832 36.2607192993164, -81.4528884887695 36.2395858764648, -81.4727554321289 36.2343559265137)))</code></pre>
 <p>The way this is printed is called <em>well-known text</em>, and is part of the standards. The word <code>MULTIPOLYGON</code> is followed by three parenthesis, because it can consist of multiple polygons, in the form of <code>MULTIPOLYGON(POL1,POL2)</code>, where <code>POL1</code> might consist of an exterior ring and zero or more interior rings, as of <code>(EXT1,HOLE1,HOLE2)</code>. Sets of coordinates are held together with parenthesis, so we get <code>((crds_ext)(crds_hole1)(crds_hole2))</code> where <code>crds_</code> is a comma-separated set of coordinates of a ring. This leads to the case above, where <code>MULTIPOLYGON(((crds_ext)))</code> refers to the exterior ring (1), without holes (2), of the first polygon (3) - hence three parentheses.</p>
 <p>We can see there is a single polygon with no rings:</p>
-<pre class="r"><code>par(mar = c(0,0,1,0))
-plot(nc[1])
+<pre class="r"><code>plot(nc[1])
 plot(nc[1,1], col = &#39;grey&#39;, add = TRUE)</code></pre>
 <p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-18-1.png" width="2100" /></p>
 <p>but some of the polygons in this dataset have multiple exterior rings; they can be identified by</p>
-<pre class="r"><code>par(mar = c(0,0,1,0))
-w &lt;- which(sapply(nc_geom, length) &gt; 1)
+<pre class="r"><code>w &lt;- which(sapply(nc_geom, length) &gt; 1)
 plot(nc[w,1], col = 2:7)</code></pre>
 <p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-19-1.png" width="2100" /></p>
-<p>Following the <code>MULTIPOLYGON</code> datastructure, in R we have a list of lists of lists of matrices. For instance, we get the first 3 coordinate pairs of the second exterior ring (first ring is always exterior) for the geometry of feature 4 by</p>
-<pre class="r"><code>nc_geom[[4]][[2]][[1]][1:3,]</code></pre>
+<p>Following the <code>MULTIPOLYGON</code> datastructure, in R we have a list of lists of lists of matrices. For instance, we get the coordinate pairs of the second exterior ring (first ring is always exterior) for the geometry of feature 4 by</p>
+<pre class="r"><code>nc_geom[[4]][[2]][[1]]</code></pre>
 <pre><code>##           [,1]     [,2]
 ## [1,] -76.02717 36.55672
 ## [2,] -75.99866 36.55665
-## [3,] -75.91192 36.54253</code></pre>
+## [3,] -75.91192 36.54253
+## [4,] -75.92480 36.47398
+## [5,] -75.97728 36.47802
+## [6,] -75.97629 36.51793
+## [7,] -76.02717 36.55672</code></pre>
 <p>Geometry columns have their own class,</p>
 <pre class="r"><code>class(nc_geom)</code></pre>
 <pre><code>## [1] &quot;sfc_MULTIPOLYGON&quot; &quot;sfc&quot;</code></pre>
@@ -1034,8 +1036,7 @@ plot(i, add = TRUE, col = &#39;green&#39;, lwd = 2)</code></pre>
 <div id="non-valid-geometries" class="section level2">
 <h2>Non-valid geometries</h2>
 <p>Invalid geometries are for instance self-intersecting lines (left) or polygons with slivers (middle) or self-intersections (right).</p>
-<pre class="r"><code>library(sf)
-x1 &lt;- st_linestring(cbind(c(0,1,0,1),c(0,1,1,0)))
+<pre class="r"><code>x1 &lt;- st_linestring(cbind(c(0,1,0,1),c(0,1,1,0)))
 x2 &lt;- st_polygon(list(cbind(c(0,1,1,1,0,0),c(0,0,1,0.6,1,0))))
 x3 &lt;- st_polygon(list(cbind(c(0,1,0,1,0),c(0,1,1,0,0))))
 st_is_simple(st_sfc(x1))</code></pre>
@@ -1141,164 +1142,22 @@ st_agr(meuse_sf)</code></pre>
 <li>list the implicit assumptions made when retrieving attribute values at points inside a polygon when <code>relation_to_geometry</code> is missing.</li>
 <li>decide what to do with attributes when a geometry is split: do nothing in case the attribute is constant, give an error or warning in case it is an aggregate, change the <code>relation_to_geometry</code> to <em>constant</em> in case it was <em>identity</em>.</li>
 </ul>
-<p>This vignetted describes how simple feature geometries can be manipulated, where manipulations include</p>
+<div id="simple-feature-geometries-manipulation" class="section level3">
+<h3>Simple feature geometries manipulation</h3>
+<p>Simple features can be manipulated including:</p>
 <ul>
 <li>type transformations (e.g., <code>POLYGON</code> to <code>MULTIPOLYGON</code>)</li>
 <li>affine transformation (shift, scale, rotate)</li>
 <li>transformation into a different coordinate reference system</li>
 <li>geometrical operations, e.g. finding the centroid of a polygon, detecting whether pairs of feature geometries intersect, or find the union (overlap) of two polygons.</li>
 </ul>
-<div id="type-transformations" class="section level2">
-<h2>Type transformations</h2>
-<p>This sections discusses how simple feature geometries of one type can be converted to another. For converting lines to polygons, see also <code>st_polygonize</code> below.</p>
-<div id="for-single-geometries" class="section level3">
-<h3>For single geometries</h3>
-<p>For single geometries, <code>st_cast</code> will</p>
-<ol style="list-style-type: decimal">
-<li>convert from XX to MULTIXX, e.g. <code>LINESTRING</code> to <code>MULTILINESTRING</code></li>
-<li>convert from MULTIXX to XX if MULTIXX has length one (else, it will still convert but warn about loss of information)</li>
-<li>convert from MULTIXX to XX if MULTIXX does not have length one, but it will warn about the loss of information</li>
-<li>convert GEOMETRYCOLLECTION of length one to its component if</li>
-</ol>
-<p>Examples of the first three types are</p>
-<pre class="r"><code>library(sf)
-suppressPackageStartupMessages(library(dplyr))
-st_point(c(1,1)) %&gt;% st_cast(&quot;MULTIPOINT&quot;)</code></pre>
-<pre><code>## MULTIPOINT (1 1)</code></pre>
-<pre class="r"><code>st_multipoint(rbind(c(1,1))) %&gt;% st_cast(&quot;POINT&quot;)</code></pre>
-<pre><code>## Warning in st_cast.MULTIPOINT(., &quot;POINT&quot;): point from first coordinate only</code></pre>
-<pre><code>## POINT (1 1)</code></pre>
-<pre class="r"><code>st_multipoint(rbind(c(1,1),c(2,2))) %&gt;% st_cast(&quot;POINT&quot;)</code></pre>
-<pre><code>## Warning in st_cast.MULTIPOINT(., &quot;POINT&quot;): point from first coordinate only</code></pre>
-<pre><code>## POINT (1 1)</code></pre>
-<p>Examples of the fourth type are</p>
-<pre class="r"><code>st_geometrycollection(list(st_point(c(1,1)))) %&gt;% st_cast(&quot;POINT&quot;)</code></pre>
-<pre><code>## POINT (1 1)</code></pre>
-</div>
-<div id="for-collections-of-geometry-sfc-and-simple-feature-collections-sf" class="section level3">
-<h3>For collections of geometry (sfc) and simple feature collections (sf)</h3>
-<p>It should be noted here that when reading geometries using <code>st_read</code>, the <code>type</code> argument can be used to control the class of the returned geometry:</p>
-<pre class="r"><code>shp = system.file(&quot;shape/nc.shp&quot;, package=&quot;sf&quot;)
-class(st_geometry(st_read(shp, quiet = TRUE)))</code></pre>
-<pre><code>## [1] &quot;sfc_MULTIPOLYGON&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>class(st_geometry(st_read(shp, quiet = TRUE, type = 3)))</code></pre>
-<pre><code>## [1] &quot;sfc_POLYGON&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>class(st_geometry(st_read(shp, quiet = TRUE, type = 1)))</code></pre>
-<pre><code>## [1] &quot;sfc_GEOMETRY&quot; &quot;sfc&quot;</code></pre>
-<p>This option is handled by the GDAL library; in case of failure to convert to the target type, the original types are returned, which in this case is a mix of <code>POLYGON</code> and <code>MULTIPOLYGON</code> geometries, leading to a <code>GEOMETRY</code> as superclass. When we try to read multipolygons as polygons, all secondary rings of multipolygons get lost.</p>
-<p>When functions return objects with mixed geometry type (<code>GEOMETRY</code>), downstream functions such as <code>st_write</code> may have difficulty handling them. For some of these cases, <code>st_cast</code> may help modifying their type. For sets of geometry objects (<code>sfc</code>) and simple feature sets (<code>sf),</code>st_cast` can be used by specifying the target type, or without specifying it.</p>
-<pre class="r"><code>ls &lt;- st_linestring(rbind(c(0,0),c(1,1),c(2,1)))
-mls &lt;- st_multilinestring(list(rbind(c(2,2),c(1,3)), rbind(c(0,0),c(1,1),c(2,1))))
-(sfc &lt;- st_sfc(ls,mls))</code></pre>
-<pre><code>## Geometry set for 2 features 
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: 0 ymin: 0 xmax: 2 ymax: 3
-## epsg (SRID):    NA
-## proj4string:    NA</code></pre>
-<pre><code>## LINESTRING (0 0, 1 1, 2 1)</code></pre>
-<pre><code>## MULTILINESTRING ((2 2, 1 3), (0 0, 1 1, 2 1))</code></pre>
-<pre class="r"><code>st_cast(sfc, &quot;MULTILINESTRING&quot;)</code></pre>
-<pre><code>## Geometry set for 2 features 
-## geometry type:  MULTILINESTRING
-## dimension:      XY
-## bbox:           xmin: 0 ymin: 0 xmax: 2 ymax: 3
-## epsg (SRID):    NA
-## proj4string:    NA</code></pre>
-<pre><code>## MULTILINESTRING ((0 0, 1 1, 2 1))
-## MULTILINESTRING ((2 2, 1 3), (0 0, 1 1, 2 1))</code></pre>
-<pre class="r"><code>sf &lt;- st_sf(a = 5:4, geom = sfc)
-st_cast(sf, &quot;MULTILINESTRING&quot;)</code></pre>
-<pre><code>## Simple feature collection with 2 features and 1 field
-## geometry type:  MULTILINESTRING
-## dimension:      XY
-## bbox:           xmin: 0 ymin: 0 xmax: 2 ymax: 3
-## epsg (SRID):    NA
-## proj4string:    NA
-##   a                       geometry
-## 1 5 MULTILINESTRING ((0 0, 1 1,...
-## 2 4 MULTILINESTRING ((2 2, 1 3)...</code></pre>
-<p>When no target type is given, <code>st_cast</code> tries to be smart for two cases:</p>
-<ol style="list-style-type: decimal">
-<li>if the class of the object is <code>GEOMETRY</code>, and all elements are of identical type, and</li>
-<li>if all elements are length-one <code>GEOMETRYCOLLECTION</code> objects, in which case <code>GEOMETRYCOLLECTION</code> objects are replaced by their content (which may be a <code>GEOMETRY</code> mix again)</li>
-</ol>
-<p>Examples are:</p>
-<pre class="r"><code>ls &lt;- st_linestring(rbind(c(0,0),c(1,1),c(2,1)))
-mls1 &lt;- st_multilinestring(list(rbind(c(2,2),c(1,3)), rbind(c(0,0),c(1,1),c(2,1))))
-mls2 &lt;- st_multilinestring(list(rbind(c(4,4),c(4,3)), rbind(c(2,2),c(2,1),c(3,1))))
-(sfc &lt;- st_sfc(ls,mls1,mls2))</code></pre>
-<pre><code>## Geometry set for 3 features 
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: 0 ymin: 0 xmax: 4 ymax: 4
-## epsg (SRID):    NA
-## proj4string:    NA</code></pre>
-<pre><code>## LINESTRING (0 0, 1 1, 2 1)</code></pre>
-<pre><code>## MULTILINESTRING ((2 2, 1 3), (0 0, 1 1, 2 1))</code></pre>
-<pre><code>## MULTILINESTRING ((4 4, 4 3), (2 2, 2 1, 3 1))</code></pre>
-<pre class="r"><code>class(sfc[2:3])</code></pre>
-<pre><code>## [1] &quot;sfc_MULTILINESTRING&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>class(st_cast(sfc[2:3]))</code></pre>
-<pre><code>## [1] &quot;sfc_MULTILINESTRING&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>gc1 &lt;- st_geometrycollection(list(st_linestring(rbind(c(0,0),c(1,1),c(2,1)))))
-gc2 &lt;- st_geometrycollection(list(st_multilinestring(list(rbind(c(2,2),c(1,3)), rbind(c(0,0),c(1,1),c(2,1))))))
-gc3 &lt;- st_geometrycollection(list(st_multilinestring(list(rbind(c(4,4),c(4,3)), rbind(c(2,2),c(2,1),c(3,1))))))
-(sfc &lt;- st_sfc(gc1,gc2,gc3))</code></pre>
-<pre><code>## Geometry set for 3 features 
-## geometry type:  GEOMETRYCOLLECTION
-## dimension:      XY
-## bbox:           xmin: 0 ymin: 0 xmax: 4 ymax: 4
-## epsg (SRID):    NA
-## proj4string:    NA</code></pre>
-<pre><code>## GEOMETRYCOLLECTION (LINESTRING (0 0, 1 1, 2 1))</code></pre>
-<pre><code>## GEOMETRYCOLLECTION (MULTILINESTRING ((2 2, 1 3)...</code></pre>
-<pre><code>## GEOMETRYCOLLECTION (MULTILINESTRING ((4 4, 4 3)...</code></pre>
-<pre class="r"><code>class(st_cast(sfc))</code></pre>
-<pre><code>## [1] &quot;sfc_GEOMETRY&quot; &quot;sfc&quot;</code></pre>
-<pre class="r"><code>class(st_cast(st_cast(sfc), &quot;MULTILINESTRING&quot;))</code></pre>
-<pre><code>## [1] &quot;sfc_MULTILINESTRING&quot; &quot;sfc&quot;</code></pre>
-</div>
-</div>
-<div id="affine-transformations" class="section level2">
-<h2>Affine transformations</h2>
-<p>Affine transformations are transformations of the type <span class="math inline"><em>f</em>(<em>x</em>)=<em>x</em><em>A</em> + <em>b</em></span>, where matrix <span class="math inline"><em>A</em></span> is used to flatten, scale and/or rotate, and <span class="math inline"><em>b</em></span> to translate <span class="math inline"><em>x</em></span>. Low-level examples are:</p>
-<pre class="r"><code>(p = st_point(c(0,2)))</code></pre>
-<pre><code>## POINT (0 2)</code></pre>
-<pre class="r"><code>p + 1</code></pre>
-<pre><code>## POINT (1 3)</code></pre>
-<pre class="r"><code>p + c(1,2)</code></pre>
-<pre><code>## POINT (1 4)</code></pre>
-<pre class="r"><code>p + p</code></pre>
-<pre><code>## POINT (0 4)</code></pre>
-<pre class="r"><code>p * p</code></pre>
-<pre><code>## POINT (0 4)</code></pre>
-<pre class="r"><code>rot = function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
-p * rot(pi/4)</code></pre>
-<pre><code>## POINT (1.41421356237309 1.4142135623731)</code></pre>
-<pre class="r"><code>p * rot(pi/2)</code></pre>
-<pre><code>## POINT (2 1.22464679914735e-16)</code></pre>
-<pre class="r"><code>p * rot(pi)</code></pre>
-<pre><code>## POINT (2.44929359829471e-16 -2)</code></pre>
-<p>Just to make the point, we can for instance rotate the counties of North Carolina 90 degrees clockwise around their centroid, and shrink them to 75% of their original size:</p>
-<pre class="r"><code>nc = st_read(system.file(&quot;shape/nc.shp&quot;, package=&quot;sf&quot;), quiet = TRUE)
-ncg = st_geometry(nc)
-plot(ncg, border = &#39;grey&#39;)
-cntrd = st_centroid(ncg)</code></pre>
-<pre><code>## Warning in st_centroid.sfc(ncg): st_centroid does not give correct
-## centroids for longitude/latitude data</code></pre>
-<pre class="r"><code>ncg2 = (ncg - cntrd) * rot(pi/2) * .75 + cntrd
-plot(ncg2, add = TRUE)
-plot(cntrd, col = &#39;red&#39;, add = TRUE, cex = .5)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-62-1.png" width="2100" /></p>
 </div>
 <div id="coordinate-reference-systems-conversion-and-transformation" class="section level2">
 <h2>Coordinate reference systems conversion and transformation</h2>
 <div id="getting-and-setting-coordinate-reference-systems-of-sf-objects" class="section level3">
 <h3>Getting and setting coordinate reference systems of sf objects</h3>
 <p>The coordinate reference system of objects of class <code>sf</code> or <code>sfc</code> is obtained by <code>st_crs</code>, and replaced by <code>st_crs&lt;-</code>:</p>
-<pre class="r"><code>library(sf)
-geom = st_sfc(st_point(c(0,1)), st_point(c(11,12)))
+<pre class="r"><code>geom = st_sfc(st_point(c(0,1)), st_point(c(11,12)))
 s = st_sf(a = 15:16, geometry = geom)
 st_crs(s)</code></pre>
 <pre><code>## $epsg
@@ -1374,7 +1233,7 @@ a3 = b0 * 0.5 + c(2, -0.5)
 y = st_sfc(a0,a1,a2,a3)
 plot(x, border = &#39;red&#39;)
 plot(y, border = &#39;green&#39;, add = TRUE)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-68-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-61-1.png" width="2100" /></p>
 <div id="unary-operations" class="section level3">
 <h3>Unary operations</h3>
 <p><code>st_is_valid</code> returns whether polygon geometries are topologically valid:</p>
@@ -1413,7 +1272,8 @@ st_is_simple(s)</code></pre>
 ## [1,] &quot;212FF1FF2&quot; &quot;FF2FF1212&quot; &quot;212101212&quot; &quot;FF2FF1212&quot;
 ## [2,] &quot;FF2FF1212&quot; &quot;212101212&quot; &quot;212101212&quot; &quot;FF2FF1212&quot;
 ## [3,] &quot;FF2FF1212&quot; &quot;FF2FF1212&quot; &quot;212101212&quot; &quot;FF2FF1212&quot;</code></pre>
-<p>element [i,j] of this matrix has nine characters, refering to relationship between x[i] and y[j], encoded as <span class="math inline"><em>I</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>I</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>I</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub></span> where <span class="math inline"><em>I</em></span> refers to interior, <span class="math inline"><em>B</em></span> to boundary, and <span class="math inline"><em>B</em></span> to exterior, and e.g. <span class="math inline"><em>B</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub></span> the dimensionality of the intersection of the the boundary <span class="math inline"><em>B</em><sub><em>x</em></sub></span> of x[i] and the interior <span class="math inline"><em>I</em><sub><em>y</em></sub></span> of y[j], which is one of {0,1,2,F}, indicating zero-, one-, two-dimension intersection, and (F) no intersection, respectively.</p>
+<p>element [i,j] of this matrix has nine characters, refering to relationship between x[i] and y[j], encoded as <span class="math inline"><em>I</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>I</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>I</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>B</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub>, <em>E</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub></span> where <span class="math inline"><em>I</em></span> refers to interior, <span class="math inline"><em>B</em></span> to boundary, and <span class="math inline"><em>E</em></span> to exterior, and e.g. <span class="math inline"><em>B</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub></span> the dimensionality of the intersection of the the boundary <span class="math inline"><em>B</em><sub><em>x</em></sub></span> of x[i] and the interior <span class="math inline"><em>I</em><sub><em>y</em></sub></span> of y[j], which is one of {0,1,2,F}, indicating zero-, one-, two-dimension intersection, and (F) no intersection, respectively.</p>
+<p><img src="04_assets/DE9-IM.png" alt="DE9-IM" /> Reading from left-to-right and top-to-bottom, the DE-9IM(a,b) string code is ‘212101212’, the compact representation of <span class="math inline"><em>I</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub> = 2, <em>I</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub> = 1, <em>I</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub> = 2, <em>B</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub> = 1, <em>B</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub> = 0, <em>B</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub> = 1, <em>E</em><sub><em>x</em></sub><em>I</em><sub><em>y</em></sub> = 2, <em>E</em><sub><em>x</em></sub><em>B</em><sub><em>y</em></sub> = 1, <em>E</em><sub><em>x</em></sub><em>E</em><sub><em>y</em></sub> = 2</span>. Figure from <a href="https://en.wikipedia.org/wiki/DE-9IM#Illustration">here</a>.</p>
 </div>
 <div id="binary-logical-operations" class="section level3">
 <h3>Binary logical operations:</h3>
@@ -1501,32 +1361,32 @@ st_is_simple(s)</code></pre>
 <h3>Operations returning a geometry</h3>
 <pre class="r"><code>u = st_union(x)
 plot(u)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-77-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-70-1.png" width="2100" /></p>
 <pre class="r"><code>par(mfrow=c(1,2), mar = rep(0,4))
 plot(st_buffer(u, 0.2))
 plot(u, border = &#39;red&#39;, add = TRUE)
 plot(st_buffer(u, 0.2), border = &#39;grey&#39;)
 plot(u, border = &#39;red&#39;, add = TRUE)
 plot(st_buffer(u, -0.2), add = TRUE)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-78-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-71-1.png" width="2100" /></p>
 <pre class="r"><code>plot(st_boundary(x))</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-79-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-72-1.png" width="2100" /></p>
 <pre class="r"><code>par(mfrow = c(1:2))
 plot(st_convex_hull(x))
 plot(st_convex_hull(u))</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-80-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-73-1.png" width="2100" /></p>
 <pre class="r"><code>par(mfrow = c(1,1))</code></pre>
 <pre class="r"><code>par(mfrow=c(1,2))
 plot(x)
 plot(st_centroid(x), add = TRUE, col = &#39;red&#39;)
 plot(x)
 plot(st_centroid(u), add = TRUE, col = &#39;red&#39;)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-81-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-74-1.png" width="2100" /></p>
 <p>The intersection of two geometries is the geometry covered by both; it is obtained by <code>st_intersection</code>:</p>
 <pre class="r"><code>plot(x)
 plot(y, add = TRUE)
 plot(st_intersection(st_union(x),st_union(y)), add = TRUE, col = &#39;red&#39;)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-82-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-75-1.png" width="2100" /></p>
 <p>To get <em>everything but</em> the intersection, use <code>st_difference</code> or st_sym_difference`:</p>
 <pre class="r"><code>par(mfrow=c(2,2), mar = c(0,0,1,0))
 plot(x, col = &#39;#ff333388&#39;); 
@@ -1541,7 +1401,7 @@ title(&quot;difference(y,x)&quot;)
 plot(x, border = &#39;grey&#39;)
 plot(st_sym_difference(st_union(y),st_union(x)), col = &#39;lightblue&#39;, add = TRUE)
 title(&quot;sym_difference(x,y)&quot;)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-83-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-76-1.png" width="2100" /></p>
 <p>Function <code>st_segmentize</code> adds points to straight line sections of a lines or polygon object:</p>
 <pre class="r"><code>par(mfrow=c(1,3),mar=c(1,1,0,0))
 pts = rbind(c(0,0),c(1,0),c(2,1),c(3,1))
@@ -1556,7 +1416,7 @@ pol = st_polygon(list(rbind(c(0,0),c(1,0),c(1,1),c(0,1),c(0,0))))
 pol.seg = st_segmentize(pol, 0.3)
 plot(pol.seg, col = &#39;grey&#39;)
 points(pol.seg[[1]])</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-84-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-77-1.png" width="2100" /></p>
 <p>Function <code>st_polygonize</code> polygonizes a multilinestring, as far as the points form a closed polygon:</p>
 <pre class="r"><code>par(mfrow=c(1,2),mar=c(0,0,1,0))
 mls = st_multilinestring(list(matrix(c(0,0,0,1,1,1,0,0),,2,byrow=TRUE)))
@@ -1565,7 +1425,7 @@ plot(mls, col = &#39;grey&#39;)
 title(&quot;multilinestring&quot;)
 plot(x, col = &#39;grey&#39;)
 title(&quot;polygon&quot;)</code></pre>
-<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-85-1.png" width="2100" /></p>
+<p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-78-1.png" width="2100" /></p>
 <p>Further reading:</p>
 <ol style="list-style-type: decimal">
 <li>S. Scheider, B. Gräler, E. Pebesma, C. Stasch, 2016. Modelling spatio-temporal information generation. Int J of Geographic Information Science, 30 (10), 1980-2008. (<a href="http://pebesma.staff.ifgi.de/generativealgebra.pdf">pdf</a>)</li>
