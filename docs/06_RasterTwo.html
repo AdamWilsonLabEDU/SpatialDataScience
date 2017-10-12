@@ -839,9 +839,13 @@ gplot(regclass,max=1e5)+
 <h3>Load population data</h3>
 <p>Use <code>raster()</code> to load a raster from disk.</p>
 <pre class="r"><code>pop_global=raster(file.path(datadir,&quot;gpw-v4-population-density-2015/gpw-v4-population-density_2015.tif&quot;))</code></pre>
-<pre class="r"><code>data(bangladesh_population)
+<pre class="r"><code>data(bangladesh_population)</code></pre>
+<p>If the data package isn’t working, download directly from github.</p>
+<pre class="r"><code>tf=tempfile()
+download.file(&quot;https://github.com/adammwilson/DataScienceData/raw/master/data/bangladesh_population.rda&quot;,destfile = tf)
+load(tf)</code></pre>
+<pre class="r"><code>## make a virtual copy with a shorter name for convenience
 
-## make a virtual copy with a shorter name for convenience
 pop=bangladesh_population</code></pre>
 </div>
 <div id="explore-population-data" class="section level3">
@@ -850,7 +854,7 @@ pop=bangladesh_population</code></pre>
   scale_fill_gradientn(colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
                        trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-37-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png" width="2100" /></p>
 </div>
 <div id="resample-to-dem" class="section level3">
 <h3>Resample to DEM</h3>
@@ -896,7 +900,7 @@ gplot(pop_fine,max=1e5)+geom_tile(aes(fill=value))+
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e5)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-39-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-41-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-2">Your turn</h2>
 <p>How many people are likely to be displaced?</p>
@@ -920,7 +924,7 @@ cellStats(floodpop2,sum)</code></pre>
     colours=c(&quot;grey90&quot;,&quot;grey60&quot;,&quot;darkblue&quot;,&quot;blue&quot;,&quot;red&quot;),
     trans=&quot;log1p&quot;,breaks= log_breaks(n = 5, base = 10)(c(1, 1e4)))+
   coord_equal()</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-41-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-43-1.png" width="2100" /></p>
 </div>
 </div>
 <p>Or resample elevation to resolution of population: 1. First aggregate to approximate spatial resolution 2. Resample to align grids perfectly</p>
@@ -944,11 +948,11 @@ cellStats(floodpop_coarse,sum)</code></pre>
 <pre class="r"><code>popcenter=pop&gt;5000
 popcenter=mask(popcenter,popcenter,maskvalue=0)
 plot(popcenter,col=&quot;red&quot;,legend=F)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-44-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-46-1.png" width="2100" /></p>
 <p>In meters if the RasterLayer is not projected (<code>+proj=longlat</code>) and in map units (typically also meters) when it is projected.</p>
 <pre class="r"><code>popcenterdist=distance(popcenter)
 plot(popcenterdist)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-45-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-47-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-3">Your Turn</h2>
 <p>Will sea level rise affect any major population centers?</p>
@@ -971,7 +975,7 @@ plot(flood2);plot(floodpop2,add=T,col=&quot;red&quot;,legend=F);
 bgd%&gt;%
   gSimplify(0.01)%&gt;%
   plot(add=T)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-46-1.png" width="2100" /></p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-48-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -986,7 +990,7 @@ gplot(dem,max=1e5)+geom_tile(aes(fill=value))+
   coord_cartesian(ylim=c(21.5,24),xlim=c(90,91))+
   geom_path(data=fortify(bgd),aes(x=long,y=lat,group=group),size=.5)+
   geom_path(data=fortify(vpop),aes(x=long,y=lat,group=group),size=1,col=&quot;green&quot;)</code></pre>
-<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-47-1.png" width="2100" /> Warning: very slow on large rasters…</p>
+<p><img src="06_RasterTwo_files/figure-html/unnamed-chunk-49-1.png" width="2100" /> Warning: very slow on large rasters…</p>
 </div>
 <div id="d-visualization" class="section level2">
 <h2>3D Visualization</h2>

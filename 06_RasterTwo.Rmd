@@ -475,8 +475,19 @@ pop_global=raster(file.path(datadir,"gpw-v4-population-density-2015/gpw-v4-popul
 
 ```{r}
 data(bangladesh_population)
+```
 
+If the data package isn't working, download directly from github.
+
+```{r, eval=F}
+tf=tempfile()
+download.file("https://github.com/adammwilson/DataScienceData/raw/master/data/bangladesh_population.rda",destfile = tf)
+load(tf)
+```
+
+```{r}
 ## make a virtual copy with a shorter name for convenience
+
 pop=bangladesh_population
 ```
 

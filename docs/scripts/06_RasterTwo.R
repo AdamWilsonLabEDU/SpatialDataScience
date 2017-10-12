@@ -445,7 +445,18 @@ gplot(dem,max=1e5)+
 ## ------------------------------------------------------------------------
 data(bangladesh_population)
 
+#' 
+#' If the data package isn't working, download directly from github.
+#' 
+## ---- eval=F-------------------------------------------------------------
+## tf=tempfile()
+## download.file("https://github.com/adammwilson/DataScienceData/raw/master/data/bangladesh_population.rda",destfile = tf)
+## load(tf)
+
+#' 
+## ------------------------------------------------------------------------
 ## make a virtual copy with a shorter name for convenience
+
 pop=bangladesh_population
 
 #' 
