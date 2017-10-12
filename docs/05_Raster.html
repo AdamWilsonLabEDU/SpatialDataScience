@@ -501,7 +501,7 @@ Show Solution
   filter(NAME==&quot;Tunisia&quot;)</code></pre>
 <pre><code>##   ISO3    NAME
 ## 1  TUN Tunisia</code></pre>
-<pre class="r"><code>country=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=1)
+<pre class="r"><code>country=getData(&#39;GADM&#39;, country=&#39;TUN&#39;, level=2)
 
 country%&gt;% 
   gSimplify(0.01)%&gt;%
@@ -671,7 +671,7 @@ plot(x)</code></pre>
 <h2>Warping rasters</h2>
 <p>Use <code>projectRaster()</code> to <em>warp</em> to a different projection.</p>
 <p><code>method=</code> <code>ngb</code> (for categorical) or <code>bilinear</code> (continuous)</p>
-<pre class="r"><code>r2=projectRaster(r,crs=&quot;+proj=sinu +lon_0=0&quot;,method = )</code></pre>
+<pre class="r"><code>r2=projectRaster(r,crs=&quot;+proj=sinu +lon_0=0&quot;,method = &quot;ngb&quot;)</code></pre>
 <pre><code>## Warning in rgdal::rawTransform(projto_int, projfrom, nrow(xy), xy[, 1], :
 ## 48 projected point(s) not finite</code></pre>
 <pre class="r"><code>par(mfrow=c(1,2));plot(r);plot(r2)</code></pre>
@@ -874,10 +874,17 @@ rf_min &lt;- focal(r1, w=matrix(1,11,11), fun=min)
 rf_max &lt;- focal(r1, w=matrix(1,11,11), fun=max)
 rf_range=rf_max-rf_min
 
-## or just use the range function
-rf_range2 &lt;- focal(r1, w=matrix(1,11,11), fun=range)
-plot(rf_range2)</code></pre>
+## or do it all at once
+range2=function(x,na.rm=F) {
+  max(x,na.rm)-min(x,na.rm)
+}
+
+rf_range2 &lt;- focal(r1, w=matrix(1,11,11), fun=range2)
+
+plot(rf_range)</code></pre>
 <p><img src="05_Raster_files/figure-html/unnamed-chunk-38-1.png" width="2100" /></p>
+<pre class="r"><code>plot(rf_range2)</code></pre>
+<p><img src="05_Raster_files/figure-html/unnamed-chunk-38-2.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-3">Your turn</h2>
 <p>Plot the focal standard deviation of <code>r1</code> over a 3x3 window.</p>

@@ -244,7 +244,7 @@ projection(r)
 #' `method=` `ngb` (for categorical) or `bilinear` (continuous)
 #' 
 ## ------------------------------------------------------------------------
-r2=projectRaster(r,crs="+proj=sinu +lon_0=0",method = )
+r2=projectRaster(r,crs="+proj=sinu +lon_0=0",method = "ngb")
 
 par(mfrow=c(1,2));plot(r);plot(r2)
 
@@ -408,8 +408,14 @@ rf_min <- focal(r1, w=matrix(1,11,11), fun=min)
 rf_max <- focal(r1, w=matrix(1,11,11), fun=max)
 rf_range=rf_max-rf_min
 
-## or just use the range function
-rf_range2 <- focal(r1, w=matrix(1,11,11), fun=range)
+## or do it all at once
+range2=function(x,na.rm=F) {
+  max(x,na.rm)-min(x,na.rm)
+}
+
+rf_range2 <- focal(r1, w=matrix(1,11,11), fun=range2)
+
+plot(rf_range)
 plot(rf_range2)
 
 #' 

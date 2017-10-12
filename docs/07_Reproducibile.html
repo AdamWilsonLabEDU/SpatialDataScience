@@ -553,9 +553,11 @@ div.tocify {
 </blockquote>
 <p>For example… Let’s calculate the current time in R.</p>
 <pre class="r"><code>time &lt;- format(Sys.time(), &quot;%a %d %b %X %Y&quot;)</code></pre>
+<pre><code>## Warning in as.POSIXlt.POSIXct(x, tz): unknown timezone &#39;default/America/
+## New_York&#39;</code></pre>
 <p>The text and R code are interwoven in the output:</p>
 <p>The time is <code>`r time`</code></p>
-<p>The time is Thu 28 Sep 09:21:22 2017</p>
+<p>The time is Thu 12 Oct 13:25:37 2017</p>
 </div>
 <div id="literate-programming-for-and-against" class="section level2 columns-2">
 <h2>Literate programming: for and against</h2>
@@ -729,8 +731,9 @@ div.tocify {
 CODE HERE
 #```</code></pre>
 <p>Load these packages in a code chunk (you may need to install some packages):</p>
-<pre class="r"><code>library(dplyr)
-library(ggplot2)
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.2</code></pre>
+<pre class="r"><code>library(ggplot2)
 library(maps)
 library(spocc)</code></pre>
 <blockquote>
