@@ -397,80 +397,75 @@ div.tocify {
 
 
 <div>
-<iframe src="07_assets/Reproducible_Presentation.html" width="100%" height="400px">
+<iframe src="07_assets/Reproducible_presentation.html" width="100%" height="400px">
 </iframe>
 </div>
-<p><a href="scripts/07_Reproducibile.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
 <p>Cheatsheet:</p>
 <p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
 <p><small><small><small><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf</a></small></small></small></p>
 </div>
-<div id="create-new-file" class="section level2">
-<h2>Create new file</h2>
-<p><strong>File -&gt; New File -&gt; RMarkdown -&gt; Document -&gt; HTML</strong></p>
-<p><img src="07_assets/rmarkdownwindow.png" alt="alt text" width="500"></p>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>Today we will make a copy of a template for your project, edit it, and ‘push’ it back up to your github account. You can check out the template code at <a href="https://github.com/AdamWilsonLab/RDataScience_Project" class="uri">https://github.com/AdamWilsonLab/RDataScience_Project</a> and the template website at []</p>
 </div>
-<div id="step-1-load-packages" class="section level2">
-<h2>Step 1: Load packages</h2>
-<p>All R code to be run must be in a <em>code chunk</em> like this:</p>
-<pre class="r"><code>#```{r,eval=F}
-CODE HERE
-#```</code></pre>
-<p>Load these packages in a code chunk (you may need to install some packages):</p>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.4.2</code></pre>
-<pre class="r"><code>library(ggplot2)
-library(maps)
-library(spocc)</code></pre>
-<blockquote>
-<p>Do you think you should put <code>install.packages()</code> calls in your script?</p>
-</blockquote>
+<div id="fork-the-repository-to-create-a-linked-copy-in-your-github-account." class="section level2">
+<h2><code>Fork</code> the repository to create a linked copy in your GitHub account.</h2>
+<p>Steps:</p>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://github.com/AdamWilsonLab/RDataScience_Project" class="uri">https://github.com/AdamWilsonLab/RDataScience_Project</a></li>
+<li>Log into Github using your account (or create a new account)</li>
+<li>Click <code>fork</code> near the upper right corner. This will create a copy in your GitHub Account. <a href="https://help.github.com/articles/fork-a-repo/">See here for more details</a></li>
+<li>After it completes, click the green button “Clone or Download” and copy the URL.</li>
+</ol>
 </div>
-<div id="step-2-load-data" class="section level2">
-<h2>Step 2: Load data</h2>
-<p>Now use the <code>occ()</code> function to download all the <em>occurrence</em> records for the American robin (<em>Turdus migratorius</em>) from the <a href="gbif.org">Global Biodiversity Information Facility</a>.</p>
-<p><img src="07_assets/Turdus-migratorius-002.jpg" alt="alt text" width="200"></p>
-<p><small><small><small>Licensed under CC BY-SA 3.0 via <a href="https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg">Wikimedia Commons</a></small></small></small></p>
-<pre class="r"><code>## define which species to query
-sp=&#39;Turdus migratorius&#39;
-
-## run the query and convert to data.frame()
-d = occ(query=sp, from=&#39;ebird&#39;,limit = 1000) %&gt;% occ2df()</code></pre>
-<p>This can take a few seconds.</p>
+<div id="clone-the-project-template-to-your-computer" class="section level2">
+<h2>Clone the project template to your computer</h2>
+<ol style="list-style-type: decimal">
+<li><strong>File -&gt; New Project -&gt; Version Control -&gt; Git</strong></li>
+</ol>
+<ul>
+<li>URL: paste from above. It will be similar to <code>https://github.com/AdamWilsonLab/RDataScience_Project.git</code> but with your username.</li>
+<li>Project name: you can rename it if you want or keep the default: <code>RDataScience_Project</code></li>
+<li>Project as subdirectory of <code>~/Documents/repos</code> or wherever you want to put it.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>It should download the project to your computer then open it to the <code>index.Rmd</code> file.</li>
+</ol>
 </div>
-<div id="step-3-map-it" class="section level2">
-<h2>Step 3: Map it</h2>
-<pre class="r"><code># Load coastline
-map=map_data(&quot;world&quot;)
-
-ggplot(d,aes(x=longitude,y=latitude))+
-  geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
-  geom_point(col=&quot;red&quot;)+
-  coord_equal()</code></pre>
-<pre><code>## Warning: Ignoring unknown aesthetics: order</code></pre>
-<p><img src="07_Reproducibile_files/figure-html/unnamed-chunk-5-1.png" width="1800" /></p>
+<div id="play-with-the-project-template" class="section level2">
+<h2>Play with the project template</h2>
+<ol style="list-style-type: decimal">
+<li>Select the <code>Build</code> tab in the upper right corner of RStudio, then click <code>Build Website</code></li>
+<li>Check out the website settings in <code>_site.yml</code>. These adjust the appearance, title, etc.</li>
+<li>Check out <code>_navbar.yml</code>. These settings define the menus, etc. If you only have one page you probably won’t need to adjust this information.</li>
+</ol>
 </div>
-<div id="step-4" class="section level2">
-<h2>Step 4:</h2>
-<p>Update the YAML header to keep the markdown file</p>
-<p>From this:</p>
-<pre class="r"><code>title: &quot;Untitled&quot;
-author: &quot;Adam M. Wilson&quot;
-date: &quot;October 31, 2016&quot;
-output: html_document</code></pre>
-<p>To this:</p>
-<pre class="r"><code>title: &quot;Demo&quot;
-author: &quot;Adam M. Wilson&quot;
-date: &quot;October 31, 2016&quot;
-output: 
-  html_document:
-      keep_md: true</code></pre>
-<p>And click <code>knit HTML</code> to generate the output</p>
+<div id="push-to-github-and-enable-the-website" class="section level2">
+<h2>Push to GitHub and enable the website</h2>
+<ol style="list-style-type: decimal">
+<li>Select the <code>Git</code> tab in the upper right and notice how it keeps track of any changes.</li>
+</ol>
+<ul>
+<li>To ‘commit’ the files (which is like saving them), check the files you want to commit (or all of them) and click <code>commit</code>.</li>
+<li>Type in a brief message about the changes you made. Maybe something like “First update to my project materials”</li>
+<li>Click <code>Commit</code>, then <code>close</code>.</li>
+<li>Click <code>Push</code> to push it back up to GitHub.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Now go to your repository website (similar to <code>https://github.com/AdamWilsonLab/RDataScience_Project</code> in your account)</li>
+<li>Click settings in the upper right, then scroll down to <code>GitHub Pages</code> section</li>
+</ol>
+<ul>
+<li>Source: <code>master branch /docs folder</code></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Go to your new project webpage (URL will be similar to <a href="http://adamwilson.us/RDataScience_Project/" class="uri">http://adamwilson.us/RDataScience_Project/</a>)</li>
+</ol>
 </div>
-<div id="step-5-explore-markdown-functions" class="section level2">
-<h2>Step 5: Explore markdown functions</h2>
+<div id="explore-markdown-functions" class="section level2">
+<h2>Explore markdown functions</h2>
 <ol style="list-style-type: decimal">
 <li>Use the Cheatsheet to add sections and some example narrative.<br />
 </li>
@@ -479,6 +474,9 @@ output:
 <li>Check out the <code>kable()</code> function for tables (e.g. <code>kable(head(d))</code>)</li>
 </ol>
 <p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
+<blockquote>
+<p>Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.<small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small></p>
+</blockquote>
 </div>
 
 <!-- Google Analytics -->

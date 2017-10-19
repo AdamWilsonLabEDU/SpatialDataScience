@@ -4,11 +4,8 @@
 #' 
 #' 
 #' <div>
-#' <iframe src="07_assets/Reproducible_Presentation.html" width=100% height=400px></iframe>
+#' <iframe src="07_assets/Reproducible_presentation.html" width=100% height=400px></iframe>
 #' </div>
-#' 
-#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
-#' 
 #' 
 #' ## R Markdown
 #' 
@@ -18,86 +15,44 @@
 #' 
 #' <small><small><small>[https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)</small></small></small>
 #' 
+#' ## Overview
+#' Today we will make a copy of a template for your project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at []
 #' 
-#' ## Create new file
-#' **File -> New File -> RMarkdown -> Document -> HTML**
+#' ## `Fork` the repository to create a linked copy in your GitHub account.
 #' 
-#' <img src="07_assets/rmarkdownwindow.png" alt="alt text" width="500">
+#' Steps:
 #' 
-#' ## Step 1: Load packages
+#' 1. Go to https://github.com/AdamWilsonLab/RDataScience_Project
+#' 2. Log into Github using your account (or create a new account)
+#' 3. Click `fork` near the upper right corner.  This will create a copy in your GitHub Account.  [See here for more details](https://help.github.com/articles/fork-a-repo/)
+#' 4. After it completes, click the green button "Clone or Download" and copy the URL.
 #' 
-#' All R code to be run must be in a _code chunk_ like this:
-## ---- eval=F,asis=T------------------------------------------------------
-## #```{r,eval=F}
-## CODE HERE
-## #```
-
+#' ## Clone the project template to your computer
 #' 
-#' Load these packages in a code chunk (you may need to install some packages):
+#' 1. **File -> New Project -> Version Control -> Git**
+#'   * URL: paste from above.  It will be similar to  `https://github.com/AdamWilsonLab/RDataScience_Project.git` but with your username.
+#'   * Project name: you can rename it if you want or keep the default: `RDataScience_Project`
+#'   * Project as subdirectory of `~/Documents/repos` or wherever you want to put it.
+#' 2.  It should download the project to your computer then open it to the `index.Rmd` file.
 #' 
-## ---- message=F----------------------------------------------------------
-library(dplyr)
-library(ggplot2)
-library(maps)
-library(spocc)
-
+#' ## Play with the project template
 #' 
-#' > Do you think you should put `install.packages()` calls in your script?
+#' 1. Select the `Build` tab in the upper right corner of RStudio, then click `Build Website`
+#' 2. Check out the website settings in `_site.yml`.  These adjust the appearance, title, etc.
+#' 3. Check out `_navbar.yml`.  These settings define the menus, etc.  If you only have one page you probably won't need to adjust this information.  
 #' 
+#' ## Push to GitHub and enable the website
+#' 1. Select the `Git` tab in the upper right and notice how it keeps track of any changes.
+#'   * To 'commit' the files (which is like saving them), check the files you want to commit (or all of them) and click `commit`.
+#'   *  Type in a brief message about the changes you made.  Maybe something like "First update to my project materials"
+#'   * Click `Commit`, then `close`.
+#'   * Click `Push` to push it back up to GitHub.
+#' 2. Now go to your repository website (similar to `https://github.com/AdamWilsonLab/RDataScience_Project` in your account)
+#' 3. Click settings in the upper right, then scroll down to `GitHub Pages` section
+#'    * Source: `master branch /docs folder`
+#' 4. Go to your new project webpage (URL will be similar to [http://adamwilson.us/RDataScience_Project/]( http://adamwilson.us/RDataScience_Project/))
 #' 
-#' ## Step 2: Load data
-#' 
-#' Now use the `occ()` function to download all the _occurrence_ records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org).
-#' 
-#' <img src="07_assets/Turdus-migratorius-002.jpg" alt="alt text" width="200">
-#' 
-#' <small><small><small>Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)</small></small></small>
-#' 
-## ---- warning=F----------------------------------------------------------
-## define which species to query
-sp='Turdus migratorius'
-
-## run the query and convert to data.frame()
-d = occ(query=sp, from='ebird',limit = 1000) %>% occ2df()
-
-#' This can take a few seconds.
-#' 
-#' ## Step 3: Map it
-#' 
-## ---- fig.width=6--------------------------------------------------------
-# Load coastline
-map=map_data("world")
-
-ggplot(d,aes(x=longitude,y=latitude))+
-  geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
-  geom_point(col="red")+
-  coord_equal()
-
-#' 
-#' ## Step 4:
-#' Update the YAML header to keep the markdown file
-#' 
-#' From this:
-## ---- eval=F-------------------------------------------------------------
-## title: "Untitled"
-## author: "Adam M. Wilson"
-## date: "October 31, 2016"
-## output: html_document
-
-#' 
-#' To this:
-## ---- eval=F-------------------------------------------------------------
-## title: "Demo"
-## author: "Adam M. Wilson"
-## date: "October 31, 2016"
-## output:
-##   html_document:
-##       keep_md: true
-
-#' 
-#' And click `knit HTML` to generate the output
-#' 
-#' ## Step 5:  Explore markdown functions
+#' ## Explore markdown functions
 #' 
 #' 1. Use the Cheatsheet to add sections and some example narrative.  
 #' 2. Try changing changing the species name to your favorite species and re-run the report. 
@@ -105,3 +60,5 @@ ggplot(d,aes(x=longitude,y=latitude))+
 #' 4. Check out the `kable()` function for tables (e.g. `kable(head(d))`)
 #' 
 #' <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a>
+#' 
+#' > Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.<small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small>

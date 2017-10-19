@@ -5,7 +5,7 @@ output:
      theme: material
 ---
 
-# Overview
+# Reproducible Research
 
 > "The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified."  <small> Max Kuhn, CRAN Task View: Reproducible Research </small>
 
@@ -23,7 +23,7 @@ output:
 <small>Gavish & Gonoho AAAS 2011, Oxberry 2013</small>
 
 
-## Motivations: <br> Claerbout's principle
+## Motivations: Claerbout's principle
 
 > "An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result." 
 <br><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small>
@@ -102,12 +102,8 @@ output:
 - Difficult to record -  hard to reconstruct a 'click history'
 - Tiny changes in data or method require extensive reworking
 
----
 
-<img src="contrails.jpg" alt="alt text" width="400">
-
-
-## Case study: Reinhart and Rogoff controversy {.columns-2}
+## Case study: Reinhart and Rogoff controversy 
 
 - 2010: Claimed high debt-to-GDP ratios led to low GDP growth
 - Threshold to growth at a debt-to-GDP ratio of >90%
@@ -175,16 +171,18 @@ Authors informed the journal that the merge of lab results and other survey data
 
 
 For example...
-Let's calculate the current time in R.
+If I say that 2 + 2 = 4, why would you believe me?
+
 ```{r, cache=F, warning=F}
-time <- format(Sys.time(), "%a %d %b %X %Y")
+2+2
 ```
-The text and R code are interwoven in the output:
+The text and R code are interwoven in the output.  The products are ephemeral - focus is on the methods!
 
-The time is `` `r '\x60r time\x60'` ``
+## Literate statistical programming 
 
-The time is `r time`
+Of course `2+2` is trivial, but what if I said:
 
+<img src="model.png" alt="alt text" width="800">
 
 
 ## Literate programming: for and against   {.columns-2}
@@ -201,6 +199,64 @@ The time is `r time`
 - Text and code in one place; can be hard to read
 - Can slow down the processing of documents (use caching!)
 
+## Depositing code and data
+
+**Payoffs**
+- Free space for hosting (and paid options)
+- Assignment of persistent DOIs
+- Tracking citation metrics 
+
+**Costs**
+- Sometimes license restrictions (CC-BY & CC0)
+- Limited or no private storage space
+
+
+<img src="figshare.png" alt="alt text" width="30%">
+<img src="dryad.png" alt="alt text" width="30%">
+<img src="zenodo.png" alt="alt text" width="30%">
+
+
+## A hierarchy of reproducibility 
+
+- **Good**: Use code with an integrated development environment (IDE). Minimize pointing and clicking (RStudio)
+- **Better**: Use version control. Help yourself keep track of changes, fix bugs and improve project management (RStudio & Git & GitHub or BitBucket)
+- **Best**: Use embedded narrative and code to explicitly link code, text and data, save yourself time, save reviewers time, improve your code. (RStudio & Git & GitHub or BitBucket & rmarkdown & knitr & data repository)
+
+##
+
+<img src="VictoriaStoddenIASSISTJune2010-reasons-to.png" alt="alt text" width="600">
+
+<small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small>
+
+##
+
+<img src="VictoriaStoddenIASSISTJune2010-reasons.png" alt="alt text" width="600">
+
+<small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small>
+
+
+## Standards to normalise reproducible research
+
+Reproducible Research Standard (Stodden 2009)
+
+- The full compendium on the internet
+- Media such as text, figures, tables with Creative Commons Attribution license (CC-BY) 
+ - Code with one of Apache 2.0, MIT, LGPL, BSD, etc.
+ - Original "selection and arrangement" of data with CC0 or CC-BY
+
+## Biggest challenge: culture change
+
+Promote culture change through positive attribution 
+
+Implement mechanisms to indicate & encourage **degrees of compliance** (ie. clear definitions for different levels of reproducibility), cf. Stodden's:
+
+ - **'Reproducible'**: compendium of text-code-data online
+ - **'Reproduced'**: compendium available and independently reproduced 
+ - **'Semi-Reproducible'**: when the full compendium is not released
+ - **'Semi-Reproduced'**: independent reproduction with other data
+ - **'Perpetually Reproducible'**: streaming data
+
+
 # Reproducible Research in R
 
 ## Need a programming language  {.columns-2}
@@ -213,22 +269,14 @@ The machine-readable part: R
 * Literate programming → R Markdown
 * Version control → Git / GitHub
 
----
-
-<img src="r-project.jpg" alt="alt text" width="100">
-
-
-> "both a container for the different elements that make up the document and its computations (i.e. text, code, data, etc.), and as a means for distributing, managing and updating the collection... allow us to move from an era of advertisement to one where our scholarship itself is published" <small>Gentleman and Temple Lang 2004</small>
-
 ## Need a document formatting language  {.columns-2}
 
 <img src="markdown.png" alt="alt text" width="100">
 
 Markdown: lightweight document formatting syntax. Easy to write, read and publish as-is.
 
-The human-readable part
+The human-readable part:
 
-`rmarkdown`: 
 - minor extensions to allow R code display and execution
 - embed images in html files (convenient for sharing)
 - equations
@@ -241,8 +289,6 @@ The human-readable part
 Engine for dynamic report generation in R
 
 <img src="knitr.png" alt="alt text" width="200">
-
-<br> 
 
 - Narrative and code in the same file or explicitly linked
 - When data or narrative are updated, the document is automatically updated
@@ -292,183 +338,15 @@ A universal document converter, open source, cross-platform
 > RStudio 'projects' make version control & document preparation simple
 
 
-## Depositing code and data
-
-**Payoffs**
-- Free space for hosting (and paid options)
-- Assignment of persistent DOIs
-- Tracking citation metrics 
-
-**Costs**
-- Sometimes license restrictions (CC-BY & CC0)
-- Limited or no private storage space
-
-
-<img src="figshare.png" alt="alt text" width="30%">
-<img src="dryad.png" alt="alt text" width="30%">
-<img src="zenodo.png" alt="alt text" width="30%">
-
-
-## A hierarchy of reproducibility 
-
-- **Good**: Use code with an integrated development environment (IDE). Minimize pointing and clicking (RStudio)
-- **Better**: Use version control. Help yourself keep track of changes, fix bugs and improve project management (RStudio & Git & GitHub or BitBucket)
-- **Best**: Use embedded narrative and code to explicitly link code, text and data, save yourself time, save reviewers time, improve your code. (RStudio & Git & GitHub or BitBucket & rmarkdown & knitr & data repository)
-
-##
-
-<img src="VictoriaStoddenIASSISTJune2010-reasons-to.png" alt="alt text" width="600">
-<small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small>
-
-##
-
-<img src="VictoriaStoddenIASSISTJune2010-reasons.png" alt="alt text" width="600">
-<small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small>
-
-
-## Standards to normalise reproducible research
-
-Reproducible Research Standard (Stodden 2009)
-
-- The full compendium on the internet
-- Media such as text, figures, tables with Creative Commons Attribution license (CC-BY) 
- - Code with one of Apache 2.0, MIT, LGPL, BSD, etc.
- - Original "selection and arrangement" of data with CC0 or CC-BY
-
-## Biggest challenge: culture change
-
-Promote culture change through positive attribution 
-
-Implement mechanisms to indicate & encourage **degrees of compliance** (ie. clear definitions for different levels of reproducibility), cf. Stodden's:
-
- - **'Reproducible'**: compendium of text-code-data online
- - **'Reproduced'**: compendium available and independently reproduced 
- - **'Semi-Reproducible'**: when the full compendium is not released
- - **'Semi-Reproduced'**: independent reproduction with other data
- - **'Perpetually Reproducible'**: streaming data
-
-## Our role in the future of reproducible research (Leveque et al 2012)
-
-- Train students by putting homework, assignments & dissertations on the reproducible research spectrum
-- Publish examples of reproducible research in our field
-- Request code & data when reviewing
-- Submit to & review for journals that support reproducible research
-- Critically review & audit data management plans in grant proposals
-- Consider reproducibility wherever possible in hiring, promotion & reference letters.
-
-
-#  Demo: let's get started
-
-[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](demo/Demo.Rmd).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
-
-## R Markdown
-
-Cheatsheet:
-
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="rmarkdown.png" alt="alt text" width="400"></a>
-
-<small><small><small>[https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)</small></small></small>
-
-
-## Create new file
-**File -> New File -> RMarkdown -> Document -> HTML**
-
-<img src="rmarkdownwindow.png" alt="alt text" width="500">
-
-## Step 1: Load packages
-
-All R code to be run must be in a _code chunk_ like this:
-```{r, eval=F,asis=T}
-#```{r,eval=F}
-CODE HERE
-#```
-```
-
-Load these packages in a code chunk (you may need to install some packages):
-
-```{r, message=F}
-library(dplyr)
-library(ggplot2)
-library(maps)
-library(spocc)
-```
-
-> Do you think you should put `install.packages()` calls in your script?
-
-
-## Step 2: Load data
-
-Now use the `occ()` function to download all the _occurrence_ records for the American robin (_Turdus migratorius_) from the [Global Biodiversity Information Facility](gbif.org).
-
-<img src="Turdus-migratorius-002.jpg" alt="alt text" width="200">
-
-<small><small><small>Licensed under CC BY-SA 3.0 via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Turdus-migratorius-002.jpg#/media/File:Turdus-migratorius-002.jpg)</small></small></small>
-
-```{r, warning=F} 
-## define which species to query
-sp='Turdus migratorius'
-
-## run the query and convert to data.frame()
-d = occ(query=sp, from='ebird',limit = 1000) %>% occ2df()
-```
-This can take a few seconds.
-
-## Step 3: Map it
-
-```{r, fig.width=6}
-# Load coastline
-map=map_data("world")
-
-ggplot(d,aes(x=longitude,y=latitude))+
-  geom_polygon(aes(x=long,y=lat,group=group,order=order),data=map)+
-  geom_point(col="red")+
-  coord_equal()
-```
-
-## Step 4:
-Update the YAML header to keep the markdown file
-
-From this:
-```{r, eval=F}
-title: "Untitled"
-author: "Adam M. Wilson"
-date: "October 31, 2016"
-output: html_document
-```
-
-To this:
-```{r, eval=F}
-title: "Demo"
-author: "Adam M. Wilson"
-date: "October 31, 2016"
-output: 
-  html_document:
-      keep_md: true
-```
-
-And click `knit HTML` to generate the output
-
-## Step 5:  Explore markdown functions
-
-1. Use the Cheatsheet to add sections and some example narrative.  
-2. Try changing changing the species name to your favorite species and re-run the report. 
-3. Add more figures or different versions of a figure
-4. Check out the `kable()` function for tables (e.g. `kable(head(d))`)
-
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="rmarkdown.png" alt="alt text" width="400"></a>
-
-
 ##  Final
 
-> Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.<small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small>
+> Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.  <br> <small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small>
 
 ## Colophon
 
 * [Slides based on Ben Marwick's presentation to the UW Center for Statistics and Social Sciences (12 March 2014)](https://github.com/benmarwick/CSSS-Primer-Reproducible-Research) ([OrcID](http://orcid.org/0000-0001-7879-4531))
 
-## References
-
-See Rmd file for full references and sources
+**References:** See Rmd file for full references and sources
 
 ```{r, echo=FALSE}
 ## Scholarly literature sources for this presentation
