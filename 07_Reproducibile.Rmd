@@ -9,6 +9,7 @@ source("knitr_header.R")
 <div>
 <iframe src="07_assets/Reproducibile_presentation.html" width=100% height=400px></iframe>
 </div>
+<a target="_blank" href="07_assets/Reproducibile_presentation.html">Click here to open the presentation in a new tab </a>
 
 ## R Markdown
 
@@ -19,7 +20,7 @@ Cheatsheet:
 <small><small><small>[https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)</small></small></small>
 
 ## Overview
-Today we will make a copy of a template for your project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at []
+Today we will make a copy of a template for your project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at [http://adamwilson.us/RDataScience_Project/](http://adamwilson.us/RDataScience_Project/)
 
 ## `Fork` the repository to create a linked copy in your GitHub account.
 
@@ -50,10 +51,11 @@ Steps:
   *  Type in a brief message about the changes you made.  Maybe something like "First update to my project materials"
   * Click `Commit`, then `close`.
   * Click `Push` to push it back up to GitHub.
-2. Now go to your repository website (similar to `https://github.com/AdamWilsonLab/RDataScience_Project` in your account)
+2. Now go to your repository website (similar to [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) in your account)
 3. Click settings in the upper right, then scroll down to `GitHub Pages` section
    * Source: `master branch /docs folder`
 4. Go to your new project webpage (URL will be similar to [http://adamwilson.us/RDataScience_Project/]( http://adamwilson.us/RDataScience_Project/))
+5.  Now you can `commit` and then `push` your updates and your website will be updated.  If you get tired of entering your username and password every time, check out the instructions [here](http://adamwilson.us/RDataScience/GitSSHNotes.html).  
 
 ## Explore markdown functions
 
