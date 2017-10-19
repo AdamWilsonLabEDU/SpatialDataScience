@@ -4,7 +4,7 @@
 #' 
 #' 
 #' <div>
-#' <iframe src="07_assets/Reproducible_presentation.html" width=100% height=400px></iframe>
+#' <iframe src="07_assets/Reproducibile_presentation.html" width=100% height=400px></iframe>
 #' </div>
 #' 
 #' ## R Markdown
