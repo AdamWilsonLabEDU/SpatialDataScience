@@ -65,13 +65,13 @@ You should cite any relevant materials (including data sources and methods) in t
 
 ### Project proposal
 
-The project proposal will be 1 page or less and outline the following:
+The project proposal will be 1 page or less and include the following:
 
 1.  Introduction to problem/question
-2.  Links to inspiring examples:  Include links to a few (~3-5) example graphics found on the internet that are somehow similar to what you want to do.
-2.  Proposed data sources
-3.  Proposed methods
-4.  Expected results
+2.  Links to inspiring examples:  Include links and screenshots of a few (~3-5) example graphics found on the internet that convey what you want to do.  Include a few sentences about why you selected each link.
+2.  Proposed data sources: Be as specific as possible.
+3.  Proposed methods: List the approach you will use. Don't simply list packages, tell me what you will do with them.
+4.  Expected results: Describe what you want to produce (graphics, analyses, etc.)
 
 ### First Draft
 The first draft of your project will be assessed by your peers in UBlearns.  You will pick two projects and evaluate them according to the rubric below.  The objectives of the peer evaluation are:
