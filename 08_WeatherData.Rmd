@@ -92,11 +92,13 @@ library(ggmap)
 library(dplyr)
 library(tidyr)
 library(maps)
+library(scales)
 # New Packages
 library(rnoaa)
 library(climdex.pcic)
 library(zoo)
 library(reshape2)
+library(broom)
 ```
 
 ### Station locations 
@@ -397,7 +399,7 @@ round(1938,-1)
 floor(1938/10)*10
 ```
 
-
+Calculate seasonal and decadal mean temperatures.
 ```{r}
 d_filtered2=d_filtered%>%
   mutate(month=as.numeric(format(date,"%m")),
@@ -407,7 +409,7 @@ d_filtered2=d_filtered%>%
               ifelse(month%in%c(6,7,8),"Summer",
                 ifelse(month%in%c(9,10,11),"Fall",NA)))),
         dec=(floor(as.numeric(format(date,"%Y"))/10)*10))
-head(d_filtered2)
+knitr::kable(head(d_filtered2))
 ```
 
 ## Timeseries models
@@ -417,16 +419,77 @@ How to assess change? Simple differences?
 
 ```{r}
 d_filtered2%>%
-  mutate(period=ifelse(year<=1976-01-01,"early","late"))%>%
-  group_by(period)%>%
-  summarize(n=n(),
+  mutate(period=ifelse(year<=1976-01-01,"early","late"))%>% #create two time periods before and after 1976
+  group_by(period)%>%  # divide the data into the two groups
+  summarize(n=n(),    # calculate the means between the two periods
             tmin=mean(tmin,na.rm=T),
             tmax=mean(tmax,na.rm=T),
             prcp=mean(prcp,na.rm=T))
 ```
 
+But be careful, there were lots of missing data in the beginning of the record
+```{r, warning=F}
+d_filtered2%>%
+  group_by(year)%>%
+  summarize(n=n())%>%
+  ggplot(aes(x=year,y=n))+
+  geom_line(col="grey")
+
+# which years don't have complete data?
+d_filtered2%>%
+  group_by(year)%>%
+  summarize(n=n())%>%
+  filter(n<360)
+```
+
+
+Plot 10-year means (excluding years without complete data):
+```{r, warning=F}
+d_filtered2%>%
+  filter(year>1938, year<2017)%>%
+  group_by(dec)%>%
+  summarize(
+            n=n(),
+            tmin=mean(tmin,na.rm=T),
+            tmax=mean(tmax,na.rm=T),
+            prcp=mean(prcp,na.rm=T)
+            )%>%
+  ggplot(aes(x=dec,y=tmax))+
+  geom_line(col="grey")
+```
+
+
+### Look for specific events: was 2017 unusually hot in Buffalo, NY?
+Let's compare 2017 with all the previous years in the dataset.  First add 'day of year' to the data to facilitate showing all years on the same plot.
+```{r, warning=F}
+df=d_filtered2%>%
+  mutate(doy=as.numeric(format(date,"%j")),
+         doydate=as.Date(paste("2017-",doy),format="%Y-%j"))
+```
+
+Then plot all years (in grey) and add 2017 in red.
+```{r, warning=F}
+ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col="grey",alpha=.5)+ # plot each year in grey
+  stat_smooth(aes(group=1),col="black")+   # Add a smooth GAM to estimate the long-term mean
+  geom_line(data=filter(df,year>2016),col="red")+  # add 2017 in red
+  scale_x_date(labels = date_format("%b"),date_breaks = "2 months")
+```
+
+Then 'zoom' into just the past few months and add 2017 in red.
+```{r, warning=F}
+ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col="grey",alpha=.5)+
+  stat_smooth(aes(group=1),col="black")+
+  geom_line(data=filter(df,year>2016),col="red")+
+  scale_x_date(labels = date_format("%b"),date_breaks = "2 months",
+               lim=c(as.Date("2017-08-01"),as.Date("2017-10-31")))
+```
+
+So there was an unusually warm spell in late September.
+
 #### Summarize by season
-```{r}
+```{r, warning=F,fig.height=12}
 seasonal=d_filtered2%>%
   group_by(year,season)%>%
   summarize(n=n(),
@@ -441,22 +504,33 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   geom_line()
 ```
 
-### Kendal Seasonal Trend Test
 
-Nonparametric seasonal trend analysis. 
+#### Linear regression of maximum temperature in fall
+```{r, warning=F}
+s1=seasonal%>%
+  filter(season=="Summer")
 
-e.g. [Hirsch-Slack test](http://onlinelibrary.wiley.com/doi/10.1029/WR020i006p00727)
-
-```{r}
-library(EnvStats)
-t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
-t1
+ggplot(s1,aes(y=tmin,x=year))+
+  stat_smooth(method="lm", se=T)+
+  geom_line()
 ```
 
-#### Minimum Temperature
 ```{r}
-t2=kendallSeasonalTrendTest(tmin~season+year,data=seasonal)
-t2
+lm1=lm(tmin~year, data=s1)
+str(lm1)
+summary(lm1)
+```
+
+You can extract values of interest by looking at the structure of the object.
+
+```{r}
+str(summary(lm1))
+summary(lm1)$r.squared
+```
+
+Print a summary table:
+```{r, as.is=T}
+tidy(lm1)
 ```
 
 ### Autoregressive models

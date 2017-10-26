@@ -493,11 +493,13 @@ library(ggmap)
 library(dplyr)
 library(tidyr)
 library(maps)
+library(scales)
 # New Packages
 library(rnoaa)
 library(climdex.pcic)
 library(zoo)
-library(reshape2)</code></pre>
+library(reshape2)
+library(broom)</code></pre>
 </div>
 <div id="station-locations" class="section level3">
 <h3>Station locations</h3>
@@ -673,15 +675,15 @@ head(d)</code></pre>
 <pre class="r"><code>table(d$qflag_tmax)  </code></pre>
 <pre><code>## 
 ##           G     I 
-## 28782     2    10</code></pre>
+## 29027     2    10</code></pre>
 <pre class="r"><code>table(d$qflag_tmin)  </code></pre>
 <pre><code>## 
 ##           G     I     S 
-## 28781     2     7     4</code></pre>
+## 29026     2     7     4</code></pre>
 <pre class="r"><code>table(d$qflag_prcp)  </code></pre>
 <pre><code>## 
 ##           G 
-## 28793     1</code></pre>
+## 29038     1</code></pre>
 <ul>
 <li><strong>T</strong> failed temporal consistency check</li>
 </ul>
@@ -696,7 +698,7 @@ head(d)</code></pre>
 <pre class="r"><code>ggplot(d_filtered,
        aes(y=tmax,x=date))+
   geom_line(col=&quot;red&quot;)</code></pre>
-<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-16-1.png" width="2100" /></p>
 <p>Limit to a few years and plot the daily range and average temperatures.</p>
 <pre class="r"><code>d_filtered_recent=filter(d_filtered,date&gt;as.Date(&quot;2013-01-01&quot;))
@@ -705,7 +707,7 @@ head(d)</code></pre>
          aes(ymax=tmax,ymin=tmin,x=date))+
     geom_ribbon(col=&quot;grey&quot;,fill=&quot;grey&quot;)+
     geom_line(aes(y=(tmax+tmin)/2),col=&quot;red&quot;)</code></pre>
-<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-17-1.png" width="2100" /></p>
 </div>
 <div id="zoo-package-for-rolling-functions" class="section level3">
@@ -730,10 +732,10 @@ head(d)</code></pre>
     geom_line(aes(y=(tmin+tmax)/2),col=grey(0.4),size=.5)+
     geom_line(aes(y=tmax.60),col=&quot;red&quot;)+
     geom_line(aes(y=tmax.b60),col=&quot;darkred&quot;)</code></pre>
-<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
-<pre><code>## Warning: Removed 72 rows containing missing values (geom_path).
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 70 rows containing missing values (geom_path).
 
-## Warning: Removed 72 rows containing missing values (geom_path).</code></pre>
+## Warning: Removed 70 rows containing missing values (geom_path).</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-19-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-1">Your Turn</h2>
@@ -749,8 +751,8 @@ Show Solution
 ggplot(tp,aes(y=prcp,x=date))+
   geom_line(aes(y=prcp.30),col=&quot;black&quot;)+ 
   geom_line(col=&quot;red&quot;) </code></pre>
-<pre><code>## Warning: Removed 42 rows containing missing values (geom_path).</code></pre>
-<pre><code>## Warning: Removed 13 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 40 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
 </div>
 </div>
@@ -767,7 +769,7 @@ ggplot(tp,aes(y=prcp,x=date))+
 <pre class="r"><code>ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
   geom_point()+
   geom_abline(intercept=0, slope=1)</code></pre>
-<pre><code>## Warning: Removed 14 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
 <p><img src="08_WeatherData_files/figure-html/unnamed-chunk-22-1.png" width="2100" /></p>
 <div id="autocorrelation-functions" class="section level3">
 <h3>Autocorrelation functions</h3>
@@ -801,6 +803,7 @@ ggplot(tp,aes(y=prcp,x=date))+
 <pre><code>## [1] 1940</code></pre>
 <pre class="r"><code>floor(1938/10)*10</code></pre>
 <pre><code>## [1] 1930</code></pre>
+<p>Calculate seasonal and decadal mean temperatures.</p>
 <pre class="r"><code>d_filtered2=d_filtered%&gt;%
   mutate(month=as.numeric(format(date,&quot;%m&quot;)),
         year=as.numeric(format(date,&quot;%Y&quot;)),
@@ -808,29 +811,165 @@ ggplot(tp,aes(y=prcp,x=date))+
             ifelse(month%in%c(3,4,5),&quot;Spring&quot;,
               ifelse(month%in%c(6,7,8),&quot;Summer&quot;,
                 ifelse(month%in%c(9,10,11),&quot;Fall&quot;,NA)))),
-        dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))
-head(d_filtered2)</code></pre>
-<pre><code>## # A tibble: 6 x 18
-##            id       date mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
-##         &lt;chr&gt;     &lt;date&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;      &lt;chr&gt;
-## 1 USW00014733 1938-05-01          T                           0           
-## 2 USW00014733 1938-05-02          T                           0           
-## 3 USW00014733 1938-05-03                                     25           
-## 4 USW00014733 1938-05-04                                    112           
-## 5 USW00014733 1938-05-05          T                           0           
-## 6 USW00014733 1938-05-06                                     64           
-## # ... with 11 more variables: qflag_tmax &lt;chr&gt;, qflag_tmin &lt;chr&gt;,
-## #   sflag_prcp &lt;chr&gt;, sflag_tmax &lt;chr&gt;, sflag_tmin &lt;chr&gt;, tmax &lt;dbl&gt;,
-## #   tmin &lt;dbl&gt;, month &lt;dbl&gt;, year &lt;dbl&gt;, season &lt;chr&gt;, dec &lt;dbl&gt;</code></pre>
+        dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))</code></pre>
+<pre><code>## Warning in format.POSIXlt(as.POSIXlt(x), ...): unknown timezone &#39;default/
+## America/New_York&#39;</code></pre>
+<pre class="r"><code>knitr::kable(head(d_filtered2))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">date</th>
+<th align="left">mflag_prcp</th>
+<th align="left">mflag_tmax</th>
+<th align="left">mflag_tmin</th>
+<th align="right">prcp</th>
+<th align="left">qflag_prcp</th>
+<th align="left">qflag_tmax</th>
+<th align="left">qflag_tmin</th>
+<th align="left">sflag_prcp</th>
+<th align="left">sflag_tmax</th>
+<th align="left">sflag_tmin</th>
+<th align="right">tmax</th>
+<th align="right">tmin</th>
+<th align="right">month</th>
+<th align="right">year</th>
+<th align="left">season</th>
+<th align="right">dec</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-01</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">14.4</td>
+<td align="right">3.9</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-02</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">21.1</td>
+<td align="right">8.3</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-03</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">25</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">16.7</td>
+<td align="right">7.2</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-04</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">112</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">20.6</td>
+<td align="right">9.4</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-05</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">31.1</td>
+<td align="right">10.6</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-06</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">64</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">19.4</td>
+<td align="right">7.8</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="timeseries-models" class="section level2">
 <h2>Timeseries models</h2>
 <p>How to assess change? Simple differences?</p>
 <pre class="r"><code>d_filtered2%&gt;%
-  mutate(period=ifelse(year&lt;=1976-01-01,&quot;early&quot;,&quot;late&quot;))%&gt;%
-  group_by(period)%&gt;%
-  summarize(n=n(),
+  mutate(period=ifelse(year&lt;=1976-01-01,&quot;early&quot;,&quot;late&quot;))%&gt;% #create two time periods before and after 1976
+  group_by(period)%&gt;%  # divide the data into the two groups
+  summarize(n=n(),    # calculate the means between the two periods
             tmin=mean(tmin,na.rm=T),
             tmax=mean(tmax,na.rm=T),
             prcp=mean(prcp,na.rm=T))</code></pre>
@@ -838,7 +977,61 @@ head(d_filtered2)</code></pre>
 ##   period     n     tmin     tmax     prcp
 ##    &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ## 1  early 13394 4.199753 13.67348 25.07871
-## 2   late 15400 4.686079 13.66931 28.34146</code></pre>
+## 2   late 15645 4.764507 13.75706 28.44032</code></pre>
+<p>But be careful, there were lots of missing data in the beginning of the record</p>
+<pre class="r"><code>d_filtered2%&gt;%
+  group_by(year)%&gt;%
+  summarize(n=n())%&gt;%
+  ggplot(aes(x=year,y=n))+
+  geom_line(col=&quot;grey&quot;)</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" width="2100" /></p>
+<pre class="r"><code># which years don&#39;t have complete data?
+d_filtered2%&gt;%
+  group_by(year)%&gt;%
+  summarize(n=n())%&gt;%
+  filter(n&lt;360)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##    year     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  1938   245
+## 2  2017   304</code></pre>
+<p>Plot 10-year means (excluding years without complete data):</p>
+<pre class="r"><code>d_filtered2%&gt;%
+  filter(year&gt;1938, year&lt;2017)%&gt;%
+  group_by(dec)%&gt;%
+  summarize(
+            n=n(),
+            tmin=mean(tmin,na.rm=T),
+            tmax=mean(tmax,na.rm=T),
+            prcp=mean(prcp,na.rm=T)
+            )%&gt;%
+  ggplot(aes(x=dec,y=tmax))+
+  geom_line(col=&quot;grey&quot;)</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-29-1.png" width="2100" /></p>
+<div id="look-for-specific-events-was-2017-unusually-hot-in-buffalo-ny" class="section level3">
+<h3>Look for specific events: was 2017 unusually hot in Buffalo, NY?</h3>
+<p>Let’s compare 2017 with all the previous years in the dataset. First add ‘day of year’ to the data to facilitate showing all years on the same plot.</p>
+<pre class="r"><code>df=d_filtered2%&gt;%
+  mutate(doy=as.numeric(format(date,&quot;%j&quot;)),
+         doydate=as.Date(paste(&quot;2017-&quot;,doy),format=&quot;%Y-%j&quot;))</code></pre>
+<p>Then plot all years (in grey) and add 2017 in red.</p>
+<pre class="r"><code>ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col=&quot;grey&quot;,alpha=.5)+ # plot each year in grey
+  stat_smooth(aes(group=1),col=&quot;black&quot;)+   # Add a smooth GAM to estimate the long-term mean
+  geom_line(data=filter(df,year&gt;2016),col=&quot;red&quot;)+  # add 2017 in red
+  scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-31-1.png" width="2100" /></p>
+<p>Then ‘zoom’ into just the past few months and add 2017 in red.</p>
+<pre class="r"><code>ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col=&quot;grey&quot;,alpha=.5)+
+  stat_smooth(aes(group=1),col=&quot;black&quot;)+
+  geom_line(data=filter(df,year&gt;2016),col=&quot;red&quot;)+
+  scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;,
+               lim=c(as.Date(&quot;2017-08-01&quot;),as.Date(&quot;2017-10-31&quot;)))</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-32-1.png" width="2100" /></p>
+<p>So there was an unusually warm spell in late September.</p>
 <div id="summarize-by-season" class="section level4">
 <h4>Summarize by season</h4>
 <pre class="r"><code>seasonal=d_filtered2%&gt;%
@@ -853,151 +1046,146 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   facet_grid(season~.,scales = &quot;free_y&quot;)+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
-<pre><code>## Warning: Removed 12 rows containing non-finite values (stat_smooth).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" width="2100" /></p>
 </div>
-<div id="kendal-seasonal-trend-test" class="section level3">
-<h3>Kendal Seasonal Trend Test</h3>
-<p>Nonparametric seasonal trend analysis.</p>
-<p>e.g. <a href="http://onlinelibrary.wiley.com/doi/10.1029/WR020i006p00727">Hirsch-Slack test</a></p>
-<pre class="r"><code>library(EnvStats)</code></pre>
+<div id="linear-regression-of-maximum-temperature-in-fall" class="section level4">
+<h4>Linear regression of maximum temperature in fall</h4>
+<pre class="r"><code>s1=seasonal%&gt;%
+  filter(season==&quot;Summer&quot;)
+
+ggplot(s1,aes(y=tmin,x=year))+
+  stat_smooth(method=&quot;lm&quot;, se=T)+
+  geom_line()</code></pre>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" width="2100" /></p>
+<pre class="r"><code>lm1=lm(tmin~year, data=s1)
+str(lm1)</code></pre>
+<pre><code>## List of 13
+##  $ coefficients : Named num [1:2] -23.551 0.0197
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ effects      : Named num [1:79] -137.232 4.023 -0.752 -0.424 -0.222 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;(Intercept)&quot; &quot;year&quot; &quot;&quot; &quot;&quot; ...
+##  $ rank         : int 2
+##  $ fitted.values: Named num [1:79] 14.7 14.7 14.7 14.7 14.7 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ assign       : int [1:2] 0 1
+##  $ qr           :List of 5
+##   ..$ qr   : num [1:79, 1:2] -8.888 0.113 0.113 0.113 0.113 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
+##   ..$ qraux: num [1:2] 1.11 1.17
+##   ..$ pivot: int [1:2] 1 2
+##   ..$ tol  : num 1e-07
+##   ..$ rank : int 2
+##   ..- attr(*, &quot;class&quot;)= chr &quot;qr&quot;
+##  $ df.residual  : int 77
+##  $ na.action    :Class &#39;omit&#39;  Named int 9
+##   .. ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  $ xlevels      : Named list()
+##  $ call         : language lm(formula = tmin ~ year, data = s1)
+##  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. ..$ : chr &quot;year&quot;
+##   .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##  $ model        :&#39;data.frame&#39;:   79 obs. of  2 variables:
+##   ..$ tmin: num [1:79] 15.2 14.9 14 14.4 14.6 ...
+##   ..$ year: num [1:79] 1938 1939 1940 1941 1942 ...
+##   ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. .. ..$ : chr &quot;year&quot;
+##   .. .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   ..- attr(*, &quot;na.action&quot;)=Class &#39;omit&#39;  Named int 9
+##   .. .. ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
+<pre class="r"><code>summary(lm1)</code></pre>
 <pre><code>## 
-## Attaching package: &#39;EnvStats&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:raster&#39;:
+## Call:
+## lm(formula = tmin ~ year, data = s1)
 ## 
-##     cv, predict, print</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.00360 -0.45550 -0.02385  0.57754  1.90919 
 ## 
-##     predict, predict.lm</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -23.551009   8.042522  -2.928  0.00448 ** 
+## year          0.019713   0.004066   4.848 6.33e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-##     print.default</code></pre>
-<pre class="r"><code>t1=kendallSeasonalTrendTest(tmax~season+year,data=seasonal)
-t1</code></pre>
-<pre><code>## 
-## Results of Hypothesis Test
-## --------------------------
-## 
-## Null Hypothesis:                 All 4 values of tau = 0
-## 
-## Alternative Hypothesis:          The seasonal taus are not all equal
-##                                  (Chi-Square Heterogeneity Test)
-##                                  At least one seasonal tau != 0
-##                                  and all non-zero tau&#39;s have the
-##                                  same sign (z Trend Test)
-## 
-## Test Name:                       Seasonal Kendall Test for Trend
-##                                  (with continuity correction)
-## 
-## Estimated Parameter(s):          tau       = 0.032397023
-##                                  slope     = 0.002718334
-##                                  intercept = 0.688521444
-## 
-## Estimation Method:               tau:        Weighted Average of
-##                                              Seasonal Estimates
-##                                  slope:      Hirsch et al.&#39;s
-##                                              Modification of
-##                                              Thiel/Sen Estimator
-##                                  intercept:  Median of
-##                                              Seasonal Estimates
-## 
-## Data:                            y      = tmax  
-##                                  season = season
-##                                  year   = year  
-## 
-## Data Source:                     seasonal
-## 
-## Sample Sizes:                    Fall   =  74
-##                                  Summer =  79
-##                                  Spring =  76
-##                                  Winter =  74
-##                                  Total  = 303
-## 
-## Number NA/NaN/Inf&#39;s:             11
-## 
-## Test Statistics:                 Chi-Square (Het) = 7.0304855
-##                                  z (Trend)        = 0.7833567
-## 
-## Test Statistic Parameter:        df = 3
-## 
-## P-values:                        Chi-Square (Het) = 0.07093242
-##                                  z (Trend)        = 0.43341766
-## 
-## Confidence Interval for:         slope
-## 
-## Confidence Interval Method:      Gilbert&#39;s Modification of
-##                                  Theil/Sen Method
-## 
-## Confidence Interval Type:        two-sided
-## 
-## Confidence Level:                95%
-## 
-## Confidence Interval:             LCL = -0.004120115
-##                                  UCL =  0.009455621</code></pre>
-<div id="minimum-temperature" class="section level4">
-<h4>Minimum Temperature</h4>
-<pre class="r"><code>t2=kendallSeasonalTrendTest(tmin~season+year,data=seasonal)
-t2</code></pre>
-<pre><code>## 
-## Results of Hypothesis Test
-## --------------------------
-## 
-## Null Hypothesis:                 All 4 values of tau = 0
-## 
-## Alternative Hypothesis:          The seasonal taus are not all equal
-##                                  (Chi-Square Heterogeneity Test)
-##                                  At least one seasonal tau != 0
-##                                  and all non-zero tau&#39;s have the
-##                                  same sign (z Trend Test)
-## 
-## Test Name:                       Seasonal Kendall Test for Trend
-##                                  (with continuity correction)
-## 
-## Estimated Parameter(s):          tau       =   0.21614826
-##                                  slope     =   0.01765707
-##                                  intercept = -29.15769749
-## 
-## Estimation Method:               tau:        Weighted Average of
-##                                              Seasonal Estimates
-##                                  slope:      Hirsch et al.&#39;s
-##                                              Modification of
-##                                              Thiel/Sen Estimator
-##                                  intercept:  Median of
-##                                              Seasonal Estimates
-## 
-## Data:                            y      = tmin  
-##                                  season = season
-##                                  year   = year  
-## 
-## Data Source:                     seasonal
-## 
-## Sample Sizes:                    Fall   =  76
-##                                  Summer =  78
-##                                  Spring =  75
-##                                  Winter =  73
-##                                  Total  = 302
-## 
-## Number NA/NaN/Inf&#39;s:             12
-## 
-## Test Statistics:                 Chi-Square (Het) = 4.815361
-##                                  z (Trend)        = 5.552695
-## 
-## Test Statistic Parameter:        df = 3
-## 
-## P-values:                        Chi-Square (Het) = 1.858274e-01
-##                                  z (Trend)        = 2.812991e-08
-## 
-## Confidence Interval for:         slope
-## 
-## Confidence Interval Method:      Gilbert&#39;s Modification of
-##                                  Theil/Sen Method
-## 
-## Confidence Interval Type:        two-sided
-## 
-## Confidence Level:                95%
-## 
-## Confidence Interval:             LCL = 0.01194139
-##                                  UCL = 0.02312301</code></pre>
+## Residual standard error: 0.8298 on 77 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.2339, Adjusted R-squared:  0.2239 
+## F-statistic: 23.51 on 1 and 77 DF,  p-value: 6.333e-06</code></pre>
+<p>You can extract values of interest by looking at the structure of the object.</p>
+<pre class="r"><code>str(summary(lm1))</code></pre>
+<pre><code>## List of 12
+##  $ call         : language lm(formula = tmin ~ year, data = s1)
+##  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. ..$ : chr &quot;year&quot;
+##   .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ coefficients : num [1:2, 1:4] -23.55101 0.01971 8.04252 0.00407 -2.92831 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..$ : chr [1:4] &quot;Estimate&quot; &quot;Std. Error&quot; &quot;t value&quot; &quot;Pr(&gt;|t|)&quot;
+##  $ aliased      : Named logi [1:2] FALSE FALSE
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ sigma        : num 0.83
+##  $ df           : int [1:3] 2 77 2
+##  $ r.squared    : num 0.234
+##  $ adj.r.squared: num 0.224
+##  $ fstatistic   : Named num [1:3] 23.5 1 77
+##   ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;value&quot; &quot;numdf&quot; &quot;dendf&quot;
+##  $ cov.unscaled : num [1:2, 1:2] 93.928528 -0.047483 -0.047483 0.000024
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ na.action    :Class &#39;omit&#39;  Named int 9
+##   .. ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;summary.lm&quot;</code></pre>
+<pre class="r"><code>summary(lm1)$r.squared</code></pre>
+<pre><code>## [1] 0.2338852</code></pre>
+<p>Print a summary table:</p>
+<pre class="r"><code>tidy(lm1)</code></pre>
+<pre><code>##          term     estimate   std.error statistic      p.value
+## 1 (Intercept) -23.55100905 8.042521664 -2.928312 4.480319e-03
+## 2        year   0.01971327 0.004065921  4.848415 6.333192e-06</code></pre>
 </div>
 </div>
 <div id="autoregressive-models" class="section level3">
@@ -1041,19 +1229,19 @@ years=as.numeric(as.character(unique(ci@date.factors$annual)))</code></pre>
 <h3>Cumulative dry days</h3>
 <pre class="r"><code>cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-1.png" width="2100" /></p>
 </div>
 <div id="diurnal-temperature-range" class="section level3">
 <h3>Diurnal Temperature Range</h3>
 <pre class="r"><code>dtr=climdex.dtr(ci, freq = c(&quot;annual&quot;))
 plot(dtr~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-41-1.png" width="2100" /></p>
 </div>
 <div id="frost-days" class="section level3">
 <h3>Frost Days</h3>
 <pre class="r"><code>fd=climdex.fd(ci)
 plot(fd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-35-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-42-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-2">Your Turn</h2>
 <p>See all available indices with:</p>
@@ -1074,13 +1262,13 @@ Show Solution
 <div id="demo4" class="collapse">
 <pre class="r"><code>r10mm=climdex.r10mm(ci)
 plot(r10mm~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-1.png" width="2100" /></p>
 <pre class="r"><code>prcptot=climdex.prcptot(ci)
 plot(prcptot~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-2.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-2.png" width="2100" /></p>
 <pre class="r"><code>gsl=climdex.gsl(ci)
 plot(gsl~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-37-3.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-3.png" width="2100" /></p>
 </div>
 </div>
 </div>
