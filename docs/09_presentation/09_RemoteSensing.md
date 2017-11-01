@@ -7,7 +7,7 @@ Objectives
 * Brief introduction to remote sensing
 * Obtaining NASA remote sensing data
 * MODIS
-* MODIStools package
+* MODIS data processing
 
 
 Active Earth Observing Satellites (EOS) (as of 8/31/2015)
@@ -266,46 +266,24 @@ MODIS Reprojection Tool:  Subset & Reproject
 
 `MCD12Q1.A2012001.h12v04.051.2014288200441.hdf`
 
-MODIS Web Services
+Application for Extracting and Exploring Analysis Ready Samples (AppEEARS)
 =============
 
-![](09_assets/mws.png)
+![](09_assets/appeears.png)
 
-[daacmodis.ornl.gov/cgi-bin/MODIS/GLBVIZ_1_Glb/modis_subset_order_global_col5.pl](http://daacmodis.ornl.gov/cgi-bin/MODIS/GLBVIZ_1_Glb/modis_subset_order_global_col5.pl)
+[https://lpdaacsvc.cr.usgs.gov/appeears/](https://lpdaacsvc.cr.usgs.gov/appeears/)
 
-* Provide access to regional subsets (<100x100km)
+* Provide access to regional subsets
 * Merge across tiles
 * Download full time series
 
-MODIS Subset: Spatial
+Data Subset
 =============
 
-![](09_assets/mws0.png)
+![](09_assets/appeears2.png)
 
-MODIS Subset: Variables
-=============
+Submit and wait for results...
 
-![](09_assets/mws0b.png)
-
-MODIS Subset: Temporal
-=============
-
-![](09_assets/mws0c.png)
-
-Submit email and wait for results...
-
-MODIS Subset: Results & Download
-=============
-
-![](09_assets/mws1.png)
-
-
-MODIS Subsets: API
-=============
-
-Subsets of MODIS Land Products through **Simple Object Access Protocol** (`SOAP`). 
-
-`MODISTools` R package.
 
 Presentation Credits
 =============
