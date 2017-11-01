@@ -176,7 +176,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3,h4",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -398,11 +398,78 @@ div.tocify {
 
 <div id="description" class="section level2">
 <h2>Description</h2>
-<p>The final project will consist of a poster-length report summarizing an analysis of your choice, coded in R and presented within a R Markdown document. The topic can be related to the student’s research interests or a separate topic.</p>
-<p>Your project does not have to involve big data or big, complicated analyses. I’m looking for a demonstration of your creativity and programming skills. A small but well designed project is better than a large but incomplete one. Please focus on quality over quantity.</p>
+<p>The final project will consist of a poster-length report summarizing an analysis of your choice, coded in R, and presented within a R Markdown document. The topic can be related to the student’s research interests or a separate topic.</p>
+<p>Your project does not have to involve big data or big, complicated analyses. I’m looking for a demonstration of your creativity and programming skills. A small, well designed project is better than a large, incomplete one. Please focus on quality over quantity.</p>
 <p>One limitation is that your project must use publicly accessible data. If you want to use your own data, you must make it available on a website (e.g. <a href="figshare.org">Figshare</a> or <a href="github.com">Github</a>) so that others are able to re-run your code. Also check out <a href="https://ropensci.org/packages/">ROpenSci</a> which has libraries that can pull data from many different sources. You can also download data from publicly accessible servers.</p>
-<div id="requirements" class="section level3">
-<h3>Requirements</h3>
+</div>
+<div id="project-phases" class="section level2">
+<h2>Project Phases</h2>
+<div id="project-proposal" class="section level3">
+<h3>Project proposal</h3>
+<p>The project proposal will be 1 page or less and include the following:</p>
+<ol style="list-style-type: decimal">
+<li>Introduction to problem/question</li>
+<li>Links to inspiring examples: Include links and screenshots of a few (~3-5) example graphics found on the internet that convey what you want to do. Include a few sentences about why you selected each link.</li>
+<li>Proposed data sources: Be as specific as possible.</li>
+<li>Proposed methods: List the approach you will use. Don’t simply list packages, tell me what you will do with them.</li>
+<li>Expected results: Describe what you want to produce (graphics, analyses, etc.)</li>
+</ol>
+</div>
+<div id="first-draft" class="section level3">
+<h3>First Draft</h3>
+<p>The first draft of your project will be assessed by your peers in UBlearns. The objectives of the peer evaluation are:</p>
+<ul>
+<li>Expose you to the work of your peers so you know what others are working on</li>
+<li>Provide an opportunity to share your knowledge to improve their project</li>
+</ul>
+<p>You should use the project website template (or similar) to generate a html version of your project report. See the <a href="http://adamwilson.us/RDataScience/07_Reproducibile.html">instructions here to set up your project</a>. If your project requires any data not available in public repositories, you should put it in a folder called <code>/data</code> in your project’s home directory and then import it into R with <code>read.csv('data/filname.csv')</code> or similar so that anyone with a copy of the repository can re-create the HTML output.</p>
+<div id="submission-instructions" class="section level4">
+<h4>Submission Instructions</h4>
+<p>You have three options for submitting your project:</p>
+<ol style="list-style-type: decimal">
+<li><strong>PREFERRED OPTION:</strong> Submit links to your GitHub repository <em>and</em> website.
+<ul>
+<li>Your project repository looks something like this: <img src="assets/project_github.png" /></li>
+<li>Your public website link looks something like this: <img src="assets/project_website.png" /></li>
+<li>Your submission screen in UBLearns will look like this: <img src="assets/project_submit.png" /></li>
+</ul></li>
+<li>Upload the .Rmd file that creates your output. Use this option only if you are unwilling to publicly post your project.</li>
+<li>Upload a PDF file. If you are unable to share your data you may be permitted to upload a PDF instead of the source .Rmd. To make the PDF, I recommend you compile the .Rmd document to HTML (as explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF. This is the preferred route as you also get the HTML version this way. DO NOT create the PDF using other software (like pasting things into Microsoft Word), a big part of this project is learning how to create the dynamic documents using R Markdown. This option only available with instructor approval.</li>
+</ol>
+</div>
+<div id="evaluation-instructions" class="section level4">
+<h4>Evaluation Instructions</h4>
+<p>You will be assigned two projects and evaluate them according to the instructions and rubric below.</p>
+<ol style="list-style-type: decimal">
+<li>Go to UBLearns-&gt;Assignments-&gt;Final Project-&gt; First Draft Peer Review to find your assigned reports.</li>
+<li>Go to the github page linked in the assignment and download the repository as a zip file (click on the <img src='assets/download.png' width=100> button).</li>
+<li>Unzip the file after it downloads</li>
+<li>Open the project or <code>index.Rmd</code> in RStudio and click <code>knit</code> or <code>Build Website</code> in the <code>Build</code> tab in the upper right.</li>
+</ol>
+<p>Evaluate the following and enter your scores in UBlearns:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Output:</strong> The .Rmd produces HTML output with:
+<ul>
+<li>section headers for all the major sections of the paper</li>
+<li>a draft of the complete introduction.<br />
+Be sure to install any required libraries (do not deduct points if it fails because you don’t have a library installed).</li>
+</ul></li>
+<li><strong>Introduction</strong> [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.
+<ul>
+<li><strong>0-50%</strong> Missing or inadequate</li>
+<li><strong>50-70%</strong> No Questions / Hypotheses/ Problems are mentioned</li>
+<li><strong>70-80%</strong> Questions / Hypotheses/ Problems are addressed, but without much context or explanation.</li>
+<li><strong>80-90%</strong> Clearly stated background sets up the questions / hypotheses/ problems being addressed by the analysis</li>
+<li><strong>90-100%</strong> Clearly stated background and questions / hypotheses/ problems being addressed by the analysis. Sets up the analysis in a interesting and compelling way.<br />
+</li>
+</ul></li>
+<li><strong>Data</strong>: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).</li>
+<li><strong>Figure</strong>: The HTML file includes at least one figure of the data.</li>
+</ol>
+</div>
+</div>
+<div id="second-draft" class="section level3">
+<h3>Second Draft</h3>
 <p>Complete submissions will include and be graded as follows:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Title</strong> (&lt;25 words)</li>
@@ -424,99 +491,52 @@ div.tocify {
 <ul>
 <li>Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.</li>
 </ul></li>
-<li><strong>References [5%]</strong></li>
-</ol>
+<li><strong>References [5%]</strong>
 <ul>
 <li>All sources are cited in a consistent manner</li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li><strong>General Scores</strong></li>
-</ol>
+</ul></li>
+<li><strong>General Scores</strong>
 <ul>
 <li><strong>General organization (10%)</strong>: Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. Tables and graphics carefully tuned and placed for desired purpose.The ‘story’ is very well organized, makes good use of graphics, and is easy to understand.</li>
 <li><strong>General Grammar (5%)</strong>: All sentences are well constructed and have varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.</li>
-</ul>
+</ul></li>
+</ol>
 <p>See the project rubric below for more details and examples.<br />
-<img src="assets/rubric.png" /></p>
-<p>Note that the word counts are quite short (~200 words per section). This does not mean it’s <em>easy</em>! In fact, conveying all the necessary information succinctly often takes extra effort. If English is not your first language, you are encouraged to contact the UB Writing Center to get help writing succinctly and clearly.</p>
+<a href='assets/rubric.png' target="_blank"> <img src='assets/rubric.png'></a></p>
+<p>Note that the word counts are quite short (~200 words per section). This does not mean it’s <em>easy</em>! In fact, conveying all the necessary information succinctly requires extra effort. If English is not your first language, you are encouraged to contact the <a href="https://www.buffalo.edu/writing.html">UB Writing Center</a> to get help writing succinctly and clearly. They schedule 45 minute sessions to go over your writing which can dramatically improve the quality of your project. Plan ahead to schedule this before upcoming deadlines.</p>
+<p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to see drafts of the text and figures/tables/etc in each section.</p>
+<p>The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final, polished versions of the results, discussion, or conclusion. If you have questions or comments, feel free to include them in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage.</p>
+<div id="formatting" class="section level4">
+<h4>Formatting</h4>
+<p>The final project will be produced as a <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">RMarkdown Website</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
+<p>See the <a href="http://rmarkdown.rstudio.com/formats.html">RMarkdown page</a> for ideas on different html output designs. In particular, check out the <a href="http://rmarkdown.rstudio.com/flexdashboard/">FlexaDashboard</a> options if you want to include interactive displays.</p>
 </div>
-</div>
-<div id="formatting" class="section level2">
-<h2>Formatting</h2>
-<p>The final project will be produced as a <a href="http://rmarkdown.rstudio.com">RMarkdown document</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
-<div id="figures" class="section level3">
-<h3>Figures</h3>
+<div id="figures" class="section level4">
+<h4>Figures</h4>
 <p>Figures (maps and other graphics) are a vital component of scientific communication and you should carefully plan your figures to convey the results of your analysis.</p>
 </div>
-<div id="source-and-output-files" class="section level3">
-<h3>Source and Output Files</h3>
-<p>You will upload the following files to UBlearns:</p>
-<ol style="list-style-type: decimal">
-<li>the source (<code>.Rmd</code>) file</li>
-<li>an html version (see below)</li>
-<li>a PDF version of the formatted document for feedback and grading.</li>
-</ol>
-<p>The HTML is for archival and sharing in the class projects. Let me know if you would prefer your final project to not be posted on the course website. The PDF version and your code (<code>.R</code> or <code>.Rmd</code> file) will be graded (see rubric below). The only reason I need a PDF is UBLearns will not allow direct feedback on a HTML file. To make the pdf, I recommend you compile the <code>.Rmd</code> document to HTML (as explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF. This is the preferred route as you also get the HTML version this way.</p>
-<p>It is also possible to compile the <code>.Rmd</code> document directly to PDF as explained <a href="http://rmarkdown.rstudio.com/pdf_document_format.html">here</a>.</p>
-</div>
-<div id="possible-html-formats" class="section level3">
-<h3>Possible HTML Formats</h3>
-<p>See the <a href="http://rmarkdown.rstudio.com/formats.html">RMarkdown page</a> for ideas on different html output designs. In particular, check out the <a href="http://rmarkdown.rstudio.com/flexdashboard/">FlexaDashboard</a> options.</p>
-</div>
-<div id="references" class="section level3">
-<h3>References</h3>
+<div id="references" class="section level4">
+<h4>References</h4>
 <p>You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section. You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained <a href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">here</a>. Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.</p>
 </div>
 </div>
-<div id="project-phases" class="section level2">
-<h2>Project Phases</h2>
-<div id="project-proposal" class="section level3">
-<h3>Project proposal</h3>
-<p>The project proposal will be 1 page or less and include the following:</p>
-<ol style="list-style-type: decimal">
-<li>Introduction to problem/question</li>
-<li>Links to inspiring examples: Include links and screenshots of a few (~3-5) example graphics found on the internet that convey what you want to do. Include a few sentences about why you selected each link.</li>
-<li>Proposed data sources: Be as specific as possible.</li>
-<li>Proposed methods: List the approach you will use. Don’t simply list packages, tell me what you will do with them.</li>
-<li>Expected results: Describe what you want to produce (graphics, analyses, etc.)</li>
-</ol>
-</div>
-<div id="first-draft" class="section level3">
-<h3>First Draft</h3>
-<p>The first draft of your project will be assessed by your peers in UBlearns. You will pick two projects and evaluate them according to the rubric below. The objectives of the peer evaluation are:</p>
-<ul>
-<li>Expose you to the work of your peers so you know what others are working on</li>
-<li>Provide an opportunity to share your knowledge to improve their project</li>
-</ul>
-<p>You will download your peer’s .Rmd file, run it in RStudio, and assess it as follows:</p>
-<ol style="list-style-type: decimal">
-<li>The .Rmd produces HTML output with:</li>
-</ol>
-<ul>
-<li>section headers for all the major sections of the paper</li>
-<li>a draft of the complete introduction.<br />
-Be sure to install any required libraries (do not deduct points if it fails because you don’t have a library installed).</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Introduction [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.</li>
-<li>Data: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).</li>
-<li>The HTML file includes at least one figure of the data.</li>
-</ol>
-</div>
-<div id="second-draft" class="section level3">
-<h3>Second Draft</h3>
-<p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to drafts of the text in each section as well as at least code that see at least one figure illustrating the data you are working with. If you include drafts of the results and discussion/conclusion I will also give you feedback on those sections.</p>
-<p>The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final versions of the discussion and conclusion. If you have questions or comments, feel free to include them in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage.</p>
-</div>
-<div id="project-presentation" class="section level3">
-<h3>Project Presentation</h3>
-<p>On the last day of class, each student will give a 5 minute overview of their project to the class. You will open the html version on the screen (no need to make a separate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution).</p>
+<div id="lightning-project-presentation" class="section level3">
+<h3>‘Lightning’ Project Presentation</h3>
+<p>Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the <a href="http://en.wikipedia.org/wiki/Lightning_Talk">lightning talk</a> and <a href="http://en.wikipedia.org/wiki/Ignite_(event)">ignite Sessions</a>.</p>
+<p><strong>On the last day of class, each student will give a 3-5 minute overview of their project.</strong> You will open the html version on the screen (no need to make a separate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project. Good use of headers, figures, and simple tables will make it easier to present!</p>
+<p>It’s important to remember that most of the guidelines for good presentations still apply. You should still make eye contact with the audience, you should still be prepared to stop earlier or handle awkward questions, you should still remember to go to the bathroom beforehand. What the short talk format provides you with is a framework to get down to the essence of what you are trying to say to the audience.</p>
+<p><strong>Make your point and make it quickly</strong></p>
+<p>You will not be able to cover all the information in your project. Your goal is to get us excited about what you have done.</p>
+<p>You are not there to provide the detail required for them to reproduce your work, you’re there to inspire them to search out your work. Remember they can download and reproduce your project if they want to.</p>
+<p>Practice against a timer. Practice standing up. Five minutes is a really short time when presenting. And yet make sure you go slow and steady and reduce the amount you say rather than rushing to try and cram more in.</p>
+<p><strong>And remember, the audience is on your side!</strong></p>
+<p>In summary, remember that for the presentation, DELIVERY is more important than CONTENT. This doesn’t mean that your content shouldn’t be good, but that it is always better to get across something that sticks in your audience’s mind, than getting them to forget everything you’ve just said.</p>
 <p>Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period. The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.</p>
 </div>
 <div id="final-draft" class="section level3">
 <h3>Final Draft</h3>
-<p>The final draft will be uploaded to UBLearns at the end of the semester and posted on the course website.</p>
-<p><strong>Remember to upload the HTML, PDF, and <code>.Rmd</code> files! </strong></p>
+<p>Links to your project website will be uploaded to UBLearns at the end of the semester and posted on the course website.</p>
+<p>See the grading details above in the <strong>Second Draft section</strong>.</p>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
@@ -546,6 +566,7 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 <li>Zimbabwean Bushmeat</li>
 <li>U.S. Unemployment rates</li>
 </ul>
+<p>Suggestions for lightening presentations adapted from the <a href="https://www.software.ac.uk/home/cw11/giving-good-lightning-talk">Software Sustainability Institute</a>.</p>
 </div>
 
 <!-- Google Analytics -->
