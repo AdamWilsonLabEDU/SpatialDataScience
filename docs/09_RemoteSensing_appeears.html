@@ -330,7 +330,7 @@ div.tocify {
       <a href="08_WeatherData.html">08 Weather Data Processing</a>
     </li>
     <li>
-      <a href="09_RemoteSensing.html">09 Satellite Data Processing</a>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
     </li>
     <li>
       <a href="10_ParallelProcessing.html">10 Parallel Processing</a>
@@ -423,17 +423,18 @@ library(rts)</code></pre>
 <p>Today we’ll work with:</p>
 <ul>
 <li>Land Surface Temperature (<code>lst</code>): MOD11A2</li>
-<li>Vegetation Indices (<code>evi</code>): MOD13A2</li>
 <li>Land Cover (<code>lc</code>): MCD12Q1</li>
 </ul>
 </div>
 <div id="land-use-land-cover" class="section level2">
 <h2>Land Use Land Cover</h2>
+<p>You will need to update the DataScienceData package before the command below will work. Run <code>devtools::install_github(&quot;adammwilson/DataScienceData&quot;); library(DataScienceData)</code>. If that doesn’t work, you can download the needed files directly from <a href="https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears">here</a>.</p>
 <pre class="r"><code>lulcf=system.file(&quot;extdata&quot;, 
                 &quot;appeears/MCD12Q1.051_aid0001.nc&quot;, 
                 package = &quot;DataScienceData&quot;)
 lulcf</code></pre>
 <pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/DataScienceData/extdata/appeears/MCD12Q1.051_aid0001.nc&quot;</code></pre>
+<pre class="r"><code>#IF that doesn&#39;t work</code></pre>
 <pre class="r"><code>lulc=stack(lulcf,varname=&quot;Land_Cover_Type_1&quot;)
 plot(lulc)</code></pre>
 <p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
@@ -441,6 +442,101 @@ plot(lulc)</code></pre>
 <pre class="r"><code>lulc=lulc[[13]]
 plot(lulc)</code></pre>
 <p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
+<div id="process-landcover-data" class="section level3">
+<h3>Process landcover data</h3>
+<p>Get cover clases from <a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mcd12q1">MODIS website</a></p>
+<pre class="r"><code>  Land_Cover_Type_1 = c(
+    Water = 0, 
+    `Evergreen Needleleaf forest` = 1, 
+    `Evergreen Broadleaf forest` = 2,
+    `Deciduous Needleleaf forest` = 3, 
+    `Deciduous Broadleaf forest` = 4,
+    `Mixed forest` = 5, 
+    `Closed shrublands` = 6,
+    `Open shrublands` = 7,
+    `Woody savannas` = 8, 
+    Savannas = 9,
+    Grasslands = 10,
+    `Permanent wetlands` = 11, 
+    Croplands = 12,
+    `Urban &amp; built-up` = 13,
+    `Cropland/Natural vegetation mosaic` = 14, 
+    `Snow &amp; ice` = 15,
+    `Barren/Sparsely vegetated` = 16, 
+    Unclassified = 254,
+    NoDataFill = 255)
+
+lcd=data.frame(
+  ID=Land_Cover_Type_1,
+  landcover=names(Land_Cover_Type_1),
+  col=c(&quot;#000080&quot;,&quot;#008000&quot;,&quot;#00FF00&quot;, &quot;#99CC00&quot;,&quot;#99FF99&quot;, &quot;#339966&quot;, &quot;#993366&quot;, &quot;#FFCC99&quot;, &quot;#CCFFCC&quot;, &quot;#FFCC00&quot;, &quot;#FF9900&quot;, &quot;#006699&quot;, &quot;#FFFF00&quot;, &quot;#FF0000&quot;, &quot;#999966&quot;, &quot;#FFFFFF&quot;, &quot;#808080&quot;, &quot;#000000&quot;, &quot;#000000&quot;),
+  stringsAsFactors = F)
+# colors from https://lpdaac.usgs.gov/about/news_archive/modisterra_land_cover_types_yearly_l3_global_005deg_cmg_mod12c1
+kable(head(lcd))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">ID</th>
+<th align="left">landcover</th>
+<th align="left">col</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Water</td>
+<td align="right">0</td>
+<td align="left">Water</td>
+<td align="left">#000080</td>
+</tr>
+<tr class="even">
+<td>Evergreen Needleleaf forest</td>
+<td align="right">1</td>
+<td align="left">Evergreen Needleleaf forest</td>
+<td align="left">#008000</td>
+</tr>
+<tr class="odd">
+<td>Evergreen Broadleaf forest</td>
+<td align="right">2</td>
+<td align="left">Evergreen Broadleaf forest</td>
+<td align="left">#00FF00</td>
+</tr>
+<tr class="even">
+<td>Deciduous Needleleaf forest</td>
+<td align="right">3</td>
+<td align="left">Deciduous Needleleaf forest</td>
+<td align="left">#99CC00</td>
+</tr>
+<tr class="odd">
+<td>Deciduous Broadleaf forest</td>
+<td align="right">4</td>
+<td align="left">Deciduous Broadleaf forest</td>
+<td align="left">#99FF99</td>
+</tr>
+<tr class="even">
+<td>Mixed forest</td>
+<td align="right">5</td>
+<td align="left">Mixed forest</td>
+<td align="left">#339966</td>
+</tr>
+</tbody>
+</table>
+<p>Convert LULC raster into a ‘factor’ (categorical) raster. This requires building the Raster Attribute Table (RAT). Unfortunately, this is a bit of manual process as follows.</p>
+<pre class="r"><code># convert to raster (easy)
+lulc=as.factor(lulc)
+# update the RAT - have to match the ID&#39;s
+levels(lulc)=lcd[match(levels(lulc)[[1]]$ID,lcd$ID),]</code></pre>
+<pre class="r"><code># plot it
+gplot(lulc)+
+  geom_raster(aes(fill=as.factor(value)))+
+  scale_fill_manual(values=levels(lulc)[[1]]$col,
+                    labels=levels(lulc)[[1]]$landcover,
+                    name=&quot;Landcover Type&quot;)+
+  coord_equal()+
+  theme(legend.position = &quot;bottom&quot;)+
+  guides(fill=guide_legend(ncol=1,byrow=TRUE))</code></pre>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+</div>
 </div>
 <div id="land-surface-temperature" class="section level2">
 <h2>Land Surface Temperature</h2>
@@ -450,7 +546,7 @@ plot(lulc)</code></pre>
 lstf
 lst=stack(lstf,varname=&quot;LST_Day_1km&quot;)
 plot(lst[[1:12]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-6-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-9-1.png" width="2100" /></p>
 <p>You may get a warning about some attributes being 8-byte converted to double precisions. You can ignore these warnings.</p>
 </div>
 <div id="convert-lst-to-degrees-c" class="section level2">
@@ -458,7 +554,7 @@ plot(lst[[1:12]])</code></pre>
 <p>You can convert LST from Degrees Kelvin (K) to Celcius (C) with <code>offs()</code>.</p>
 <pre class="r"><code>offs(lst)=-273.15
 plot(lst[[1:10]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-7-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-10-1.png" width="2100" /></p>
 </div>
 <div id="modland-quality-control" class="section level1">
 <h1>MODLAND Quality control</h1>
@@ -472,7 +568,7 @@ plot(lst[[1:10]])</code></pre>
 </div>
 <pre class="r"><code>lstqc=stack(lstf,varname=&quot;QC_Day&quot;)
 plot(lstqc[[1:2]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-11-1.png" width="2100" /></p>
 <div id="lst-qc-data" class="section level3">
 <h3>LST QC data</h3>
 <p>QC data are encoded in 8-bit ‘words’ to compress information.</p>
@@ -867,7 +963,7 @@ QC_Data%&gt;%
   scale_fill_manual(values=c(&quot;blue&quot;,&quot;red&quot;),name=&quot;Keep&quot;)+
   coord_equal()+
   theme(legend.position = &quot;bottom&quot;)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-17-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
 <p>Mask the lst data using the QC data</p>
 <pre class="r"><code>lst2=mask(lst,mask=lstkeep,maskval=0)</code></pre>
 </div>
@@ -899,7 +995,7 @@ names(lst_seas)=c(&quot;Q1_Winter&quot;,
   scale_fill_gradientn(colours=c(&quot;blue&quot;,mid=&quot;grey&quot;,&quot;red&quot;))+
   coord_equal()+
   theme(axis.text.x=element_text(angle=60, hjust=1))</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-21-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
 <div class="well">
 <h2 id="your-turn-1">Your turn</h2>
 <p>Use <code>stackApply()</code> to generate and plot monthly median lst values.</p>
@@ -923,7 +1019,7 @@ gplot(lst_month)+geom_raster(aes(fill=value))+
   facet_wrap(~variable)+
   scale_fill_gradientn(colours=c(&quot;blue&quot;,mid=&quot;grey&quot;,&quot;red&quot;))+
   coord_equal()</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-22-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-25-1.png" width="2100" /></p>
 </div>
 </div>
 </div>
@@ -946,36 +1042,11 @@ lwt=data.frame(date=getZ(lst2),
 
 ggplot(lwt,aes(x=date,y=lst))+
   geom_path()</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-23-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-26-1.png" width="2100" /></p>
 <p>See the <code>library(rts)</code> for more timeseries related functions.</p>
-<div id="process-landcover-data" class="section level3">
-<h3>Process landcover data</h3>
-<p>Get cover clases from <a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mcd12q1">MODIS website</a></p>
-<pre class="r"><code>  Land_Cover_Type_1 = c(
-    Water = 0, 
-    `Evergreen Needleleaf forest` = 1, 
-    `Evergreen Broadleaf forest` = 2,
-    `Deciduous Needleleaf forest` = 3, 
-    `Deciduous Broadleaf forest` = 4,
-    `Mixed forest` = 5, 
-    `Closed shrublands` = 6,
-    `Open shrublands` = 7,
-    `Woody savannas` = 8, 
-    Savannas = 9,
-    Grasslands = 10,
-    `Permanent wetlands` = 11, 
-    Croplands = 12,
-    `Urban &amp; built-up` = 13,
-    `Cropland/Natural vegetation mosaic` = 14, 
-    `Snow &amp; ice` = 15,
-    `Barren/Sparsely vegetated` = 16, 
-    Unclassified = 254,
-    NoDataFill = 255)
-
-lcd=data.frame(
-  ID=Land_Cover_Type_1,
-  landcover=names(Land_Cover_Type_1))</code></pre>
 </div>
+<div id="combine-land-cover-and-lst-data" class="section level2">
+<h2>Combine Land Cover and LST data</h2>
 <div id="resample-lc-to-lst-grid" class="section level3">
 <h3>Resample <code>lc</code> to <code>lst</code> grid</h3>
 <pre class="r"><code>lulc2=resample(lulc,
@@ -985,7 +1056,7 @@ lcd=data.frame(
 par(mfrow=c(1,2)) 
 plot(lulc)
 plot(lulc2)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-25-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-27-1.png" width="2100" /></p>
 <pre class="r"><code>par(mfrow=c(1,1))</code></pre>
 </div>
 <div id="summarize-mean-monthly-temperatures-by-landcover" class="section level3">
@@ -1014,13 +1085,13 @@ head(lcds1)</code></pre>
   left_join(lcd)</code></pre>
 <pre><code>## Joining, by = &quot;ID&quot;</code></pre>
 <pre class="r"><code>head(lcds2)</code></pre>
-<pre><code>##   ID    season     value                          landcover
-## 1 14 Q1_Winter -2.034468 Cropland/Natural vegetation mosaic
-## 2 14 Q1_Winter -2.988242 Cropland/Natural vegetation mosaic
-## 3 14 Q1_Winter -2.988242 Cropland/Natural vegetation mosaic
-## 4 14 Q1_Winter -2.920889 Cropland/Natural vegetation mosaic
-## 5 14 Q1_Winter -1.810625 Cropland/Natural vegetation mosaic
-## 6 14 Q1_Winter -1.810625 Cropland/Natural vegetation mosaic</code></pre>
+<pre><code>##   ID    season     value                          landcover     col
+## 1 14 Q1_Winter -2.034468 Cropland/Natural vegetation mosaic #999966
+## 2 14 Q1_Winter -2.988242 Cropland/Natural vegetation mosaic #999966
+## 3 14 Q1_Winter -2.988242 Cropland/Natural vegetation mosaic #999966
+## 4 14 Q1_Winter -2.920889 Cropland/Natural vegetation mosaic #999966
+## 5 14 Q1_Winter -1.810625 Cropland/Natural vegetation mosaic #999966
+## 6 14 Q1_Winter -1.810625 Cropland/Natural vegetation mosaic #999966</code></pre>
 <div id="explore-lst-distributions-by-landcover" class="section level4">
 <h4>Explore LST distributions by landcover</h4>
 <pre class="r"><code>ggplot(lcds2,aes(y=value,x=landcover,group=landcover))+
@@ -1028,7 +1099,7 @@ head(lcds1)</code></pre>
   geom_point(alpha=.5,position=&quot;jitter&quot;)+
   geom_violin(alpha=.5,col=&quot;red&quot;,scale = &quot;width&quot;)+
   theme(axis.text.x=element_text(angle=90, hjust=1))</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-29-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-31-1.png" width="2100" /></p>
 </div>
 </div>
 <div id="use-zonal-statistics-to-calculate-summaries" class="section level3">
@@ -1201,51 +1272,51 @@ Show Solution
 <tbody>
 <tr class="odd">
 <td align="right">13</td>
-<td align="right">305.6330</td>
+<td align="right">32.48299</td>
 </tr>
 <tr class="even">
 <td align="right">12</td>
-<td align="right">304.7497</td>
+<td align="right">31.59969</td>
 </tr>
 <tr class="odd">
 <td align="right">8</td>
-<td align="right">304.3399</td>
+<td align="right">31.18989</td>
 </tr>
 <tr class="even">
 <td align="right">14</td>
-<td align="right">303.9356</td>
+<td align="right">30.78560</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">303.8260</td>
+<td align="right">30.67597</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">302.8160</td>
+<td align="right">29.66600</td>
 </tr>
 <tr class="odd">
 <td align="right">4</td>
-<td align="right">300.1737</td>
+<td align="right">27.02374</td>
 </tr>
 <tr class="even">
 <td align="right">9</td>
-<td align="right">299.0825</td>
+<td align="right">25.93245</td>
 </tr>
 <tr class="odd">
 <td align="right">1</td>
-<td align="right">297.7844</td>
+<td align="right">24.63437</td>
 </tr>
 <tr class="even">
 <td align="right">0</td>
-<td align="right">297.6029</td>
+<td align="right">24.45286</td>
 </tr>
 <tr class="odd">
 <td align="right">11</td>
-<td align="right">295.2102</td>
+<td align="right">22.06022</td>
 </tr>
 <tr class="even">
 <td align="right">3</td>
-<td align="right">293.8579</td>
+<td align="right">20.70795</td>
 </tr>
 </tbody>
 </table>

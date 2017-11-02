@@ -36,15 +36,19 @@ library(rts)
 #' Today we'll work with:
 #' 
 #' * Land Surface Temperature (`lst`): MOD11A2
-#' * Vegetation Indices (`evi`): MOD13A2
 #' * Land Cover (`lc`): MCD12Q1
 #' 
 #' ## Land Use Land Cover
+#' 
+#' You will need to update the DataScienceData package before the command below will work.  Run `devtools::install_github("adammwilson/DataScienceData"); library(DataScienceData)`.  If that doesn't work, you can download the needed files directly from [here](https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears).
+#' 
 ## ------------------------------------------------------------------------
 lulcf=system.file("extdata", 
                 "appeears/MCD12Q1.051_aid0001.nc", 
                 package = "DataScienceData")
 lulcf
+
+#IF that doesn't work
 
 #' 
 ## ---- warning=F, message=FALSE,results='hide'----------------------------
@@ -56,6 +60,61 @@ plot(lulc)
 ## ---- warning=F----------------------------------------------------------
 lulc=lulc[[13]]
 plot(lulc)
+
+#' 
+#' ### Process landcover data
+#' 
+#' Get cover clases from [MODIS website](https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mcd12q1)
+#' 
+## ------------------------------------------------------------------------
+  Land_Cover_Type_1 = c(
+    Water = 0, 
+    `Evergreen Needleleaf forest` = 1, 
+    `Evergreen Broadleaf forest` = 2,
+    `Deciduous Needleleaf forest` = 3, 
+    `Deciduous Broadleaf forest` = 4,
+    `Mixed forest` = 5, 
+    `Closed shrublands` = 6,
+    `Open shrublands` = 7,
+    `Woody savannas` = 8, 
+    Savannas = 9,
+    Grasslands = 10,
+    `Permanent wetlands` = 11, 
+    Croplands = 12,
+    `Urban & built-up` = 13,
+    `Cropland/Natural vegetation mosaic` = 14, 
+    `Snow & ice` = 15,
+    `Barren/Sparsely vegetated` = 16, 
+    Unclassified = 254,
+    NoDataFill = 255)
+
+lcd=data.frame(
+  ID=Land_Cover_Type_1,
+  landcover=names(Land_Cover_Type_1),
+  col=c("#000080","#008000","#00FF00", "#99CC00","#99FF99", "#339966", "#993366", "#FFCC99", "#CCFFCC", "#FFCC00", "#FF9900", "#006699", "#FFFF00", "#FF0000", "#999966", "#FFFFFF", "#808080", "#000000", "#000000"),
+  stringsAsFactors = F)
+# colors from https://lpdaac.usgs.gov/about/news_archive/modisterra_land_cover_types_yearly_l3_global_005deg_cmg_mod12c1
+kable(head(lcd))
+
+#' 
+#' Convert LULC raster into a 'factor' (categorical) raster.  This requires building the Raster Attribute Table (RAT).  Unfortunately, this is a bit of manual process as follows.
+## ------------------------------------------------------------------------
+# convert to raster (easy)
+lulc=as.factor(lulc)
+# update the RAT - have to match the ID's
+levels(lulc)=lcd[match(levels(lulc)[[1]]$ID,lcd$ID),]
+
+#' 
+## ---- fig.height=12, warning=F-------------------------------------------
+# plot it
+gplot(lulc)+
+  geom_raster(aes(fill=as.factor(value)))+
+  scale_fill_manual(values=levels(lulc)[[1]]$col,
+                    labels=levels(lulc)[[1]]$landcover,
+                    name="Landcover Type")+
+  coord_equal()+
+  theme(legend.position = "bottom")+
+  guides(fill=guide_legend(ncol=1,byrow=TRUE))
 
 #' 
 #' ## Land Surface Temperature
@@ -309,36 +368,7 @@ ggplot(lwt,aes(x=date,y=lst))+
 #' 
 #' See the `library(rts)` for more timeseries related functions.
 #' 
-#' ### Process landcover data
-#' 
-#' Get cover clases from [MODIS website](https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mcd12q1)
-#' 
-## ------------------------------------------------------------------------
-  Land_Cover_Type_1 = c(
-    Water = 0, 
-    `Evergreen Needleleaf forest` = 1, 
-    `Evergreen Broadleaf forest` = 2,
-    `Deciduous Needleleaf forest` = 3, 
-    `Deciduous Broadleaf forest` = 4,
-    `Mixed forest` = 5, 
-    `Closed shrublands` = 6,
-    `Open shrublands` = 7,
-    `Woody savannas` = 8, 
-    Savannas = 9,
-    Grasslands = 10,
-    `Permanent wetlands` = 11, 
-    Croplands = 12,
-    `Urban & built-up` = 13,
-    `Cropland/Natural vegetation mosaic` = 14, 
-    `Snow & ice` = 15,
-    `Barren/Sparsely vegetated` = 16, 
-    Unclassified = 254,
-    NoDataFill = 255)
-
-lcd=data.frame(
-  ID=Land_Cover_Type_1,
-  landcover=names(Land_Cover_Type_1))
-
+#' ## Combine Land Cover and LST data
 #' 
 #' ### Resample `lc` to `lst` grid
 #' 
