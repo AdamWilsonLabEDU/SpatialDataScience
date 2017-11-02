@@ -524,8 +524,10 @@ kable(head(lcd))</code></pre>
 <p>Convert LULC raster into a ‘factor’ (categorical) raster. This requires building the Raster Attribute Table (RAT). Unfortunately, this is a bit of manual process as follows.</p>
 <pre class="r"><code># convert to raster (easy)
 lulc=as.factor(lulc)
-# update the RAT - have to match the ID&#39;s
-levels(lulc)=lcd[match(levels(lulc)[[1]]$ID,lcd$ID),]</code></pre>
+
+# update the RAT with a left join
+levels(lulc)=left_join(levels(lulc)[[1]],lcd)</code></pre>
+<pre><code>## Joining, by = &quot;ID&quot;</code></pre>
 <pre class="r"><code># plot it
 gplot(lulc)+
   geom_raster(aes(fill=as.factor(value)))+
@@ -618,7 +620,7 @@ plot(lstqc[[1:2]])</code></pre>
 <pre><code>## [1] 0 1 0 0 0 0 0 1</code></pre>
 <p>QC for value <code>65</code>:</p>
 <ul>
-<li>LST produced, other quality, recommend exampination of more detailed QA</li>
+<li>LST produced, other quality, recommend examination of more detailed QA</li>
 <li>good data quality of L1B in 7 TIR bands</li>
 <li>average emissivity error &lt;= 0.01</li>
 <li>Average LST error &lt;= 2K</li>

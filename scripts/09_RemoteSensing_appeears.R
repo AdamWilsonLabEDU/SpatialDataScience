@@ -101,8 +101,10 @@ kable(head(lcd))
 ## ------------------------------------------------------------------------
 # convert to raster (easy)
 lulc=as.factor(lulc)
-# update the RAT - have to match the ID's
-levels(lulc)=lcd[match(levels(lulc)[[1]]$ID,lcd$ID),]
+
+# update the RAT with a left join
+levels(lulc)=left_join(levels(lulc)[[1]],lcd)
+
 
 #' 
 ## ---- fig.height=12, warning=F-------------------------------------------
@@ -183,7 +185,7 @@ rev(as.integer(intToBits(65)[1:8]))
 
 #' QC for value `65`:
 #' 
-#' * LST produced, other quality, recommend exampination of more detailed QA
+#' * LST produced, other quality, recommend examination of more detailed QA
 #' * good data quality of L1B in 7 TIR bands
 #' * average emissivity error <= 0.01
 #' * Average LST error <= 2K
