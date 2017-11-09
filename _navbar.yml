@@ -38,10 +38,10 @@ left:
         href: 08_WeatherData.html
       - text: "09 Satellite Data Processing"
         href: 09_RemoteSensing_appeears.html
-      - text: "10 Parallel Processing"
-        href: 10_ParallelProcessing.html
-      - text: "11 Version Control with Git"
-        href: 11_Git.html
+      - text: "10 Version Control with Git"
+        href: 10_Git.html
+      - text: "11 Parallel Processing"
+        href: 11_ParallelProcessing.html
       - text: "-----------------"
   - text: "Assignments"
     menu:
