@@ -295,7 +295,7 @@ The third model uses both the NDVI and spatial trends to explain the finch's occ
   preds.space.and.ndvi <- as.numeric(predict(space.and.ndvi, type="response"))
   resid.space.and.ndvi <- residuals(space.and.ndvi)
 ```
-
+ 
 Print a summary table
 ```{r, results='asis'}
 xtable(summary(space.and.ndvi)$s.table,
