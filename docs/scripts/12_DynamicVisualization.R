@@ -22,22 +22,20 @@ library(widgetframe)
 #' 
 #' # DataTables
 #' 
-#' [DataTables](http://rstudio.github.io/DT/) display R data frames as interactive HTML tables (with filtering, pagination, sorting, and search).
+#' [DataTables](http://rstudio.github.io/DT/) display R data frames as interactive HTML tables (with filtering, pagination, sorting, and search).  This is a great way to make your raw data browsable without using too much space.
 #' 
 ## ------------------------------------------------------------------------
 library(DT)
 datatable(iris, options = list(pageLength = 5))
 
 #' 
-#' # ggplotd3 instead?
-#' 
 #' # rbokeh
 #' 
-#' [Bokeh](http://hafen.github.io/rbokeh) 
+#' Interface to the [Bokeh](http://hafen.github.io/rbokeh) library for making interactive graphics.
 #' 
 ## ---- warning=F, message=F-----------------------------------------------
 library(rbokeh)
-figure() %>%
+figure(width = 400, height=400) %>%
   ly_points(Sepal.Length, Sepal.Width, data = iris,
     color = Species, glyph = Species,
     hover = list(Sepal.Length, Sepal.Width))
@@ -46,56 +44,35 @@ figure() %>%
 #' 
 #' # Leaflet
 #' 
-#' [Leaflet](http://rstudio.github.io/leaflet/) is a JavaScript library for creating dynamic maps that support panning and zooming along with various annotations like markers, polygons, and popups.  The examples below were adapted from the [leaflet vignettes](http://rstudio.github.io/leaflet).
+#' [Leaflet](http://rstudio.github.io/leaflet/) is a really powerful JavaScript library for creating dynamic maps that support panning and zooming along with various annotations like markers, polygons, and popups.  The example below were adapted from the [leaflet vignettes](http://rstudio.github.io/leaflet).
 #' 
 ## ---- warning=F, message=F-----------------------------------------------
 library(leaflet)
 geocode("Buffalo, NY")
 m <- leaflet() %>% setView(lng = -78.87837, lat = 42.88645, zoom = 12) %>% 
   addTiles()
-frameWidget(m)
+frameWidget(m,height =500)
 
 #' 
-## ------------------------------------------------------------------------
-pal <- colorQuantile("YlOrRd", NULL, n = 8)
-#leaflet() %>% 
-#  addTiles() %>%
-#  addCircleMarkers(color = ~pal(tann))
-
 #' 
 #' <div class="well">
 #' ## Your turn
-#' Make a leaflet map of mean income in each census tracts in Buffalo using using the XX background 
+#' This example only scratches the surface of what is possible with leaflet.  Consider whether you can use an leaflet maps in your project.  
 #' 
-#' Hints:
-#' 
-#' * Use the following code to download the census tract information
-## ---- eval=F-------------------------------------------------------------
-## library(tidycensus)
-## library(tidyverse)
-## library(viridis)
-## 
-## #census_buffalo=
-## 
-
-#' 
-#' * use `leaflet()` with
-#' 
-#' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-#' <div id="demo1" class="collapse">
-#' 
-#' </div>
+#' * Browse the [Leaflet website](http://rstudio.github.io/leaflet/) 
+#' * What data could you use? 
+#' * How would you display it?
 #' </div>
 #' 
 #' 
 #' # dygraphs
-#' 
-## ------------------------------------------------------------------------
+#' An R interface to the 'dygraphs' JavaScript charting library. Provides rich facilities for charting time-series data in R, including highly configurable series- and axis-display and interactive features like zoom/pan and series/point highlighting.
+#'     
+## ---- warning=F----------------------------------------------------------
 library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures") %>% 
+dygraph(nhtemp, main = "New Haven Temperatures",height = 100) %>% 
   dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))%>%
-  frameWidget()
+  frameWidget(height =500)
 
 
 #' 
@@ -129,23 +106,29 @@ d$date=as.Date(d$date)
 #' 
 #' # rthreejs
 #' 
+#' Create interactive 3D scatter plots, network plots, and globes using the ['three.js' visualization library](https://threejs.org).
+#'     
 ## ---- messages=F, results=F----------------------------------------------
 #devtools::install_github("bwlewis/rthreejs")
 library(threejs)
 z <- seq(-10, 10, 0.1)
 x <- cos(z)
 y <- sin(z)
-scatterplot3js(x, y, z, color=rainbow(length(z)))%>%
-  frameWidget()
+scatterplot3js(x, y, z, color=rainbow(length(z)))
 
 #' 
 #' # networkD3
 #' 
-#' 
-## ------------------------------------------------------------------------
+#' Creates 'D3' 'JavaScript' network, tree, dendrogram, and Sankey graphs from 'R'.
+#'     
+## ---- message=F, results=F-----------------------------------------------
 library(igraph)
 library(networkD3)
 
+#' 
+#' 
+#' ## Load example network
+## ------------------------------------------------------------------------
 karate <- make_graph("Zachary")
 wc <- cluster_walktrap(karate)
 members <- membership(wc)
@@ -153,13 +136,18 @@ members <- membership(wc)
 # Convert to object suitable for networkD3
 karate_d3 <- igraph_to_networkD3(karate, group = members)
 
-# Create force directed network plot
+#' 
+#' ## Force directed network plot
+#' 
+## ------------------------------------------------------------------------
 forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
              Source = 'source', Target = 'target', NodeID = 'name',
              Group = 'group')%>%
-  frameWidget()
+  frameWidget(height =500)
 
-
+#' 
+#' 
+#' ## Sankey Network graph
 #' 
 ## ------------------------------------------------------------------------
 # Load energy projection data
@@ -170,12 +158,11 @@ URL <- paste0(
 Energy <- fromJSON(URL)
 
 #' 
-#' ## Plot the energy data as a Sankey Network
 ## ------------------------------------------------------------------------
 sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
              Target = "target", Value = "value", NodeID = "name",
              units = "TWh", fontSize = 12, nodeWidth = 30)%>%
-  frameWidget()
+  frameWidget(height =500)
 
 #' 
 #' ## Radial Network
@@ -193,29 +180,30 @@ Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
 # Use subset of data for more readable diagram
 Flare$children = Flare$children[1:3]
 
-radialNetwork(List = Flare, fontSize = 10, opacity = 0.9)%>%
-  frameWidget()
+radialNetwork(List = Flare, fontSize = 10, opacity = 0.9, height = 400, width=400)
 
 #' 
 #' # Diagonal Network
 ## ------------------------------------------------------------------------
-diagonalNetwork(List = Flare, fontSize = 10, opacity = 0.9)%>%
-  frameWidget()
+diagonalNetwork(List = Flare, fontSize = 10, opacity = 0.9, height = 400, width=400)
 
 #' 
 #' 
 #' # rglwidget
 #' 
-## ------------------------------------------------------------------------
+#' RGL provides 3D interactive graphics, including functions modelled on base graphics (`plot3d()`, etc.) as well as functions for constructing representations of geometric objects (`cube3d()`, etc.).  You may need to install [XQuartz](https://www.xquartz.org/).
+#' 
+## ---- message=F----------------------------------------------------------
 library(rgl)
 library(rglwidget)
 library(htmltools)
 
-
+# Load a low-resolution elevation dataset of a volcano
 data(volcano)
-# Use the Weather data we downloaded before
-#material3d(col = "black")
 
+#' 
+#' ## Plot an interactive 3D _surface_
+## ------------------------------------------------------------------------
 persp3d(volcano, type="s",col="green3")
 rglwidget(elementId = "example", width = 500, height = 400)%>%
   frameWidget()
@@ -224,24 +212,11 @@ rglwidget(elementId = "example", width = 500, height = 400)%>%
 #' 
 #' <div class="well">
 #' ## Your turn
-#' Make a dynamic network graph with `networkD3` to show the 
 #' 
-#' Hints:
-#' 
-#' * Use the following code to download the census tract information
-## ---- eval=F-------------------------------------------------------------
-## NA
-
-#' 
-#' * use `dygraph()` to draw the plot
-#' * add a `dyRangeSelector()` with a `dateWindow` of `c("1920-01-01", "2017-01-01")`
-#' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
-#' <div id="demo3" class="collapse">
-#' 
-#' </div>
-#' </div>
-#' 
-#' 
-#' # And many more!
 #' Check out the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples.
+#' 
+#' Which can you use in your project?
+#' 
+#' </div>
+#' 
+#' 
