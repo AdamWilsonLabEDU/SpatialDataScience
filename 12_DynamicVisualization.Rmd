@@ -86,7 +86,7 @@ Make a dygraph of recent daily maximum temperature data from Buffalo, NY.
 Hints:
 
 * Use the following code to download the daily weather data (if this is taking too long, you can use the nhtemps object loaded above)
-```{r, messages=F, warning=F}
+```{r, messages=F, warning=F, results=F}
 library(rnoaa)
 library(xts)
 
@@ -104,7 +104,7 @@ d$date=as.Date(d$date)
 <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
 <div id="demo2" class="collapse">
 
-```{r, purl=F, warning=F}
+```{r, purl=F, warning=F, results=F}
 # Convert to a xts time series object as required by dygraph
 dt=xts(d$tmax,order.by=d$date)
 

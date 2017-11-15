@@ -83,7 +83,7 @@ dygraph(nhtemp, main = "New Haven Temperatures",height = 100) %>%
 #' Hints:
 #' 
 #' * Use the following code to download the daily weather data (if this is taking too long, you can use the nhtemps object loaded above)
-## ---- messages=F, warning=F----------------------------------------------
+## ---- messages=F, warning=F, results=F-----------------------------------
 library(rnoaa)
 library(xts)
 
