@@ -42,6 +42,8 @@ left:
         href: 10_Git.html
       - text: "11 Parallel Processing"
         href: 11_ParallelProcessing.html
+      - text: "12 Dynamic Visualization"
+        href: 12_DynamicVisualization.html
       - text: "-----------------"
   - text: "Assignments"
     menu:

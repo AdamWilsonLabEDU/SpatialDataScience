@@ -269,7 +269,7 @@ xtable(summary(space.only)$s.table,
   preds.space.and.ndvi <- as.numeric(predict(space.and.ndvi, type="response"))
   resid.space.and.ndvi <- residuals(space.and.ndvi)
 
-#' 
+#'  
 #' Print a summary table
 ## ---- results='asis'-----------------------------------------------------
 xtable(summary(space.and.ndvi)$s.table,

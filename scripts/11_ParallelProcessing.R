@@ -5,8 +5,7 @@
 #' 
 #' 
 #' <div class="h_iframe">
-#' <iframe src="11_Presentation/ParallelProcessingIntro.html"  target="_blank"> </iframe>
-#' <a href="11_Presentation/ParallelProcessingIntro.html"> Open presentation in a new tab</a>
+#' <iframe src="11_Presentation/ParallelProcessingIntro.html"> </iframe>
 #' </div>
 #' 
 #' 

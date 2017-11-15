@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Dynamic Visualization</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/bokehjs-0.12.2/bokeh.min.css" rel="stylesheet" />
+<link href="site_libs/bokehjs-0.12.2/loader.css" rel="stylesheet" />
+<script src="site_libs/bokehjs-0.12.2/bokeh.min.js"></script>
+<script src="site_libs/rbokeh-binding-0.5.0/rbokeh.js"></script>
+<link href="site_libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-0.7.7/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="site_libs/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="site_libs/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="site_libs/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="site_libs/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="site_libs/leaflet-binding-1.1.0/leaflet.js"></script>
+<link href="site_libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet" />
+<script src="site_libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+<script src="site_libs/moment-2.8.4/moment.js"></script>
+<script src="site_libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+<script src="site_libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+<script src="site_libs/dygraphs-binding-1.1.1.4/dygraphs.js"></script>
+<script src="site_libs/d3-4.5.0/d3.min.js"></script>
+<script src="site_libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: R Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_DataWrangling.html">02 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03_Plotting.html">03 Plotting</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial.html">04 Spatial Data</a>
+    </li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li>
+      <a href="06_RasterTwo.html">06 More Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="10_Git.html">10 Version Control with Git</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Dynamic Visualization</h1>
+
+</div>
+
+
+<p><a href="scripts/12_DynamicVisualization.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this module we will explore several ways to generate dynamic and interactive data displays. These include making maps and graphs that you can pan/zoom, select features for more information, and interact with in other ways. The most common output format is HTML, which can easily be embedded in a website (such as your final project!).</p>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(ggmap)</code></pre>
+<p>If you don’t have the packages above, install them in the package manager or by running <code>install.packages(&quot;doParallel&quot;)</code>.</p>
+</div>
+<div id="datatables" class="section level1">
+<h1>DataTables</h1>
+<p><a href="http://rstudio.github.io/DT/">DataTables</a> display R data frames as interactive HTML tables (with filtering, pagination, sorting, and search).</p>
+<pre class="r"><code>library(DT)
+datatable(iris, options = list(pageLength = 5))</code></pre>
+<div id="htmlwidget-a55ec15839f8a72e7113" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a55ec15839f8a72e7113">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5,1.5,1.6,1.4,1.1,1.2,1.5,1.3,1.4,1.7,1.5,1.7,1.5,1,1.7,1.9,1.6,1.6,1.5,1.4,1.6,1.6,1.5,1.5,1.4,1.5,1.2,1.3,1.4,1.3,1.5,1.3,1.3,1.3,1.6,1.9,1.4,1.6,1.4,1.5,1.4,4.7,4.5,4.9,4,4.6,4.5,4.7,3.3,4.6,3.9,3.5,4.2,4,4.7,3.6,4.4,4.5,4.1,4.5,3.9,4.8,4,4.9,4.7,4.3,4.4,4.8,5,4.5,3.5,3.8,3.7,3.9,5.1,4.5,4.5,4.7,4.4,4.1,4,4.4,4.6,4,3.3,4.2,4.2,4.2,4.3,3,4.1,6,5.1,5.9,5.6,5.8,6.6,4.5,6.3,5.8,6.1,5.1,5.3,5.5,5,5.1,5.3,5.5,6.7,6.9,5,5.7,4.9,6.7,4.9,5.7,6,4.8,4.9,5.6,5.8,6.1,6.4,5.6,5.1,5.6,6.1,5.6,5.5,4.8,5.4,5.6,5.1,5.1,5.9,5.7,5.2,5,5.2,5.4,5.1],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1,0.2,0.2,0.1,0.1,0.2,0.4,0.4,0.3,0.3,0.3,0.2,0.4,0.2,0.5,0.2,0.2,0.4,0.2,0.2,0.2,0.2,0.4,0.1,0.2,0.2,0.2,0.2,0.1,0.2,0.2,0.3,0.3,0.2,0.6,0.4,0.3,0.2,0.2,0.2,0.2,1.4,1.5,1.5,1.3,1.5,1.3,1.6,1,1.3,1.4,1,1.5,1,1.4,1.3,1.4,1.5,1,1.5,1.1,1.8,1.3,1.5,1.2,1.3,1.4,1.4,1.7,1.5,1,1.1,1,1.2,1.6,1.5,1.6,1.5,1.3,1.3,1.3,1.2,1.4,1.2,1,1.3,1.2,1.3,1.3,1.1,1.3,2.5,1.9,2.1,1.8,2.2,2.1,1.7,1.8,1.8,2.5,2,1.9,2.1,2,2.4,2.3,1.8,2.2,2.3,1.5,2.3,2,2,1.8,2.1,1.8,1.8,1.8,2.1,1.6,1.9,2,2.2,1.5,1.4,2.3,2.4,1.8,1.8,2.1,2.4,2.3,1.9,2.3,2.5,2.3,1.9,2,2.3,1.8],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","versicolor","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica","virginica"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="ggplotd3-instead" class="section level1">
+<h1>ggplotd3 instead?</h1>
+</div>
+<div id="rbokeh" class="section level1">
+<h1>rbokeh</h1>
+<p><a href="http://hafen.github.io/rbokeh">Bokeh</a></p>
+<pre class="r"><code>library(rbokeh)
+figure() %&gt;%
+  ly_points(Sepal.Length, Sepal.Width, data = iris,
+    color = Species, glyph = Species,
+    hover = list(Sepal.Length, Sepal.Width))</code></pre>
+<div id="htmlwidget-c4b86e19eda86e9991c6" style="width:2100px;height:1200px;" class="rbokeh html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c4b86e19eda86e9991c6">{"x":{"elementid":"838b0a6c33b3156aae823027f030c4cf","modeltype":"Plot","modelid":"d80d32ab60ba922a388ccd5deba4e207","docid":"2daef3969e0a0422ee2f0d887358a59a","docs_json":{"2daef3969e0a0422ee2f0d887358a59a":{"version":"0.12.2","title":"Bokeh Figure","roots":{"root_ids":["d80d32ab60ba922a388ccd5deba4e207"],"references":[{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","attributes":{"id":"d80d32ab60ba922a388ccd5deba4e207","sizing_mode":"scale_both","x_range":{"type":"Range1d","id":"9fd4fdf3a5e5759edc679c63f5e50654"},"y_range":{"type":"Range1d","id":"dbbd1b6e6913b91a6062fcd064a89d62"},"left":[{"type":"LinearAxis","id":"7e54c26187e0d46e29e7b2d95bbca7ac"}],"below":[{"type":"LinearAxis","id":"ed253b7889e5ceb0b564abad46e16dfe"}],"right":[],"above":[],"renderers":[{"type":"BoxAnnotation","id":"035ce5068306d19fba1980472fffd274"},{"type":"GlyphRenderer","id":"05e181ee8d4bb87f54b6770f97fd934d"},{"type":"GlyphRenderer","id":"e217b706b51db09d95fb724cf360afcb"},{"type":"GlyphRenderer","id":"1ffc3d9f4a3bd144261c1c5ef605d116"},{"type":"GlyphRenderer","id":"0e6cf24ce6dcfc5fbf61e4159dda494a"},{"type":"GlyphRenderer","id":"f268e08a78315bef21b3ac49b3a38ea9"},{"type":"GlyphRenderer","id":"1036b6c21484f2b2926321a62b192efa"},{"type":"Legend","id":"fed21c572376ee6824fe9d67ad3f27cc"},{"type":"LinearAxis","id":"ed253b7889e5ceb0b564abad46e16dfe"},{"type":"Grid","id":"cc80b9d07c14a56a6acd837006899161"},{"type":"LinearAxis","id":"7e54c26187e0d46e29e7b2d95bbca7ac"},{"type":"Grid","id":"b583ffeced3d412e33c5be1a41444476"}],"extra_y_ranges":{},"extra_x_ranges":{},"tags":[],"min_border_left":4,"min_border_right":4,"min_border_top":4,"min_border_bottom":4,"lod_threshold":null,"toolbar":{"type":"Toolbar","id":"1e97542a4783530dc3d400fb09202ff6"},"tool_events":{"type":"ToolEvents","id":"10dc0d465f573f447cc4db93a84c881c"}},"subtype":"Figure"},{"type":"Toolbar","id":"1e97542a4783530dc3d400fb09202ff6","attributes":{"id":"1e97542a4783530dc3d400fb09202ff6","tags":[],"active_drag":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"type":"PanTool","id":"77b1f5d6e729be1f33bdb1c4e941bcd3"},{"type":"WheelZoomTool","id":"c43cf7cfb5f670d9c08e759832b6b304"},{"type":"BoxZoomTool","id":"21289ad88bfad889c2a0ff31b0d0d67d"},{"type":"ResetTool","id":"761f1d1dd3988d986518379716eb45de"},{"type":"SaveTool","id":"0678dee32eac91292918d0aa04904f92"},{"type":"HelpTool","id":"e6d8b1ce2f63a21a901c024006c65ec8"},{"type":"HoverTool","id":"8d820add3911e9993174dbd0a1465768"},{"type":"HoverTool","id":"7a97c64bc747749c207aa1a822a0de9b"},{"type":"HoverTool","id":"cd76ebee6f507b926c77369884d9ff4d"}],"logo":null}},{"type":"PanTool","id":"77b1f5d6e729be1f33bdb1c4e941bcd3","attributes":{"id":"77b1f5d6e729be1f33bdb1c4e941bcd3","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"dimensions":["width","height"]}},{"type":"ToolEvents","id":"10dc0d465f573f447cc4db93a84c881c","attributes":{"id":"10dc0d465f573f447cc4db93a84c881c","tags":[]},"geometries":[]},{"type":"WheelZoomTool","id":"c43cf7cfb5f670d9c08e759832b6b304","attributes":{"id":"c43cf7cfb5f670d9c08e759832b6b304","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"dimensions":["width","height"]}},{"type":"BoxAnnotation","id":"035ce5068306d19fba1980472fffd274","attributes":{"id":"035ce5068306d19fba1980472fffd274","tags":[],"line_color":{"units":"data","value":"black"},"line_alpha":{"units":"data","value":1},"fill_color":{"units":"data","value":"lightgrey"},"fill_alpha":{"units":"data","value":0.5},"line_dash":[4,4],"line_width":{"units":"data","value":2},"level":"overlay","top_units":"screen","bottom_units":"screen","left_units":"screen","right_units":"screen","render_mode":"css"}},{"type":"BoxZoomTool","id":"21289ad88bfad889c2a0ff31b0d0d67d","attributes":{"id":"21289ad88bfad889c2a0ff31b0d0d67d","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"overlay":{"type":"BoxAnnotation","id":"035ce5068306d19fba1980472fffd274"}}},{"type":"ResetTool","id":"761f1d1dd3988d986518379716eb45de","attributes":{"id":"761f1d1dd3988d986518379716eb45de","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"}}},{"type":"SaveTool","id":"0678dee32eac91292918d0aa04904f92","attributes":{"id":"0678dee32eac91292918d0aa04904f92","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"}}},{"type":"HelpTool","id":"e6d8b1ce2f63a21a901c024006c65ec8","attributes":{"id":"e6d8b1ce2f63a21a901c024006c65ec8","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"redirect":"http://hafen.github.io/rbokeh","help_tooltip":"Click to learn more about rbokeh."}},{"type":"HoverTool","id":"8d820add3911e9993174dbd0a1465768","attributes":{"id":"8d820add3911e9993174dbd0a1465768","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"renderers":[{"type":"GlyphRenderer","id":"05e181ee8d4bb87f54b6770f97fd934d"}],"names":[],"anchor":"center","attachment":"horizontal","line_policy":"prev","mode":"mouse","point_policy":"snap_to_data","tooltips":[["Sepal.Length","@hover_col_1"],["Sepal.Width","@hover_col_2"]]}},{"type":"ColumnDataSource","id":"155df11f3335377d8c303a3e2e18b458","attributes":{"id":"155df11f3335377d8c303a3e2e18b458","tags":[],"column_names":["x","y","line_color","fill_color","hover_col_1","hover_col_2"],"selected":[],"data":{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3],"line_color":["#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4"],"fill_color":["#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4"],"hover_col_1":["5.1","4.9","4.7","4.6","5.0","5.4","4.6","5.0","4.4","4.9","5.4","4.8","4.8","4.3","5.8","5.7","5.4","5.1","5.7","5.1","5.4","5.1","4.6","5.1","4.8","5.0","5.0","5.2","5.2","4.7","4.8","5.4","5.2","5.5","4.9","5.0","5.5","4.9","4.4","5.1","5.0","4.5","4.4","5.0","5.1","4.8","5.1","4.6","5.3","5.0"],"hover_col_2":["3.5","3.0","3.2","3.1","3.6","3.9","3.4","3.4","2.9","3.1","3.7","3.4","3.0","3.0","4.0","4.4","3.9","3.5","3.8","3.8","3.4","3.7","3.6","3.3","3.4","3.0","3.4","3.5","3.4","3.2","3.1","3.4","4.1","4.2","3.1","3.2","3.5","3.6","3.0","3.4","3.5","2.3","3.2","3.5","3.8","3.0","3.8","3.2","3.7","3.3"]}}},{"type":"Circle","id":"b06c1c12a61aee74e641480c6c891a5c","attributes":{"id":"b06c1c12a61aee74e641480c6c891a5c","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"Circle","id":"5df84d136b5bf8417af698d73072673e","attributes":{"id":"5df84d136b5bf8417af698d73072673e","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"}}},{"type":"Circle","id":"1237c213dd6945f13d553a4d46fa55dd","attributes":{"id":"1237c213dd6945f13d553a4d46fa55dd","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"GlyphRenderer","id":"05e181ee8d4bb87f54b6770f97fd934d","attributes":{"id":"05e181ee8d4bb87f54b6770f97fd934d","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"5df84d136b5bf8417af698d73072673e"},"hover_glyph":{"type":"Circle","id":"1237c213dd6945f13d553a4d46fa55dd"},"name":null,"data_source":{"type":"ColumnDataSource","id":"155df11f3335377d8c303a3e2e18b458"},"glyph":{"type":"Circle","id":"b06c1c12a61aee74e641480c6c891a5c"}}},{"type":"HoverTool","id":"7a97c64bc747749c207aa1a822a0de9b","attributes":{"id":"7a97c64bc747749c207aa1a822a0de9b","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"renderers":[{"type":"GlyphRenderer","id":"e217b706b51db09d95fb724cf360afcb"}],"names":[],"anchor":"center","attachment":"horizontal","line_policy":"prev","mode":"mouse","point_policy":"snap_to_data","tooltips":[["Sepal.Length","@hover_col_1"],["Sepal.Width","@hover_col_2"]]}},{"type":"ColumnDataSource","id":"d6c1ee1e18f74a19116fdf26caf28a42","attributes":{"id":"d6c1ee1e18f74a19116fdf26caf28a42","tags":[],"column_names":["x","y","line_color","fill_color","hover_col_1","hover_col_2"],"selected":[],"data":{"x":[7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7],"y":[3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8],"line_color":["#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E"],"fill_color":["#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E"],"hover_col_1":["7.0","6.4","6.9","5.5","6.5","5.7","6.3","4.9","6.6","5.2","5.0","5.9","6.0","6.1","5.6","6.7","5.6","5.8","6.2","5.6","5.9","6.1","6.3","6.1","6.4","6.6","6.8","6.7","6.0","5.7","5.5","5.5","5.8","6.0","5.4","6.0","6.7","6.3","5.6","5.5","5.5","6.1","5.8","5.0","5.6","5.7","5.7","6.2","5.1","5.7"],"hover_col_2":["3.2","3.2","3.1","2.3","2.8","2.8","3.3","2.4","2.9","2.7","2.0","3.0","2.2","2.9","2.9","3.1","3.0","2.7","2.2","2.5","3.2","2.8","2.5","2.8","2.9","3.0","2.8","3.0","2.9","2.6","2.4","2.4","2.7","2.7","3.0","3.4","3.1","2.3","3.0","2.5","2.6","3.0","2.6","2.3","2.7","3.0","2.9","2.9","2.5","2.8"]}}},{"type":"Square","id":"f59b875646f72e709a9125efd2e5c146","attributes":{"id":"f59b875646f72e709a9125efd2e5c146","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"Square","id":"7cad8681bcd5d50e3c7d296c0d614933","attributes":{"id":"7cad8681bcd5d50e3c7d296c0d614933","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"}}},{"type":"Square","id":"870b313e69befe9cf44744b3fce86a08","attributes":{"id":"870b313e69befe9cf44744b3fce86a08","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"GlyphRenderer","id":"e217b706b51db09d95fb724cf360afcb","attributes":{"id":"e217b706b51db09d95fb724cf360afcb","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Square","id":"7cad8681bcd5d50e3c7d296c0d614933"},"hover_glyph":{"type":"Square","id":"870b313e69befe9cf44744b3fce86a08"},"name":null,"data_source":{"type":"ColumnDataSource","id":"d6c1ee1e18f74a19116fdf26caf28a42"},"glyph":{"type":"Square","id":"f59b875646f72e709a9125efd2e5c146"}}},{"type":"HoverTool","id":"cd76ebee6f507b926c77369884d9ff4d","attributes":{"id":"cd76ebee6f507b926c77369884d9ff4d","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"renderers":[{"type":"GlyphRenderer","id":"1ffc3d9f4a3bd144261c1c5ef605d116"}],"names":[],"anchor":"center","attachment":"horizontal","line_policy":"prev","mode":"mouse","point_policy":"snap_to_data","tooltips":[["Sepal.Length","@hover_col_1"],["Sepal.Width","@hover_col_2"]]}},{"type":"ColumnDataSource","id":"d844e691a5453134b9bc062a712d0947","attributes":{"id":"d844e691a5453134b9bc062a712d0947","tags":[],"column_names":["x","y","line_color","fill_color","hover_col_1","hover_col_2"],"selected":[],"data":{"x":[6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"line_color":["#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C"],"fill_color":["#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C"],"hover_col_1":["6.3","5.8","7.1","6.3","6.5","7.6","4.9","7.3","6.7","7.2","6.5","6.4","6.8","5.7","5.8","6.4","6.5","7.7","7.7","6.0","6.9","5.6","7.7","6.3","6.7","7.2","6.2","6.1","6.4","7.2","7.4","7.9","6.4","6.3","6.1","7.7","6.3","6.4","6.0","6.9","6.7","6.9","5.8","6.8","6.7","6.7","6.3","6.5","6.2","5.9"],"hover_col_2":["3.3","2.7","3.0","2.9","3.0","3.0","2.5","2.9","2.5","3.6","3.2","2.7","3.0","2.5","2.8","3.2","3.0","3.8","2.6","2.2","3.2","2.8","2.8","2.7","3.3","3.2","2.8","3.0","2.8","3.0","2.8","3.8","2.8","2.8","2.6","3.0","3.4","3.1","3.0","3.1","3.1","3.1","2.7","3.2","3.3","3.0","2.5","3.0","3.4","3.0"]}}},{"type":"Triangle","id":"e5e0d235972cdb2316b0abbd80cdff50","attributes":{"id":"e5e0d235972cdb2316b0abbd80cdff50","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"Triangle","id":"c3c96fb4d78e5cf01cba9b455e837e99","attributes":{"id":"c3c96fb4d78e5cf01cba9b455e837e99","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"}}},{"type":"Triangle","id":"f92b619dacbd92d3ab8e93d4fe4841e9","attributes":{"id":"f92b619dacbd92d3ab8e93d4fe4841e9","tags":[],"size":{"units":"screen","value":10},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"GlyphRenderer","id":"1ffc3d9f4a3bd144261c1c5ef605d116","attributes":{"id":"1ffc3d9f4a3bd144261c1c5ef605d116","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Triangle","id":"c3c96fb4d78e5cf01cba9b455e837e99"},"hover_glyph":{"type":"Triangle","id":"f92b619dacbd92d3ab8e93d4fe4841e9"},"name":null,"data_source":{"type":"ColumnDataSource","id":"d844e691a5453134b9bc062a712d0947"},"glyph":{"type":"Triangle","id":"e5e0d235972cdb2316b0abbd80cdff50"}}},{"type":"ColumnDataSource","id":"86a0801cd143718411c8c53438ea5650","attributes":{"id":"86a0801cd143718411c8c53438ea5650","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[null,null],"y":[null,null]}}},{"type":"Circle","id":"a3f049e31ac746db8c49dbf8f0f05bab","attributes":{"id":"a3f049e31ac746db8c49dbf8f0f05bab","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"e586c350c1eaca67930fcc2e892a9604","attributes":{"id":"e586c350c1eaca67930fcc2e892a9604","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"4446d95bccf91aaf8f4e095a540db2d8","attributes":{"id":"4446d95bccf91aaf8f4e095a540db2d8","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"0e6cf24ce6dcfc5fbf61e4159dda494a","attributes":{"id":"0e6cf24ce6dcfc5fbf61e4159dda494a","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"e586c350c1eaca67930fcc2e892a9604"},"hover_glyph":{"type":"Circle","id":"4446d95bccf91aaf8f4e095a540db2d8"},"name":null,"data_source":{"type":"ColumnDataSource","id":"86a0801cd143718411c8c53438ea5650"},"glyph":{"type":"Circle","id":"a3f049e31ac746db8c49dbf8f0f05bab"}}},{"type":"Square","id":"a7e1809146c3b335538b8f60d2f74d50","attributes":{"id":"a7e1809146c3b335538b8f60d2f74d50","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Square","id":"7362d5e73ce2a9a563a829af7939b394","attributes":{"id":"7362d5e73ce2a9a563a829af7939b394","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Square","id":"597805a0b9cb1a311a9e39bbf74054d8","attributes":{"id":"597805a0b9cb1a311a9e39bbf74054d8","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"f268e08a78315bef21b3ac49b3a38ea9","attributes":{"id":"f268e08a78315bef21b3ac49b3a38ea9","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Square","id":"7362d5e73ce2a9a563a829af7939b394"},"hover_glyph":{"type":"Square","id":"597805a0b9cb1a311a9e39bbf74054d8"},"name":null,"data_source":{"type":"ColumnDataSource","id":"86a0801cd143718411c8c53438ea5650"},"glyph":{"type":"Square","id":"a7e1809146c3b335538b8f60d2f74d50"}}},{"type":"Triangle","id":"bb2fb3ca2a88f2d1e8ada5b03c296f6d","attributes":{"id":"bb2fb3ca2a88f2d1e8ada5b03c296f6d","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Triangle","id":"36f588e7ddddf176334514dcc28a1b30","attributes":{"id":"36f588e7ddddf176334514dcc28a1b30","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Triangle","id":"41eabdf629dc7c1b42e64c58310ea8a1","attributes":{"id":"41eabdf629dc7c1b42e64c58310ea8a1","tags":[],"size":{"units":"screen","value":0},"visible":true,"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"1036b6c21484f2b2926321a62b192efa","attributes":{"id":"1036b6c21484f2b2926321a62b192efa","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Triangle","id":"36f588e7ddddf176334514dcc28a1b30"},"hover_glyph":{"type":"Triangle","id":"41eabdf629dc7c1b42e64c58310ea8a1"},"name":null,"data_source":{"type":"ColumnDataSource","id":"86a0801cd143718411c8c53438ea5650"},"glyph":{"type":"Triangle","id":"bb2fb3ca2a88f2d1e8ada5b03c296f6d"}}},{"type":"Legend","id":"fed21c572376ee6824fe9d67ad3f27cc","attributes":{"id":"fed21c572376ee6824fe9d67ad3f27cc","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"legends":[["Species",[]],[" setosa",[{"type":"GlyphRenderer","id":"0e6cf24ce6dcfc5fbf61e4159dda494a"}]],[" versicolor",[{"type":"GlyphRenderer","id":"f268e08a78315bef21b3ac49b3a38ea9"}]],[" virginica",[{"type":"GlyphRenderer","id":"1036b6c21484f2b2926321a62b192efa"}]]],"location":"top_right"}},{"type":"Range1d","id":"9fd4fdf3a5e5759edc679c63f5e50654","attributes":{"id":"9fd4fdf3a5e5759edc679c63f5e50654","tags":[],"start":4.048,"end":8.152}},{"type":"Range1d","id":"dbbd1b6e6913b91a6062fcd064a89d62","attributes":{"id":"dbbd1b6e6913b91a6062fcd064a89d62","tags":[],"start":1.832,"end":4.568}},{"type":"LinearAxis","id":"ed253b7889e5ceb0b564abad46e16dfe","attributes":{"id":"ed253b7889e5ceb0b564abad46e16dfe","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"axis_label":"Sepal.Length","formatter":{"type":"BasicTickFormatter","id":"7f260cc54e50ce39529a9a0eb2d15225"},"ticker":{"type":"BasicTicker","id":"1b30c5ba83054ca87d9de05106720883"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"7f260cc54e50ce39529a9a0eb2d15225","attributes":{"id":"7f260cc54e50ce39529a9a0eb2d15225","tags":[]}},{"type":"BasicTicker","id":"1b30c5ba83054ca87d9de05106720883","attributes":{"id":"1b30c5ba83054ca87d9de05106720883","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"cc80b9d07c14a56a6acd837006899161","attributes":{"id":"cc80b9d07c14a56a6acd837006899161","tags":[],"dimension":0,"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"1b30c5ba83054ca87d9de05106720883"}}},{"type":"LinearAxis","id":"7e54c26187e0d46e29e7b2d95bbca7ac","attributes":{"id":"7e54c26187e0d46e29e7b2d95bbca7ac","tags":[],"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"axis_label":"Sepal.Width","formatter":{"type":"BasicTickFormatter","id":"60d3858def849da881d371294e0bd037"},"ticker":{"type":"BasicTicker","id":"095ec867ed090558b07ed8adfcaf7862"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"60d3858def849da881d371294e0bd037","attributes":{"id":"60d3858def849da881d371294e0bd037","tags":[]}},{"type":"BasicTicker","id":"095ec867ed090558b07ed8adfcaf7862","attributes":{"id":"095ec867ed090558b07ed8adfcaf7862","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"b583ffeced3d412e33c5be1a41444476","attributes":{"id":"b583ffeced3d412e33c5be1a41444476","tags":[],"dimension":1,"plot":{"type":"Plot","id":"d80d32ab60ba922a388ccd5deba4e207","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"095ec867ed090558b07ed8adfcaf7862"}}}]}}},"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="leaflet" class="section level1">
+<h1>Leaflet</h1>
+<p><a href="http://rstudio.github.io/leaflet/">Leaflet</a> is a JavaScript library for creating dynamic maps that support panning and zooming along with various annotations like markers, polygons, and popups. The examples below were adapted from the <a href="http://rstudio.github.io/leaflet">leaflet vignettes</a>.</p>
+<pre class="r"><code>library(leaflet)
+loc=geocode(&quot;Buffalo, NY&quot;)
+m &lt;- leaflet() %&gt;% setView(lng = loc$lon, lat = loc$lat, zoom = 12)
+m %&gt;% addTiles()</code></pre>
+<div id="htmlwidget-84fa05a0d77401f15e7f" style="width:2100px;height:1200px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-84fa05a0d77401f15e7f">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[null,null],12,[]],"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>pal &lt;- colorQuantile(&quot;YlOrRd&quot;, NULL, n = 8)
+#leaflet() %&gt;% 
+#  addTiles() %&gt;%
+#  addCircleMarkers(color = ~pal(tann))</code></pre>
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
+<p>Make a leaflet map of mean income in each census tracts in Buffalo using using the XX background</p>
+<p>Hints:</p>
+<ul>
+<li>Use the following code to download the census tract information</li>
+</ul>
+<pre class="r"><code>library(tidycensus)
+library(tidyverse)
+library(viridis)
+
+#census_buffalo=</code></pre>
+<ul>
+<li>use <code>leaflet()</code> with</li>
+</ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+
+</div>
+</div>
+</div>
+<div id="dygraphs" class="section level1">
+<h1>dygraphs</h1>
+<pre class="r"><code>library(dygraphs)
+dygraph(nhtemp, main = &quot;New Haven Temperatures&quot;) %&gt;% 
+  dyRangeSelector(dateWindow = c(&quot;1920-01-01&quot;, &quot;1960-01-01&quot;))</code></pre>
+<div id="htmlwidget-bf0c7656ac668fba2345" style="width:2100px;height:1200px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf0c7656ac668fba2345">{"x":{"attrs":{"title":"New Haven Temperatures","labels":["year","V1"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"showRangeSelector":true,"dateWindow":["1920-01-01T00:00:00.000Z","1960-01-01T00:00:00.000Z"],"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"yearly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1912-01-01T00:00:00.000Z","1913-01-01T00:00:00.000Z","1914-01-01T00:00:00.000Z","1915-01-01T00:00:00.000Z","1916-01-01T00:00:00.000Z","1917-01-01T00:00:00.000Z","1918-01-01T00:00:00.000Z","1919-01-01T00:00:00.000Z","1920-01-01T00:00:00.000Z","1921-01-01T00:00:00.000Z","1922-01-01T00:00:00.000Z","1923-01-01T00:00:00.000Z","1924-01-01T00:00:00.000Z","1925-01-01T00:00:00.000Z","1926-01-01T00:00:00.000Z","1927-01-01T00:00:00.000Z","1928-01-01T00:00:00.000Z","1929-01-01T00:00:00.000Z","1930-01-01T00:00:00.000Z","1931-01-01T00:00:00.000Z","1932-01-01T00:00:00.000Z","1933-01-01T00:00:00.000Z","1934-01-01T00:00:00.000Z","1935-01-01T00:00:00.000Z","1936-01-01T00:00:00.000Z","1937-01-01T00:00:00.000Z","1938-01-01T00:00:00.000Z","1939-01-01T00:00:00.000Z","1940-01-01T00:00:00.000Z","1941-01-01T00:00:00.000Z","1942-01-01T00:00:00.000Z","1943-01-01T00:00:00.000Z","1944-01-01T00:00:00.000Z","1945-01-01T00:00:00.000Z","1946-01-01T00:00:00.000Z","1947-01-01T00:00:00.000Z","1948-01-01T00:00:00.000Z","1949-01-01T00:00:00.000Z","1950-01-01T00:00:00.000Z","1951-01-01T00:00:00.000Z","1952-01-01T00:00:00.000Z","1953-01-01T00:00:00.000Z","1954-01-01T00:00:00.000Z","1955-01-01T00:00:00.000Z","1956-01-01T00:00:00.000Z","1957-01-01T00:00:00.000Z","1958-01-01T00:00:00.000Z","1959-01-01T00:00:00.000Z","1960-01-01T00:00:00.000Z","1961-01-01T00:00:00.000Z","1962-01-01T00:00:00.000Z","1963-01-01T00:00:00.000Z","1964-01-01T00:00:00.000Z","1965-01-01T00:00:00.000Z","1966-01-01T00:00:00.000Z","1967-01-01T00:00:00.000Z","1968-01-01T00:00:00.000Z","1969-01-01T00:00:00.000Z","1970-01-01T00:00:00.000Z","1971-01-01T00:00:00.000Z"],[49.9,52.3,49.4,51.1,49.4,47.9,49.8,50.9,49.3,51.9,50.8,49.6,49.3,50.6,48.4,50.7,50.9,50.6,51.5,52.8,51.8,51.1,49.8,50.2,50.4,51.6,51.8,50.9,48.8,51.7,51,50.6,51.7,51.5,52.1,51.3,51,54,51.4,52.7,53.1,54.6,52,52,50.9,52.6,50.2,52.6,51.6,51.9,50.5,50.9,51.7,51.4,51.7,50.8,51.9,51.8,51.9,53]]},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<div class="well">
+<h2 id="your-turn-1">Your turn</h2>
+<p>Make a dygraph of recent daily maximum temperature data from Buffalo, NY.</p>
+<p>Hints:</p>
+<ul>
+<li>Use the following code to download the daily weather data (if this is taking too long, you can use the nhtemps object loaded above)</li>
+</ul>
+<pre class="r"><code>library(rnoaa)
+library(xts)</code></pre>
+<pre><code>## Loading required package: zoo</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<pre><code>## 
+## Attaching package: &#39;xts&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:leaflet&#39;:
+## 
+##     addLegend</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     first, last</code></pre>
+<pre class="r"><code>d=meteo_tidy_ghcnd(&quot;USW00014733&quot;,
+                   date_min = &quot;2016-01-01&quot;, 
+                   var = c(&quot;TMAX&quot;),
+                   keep_flags=T,
+                  )
+d$date=as.Date(d$date)
+head(d)</code></pre>
+<pre><code>## # A tibble: 6 x 6
+##            id       date mflag_tmax qflag_tmax sflag_tmax  tmax
+##         &lt;chr&gt;     &lt;date&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;
+## 1 USW00014733 2016-01-01                                W     0
+## 2 USW00014733 2016-01-02                                W     6
+## 3 USW00014733 2016-01-03                                W    28
+## 4 USW00014733 2016-01-04                                W   -71
+## 5 USW00014733 2016-01-05                                W   -32
+## 6 USW00014733 2016-01-06                                W    17</code></pre>
+<ul>
+<li>create a <code>xts</code> time series object as required by <code>dygraph()</code> using <code>xts()</code> and specify the vector of data and the date column (see <code>?xts</code> for help).</li>
+<li>use <code>dygraph()</code> to draw the plot</li>
+<li>add a <code>dyRangeSelector()</code> with a <code>dateWindow</code> of <code>c(&quot;2017-01-01&quot;, &quot;2017-12-31&quot;)</code></li>
+</ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+<pre class="r"><code># Convert to a xts time series object as required by dygraph
+dt=xts(d$tmax,order.by=d$date)
+
+dygraph(dt, main = &quot;Daily Maximum Temperature in Buffalo, NY&quot;) %&gt;% 
+  dyRangeSelector(dateWindow = c(&quot;2017-01-01&quot;, &quot;2017-12-31&quot;))</code></pre>
+<div id="htmlwidget-217d56e5bea380e9c31e" style="width:2100px;height:1200px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-217d56e5bea380e9c31e">{"x":{"attrs":{"title":"Daily Maximum Temperature in Buffalo, NY","labels":["day","tmax"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"showRangeSelector":true,"dateWindow":["2017-01-01T00:00:00.000Z","2017-12-31T00:00:00.000Z"],"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2016-01-01T00:00:00.000Z","2016-01-02T00:00:00.000Z","2016-01-03T00:00:00.000Z","2016-01-04T00:00:00.000Z","2016-01-05T00:00:00.000Z","2016-01-06T00:00:00.000Z","2016-01-07T00:00:00.000Z","2016-01-08T00:00:00.000Z","2016-01-09T00:00:00.000Z","2016-01-10T00:00:00.000Z","2016-01-11T00:00:00.000Z","2016-01-12T00:00:00.000Z","2016-01-13T00:00:00.000Z","2016-01-14T00:00:00.000Z","2016-01-15T00:00:00.000Z","2016-01-16T00:00:00.000Z","2016-01-17T00:00:00.000Z","2016-01-18T00:00:00.000Z","2016-01-19T00:00:00.000Z","2016-01-20T00:00:00.000Z","2016-01-21T00:00:00.000Z","2016-01-22T00:00:00.000Z","2016-01-23T00:00:00.000Z","2016-01-24T00:00:00.000Z","2016-01-25T00:00:00.000Z","2016-01-26T00:00:00.000Z","2016-01-27T00:00:00.000Z","2016-01-28T00:00:00.000Z","2016-01-29T00:00:00.000Z","2016-01-30T00:00:00.000Z","2016-01-31T00:00:00.000Z","2016-02-01T00:00:00.000Z","2016-02-02T00:00:00.000Z","2016-02-03T00:00:00.000Z","2016-02-04T00:00:00.000Z","2016-02-05T00:00:00.000Z","2016-02-06T00:00:00.000Z","2016-02-07T00:00:00.000Z","2016-02-08T00:00:00.000Z","2016-02-09T00:00:00.000Z","2016-02-10T00:00:00.000Z","2016-02-11T00:00:00.000Z","2016-02-12T00:00:00.000Z","2016-02-13T00:00:00.000Z","2016-02-14T00:00:00.000Z","2016-02-15T00:00:00.000Z","2016-02-16T00:00:00.000Z","2016-02-17T00:00:00.000Z","2016-02-18T00:00:00.000Z","2016-02-19T00:00:00.000Z","2016-02-20T00:00:00.000Z","2016-02-21T00:00:00.000Z","2016-02-22T00:00:00.000Z","2016-02-23T00:00:00.000Z","2016-02-24T00:00:00.000Z","2016-02-25T00:00:00.000Z","2016-02-26T00:00:00.000Z","2016-02-27T00:00:00.000Z","2016-02-28T00:00:00.000Z","2016-02-29T00:00:00.000Z","2016-03-01T00:00:00.000Z","2016-03-02T00:00:00.000Z","2016-03-03T00:00:00.000Z","2016-03-04T00:00:00.000Z","2016-03-05T00:00:00.000Z","2016-03-06T00:00:00.000Z","2016-03-07T00:00:00.000Z","2016-03-08T00:00:00.000Z","2016-03-09T00:00:00.000Z","2016-03-10T00:00:00.000Z","2016-03-11T00:00:00.000Z","2016-03-12T00:00:00.000Z","2016-03-13T00:00:00.000Z","2016-03-14T00:00:00.000Z","2016-03-15T00:00:00.000Z","2016-03-16T00:00:00.000Z","2016-03-17T00:00:00.000Z","2016-03-18T00:00:00.000Z","2016-03-19T00:00:00.000Z","2016-03-20T00:00:00.000Z","2016-03-21T00:00:00.000Z","2016-03-22T00:00:00.000Z","2016-03-23T00:00:00.000Z","2016-03-24T00:00:00.000Z","2016-03-25T00:00:00.000Z","2016-03-26T00:00:00.000Z","2016-03-27T00:00:00.000Z","2016-03-28T00:00:00.000Z","2016-03-29T00:00:00.000Z","2016-03-30T00:00:00.000Z","2016-03-31T00:00:00.000Z","2016-04-01T00:00:00.000Z","2016-04-02T00:00:00.000Z","2016-04-03T00:00:00.000Z","2016-04-04T00:00:00.000Z","2016-04-05T00:00:00.000Z","2016-04-06T00:00:00.000Z","2016-04-07T00:00:00.000Z","2016-04-08T00:00:00.000Z","2016-04-09T00:00:00.000Z","2016-04-10T00:00:00.000Z","2016-04-11T00:00:00.000Z","2016-04-12T00:00:00.000Z","2016-04-13T00:00:00.000Z","2016-04-14T00:00:00.000Z","2016-04-15T00:00:00.000Z","2016-04-16T00:00:00.000Z","2016-04-17T00:00:00.000Z","2016-04-18T00:00:00.000Z","2016-04-19T00:00:00.000Z","2016-04-20T00:00:00.000Z","2016-04-21T00:00:00.000Z","2016-04-22T00:00:00.000Z","2016-04-23T00:00:00.000Z","2016-04-24T00:00:00.000Z","2016-04-25T00:00:00.000Z","2016-04-26T00:00:00.000Z","2016-04-27T00:00:00.000Z","2016-04-28T00:00:00.000Z","2016-04-29T00:00:00.000Z","2016-04-30T00:00:00.000Z","2016-05-01T00:00:00.000Z","2016-05-02T00:00:00.000Z","2016-05-03T00:00:00.000Z","2016-05-04T00:00:00.000Z","2016-05-05T00:00:00.000Z","2016-05-06T00:00:00.000Z","2016-05-07T00:00:00.000Z","2016-05-08T00:00:00.000Z","2016-05-09T00:00:00.000Z","2016-05-10T00:00:00.000Z","2016-05-11T00:00:00.000Z","2016-05-12T00:00:00.000Z","2016-05-13T00:00:00.000Z","2016-05-14T00:00:00.000Z","2016-05-15T00:00:00.000Z","2016-05-16T00:00:00.000Z","2016-05-17T00:00:00.000Z","2016-05-18T00:00:00.000Z","2016-05-19T00:00:00.000Z","2016-05-20T00:00:00.000Z","2016-05-21T00:00:00.000Z","2016-05-22T00:00:00.000Z","2016-05-23T00:00:00.000Z","2016-05-24T00:00:00.000Z","2016-05-25T00:00:00.000Z","2016-05-26T00:00:00.000Z","2016-05-27T00:00:00.000Z","2016-05-28T00:00:00.000Z","2016-05-29T00:00:00.000Z","2016-05-30T00:00:00.000Z","2016-05-31T00:00:00.000Z","2016-06-01T00:00:00.000Z","2016-06-02T00:00:00.000Z","2016-06-03T00:00:00.000Z","2016-06-04T00:00:00.000Z","2016-06-05T00:00:00.000Z","2016-06-06T00:00:00.000Z","2016-06-07T00:00:00.000Z","2016-06-08T00:00:00.000Z","2016-06-09T00:00:00.000Z","2016-06-10T00:00:00.000Z","2016-06-11T00:00:00.000Z","2016-06-12T00:00:00.000Z","2016-06-13T00:00:00.000Z","2016-06-14T00:00:00.000Z","2016-06-15T00:00:00.000Z","2016-06-16T00:00:00.000Z","2016-06-17T00:00:00.000Z","2016-06-18T00:00:00.000Z","2016-06-19T00:00:00.000Z","2016-06-20T00:00:00.000Z","2016-06-21T00:00:00.000Z","2016-06-22T00:00:00.000Z","2016-06-23T00:00:00.000Z","2016-06-24T00:00:00.000Z","2016-06-25T00:00:00.000Z","2016-06-26T00:00:00.000Z","2016-06-27T00:00:00.000Z","2016-06-28T00:00:00.000Z","2016-06-29T00:00:00.000Z","2016-06-30T00:00:00.000Z","2016-07-01T00:00:00.000Z","2016-07-02T00:00:00.000Z","2016-07-03T00:00:00.000Z","2016-07-04T00:00:00.000Z","2016-07-05T00:00:00.000Z","2016-07-06T00:00:00.000Z","2016-07-07T00:00:00.000Z","2016-07-08T00:00:00.000Z","2016-07-09T00:00:00.000Z","2016-07-10T00:00:00.000Z","2016-07-11T00:00:00.000Z","2016-07-12T00:00:00.000Z","2016-07-13T00:00:00.000Z","2016-07-14T00:00:00.000Z","2016-07-15T00:00:00.000Z","2016-07-16T00:00:00.000Z","2016-07-17T00:00:00.000Z","2016-07-18T00:00:00.000Z","2016-07-19T00:00:00.000Z","2016-07-20T00:00:00.000Z","2016-07-21T00:00:00.000Z","2016-07-22T00:00:00.000Z","2016-07-23T00:00:00.000Z","2016-07-24T00:00:00.000Z","2016-07-25T00:00:00.000Z","2016-07-26T00:00:00.000Z","2016-07-27T00:00:00.000Z","2016-07-28T00:00:00.000Z","2016-07-29T00:00:00.000Z","2016-07-30T00:00:00.000Z","2016-07-31T00:00:00.000Z","2016-08-01T00:00:00.000Z","2016-08-02T00:00:00.000Z","2016-08-03T00:00:00.000Z","2016-08-04T00:00:00.000Z","2016-08-05T00:00:00.000Z","2016-08-06T00:00:00.000Z","2016-08-07T00:00:00.000Z","2016-08-08T00:00:00.000Z","2016-08-09T00:00:00.000Z","2016-08-10T00:00:00.000Z","2016-08-11T00:00:00.000Z","2016-08-12T00:00:00.000Z","2016-08-13T00:00:00.000Z","2016-08-14T00:00:00.000Z","2016-08-15T00:00:00.000Z","2016-08-16T00:00:00.000Z","2016-08-17T00:00:00.000Z","2016-08-18T00:00:00.000Z","2016-08-19T00:00:00.000Z","2016-08-20T00:00:00.000Z","2016-08-21T00:00:00.000Z","2016-08-22T00:00:00.000Z","2016-08-23T00:00:00.000Z","2016-08-24T00:00:00.000Z","2016-08-25T00:00:00.000Z","2016-08-26T00:00:00.000Z","2016-08-27T00:00:00.000Z","2016-08-28T00:00:00.000Z","2016-08-29T00:00:00.000Z","2016-08-30T00:00:00.000Z","2016-08-31T00:00:00.000Z","2016-09-01T00:00:00.000Z","2016-09-02T00:00:00.000Z","2016-09-03T00:00:00.000Z","2016-09-04T00:00:00.000Z","2016-09-05T00:00:00.000Z","2016-09-06T00:00:00.000Z","2016-09-07T00:00:00.000Z","2016-09-08T00:00:00.000Z","2016-09-09T00:00:00.000Z","2016-09-10T00:00:00.000Z","2016-09-11T00:00:00.000Z","2016-09-12T00:00:00.000Z","2016-09-13T00:00:00.000Z","2016-09-14T00:00:00.000Z","2016-09-15T00:00:00.000Z","2016-09-16T00:00:00.000Z","2016-09-17T00:00:00.000Z","2016-09-18T00:00:00.000Z","2016-09-19T00:00:00.000Z","2016-09-20T00:00:00.000Z","2016-09-21T00:00:00.000Z","2016-09-22T00:00:00.000Z","2016-09-23T00:00:00.000Z","2016-09-24T00:00:00.000Z","2016-09-25T00:00:00.000Z","2016-09-26T00:00:00.000Z","2016-09-27T00:00:00.000Z","2016-09-28T00:00:00.000Z","2016-09-29T00:00:00.000Z","2016-09-30T00:00:00.000Z","2016-10-01T00:00:00.000Z","2016-10-02T00:00:00.000Z","2016-10-03T00:00:00.000Z","2016-10-04T00:00:00.000Z","2016-10-05T00:00:00.000Z","2016-10-06T00:00:00.000Z","2016-10-07T00:00:00.000Z","2016-10-08T00:00:00.000Z","2016-10-09T00:00:00.000Z","2016-10-10T00:00:00.000Z","2016-10-11T00:00:00.000Z","2016-10-12T00:00:00.000Z","2016-10-13T00:00:00.000Z","2016-10-14T00:00:00.000Z","2016-10-15T00:00:00.000Z","2016-10-16T00:00:00.000Z","2016-10-17T00:00:00.000Z","2016-10-18T00:00:00.000Z","2016-10-19T00:00:00.000Z","2016-10-20T00:00:00.000Z","2016-10-21T00:00:00.000Z","2016-10-22T00:00:00.000Z","2016-10-23T00:00:00.000Z","2016-10-24T00:00:00.000Z","2016-10-25T00:00:00.000Z","2016-10-26T00:00:00.000Z","2016-10-27T00:00:00.000Z","2016-10-28T00:00:00.000Z","2016-10-29T00:00:00.000Z","2016-10-30T00:00:00.000Z","2016-10-31T00:00:00.000Z","2016-11-01T00:00:00.000Z","2016-11-02T00:00:00.000Z","2016-11-03T00:00:00.000Z","2016-11-04T00:00:00.000Z","2016-11-05T00:00:00.000Z","2016-11-06T00:00:00.000Z","2016-11-07T00:00:00.000Z","2016-11-08T00:00:00.000Z","2016-11-09T00:00:00.000Z","2016-11-10T00:00:00.000Z","2016-11-11T00:00:00.000Z","2016-11-12T00:00:00.000Z","2016-11-13T00:00:00.000Z","2016-11-14T00:00:00.000Z","2016-11-15T00:00:00.000Z","2016-11-16T00:00:00.000Z","2016-11-17T00:00:00.000Z","2016-11-18T00:00:00.000Z","2016-11-19T00:00:00.000Z","2016-11-20T00:00:00.000Z","2016-11-21T00:00:00.000Z","2016-11-22T00:00:00.000Z","2016-11-23T00:00:00.000Z","2016-11-24T00:00:00.000Z","2016-11-25T00:00:00.000Z","2016-11-26T00:00:00.000Z","2016-11-27T00:00:00.000Z","2016-11-28T00:00:00.000Z","2016-11-29T00:00:00.000Z","2016-11-30T00:00:00.000Z","2016-12-01T00:00:00.000Z","2016-12-02T00:00:00.000Z","2016-12-03T00:00:00.000Z","2016-12-04T00:00:00.000Z","2016-12-05T00:00:00.000Z","2016-12-06T00:00:00.000Z","2016-12-07T00:00:00.000Z","2016-12-08T00:00:00.000Z","2016-12-09T00:00:00.000Z","2016-12-10T00:00:00.000Z","2016-12-11T00:00:00.000Z","2016-12-12T00:00:00.000Z","2016-12-13T00:00:00.000Z","2016-12-14T00:00:00.000Z","2016-12-15T00:00:00.000Z","2016-12-16T00:00:00.000Z","2016-12-17T00:00:00.000Z","2016-12-18T00:00:00.000Z","2016-12-19T00:00:00.000Z","2016-12-20T00:00:00.000Z","2016-12-21T00:00:00.000Z","2016-12-22T00:00:00.000Z","2016-12-23T00:00:00.000Z","2016-12-24T00:00:00.000Z","2016-12-25T00:00:00.000Z","2016-12-26T00:00:00.000Z","2016-12-27T00:00:00.000Z","2016-12-28T00:00:00.000Z","2016-12-29T00:00:00.000Z","2016-12-30T00:00:00.000Z","2016-12-31T00:00:00.000Z","2017-01-01T00:00:00.000Z","2017-01-02T00:00:00.000Z","2017-01-03T00:00:00.000Z","2017-01-04T00:00:00.000Z","2017-01-05T00:00:00.000Z","2017-01-06T00:00:00.000Z","2017-01-07T00:00:00.000Z","2017-01-08T00:00:00.000Z","2017-01-09T00:00:00.000Z","2017-01-10T00:00:00.000Z","2017-01-11T00:00:00.000Z","2017-01-12T00:00:00.000Z","2017-01-13T00:00:00.000Z","2017-01-14T00:00:00.000Z","2017-01-15T00:00:00.000Z","2017-01-16T00:00:00.000Z","2017-01-17T00:00:00.000Z","2017-01-18T00:00:00.000Z","2017-01-19T00:00:00.000Z","2017-01-20T00:00:00.000Z","2017-01-21T00:00:00.000Z","2017-01-22T00:00:00.000Z","2017-01-23T00:00:00.000Z","2017-01-24T00:00:00.000Z","2017-01-25T00:00:00.000Z","2017-01-26T00:00:00.000Z","2017-01-27T00:00:00.000Z","2017-01-28T00:00:00.000Z","2017-01-29T00:00:00.000Z","2017-01-30T00:00:00.000Z","2017-01-31T00:00:00.000Z","2017-02-01T00:00:00.000Z","2017-02-02T00:00:00.000Z","2017-02-03T00:00:00.000Z","2017-02-04T00:00:00.000Z","2017-02-05T00:00:00.000Z","2017-02-06T00:00:00.000Z","2017-02-07T00:00:00.000Z","2017-02-08T00:00:00.000Z","2017-02-09T00:00:00.000Z","2017-02-10T00:00:00.000Z","2017-02-11T00:00:00.000Z","2017-02-12T00:00:00.000Z","2017-02-13T00:00:00.000Z","2017-02-14T00:00:00.000Z","2017-02-15T00:00:00.000Z","2017-02-16T00:00:00.000Z","2017-02-17T00:00:00.000Z","2017-02-18T00:00:00.000Z","2017-02-19T00:00:00.000Z","2017-02-20T00:00:00.000Z","2017-02-21T00:00:00.000Z","2017-02-22T00:00:00.000Z","2017-02-23T00:00:00.000Z","2017-02-24T00:00:00.000Z","2017-02-25T00:00:00.000Z","2017-02-26T00:00:00.000Z","2017-02-27T00:00:00.000Z","2017-02-28T00:00:00.000Z","2017-03-01T00:00:00.000Z","2017-03-02T00:00:00.000Z","2017-03-03T00:00:00.000Z","2017-03-04T00:00:00.000Z","2017-03-05T00:00:00.000Z","2017-03-06T00:00:00.000Z","2017-03-07T00:00:00.000Z","2017-03-08T00:00:00.000Z","2017-03-09T00:00:00.000Z","2017-03-10T00:00:00.000Z","2017-03-11T00:00:00.000Z","2017-03-12T00:00:00.000Z","2017-03-13T00:00:00.000Z","2017-03-14T00:00:00.000Z","2017-03-15T00:00:00.000Z","2017-03-16T00:00:00.000Z","2017-03-17T00:00:00.000Z","2017-03-18T00:00:00.000Z","2017-03-19T00:00:00.000Z","2017-03-20T00:00:00.000Z","2017-03-21T00:00:00.000Z","2017-03-22T00:00:00.000Z","2017-03-23T00:00:00.000Z","2017-03-24T00:00:00.000Z","2017-03-25T00:00:00.000Z","2017-03-26T00:00:00.000Z","2017-03-27T00:00:00.000Z","2017-03-28T00:00:00.000Z","2017-03-29T00:00:00.000Z","2017-03-30T00:00:00.000Z","2017-03-31T00:00:00.000Z","2017-04-01T00:00:00.000Z","2017-04-02T00:00:00.000Z","2017-04-03T00:00:00.000Z","2017-04-04T00:00:00.000Z","2017-04-05T00:00:00.000Z","2017-04-06T00:00:00.000Z","2017-04-07T00:00:00.000Z","2017-04-08T00:00:00.000Z","2017-04-09T00:00:00.000Z","2017-04-10T00:00:00.000Z","2017-04-11T00:00:00.000Z","2017-04-12T00:00:00.000Z","2017-04-13T00:00:00.000Z","2017-04-14T00:00:00.000Z","2017-04-15T00:00:00.000Z","2017-04-16T00:00:00.000Z","2017-04-17T00:00:00.000Z","2017-04-18T00:00:00.000Z","2017-04-19T00:00:00.000Z","2017-04-20T00:00:00.000Z","2017-04-21T00:00:00.000Z","2017-04-22T00:00:00.000Z","2017-04-23T00:00:00.000Z","2017-04-24T00:00:00.000Z","2017-04-25T00:00:00.000Z","2017-04-26T00:00:00.000Z","2017-04-27T00:00:00.000Z","2017-04-28T00:00:00.000Z","2017-04-29T00:00:00.000Z","2017-04-30T00:00:00.000Z","2017-05-01T00:00:00.000Z","2017-05-02T00:00:00.000Z","2017-05-03T00:00:00.000Z","2017-05-04T00:00:00.000Z","2017-05-05T00:00:00.000Z","2017-05-06T00:00:00.000Z","2017-05-07T00:00:00.000Z","2017-05-08T00:00:00.000Z","2017-05-09T00:00:00.000Z","2017-05-10T00:00:00.000Z","2017-05-11T00:00:00.000Z","2017-05-12T00:00:00.000Z","2017-05-13T00:00:00.000Z","2017-05-14T00:00:00.000Z","2017-05-15T00:00:00.000Z","2017-05-16T00:00:00.000Z","2017-05-17T00:00:00.000Z","2017-05-18T00:00:00.000Z","2017-05-19T00:00:00.000Z","2017-05-20T00:00:00.000Z","2017-05-21T00:00:00.000Z","2017-05-22T00:00:00.000Z","2017-05-23T00:00:00.000Z","2017-05-24T00:00:00.000Z","2017-05-25T00:00:00.000Z","2017-05-26T00:00:00.000Z","2017-05-27T00:00:00.000Z","2017-05-28T00:00:00.000Z","2017-05-29T00:00:00.000Z","2017-05-30T00:00:00.000Z","2017-05-31T00:00:00.000Z","2017-06-01T00:00:00.000Z","2017-06-02T00:00:00.000Z","2017-06-03T00:00:00.000Z","2017-06-04T00:00:00.000Z","2017-06-05T00:00:00.000Z","2017-06-06T00:00:00.000Z","2017-06-07T00:00:00.000Z","2017-06-08T00:00:00.000Z","2017-06-09T00:00:00.000Z","2017-06-10T00:00:00.000Z","2017-06-11T00:00:00.000Z","2017-06-12T00:00:00.000Z","2017-06-13T00:00:00.000Z","2017-06-14T00:00:00.000Z","2017-06-15T00:00:00.000Z","2017-06-16T00:00:00.000Z","2017-06-17T00:00:00.000Z","2017-06-18T00:00:00.000Z","2017-06-19T00:00:00.000Z","2017-06-20T00:00:00.000Z","2017-06-21T00:00:00.000Z","2017-06-22T00:00:00.000Z","2017-06-23T00:00:00.000Z","2017-06-24T00:00:00.000Z","2017-06-25T00:00:00.000Z","2017-06-26T00:00:00.000Z","2017-06-27T00:00:00.000Z","2017-06-28T00:00:00.000Z","2017-06-29T00:00:00.000Z","2017-06-30T00:00:00.000Z","2017-07-01T00:00:00.000Z","2017-07-02T00:00:00.000Z","2017-07-03T00:00:00.000Z","2017-07-04T00:00:00.000Z","2017-07-05T00:00:00.000Z","2017-07-06T00:00:00.000Z","2017-07-07T00:00:00.000Z","2017-07-08T00:00:00.000Z","2017-07-09T00:00:00.000Z","2017-07-10T00:00:00.000Z","2017-07-11T00:00:00.000Z","2017-07-12T00:00:00.000Z","2017-07-13T00:00:00.000Z","2017-07-14T00:00:00.000Z","2017-07-15T00:00:00.000Z","2017-07-16T00:00:00.000Z","2017-07-17T00:00:00.000Z","2017-07-18T00:00:00.000Z","2017-07-19T00:00:00.000Z","2017-07-20T00:00:00.000Z","2017-07-21T00:00:00.000Z","2017-07-22T00:00:00.000Z","2017-07-23T00:00:00.000Z","2017-07-24T00:00:00.000Z","2017-07-25T00:00:00.000Z","2017-07-26T00:00:00.000Z","2017-07-27T00:00:00.000Z","2017-07-28T00:00:00.000Z","2017-07-29T00:00:00.000Z","2017-07-30T00:00:00.000Z","2017-07-31T00:00:00.000Z","2017-08-01T00:00:00.000Z","2017-08-02T00:00:00.000Z","2017-08-03T00:00:00.000Z","2017-08-04T00:00:00.000Z","2017-08-05T00:00:00.000Z","2017-08-06T00:00:00.000Z","2017-08-07T00:00:00.000Z","2017-08-08T00:00:00.000Z","2017-08-09T00:00:00.000Z","2017-08-10T00:00:00.000Z","2017-08-11T00:00:00.000Z","2017-08-12T00:00:00.000Z","2017-08-13T00:00:00.000Z","2017-08-14T00:00:00.000Z","2017-08-15T00:00:00.000Z","2017-08-16T00:00:00.000Z","2017-08-17T00:00:00.000Z","2017-08-18T00:00:00.000Z","2017-08-19T00:00:00.000Z","2017-08-20T00:00:00.000Z","2017-08-21T00:00:00.000Z","2017-08-22T00:00:00.000Z","2017-08-23T00:00:00.000Z","2017-08-24T00:00:00.000Z","2017-08-25T00:00:00.000Z","2017-08-26T00:00:00.000Z","2017-08-27T00:00:00.000Z","2017-08-28T00:00:00.000Z","2017-08-29T00:00:00.000Z","2017-08-30T00:00:00.000Z","2017-08-31T00:00:00.000Z","2017-09-01T00:00:00.000Z","2017-09-02T00:00:00.000Z","2017-09-03T00:00:00.000Z","2017-09-04T00:00:00.000Z","2017-09-05T00:00:00.000Z","2017-09-06T00:00:00.000Z","2017-09-07T00:00:00.000Z","2017-09-08T00:00:00.000Z","2017-09-09T00:00:00.000Z","2017-09-10T00:00:00.000Z","2017-09-11T00:00:00.000Z","2017-09-12T00:00:00.000Z","2017-09-13T00:00:00.000Z","2017-09-14T00:00:00.000Z","2017-09-15T00:00:00.000Z","2017-09-16T00:00:00.000Z","2017-09-17T00:00:00.000Z","2017-09-18T00:00:00.000Z","2017-09-19T00:00:00.000Z","2017-09-20T00:00:00.000Z","2017-09-21T00:00:00.000Z","2017-09-22T00:00:00.000Z","2017-09-23T00:00:00.000Z","2017-09-24T00:00:00.000Z","2017-09-25T00:00:00.000Z","2017-09-26T00:00:00.000Z","2017-09-27T00:00:00.000Z","2017-09-28T00:00:00.000Z","2017-09-29T00:00:00.000Z","2017-09-30T00:00:00.000Z","2017-10-01T00:00:00.000Z","2017-10-02T00:00:00.000Z","2017-10-03T00:00:00.000Z","2017-10-04T00:00:00.000Z","2017-10-05T00:00:00.000Z","2017-10-06T00:00:00.000Z","2017-10-07T00:00:00.000Z","2017-10-08T00:00:00.000Z","2017-10-09T00:00:00.000Z","2017-10-10T00:00:00.000Z","2017-10-11T00:00:00.000Z","2017-10-12T00:00:00.000Z","2017-10-13T00:00:00.000Z","2017-10-14T00:00:00.000Z","2017-10-15T00:00:00.000Z","2017-10-16T00:00:00.000Z","2017-10-17T00:00:00.000Z","2017-10-18T00:00:00.000Z","2017-10-19T00:00:00.000Z","2017-10-20T00:00:00.000Z","2017-10-21T00:00:00.000Z","2017-10-22T00:00:00.000Z","2017-10-23T00:00:00.000Z","2017-10-24T00:00:00.000Z","2017-10-25T00:00:00.000Z","2017-10-26T00:00:00.000Z","2017-10-27T00:00:00.000Z","2017-10-28T00:00:00.000Z","2017-10-29T00:00:00.000Z","2017-10-30T00:00:00.000Z","2017-10-31T00:00:00.000Z"],[0,6,28,-71,-32,17,50,56,94,100,-55,-5,-66,-32,89,61,-5,-77,-55,-38,-32,-49,-49,-16,61,78,11,39,6,94,139,144,67,161,39,6,17,89,94,28,-5,-93,-49,-93,-116,-21,-5,-10,-32,89,122,56,11,22,28,33,-27,56,167,144,-10,17,-21,-5,6,39,128,172,206,128,61,111,100,133,100,144,111,56,28,50,33,122,117,83,111,100,211,139,67,167,194,156,56,-10,-27,6,100,106,28,11,28,117,61,89,122,189,222,233,206,150,194,217,189,122,150,133,56,128,106,94,161,128,94,150,172,167,200,211,128,156,189,239,272,206,150,83,139,172,172,194,233,200,222,261,228,250,289,272,322,300,256,278,272,239,278,283,228,233,200,150,183,228,256,228,172,233,294,283,306,300,289,289,250,239,256,283,311,322,283,244,233,267,239,233,256,306,272,306,294,289,256,272,289,322,306,283,272,250,278,294,256,278,306,294,328,317,267,272,289,294,289,278,261,283,300,306,328,317,294,272,300,333,317,328,311,333,278,283,306,283,283,300,317,261,228,267,289,283,267,300,289,278,272,256,228,228,239,278,283,294,289,289,289,311,217,239,261,222,211,267,261,250,267,261,278,272,233,183,194,217,211,244,167,194,200,200,211,228,233,250,244,189,139,144,178,233,189,161,217,233,239,244,200,133,117,83,144,106,94,67,106,78,178,128,100,222,194,139,106,139,139,172,156,111,133,128,94,117,122,133,106,122,222,167,17,11,28,28,72,72,56,78,122,156,161,89,61,50,50,50,56,50,28,-5,0,-16,39,6,-32,-88,-55,22,6,-49,28,17,22,28,50,28,144,89,0,22,0,44,28,50,61,44,-60,-77,-82,-82,-32,72,106,139,6,-16,-5,28,72,33,22,83,156,83,78,11,83,78,17,-5,-10,-43,-5,11,-5,-60,-27,6,22,128,111,-49,-5,44,17,-10,50,22,-27,33,133,94,78,150,144,156,217,183,22,78,150,156,22,-27,-66,17,144,144,94,39,6,-66,-55,-66,-66,-27,6,44,39,50,44,72,0,44,167,61,156,117,89,106,56,83,67,94,206,150,111,122,33,83,206,239,194,89,117,172,228,228,139,156,167,122,117,122,161,172,178,239,294,167,167,178,200,117,111,117,94,78,111,94,128,139,156,178,156,172,161,228,278,283,167,183,228,167,239,261,167,161,200,261,222,228,217,178,189,206,228,183,172,211,250,217,250,278,300,283,272,278,283,317,300,250,217,222,267,250,233,228,217,189,228,272,239,233,256,250,267,306,294,261,244,256,256,278,261,261,261,233,267,250,261,294,256,289,244,283,244,206,244,272,233,261,294,278,283,289,300,283,217,244,250,244,267,283,250,250,250,278,261,256,278,272,244,261,278,278,228,211,211,228,239,239,222,239,200,172,217,206,267,211,206,178,167,172,194,233,267,267,228,244,278,283,278,283,278,289,278,289,322,328,311,283,167,178,150,183,233,244,250,200,200,272,250,200,228,156,183,200,222,250,100,167,194,189,189,null,null,null,null,null,null,null,null,null,null,null]]},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="networkd3" class="section level1">
+<h1>networkD3</h1>
+<pre class="r"><code>library(networkD3)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;networkD3&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:leaflet&#39;:
+## 
+##     JS</code></pre>
+<pre><code>## The following object is masked from &#39;package:DT&#39;:
+## 
+##     JS</code></pre>
+<pre class="r"><code>data(MisLinks, MisNodes)
+forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = &quot;source&quot;,
+             Target = &quot;target&quot;, Value = &quot;value&quot;, NodeID = &quot;name&quot;,
+             Group = &quot;group&quot;, opacity = 0.4)</code></pre>
+<div id="htmlwidget-714a95a3fc55a78cb863" style="width:2100px;height:1200px;" class="forceNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-714a95a3fc55a78cb863">{"x":{"links":{"source":[1,2,3,3,4,5,6,7,8,9,11,11,11,11,12,13,14,15,17,18,18,19,19,19,20,20,20,20,21,21,21,21,21,22,22,22,22,22,22,23,23,23,23,23,23,23,23,23,24,24,25,25,25,26,26,26,26,27,27,27,27,27,28,28,29,29,29,30,31,31,31,31,32,33,33,34,34,35,35,35,36,36,36,36,37,37,37,37,37,38,38,38,38,38,38,39,40,41,41,42,42,42,43,43,43,44,44,45,47,48,48,48,48,49,49,50,50,51,51,51,52,52,53,54,54,54,55,55,55,55,55,55,55,55,55,55,56,56,57,57,57,58,58,58,58,58,59,59,59,59,60,60,60,61,61,61,61,61,61,62,62,62,62,62,62,62,62,63,63,63,63,63,63,63,63,64,64,64,64,64,64,64,64,64,64,65,65,65,65,65,65,65,65,65,65,66,66,66,66,66,66,66,66,66,67,68,68,68,68,68,68,69,69,69,69,69,69,69,70,70,70,70,70,70,70,70,71,71,71,71,71,71,71,71,72,72,72,73,74,74,75,75,75,75,75,75,75,76,76,76,76,76,76,76],"target":[0,0,0,2,0,0,0,0,0,0,10,3,2,0,11,11,11,11,16,16,17,16,17,18,16,17,18,19,16,17,18,19,20,16,17,18,19,20,21,16,17,18,19,20,21,22,12,11,23,11,24,23,11,24,11,16,25,11,23,25,24,26,11,27,23,27,11,23,30,11,23,27,11,11,27,11,29,11,34,29,34,35,11,29,34,35,36,11,29,34,35,36,37,11,29,25,25,24,25,41,25,24,11,26,27,28,11,28,46,47,25,27,11,26,11,49,24,49,26,11,51,39,51,51,49,26,51,49,39,54,26,11,16,25,41,48,49,55,55,41,48,55,48,27,57,11,58,55,48,57,48,58,59,48,58,60,59,57,55,55,58,59,48,57,41,61,60,59,48,62,57,58,61,60,55,55,62,48,63,58,61,60,59,57,11,63,64,48,62,58,61,60,59,57,55,64,58,59,62,65,48,63,61,60,57,25,11,24,27,48,41,25,68,11,24,27,48,41,25,69,68,11,24,27,41,58,27,69,68,70,11,48,41,25,26,27,11,48,48,73,69,68,25,48,41,70,71,64,65,66,63,62,48,58],"value":[1,8,10,6,1,1,1,1,2,1,1,3,3,5,1,1,1,1,4,4,4,4,4,4,3,3,3,4,3,3,3,3,5,3,3,3,3,4,4,3,3,3,3,4,4,4,2,9,2,7,13,1,12,4,31,1,1,17,5,5,1,1,8,1,1,1,2,1,2,3,2,1,1,2,1,3,2,3,3,2,2,2,2,1,2,2,2,2,1,2,2,2,2,2,1,1,1,2,3,2,2,1,3,1,1,3,1,2,1,2,1,1,1,3,2,1,1,9,2,2,1,1,1,2,1,1,6,12,1,1,21,19,1,2,5,4,1,1,1,1,1,7,7,6,1,4,15,5,6,2,1,4,2,2,6,2,5,1,1,9,17,13,7,2,1,6,3,5,5,6,2,4,3,2,1,5,12,5,4,10,6,2,9,1,1,5,7,3,5,5,5,2,5,1,2,3,3,1,2,2,1,1,1,1,3,5,1,1,1,1,1,6,6,1,1,2,1,1,4,4,4,1,1,1,1,1,1,2,2,2,1,1,1,1,2,1,1,2,2,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1],"colour":["#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666"]},"nodes":{"name":["Myriel","Napoleon","Mlle.Baptistine","Mme.Magloire","CountessdeLo","Geborand","Champtercier","Cravatte","Count","OldMan","Labarre","Valjean","Marguerite","Mme.deR","Isabeau","Gervais","Tholomyes","Listolier","Fameuil","Blacheville","Favourite","Dahlia","Zephine","Fantine","Mme.Thenardier","Thenardier","Cosette","Javert","Fauchelevent","Bamatabois","Perpetue","Simplice","Scaufflaire","Woman1","Judge","Champmathieu","Brevet","Chenildieu","Cochepaille","Pontmercy","Boulatruelle","Eponine","Anzelma","Woman2","MotherInnocent","Gribier","Jondrette","Mme.Burgon","Gavroche","Gillenormand","Magnon","Mlle.Gillenormand","Mme.Pontmercy","Mlle.Vaubois","Lt.Gillenormand","Marius","BaronessT","Mabeuf","Enjolras","Combeferre","Prouvaire","Feuilly","Courfeyrac","Bahorel","Bossuet","Joly","Grantaire","MotherPlutarch","Gueulemer","Babet","Claquesous","Montparnasse","Toussaint","Child1","Child2","Brujon","Mme.Hucheloup"],"group":[1,1,1,1,1,1,1,1,1,1,2,2,3,2,2,2,3,3,3,3,3,3,3,3,4,4,5,4,0,2,3,2,2,2,2,2,2,2,2,4,6,4,4,5,0,0,7,7,8,5,5,5,5,5,5,8,5,8,8,8,8,8,8,8,8,8,8,9,4,4,4,4,5,10,10,4,8]},"options":{"NodeID":"name","Group":"group","colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":7,"fontFamily":"serif","clickTextSize":17.5,"linkDistance":50,"linkWidth":"function(d) { return Math.sqrt(d.value); }","charge":-30,"opacity":0.4,"zoom":false,"legend":false,"arrows":false,"nodesize":false,"radiusCalculation":" Math.sqrt(d.nodesize)+6","bounded":false,"opacityNoHover":0,"clickAction":null}},"evals":[],"jsHooks":[]}</script>
+<div class="well">
+<h2 id="your-turn-2">Your turn</h2>
+<p>Make a dynamic network graph with <code>networkD3</code> to show the</p>
+<p>Hints:</p>
+<ul>
+<li><p>Use the following code to download the census tract information</p></li>
+<li>use <code>dygraph()</code> to draw the plot</li>
+<li><p>add a <code>dyRangeSelector()</code> with a <code>dateWindow</code> of <code>c(&quot;1920-01-01&quot;, &quot;2017-01-01&quot;)</code></p></li>
+</ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+
+</div>
+</div>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
