@@ -14,6 +14,8 @@
 library(dplyr)
 library(ggplot2)
 library(ggmap)
+library(htmlwidgets)
+library(widgetframe)
 
 #' 
 #' If you don't have the packages above, install them in the package manager or by running `install.packages("doParallel")`. 
@@ -35,10 +37,11 @@ datatable(iris, options = list(pageLength = 5))
 #' 
 ## ---- warning=F, message=F-----------------------------------------------
 library(rbokeh)
-figure() %>%
+p_rbokeh=figure() %>%
   ly_points(Sepal.Length, Sepal.Width, data = iris,
     color = Species, glyph = Species,
     hover = list(Sepal.Length, Sepal.Width))
+frameWidget(p_rbokeh)
 
 #' 
 #' 
@@ -48,9 +51,10 @@ figure() %>%
 #' 
 ## ---- warning=F, message=F-----------------------------------------------
 library(leaflet)
-loc=geocode("Buffalo, NY")
-m <- leaflet() %>% setView(lng = loc$lon, lat = loc$lat, zoom = 12)
-m %>% addTiles()
+geocode("Buffalo, NY")
+m <- leaflet() %>% setView(lng = -78.87837, lat = 42.88645, zoom = 12) %>% 
+  addTiles()
+frameWidget(m)
 
 #' 
 ## ------------------------------------------------------------------------
@@ -91,7 +95,8 @@ pal <- colorQuantile("YlOrRd", NULL, n = 8)
 ## ------------------------------------------------------------------------
 library(dygraphs)
 dygraph(nhtemp, main = "New Haven Temperatures") %>% 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))%>%
+  frameWidget()
 
 
 #' 
@@ -108,9 +113,8 @@ library(xts)
 
 d=meteo_tidy_ghcnd("USW00014733",
                    date_min = "2016-01-01", 
-                   var = c("TMAX"),
-                   keep_flags=T,
-                  )
+                   var = c("TMAX","PRCP"),
+                   keep_flags=T)
 d$date=as.Date(d$date)
 head(d)
 
@@ -119,22 +123,65 @@ head(d)
 #' * use `dygraph()` to draw the plot
 #' * add a `dyRangeSelector()` with a `dateWindow` of `c("2017-01-01", "2017-12-31")`
 #' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-#' <div id="demo1" class="collapse">
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+#' <div id="demo2" class="collapse">
 #' 
 #' </div>
 #' </div>
+#' 
+#' # rthreejs
+#' 
+## ------------------------------------------------------------------------
+#devtools::install_github("bwlewis/rthreejs")
+library(threejs)
+z <- seq(-10, 10, 0.1)
+x <- cos(z)
+y <- sin(z)
+scatterplot3js(x, y, z, color=rainbow(length(z)))%>%
+  frameWidget()
+
 #' 
 #' # networkD3
 #' 
 #' 
 ## ------------------------------------------------------------------------
+library(igraph)
 library(networkD3)
-data(MisLinks, MisNodes)
-forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
-             Target = "target", Value = "value", NodeID = "name",
-             Group = "group", opacity = 0.4)
 
+karate <- make_graph("Zachary")
+wc <- cluster_walktrap(karate)
+members <- membership(wc)
+
+# Convert to object suitable for networkD3
+karate_d3 <- igraph_to_networkD3(karate, group = members)
+
+# Create force directed network plot
+forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
+             Source = 'source', Target = 'target', NodeID = 'name',
+             Group = 'group')%>%
+  frameWidget()
+
+
+#' 
+#' 
+#' # rglwidget
+#' 
+## ------------------------------------------------------------------------
+library(rgl)
+library(rglwidget)
+library(htmltools)
+
+
+data(volcano)
+# Use the Weather data we downloaded before
+#material3d(col = "black")
+
+persp3d(volcano, type="s",col="green3")
+rglwidget(elementId = "example", width = 500, height = 400,
+            controllers = "player")%>%
+  frameWidget()
+
+#' 
 #' 
 #' <div class="well">
 #' ## Your turn
@@ -150,8 +197,9 @@ forceNetwork(Links = MisLinks, Nodes = MisNodes, Source = "source",
 #' * use `dygraph()` to draw the plot
 #' * add a `dyRangeSelector()` with a `dateWindow` of `c("1920-01-01", "2017-01-01")`
 #' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-#' <div id="demo1" class="collapse">
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+#' <div id="demo3" class="collapse">
 #' 
 #' </div>
 #' </div>
+#' 
