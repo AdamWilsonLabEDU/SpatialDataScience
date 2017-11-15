@@ -37,11 +37,10 @@ datatable(iris, options = list(pageLength = 5))
 #' 
 ## ---- warning=F, message=F-----------------------------------------------
 library(rbokeh)
-p_rbokeh=figure() %>%
+figure() %>%
   ly_points(Sepal.Length, Sepal.Width, data = iris,
     color = Species, glyph = Species,
     hover = list(Sepal.Length, Sepal.Width))
-frameWidget(p_rbokeh)
 
 #' 
 #' 
@@ -107,7 +106,7 @@ dygraph(nhtemp, main = "New Haven Temperatures") %>%
 #' Hints:
 #' 
 #' * Use the following code to download the daily weather data (if this is taking too long, you can use the nhtemps object loaded above)
-## ------------------------------------------------------------------------
+## ---- messages=F, warning=F----------------------------------------------
 library(rnoaa)
 library(xts)
 
@@ -116,7 +115,6 @@ d=meteo_tidy_ghcnd("USW00014733",
                    var = c("TMAX","PRCP"),
                    keep_flags=T)
 d$date=as.Date(d$date)
-head(d)
 
 #' 
 #' * create a `xts` time series object as required by `dygraph()` using `xts()` and specify the vector of data and the date column (see `?xts` for help). 
@@ -131,7 +129,7 @@ head(d)
 #' 
 #' # rthreejs
 #' 
-## ------------------------------------------------------------------------
+## ---- messages=F, results=F----------------------------------------------
 #devtools::install_github("bwlewis/rthreejs")
 library(threejs)
 z <- seq(-10, 10, 0.1)
@@ -163,6 +161,48 @@ forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
 
 
 #' 
+## ------------------------------------------------------------------------
+# Load energy projection data
+library(jsonlite)
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata/energy.json")
+Energy <- fromJSON(URL)
+
+#' 
+#' ## Plot the energy data as a Sankey Network
+## ------------------------------------------------------------------------
+sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             units = "TWh", fontSize = 12, nodeWidth = 30)%>%
+  frameWidget()
+
+#' 
+#' ## Radial Network
+## ------------------------------------------------------------------------
+URL <- paste0(
+        "https://cdn.rawgit.com/christophergandrud/networkD3/",
+        "master/JSONdata//flare.json")
+
+## Convert to list format
+Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
+
+#' 
+#' 
+## ------------------------------------------------------------------------
+# Use subset of data for more readable diagram
+Flare$children = Flare$children[1:3]
+
+radialNetwork(List = Flare, fontSize = 10, opacity = 0.9)%>%
+  frameWidget()
+
+#' 
+#' # Diagonal Network
+## ------------------------------------------------------------------------
+diagonalNetwork(List = Flare, fontSize = 10, opacity = 0.9)%>%
+  frameWidget()
+
+#' 
 #' 
 #' # rglwidget
 #' 
@@ -177,8 +217,7 @@ data(volcano)
 #material3d(col = "black")
 
 persp3d(volcano, type="s",col="green3")
-rglwidget(elementId = "example", width = 500, height = 400,
-            controllers = "player")%>%
+rglwidget(elementId = "example", width = 500, height = 400)%>%
   frameWidget()
 
 #' 
@@ -203,3 +242,6 @@ rglwidget(elementId = "example", width = 500, height = 400,
 #' </div>
 #' </div>
 #' 
+#' 
+#' # And many more!
+#' Check out the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples.
