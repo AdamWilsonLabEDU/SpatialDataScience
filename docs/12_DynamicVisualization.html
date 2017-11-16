@@ -487,7 +487,7 @@ library(xts)
 
 d=meteo_tidy_ghcnd(&quot;USW00014733&quot;,
                    date_min = &quot;2016-01-01&quot;, 
-                   var = c(&quot;TMAX&quot;,&quot;PRCP&quot;),
+                   var = c(&quot;TMAX&quot;),
                    keep_flags=T)
 d$date=as.Date(d$date)</code></pre>
 <ul>
@@ -505,6 +505,8 @@ dt=xts(d$tmax,order.by=d$date)
 dygraph(dt, main = &quot;Daily Maximum Temperature in Buffalo, NY&quot;) %&gt;% 
   dyRangeSelector(dateWindow = c(&quot;2017-01-01&quot;, &quot;2017-12-31&quot;))%&gt;%
   frameWidget(height =500)</code></pre>
+<div id="htmlwidget-5df978fd3f7ccaf1fe9e" style="width:100%;height:500px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5df978fd3f7ccaf1fe9e">{"x":{"url":"12_DynamicVisualization_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -512,23 +514,8 @@ dygraph(dt, main = &quot;Daily Maximum Temperature in Buffalo, NY&quot;) %&gt;%
 <h1>rthreejs</h1>
 <p>Create interactive 3D scatter plots, network plots, and globes using the <a href="https://threejs.org">‘three.js’ visualization library</a>.</p>
 <pre class="r"><code>#devtools::install_github(&quot;bwlewis/rthreejs&quot;)
-library(threejs)</code></pre>
-<pre><code>## Loading required package: igraph</code></pre>
-<pre><code>## 
-## Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     as_data_frame, groups, union</code></pre>
-<pre><code>## The following object is masked from &#39;package:raster&#39;:
-## 
-##     union</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     decompose, spectrum</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     union</code></pre>
-<pre class="r"><code>z &lt;- seq(-10, 10, 0.1)
+library(threejs)
+z &lt;- seq(-10, 10, 0.1)
 x &lt;- cos(z)
 y &lt;- sin(z)
 scatterplot3js(x, y, z, color=rainbow(length(z)))</code></pre>
@@ -540,6 +527,7 @@ scatterplot3js(x, y, z, color=rainbow(length(z)))</code></pre>
 library(networkD3)</code></pre>
 <div id="load-example-network" class="section level2">
 <h2>Load example network</h2>
+<p>This loads an example social network of friendships between 34 members of a karate club at a US university in the 1970s. See W. W. Zachary, An information flow model for conflict and fission in small groups, Journal of Anthropological Research 33, 452-473 (1977).</p>
 <pre class="r"><code>karate &lt;- make_graph(&quot;Zachary&quot;)
 wc &lt;- cluster_walktrap(karate)
 members &lt;- membership(wc)
@@ -558,6 +546,7 @@ karate_d3 &lt;- igraph_to_networkD3(karate, group = members)</code></pre>
 </div>
 <div id="sankey-network-graph" class="section level2">
 <h2>Sankey Network graph</h2>
+<p>Sankey diagrams are flow diagrams in which the width of the arrows is shown proportionally to the flow quantity.</p>
 <pre class="r"><code># Load energy projection data
 library(jsonlite)
 URL &lt;- paste0(

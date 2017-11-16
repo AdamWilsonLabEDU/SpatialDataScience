@@ -89,7 +89,7 @@ library(xts)
 
 d=meteo_tidy_ghcnd("USW00014733",
                    date_min = "2016-01-01", 
-                   var = c("TMAX","PRCP"),
+                   var = c("TMAX"),
                    keep_flags=T)
 d$date=as.Date(d$date)
 
@@ -108,7 +108,7 @@ d$date=as.Date(d$date)
 #' 
 #' Create interactive 3D scatter plots, network plots, and globes using the ['three.js' visualization library](https://threejs.org).
 #'     
-## ---- messages=F, results=F----------------------------------------------
+## ---- message=F, results=F-----------------------------------------------
 #devtools::install_github("bwlewis/rthreejs")
 library(threejs)
 z <- seq(-10, 10, 0.1)
@@ -128,6 +128,8 @@ library(networkD3)
 #' 
 #' 
 #' ## Load example network
+#' This loads an example social network of friendships between 34 members of a karate club at a US university in the 1970s. See W. W. Zachary, An information flow model for conflict and fission in small groups, Journal of Anthropological Research 33, 452-473 (1977).
+#' 
 ## ------------------------------------------------------------------------
 karate <- make_graph("Zachary")
 wc <- cluster_walktrap(karate)
@@ -148,6 +150,8 @@ forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
 #' 
 #' 
 #' ## Sankey Network graph
+#' 
+#' Sankey diagrams are flow diagrams in which the width of the arrows is shown proportionally to the flow quantity.
 #' 
 ## ------------------------------------------------------------------------
 # Load energy projection data
