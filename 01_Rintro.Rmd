@@ -1,5 +1,8 @@
 ---
 title: "Introduction to R"
+output:
+  html_document:
+    code_folding: show
 ---
 
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}

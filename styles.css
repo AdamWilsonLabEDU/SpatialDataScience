@@ -18,7 +18,7 @@ table.table td a:only-child:active {
 }
 
 h1, h2, h3, h4, h5, h6{
-  margin-top:60px;
+  margin-top:30px;
 }
 
 /*******  Footer ******/
@@ -107,6 +107,12 @@ html,body {height:75%;}
   border-color: #357ebd;
 }
 
+.btn-default {
+  background-color: #428bca;
+  font-size: 10px;
+  float: left !important;
+}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
@@ -129,7 +135,7 @@ html,body {height:75%;}
 ************************/
 
 .btn {
-    padding: 14px 24px;
+    padding: 10px 20px;
     border: 0 none;
     font-weight: 700;
     letter-spacing: 1px;
