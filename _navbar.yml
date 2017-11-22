@@ -53,6 +53,8 @@ left:
         href: PackageIntro.html
       - text: "Final Project"
         href: Project.html
+      - text: "2017 Final Projects"
+        href: Projects_2017.html
   - text: "Resources"
     menu:
     - text: "Resources"

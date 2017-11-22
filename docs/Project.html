@@ -23,8 +23,8 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/textmate.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -34,10 +34,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+  }
 }
 </script>
 
@@ -360,6 +362,9 @@ div.tocify {
     <li>
       <a href="Project.html">Final Project</a>
     </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -471,9 +476,11 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 </ol>
 </div>
 </div>
-<div id="second-draft" class="section level3">
-<h3>Second Draft</h3>
-<p>Complete submissions will include and be graded as follows:</p>
+<div id="final-draft" class="section level3">
+<h3>Final Draft</h3>
+<p>You will have two opportunites to submit your final project and your final grade on the project will be the highest of the two submissions.</p>
+<p>Links to your project website will be uploaded to UBLearns at the end of the semester and posted on the course website.</p>
+<p>The final project will include and be graded as follows:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Title</strong> (&lt;25 words)</li>
 <li><strong>Introduction [~ 200 words, 10%]</strong>
@@ -508,7 +515,7 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 <a href='assets/rubric.png' target="_blank"> <img src='assets/rubric.png'></a></p>
 <p>Note that the word counts are quite short (~200 words per section). This does not mean it’s <em>easy</em>! In fact, conveying all the necessary information succinctly requires extra effort. If English is not your first language, you are encouraged to contact the <a href="https://www.buffalo.edu/writing.html">UB Writing Center</a> to get help writing succinctly and clearly. They schedule 45 minute sessions to go over your writing which can dramatically improve the quality of your project. Plan ahead to schedule this before upcoming deadlines.</p>
 <p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to see drafts of the text and figures/tables/etc in each section.</p>
-<p>The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final, polished versions of the results, discussion, or conclusion. If you have questions or comments, feel free to include them in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage.</p>
+<p>When submitting your your second draft, you can include any questions or comments in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage. Please do not include these comments in the final submission.</p>
 <div id="formatting" class="section level4">
 <h4>Formatting</h4>
 <p>The final project will be produced as a <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">RMarkdown Website</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
@@ -526,7 +533,7 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 <div id="lightning-project-presentation" class="section level3">
 <h3>‘Lightning’ Project Presentation</h3>
 <p>Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the <a href="http://en.wikipedia.org/wiki/Lightning_Talk">lightning talk</a> and <a href="http://en.wikipedia.org/wiki/Ignite_(event)">ignite Sessions</a>.</p>
-<p><strong>On the last day of class, each student will give a 3-5 minute overview of their project.</strong> You will open the html version on the screen (no need to make a separate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project. Good use of headers, figures, and simple tables will make it easier to present!</p>
+<p><strong>On the last day of class, each student will give a 5 minute overview of their project.</strong> You will open the html version on the screen (no need to make a separate presentation). It’s OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project. Good use of headers, figures, and simple tables will make it easier to present!</p>
 <p>It’s important to remember that most of the guidelines for good presentations still apply. You should still make eye contact with the audience, you should still be prepared to stop earlier or handle awkward questions, you should still remember to go to the bathroom beforehand. What the short talk format provides you with is a framework to get down to the essence of what you are trying to say to the audience.</p>
 <p><strong>Make your point and make it quickly</strong></p>
 <p>You will not be able to cover all the information in your project. Your goal is to get us excited about what you have done.</p>
@@ -535,11 +542,6 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 <p><strong>And remember, the audience is on your side!</strong></p>
 <p>In summary, remember that for the presentation, DELIVERY is more important than CONTENT. This doesn’t mean that your content shouldn’t be good, but that it is always better to get across something that sticks in your audience’s mind, than getting them to forget everything you’ve just said.</p>
 <p>Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period. The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.</p>
-</div>
-<div id="final-draft" class="section level3">
-<h3>Final Draft</h3>
-<p>Links to your project website will be uploaded to UBLearns at the end of the semester and posted on the course website.</p>
-<p>See the grading details above in the <strong>Second Draft section</strong>.</p>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
@@ -569,6 +571,9 @@ Be sure to install any required libraries (do not deduct points if it fails beca
 <li>Zimbabwean Bushmeat</li>
 <li>U.S. Unemployment rates</li>
 </ul>
+</div>
+<div id="references-1" class="section level2">
+<h2>References</h2>
 <p>Suggestions for lightening presentations adapted from the <a href="https://www.software.ac.uk/home/cw11/giving-good-lightning-talk">Software Sustainability Institute</a>.</p>
 </div>
 

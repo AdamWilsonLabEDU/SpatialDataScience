@@ -73,9 +73,13 @@ Evaluate the following and enter your scores in UBlearns:
 4) **Figure**: The HTML file includes at least one figure of the data.
 
 
-### Second Draft
+### Final Draft
 
-Complete submissions will include and be graded as follows:
+You will have two opportunites to submit your final project and your final grade on the project will be the highest of the two submissions.
+
+Links to your project website will be uploaded to UBLearns at the end of the semester and posted on the course website.  
+
+The final project will include and be graded as follows:
 
 1. **Title** (<25 words)
 2. **Introduction  [~ 200 words, 10%]**
@@ -101,7 +105,7 @@ Note that the word counts are quite short (~200 words per section).  This does n
 
 The more complete the second draft, the more feedback I'll be able to provide to ensure an excellent final project.  So it's in your interest to finish as much as possible.    In addition to the details from the first draft, I would like to see drafts of the text and figures/tables/etc in each section.  
 
-The second draft will be graded using the same criteria as the full project (see above), but I do not expect to see final, polished versions of the results, discussion, or conclusion.  If you have questions or comments, feel free to include them in the draft (e.g., "I'm planning to do X, but I'm not sure how to organize the data appropriately") or as a _comment_ in the UBLearns submission webpage.  
+When submitting your your second draft, you can include any questions or comments in the draft (e.g., "I'm planning to do X, but I'm not sure how to organize the data appropriately") or as a _comment_ in the UBLearns submission webpage.  Please do not include these comments in the final submission.
 
 #### Formatting
 The final project will be produced as a [RMarkdown Website](http://rmarkdown.rstudio.com/rmarkdown_websites.html) that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.).  For examples of similar documents, explore the [RPubs website](https://rpubs.com). 
@@ -118,7 +122,7 @@ You should cite any relevant materials (including data sources and methods) in t
 
 Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the [lightning talk](http://en.wikipedia.org/wiki/Lightning_Talk) and [ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event)).
 
-**On the last day of class, each student will give a 3-5 minute overview of their project.**  You will open the html version on the screen (no need to make a separate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project.  Good use of headers, figures, and simple tables will make it easier to present!
+**On the last day of class, each student will give a 5 minute overview of their project.**  You will open the html version on the screen (no need to make a separate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project.  Good use of headers, figures, and simple tables will make it easier to present!
 
 It's important to remember that most of the guidelines for good presentations still apply. You should still make eye contact with the audience, you should still be prepared to stop earlier or handle awkward questions, you should still remember to go to the bathroom beforehand. What the short talk format provides you with is a framework to get down to the essence of what you are trying to say to the audience.
 
@@ -135,12 +139,6 @@ Practice against a timer. Practice standing up. Five minutes is a really short t
 In summary, remember that for the presentation, DELIVERY is more important than CONTENT. This doesn't mean that your content shouldn't be good, but that it is always better to get across something that sticks in your audience's mind, than getting them to forget everything you've just said.
 
 Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period.   The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.
-
-### Final Draft
-
-Links to your project website will be uploaded to UBLearns at the end of the semester and posted on the course website.  
-
-See the grading details above in the **Second Draft section**.
 
 ### Resources
 
@@ -167,5 +165,7 @@ Sites with examples of visual display of quantitative information
 * Relationship between the unemployment and the gross domestic production (GDP)
 * Zimbabwean Bushmeat
 * U.S. Unemployment rates
+
+## References
 
 Suggestions for lightening presentations adapted from the [Software Sustainability Institute](https://www.software.ac.uk/home/cw11/giving-good-lightning-talk).

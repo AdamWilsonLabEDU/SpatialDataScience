@@ -49,15 +49,14 @@ Each student will be expected to introduce a package (or two) that is relevant t
 Four homework assignments will be assigned throughout the semester and due before class the following week.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](Homework.html) for more details.  
 
 ### Final Project and Presentation (50%)
-The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  The figure will be uploaded to UBlearns as a PDF file with the underlying R source code and posted to the course website.  This project can be related to the student’s own research or a separate topic.  
+The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  This project can be related to the student’s own research or a separate topic.  
 
 **Project stages**
 
 * Proposal (5%)
 * First draft (evaluated by your peers) (5%)
-* Second draft (5%)
 * Presentation (5%)
-* Final draft (30%)
+* Final draft (35%)
 
 See the [schedule](Schedule.html) for details on deadlines.  Unexcused late submissions will be docked 10 percentage points per 24 hour period.  See full [Project Description](Project.html) for more details.  
 

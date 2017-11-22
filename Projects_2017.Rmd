@@ -1,0 +1,119 @@
+---
+title: "Projects"
+output:
+  html_document:
+    css: thumbnail-gallery.css
+    toc: false
+---
+
+Student projects from Fall 2018 are available below.  Click on a thumbnail to visit the full site.  
+
+```{r,echo=F, warning=F, message=F}
+library(dplyr)
+library(knitr)
+library(doParallel)
+registerDoParallel(4)
+#devtools::install_github("ijlyttle/bsplus")
+#library(bsplus)
+
+d=data.frame(url=c(
+  "https://gsaugust.github.io/RDataScience_Project/",
+  "https://dongonchoi.github.io/RDataScience_Project/",
+  "https://finallyegg.github.io/RDataScience_Project/",
+  "https://aflesnia.github.io/RDataScience_Project/",
+  "https://litu5555.github.io/Finalproject/",
+  "https://faithlxy.github.io/RDataScience_Project/",
+  "https://luyc95.github.io/RDataScience_Project/",
+  "https://littlepennypaw.github.io/RDataScience_Project/",
+  "https://xhrui.github.io/RDataScience_Project/",
+  "https://ebschust.github.io/RDataScience_Project/",
+  "https://gcschwer.github.io/RDataScience_Project/",
+  "https://hannahstokes.github.io/RDataScience_Project/",
+  "https://atancyl.github.io/RDataScience_Project/",
+  "https://danqing1234.github.io/DanqingW_FirstDraft/",
+  "https://yifan70932.github.io/RDataScience_Project",
+  "https://went7.github.io/Rfinal/",
+  "https://jongseow.github.io/RDataScience_Project/",
+  "https://jessicatwood.github.io/RDataScience_Project/"
+  ),stringsAsFactors = F)
+
+d=d%>%mutate(user=sub("https://","",url))%>%
+  mutate(user=gsub("[.]github.*","",user),
+         img=paste0("assets/projthumbs/web_",user))
+```
+
+```{r, eval=F, echo=F, message=F}
+#https://github.com/sindresorhus/pageres-cli
+foreach(i=1:nrow(d)) %dopar% {
+  system(paste0("pageres -c ",d$url[i]," 1000x2000 --filename=",d$img[i]))
+}
+```
+
+```{r, echo=F, message=F}
+library(rvest)
+for(i in 1:nrow(d)) {
+  d$title[i] <- read_html(d$url[i]) %>%html_nodes("h1")%>%html_text()%>%first()
+#  d$author[i] <- read_html(d$url[i]) %>%html_nodes("h1")%>%html_text()%>%first()
+}
+```
+
+
+```{r, eval=F, echo=F, out.width="30%"}
+for(i in 1:nrow(d)) {
+  if(i==1) imgt=bs_carousel(id = "ProjectList") %>% 
+      bs_append(
+        content=bs_carousel_image(longdesc=d$url[i],
+                              src = paste0(d$img[i],".png"),
+                              target="_blank"),
+        caption=bs_carousel_caption(title = d$title[i]))
+  if(i>1) imgt=imgt%>%bs_append(content = bs_carousel_image(longdesc=d$url[i],
+                                                            src = paste0(d$img[i],".png"),
+                                                            target="_blank"),
+                                    caption=bs_carousel_caption(title = d$title[i]))
+}
+
+imgt
+```
+
+
+```{r,eval=T,results='asis',echo=F, out.width="30%"}
+ 
+    fimg=function(src,href,title=""){
+    paste0(" <div class='col-xs-12 col-sm-6 col-md-3'>
+          <div class='thumbnail'>
+            <a href=",href," target='_blank'>
+              <img src=",src,".png alt=''>
+              <div class='caption'>
+                <h4>",title,"</h4>
+                <p><a href=",href," target='_blank' class='btn btn-info btn-xs' role='button'>Webpage</a> 
+            </div>
+            </a>
+          </div>
+        </div>")}
+
+    fimg2=function(src,href,title=""){
+    paste0("<div class='col-xs-12 col-sm-6 col-md-3'>
+          <div class='thumbnail'>
+            <a href=",href," target='_blank'>
+              <img src=",src,".png alt=''>
+            </a>
+          </div>
+        </div>")}
+
+#                 <p>''</p>
+#                     <a href='#' target='_blank'  class='btn btn-default btn-xs' role='button'>Github</a></p>
+
+fgal=function(list){
+  paste("<div class='container' id='tourpackages-carousel'>
+      <div class='row'>",
+      "<p style='color:white'>",
+      paste(list,collapse=" "),
+      "</p>",
+      "</div><!-- End row -->
+    </div><!-- End container -->")}
+
+
+fimg2(src=d$img,href=d$url,title=d$title)%>%fgal()
+
+
+```

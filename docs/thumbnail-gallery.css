@@ -1,0 +1,25 @@
+/*  https://bootsnipp.com/snippets/featured/thumbnail-with-caption-amp-buttons */
+
+
+body {
+  min-height: 1000px;
+  padding-top: 70px;
+  margin-right: 200px;
+}
+
+.thumbnail {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.text
+    {
+    color: #000; /* Fallback for older browsers */
+    color: rgba(1, 1, 1, 1);
+    font-size: 25px;
+    }
