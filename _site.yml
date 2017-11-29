@@ -1,16 +1,20 @@
-output_dir: 'docs'
+output_dir: docs
 output:
   html_document:
     theme: cosmo
     highlight: textmate
-    mathjax: null
-    toc: true
+    mathjax: ~
+    toc: yes
     toc_depth: 2
     toc_float:
-       collapsed: true
-       smooth_scroll: true
-       number_sections: true
+      collapsed: yes
+      smooth_scroll: yes
+      number_sections: yes
     includes:
       after_body: include/after_body.html
     css: styles.css
-    keep_md: false
+    keep_md: no
+    lib_dir: site_libs
+    self_contained: no
+name: RDataScience
+

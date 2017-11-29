@@ -13,7 +13,12 @@ library(ggplot2)
 # devtools::install_github("dkahle/ggmap")
 library(ggmap)
 library(rgdal)
-library(sp) # handles spatial data
+library(rgeos)
+library(tidyr)
+library(sf)
+library(leaflet)
+library(DT)
+library(widgetframe)
 
 ## New Packages
 library(mgcv) # package for Generalized Additive Models
@@ -31,7 +36,7 @@ library(maptools)
 #'   
 #' Overview of [R's spatial toolset is here](http://cran.r-project.org/web/views/Spatial.html).
 #'   
-#' ## What is spatial autocorrelation?
+#' ## Modeling spatial autocorrelation
 #'   
 #' Today we will model space by **smooth splines** in `mgcv` package. 
 #'   
@@ -53,133 +58,112 @@ library(maptools)
 #' 
 #' We'll attempt to explain the spatial distribution of the Purple finch (_Carpodacus purpureus_) in San Diego county, California:
 #' 
-#' ![purple finch figure](12_assets/finch_photo.png)
-#' 
+#' ![purple finch](12_assets/finch_photo.png)
 #' (photo/Wikimedia)
-#' 
 #' 
 #' ## Preparing the data
 #' 
 #' Load a vector dataset (shapefile) representing the [San Diego bird atlas data](http://sdplantatlas.org/BirdAtlas/BirdPages.htm) for the Purple finch:
 #' 
 ## ---- message=FALSE, warning=FALSE---------------------------------------
-finch <- readOGR(system.file("extdata", "finch", 
+finch <- read_sf(system.file("extdata", "finch", 
                 package = "DataScienceData"),
                 layer="finch")
-## add centroid locations to dataframe
-finch@data[,c("x","y")]=coordinates(finch)
-projection(finch)="+proj=utm +zone=11 +ellps=GRS80 +datum=NAD83 +units=m +no_defs "
+
+st_crs(finch)="+proj=utm +zone=11 +ellps=GRS80 +datum=NAD83 +units=m +no_defs "
 
 #' 
 #' 
 #' ### Plot the shapefile
-#' Plot the finch dataset over a google map layer.
-#' 
-#' 
-#' #### First convert to latitude-longitude
-## ----message=F-----------------------------------------------------------
-finchll=spTransform(finch,CRS("+proj=longlat +datum=WGS84"))
-
-#' 
-#' 
-#' #### Get a google map image for the background
-## ----message=F-----------------------------------------------------------
-map_usa=get_map("usa", zoom = 4,
-             maptype = "terrain-background",
-             source="stamen")
-map_sd=get_map(bbox(finchll), zoom = 9,
-             maptype="terrain-background",
-             source="stamen")
-
-#' 
-#' #### Build the ggplot objects
-## ----message=F-----------------------------------------------------------
-m1=ggmap(map_usa,extent = "device")+
-geom_polygon(aes(y=lat,x=long,group=group,order=order),
-             data=fortify(finchll),fill="transparent",colour="red",size=2)+
-  ylab("")+xlab("")
-
-m2=ggmap(map_sd)+
-geom_polygon(aes(y=lat,x=long,group=group,order=order),
-             data=fortify(finchll),fill="transparent",colour="red")+
-  ylab("Latitude")+xlab("Longitude")
-
-#' 
-#' #### Draw the plot with an inset using `viewport()`
-#' 
-#' `viewport()` in the `grid` package allows you to put graphical objects anywhere in the plotting region.  Use it to draw the USA map as an inset to show the location of region with respect to the US. 
+#' Plot the finch dataset in leaflet.
 #' 
 ## ----message=F-----------------------------------------------------------
-print(m2)
-print(m1,vp=viewport(width=.25,height=.25,x=.8,y=.8))
+st_transform(finch,"+proj=longlat +datum=WGS84")%>%
+  leaflet() %>% addTiles() %>%
+  addPolygons()%>%
+  frameWidget(height=400)
 
 #' 
-#' ### Your Turn
 #' 
-#' Explore adjusting the `viewport()` parameters to see how it moves around.  Can you move it to lower right corner?  Note that the positions (e.g. `width`, `height`, `x`, and `y`) are all with respect to the full plotting domain, so if you change the aspect ratio of the plotting window, things will move around...
+#' But we can do better than that.  Let's add a couple layers and an overview map.
 #' 
-#' <br><br><br><br><br><br><br><br><br><br><br>
+## ----message=F-----------------------------------------------------------
+st_transform(finch,"+proj=longlat +datum=WGS84")%>%
+  leaflet() %>% addTiles() %>%
+  addPolygons(label=paste(finch$BLOCKNAME," (NDVI=",finch$ndvi,")"),
+              group = "NDVI",
+              color = "#444444", 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile("YlOrRd", ndvi)(ndvi),
+              highlightOptions = highlightOptions(color = "white", weight = 2,
+                bringToFront = TRUE)) %>%
+    addPolygons(label=paste(finch$BLOCKNAME," (NDVI=",finch$ndvi,")"),
+              group = "Presence/Absence",
+              color = "#444444", 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ifelse(finch$present,"red","transparent"),
+              highlightOptions = highlightOptions(color = "white", weight = 2,
+                bringToFront = TRUE)) %>%
+  addLayersControl(
+    baseGroups = c("NDVI", "Presence/Absence"),
+    options = layersControlOptions(collapsed = FALSE)
+  )%>%
+addMiniMap()%>%
+  frameWidget(height = 600)
+
+#' 
+#' <div class="well">
+#' ## Your turn
+#' 
+#' Explore the other variables in the `finch` dataset with `summary(finch)`.  Build on the map above to add the mean elevation (`meanelev`) in each polygon as an additional layer.
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+#' <div id="demo1" class="collapse">
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
+#' You could also visualize these data with multiple ggplot panels:
+## ----fig.height=20-------------------------------------------------------
+p1=ggplot(finch) +
+    scale_fill_gradient2(low="blue",mid="grey",high="red")+
+    coord_equal()+
+    ylab("")+xlab("")+
+     theme(legend.position = "right")+
+    theme(axis.ticks = element_blank(), axis.text = element_blank())
+
+p1a=p1+geom_sf(aes(fill = ndvi))
+p1b=p1+geom_sf(aes(fill = meanelev))
+p1c=p1+geom_sf(aes(fill = urban))
+p1d=p1+geom_sf(aes(fill = maxtmp))
+
+grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  
+
+#' 
+#' 
 #' 
 #' ## Explore the data
-#' Now look at the associated data frame (analogous to the *.dbf file that accompanied the shapefile):
+#' Now look at the associated data frame (analogous to the *.dbf file that accompanies a shapefile):
 ## ------------------------------------------------------------------------
-kable(head(finch@data))
+datatable(finch, options = list(pageLength = 5))%>%
+  frameWidget(height=400)
 
 #' 
 #' > Note: in your final projects, don't simply print out large tables or outputs...  Filter/select only data relevent to tell your 'story'...
 #' 
 #' ## Scaling and centering the environmental variables
-#' Statistical models generally perform better when covariates have a mean of zero and variance of 1, using the `scale()` function:
+#' Statistical models generally perform better when covariates have a mean of zero and variance of 1.  We can quickly calculate this using the `scale()` function:
+#' 
+#' First let's select only the columns we will use for modeling.
 ## ------------------------------------------------------------------------
-kable(finch@data[1:5,c(15:18,20:25)])
-
-envi <- finch@data[,c(15:18,20:25)] 
-envi.scaled <- as.data.frame(scale(as.matrix(envi)))
-finch@data[,c(15:18,20:25)] <- envi.scaled
-
-#' 
-#' 
-#' ## The predictor (NDVI)  
-#' 
-#' ### Plot a chloropleth
-#' 
-#' From [Wikipedia](https://en.wikipedia.org/wiki/Choropleth_map):
-#' 
-#' > A **choropleth** (from Greek χώρο ("area/region") + πλήθος ("multitude")) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.
-#' 
-#' By default, the rownames in the dataframe are the unique identifier (e.g. the **FID**) for the polygons.  
-#' 
-## ---- fig.height=4-------------------------------------------------------
-## add the ID to the dataframe itself for easier indexing
-finch$id=as.numeric(rownames(finch@data))
-## create fortified version for plotting with ggplot()
-pfinch=fortify(finch,region="id")
-
-ggplot(finch@data, aes(map_id = id)) +
-    expand_limits(x = pfinch$long, y = pfinch$lat)+
-    scale_fill_gradientn(colours = c("grey","goldenrod","darkgreen","green"))+
-    coord_equal()+
-    geom_map(aes(fill = ndvi), map = pfinch)
-
-#' 
-#' ## Your turn
-#' 
-#' Explore the other variables in the `finch` dataset with `summary(finch)`.  Plot a map of the mean elevation in each region.
-#' 
-#' <br><br><br><br><br><br><br><br><br><br><br><br>
-#' 
-#' 
-#' Use `grid.arrange()` to plot multiple plots in the same figure.
-#' 
-#' 
-#' 
-#' ## The response (presences and absences)
-## ------------------------------------------------------------------------
-    ggplot(finch@data, aes(map_id = id)) +
-    geom_map(aes(fill = as.logical(present)), map = pfinch)+
-    expand_limits(x = pfinch$long, y = pfinch$lat)+
-    scale_fill_manual(values = c("darkgrey","red"),name="Present")+
-    coord_equal()
+finch=mutate(finch,ndvi_scaled=as.numeric(scale(ndvi)))
 
 #' 
 #' ## Fitting the models
@@ -193,33 +177,39 @@ ggplot(finch@data, aes(map_id = id)) +
 #' 
 #' ### Model 1 - only NDVI
 #' 
-#' Now we will do the actual modelling. The first simple model links the presences and absences to NDVI.
+#' Now we will do the actual modelling. The first simple model links the probability of a presences or absences to NDVI.
 #' 
-#' First, we will fit model a model that only uses NDVI as a predictor of presence and absence:
+#' $$ \log(\frac{p_i}{1-p_i})=\beta_0+\beta_1 NDVI_i $$
+#' $$ \log(p_i/1-p_i)=\beta_0+\beta_1 NDVI_i $$
 #' 
-#' $\log ( \frac{p_i}{1-p_i} ) = \beta_0 + \beta_1 NDVI_i$
-#' 
-#' $o_i \sim Bernoulli(p_i)$
+#' $$ o_i \sim Bernoulli(p_i) $$
 #' 
 #' > Note: this assumes residuals are _iid_ (independent and identically distributed).  
 #' 
 #' It can be fitted by simple glm() in R:
 ## ------------------------------------------------------------------------
-  ndvi.only <- glm(present~ndvi, data=finch@data, family="binomial")
-  ## and let's extract predictions and residuals:
-  preds.ndvi.only <- predict(ndvi.only, type="response")
-  resid.ndvi.only <- residuals(ndvi.only)
+  ndvi.only <- glm(present~ndvi_scaled, 
+                   data=finch, family="binomial")
+
+#' 
+#' Extract predictions and residuals:
+#' 
+## ------------------------------------------------------------------------
+  finch$m_pred_ndvi <- predict(ndvi.only, type="response")
+  finch$m_resid_ndvi <- residuals(ndvi.only)
 
 #' 
 #' 
-#' Now let's plot the logistic curve:
+#' Plot the estimated logistic curve:
 ## ---- fig.height=5-------------------------------------------------------
-  plot(finch$ndvi,preds.ndvi.only, type="p", 
-       xlab="(Scaled) NDVI", ylab="P of presence", col="red")
-  points(finch$ndvi, finch$present)
+ggplot(finch,aes(x=ndvi/256,y=m_pred_ndvi))+
+  geom_line(col="red")+ 
+  geom_point(mapping=aes(y=present))+
+  xlab("NDVI")+
+  ylab("P(presence)")
 
 #' 
-#' Print a summary table
+#' Print a summary table:
 ## ---- results='asis'-----------------------------------------------------
 xtable(ndvi.only,
        caption="Model summary for 'NDVI-only'")%>%
@@ -231,25 +221,33 @@ xtable(ndvi.only,
 #' The second model fits only the spatial trend in the data (using GAM and splines):
 ## ------------------------------------------------------------------------
   space.only <- gam(present~s(X_CEN, Y_CEN),
-                   data=finch@data, family="binomial")
-  ## extracting predictions
-  preds.space.only <- as.numeric(predict(space.only, type="response"))
-  resid.space.only <- residuals(space.only)
+                   data=finch, family="binomial")
+
+#' 
+#' Extract the predictions and residuals
+## ------------------------------------------------------------------------
+  finch$m_pred_space <- as.numeric(predict(space.only, type="response"))
+  finch$m_resid_space <- residuals(space.only)
 
 #' 
 #' Plot the ***spatial term*** of the model:
 #' 
 ## ---- fig.height=7, fig.width=14-----------------------------------------
-  finch$space=as.numeric(predict(space.only,type="terms"))
+  finch$m_space=as.numeric(predict(space.only,type="terms"))
 
-  ggplot(finch@data, aes(x=x,y=y,z=space, map_id = id)) +
-  geom_map(aes(fill = space), map = pfinch)+
-  geom_point(aes(col=as.logical(present)))+
-  expand_limits(x = pfinch$long, y = pfinch$lat)+
-  scale_fill_gradientn(colours=c("darkblue","blue","grey","yellow","orange","red"))+
-  scale_color_manual(values=c("transparent","black"),name="Present")+
-  coord_equal()
+st_transform(finch,"+proj=longlat +datum=WGS84")%>%
+  leaflet() %>% addTiles() %>%
+  addPolygons(color = "#444444", 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile("YlOrRd", m_space)(m_space),
+              highlightOptions = highlightOptions(color = "white", weight = 2,
+                bringToFront = TRUE))%>%
+  frameWidget(height=200)
 
+#' 
 #' 
 #' 
 #' Print a summary table
@@ -264,10 +262,10 @@ xtable(summary(space.only)$s.table,
 #' The third model uses both the NDVI and spatial trends to explain the finch's occurrences:
 ## ------------------------------------------------------------------------
   space.and.ndvi <- gam(present~ndvi + s(X_CEN, Y_CEN),
-                   data=finch@data, family="binomial")
+                   data=finch, family="binomial")
   ## extracting predictions and residuals:
-  preds.space.and.ndvi <- as.numeric(predict(space.and.ndvi, type="response"))
-  resid.space.and.ndvi <- residuals(space.and.ndvi)
+  finch$m_pred_spacendvi <- as.numeric(predict(space.and.ndvi, type="response"))
+  finch$m_resid_spacendvi <- residuals(space.and.ndvi)
 
 #'  
 #' Print a summary table
@@ -279,66 +277,44 @@ xtable(summary(space.and.ndvi)$s.table,
 #' 
 #' Plot the ***spatial term*** of the model:
 ## ---- fig.height=7, fig.width=14-----------------------------------------
-  finch$ndvispace=as.numeric(predict(space.and.ndvi,type="terms")[,2])
+  finch$m_ndvispace=as.numeric(predict(space.and.ndvi,type="terms")[,2])
 
-  ggplot(finch@data, aes(x=x,y=y, map_id = id)) +
-  geom_map(aes(fill = ndvispace), map = pfinch)+
-  geom_point(aes(col=as.logical(present)))+
-  expand_limits(x = pfinch$long, y = pfinch$lat)+
+  st_transform(finch,"+proj=longlat +datum=WGS84")%>%
+    ggplot(aes(x=X_CEN,y=Y_CEN)) +
+    geom_sf(aes(fill = m_ndvispace))+
+    geom_point(aes(col=as.logical(present)))+
   scale_fill_gradient2(low="blue",mid="grey",high="red",name="Spatial Effects")+
-  scale_color_manual(values=c("transparent","black"),name="Present")+
-  coord_equal()
-
+  scale_color_manual(values=c("transparent","black"),name="Present")
 
 #' 
 #' 
 #' ## Examine the fitted models
 #' 
-#' Now let's put all of the predictions together:
+#' Now let's put all of the predictions together into a single _long_ table:
 ## ------------------------------------------------------------------------
-predictions <- data.frame(id=finch$id,
-                          x=finch$x,
-                          y=finch$y,
-                          present=finch$present,
-                          ndvi=  preds.ndvi.only, 
-                          ndvi_resid=  resid.ndvi.only,
-                          space =  preds.space.only,
-                          space_resid =  resid.space.only,
-                          ndvispace=  preds.space.and.ndvi,
-                          ndvispace_resid= resid.space.and.ndvi)
+p1=st_transform(finch,"+proj=longlat +datum=WGS84")%>%
+  ggplot()+
+  scale_fill_gradient2(low="blue",mid="grey",high="red")+
+  scale_color_manual(values=c("transparent","black"),name="Present",guide="none")+
+  coord_equal()+
+  ylab("")+xlab("")+
+  theme(legend.position = "top")+
+  theme(axis.ticks = element_blank(), axis.text = element_blank())
 
-#' 
-#' Combine all the predictions into a single _long_ table:
-## ------------------------------------------------------------------------
-library(reshape2)
+pts=geom_point(data=finch,aes(x=X_CEN,y=Y_CEN,col=as.logical(present)),size=.5)
+    
 
-predictionsl= melt(predictions,
-                     variable.name="var",
-                     id.vars=c("id","x","y"),
-                     measure.vars=c(
-                       "present",
-                       "ndvi","ndvi_resid",
-                       "space","space_resid",
-                       "ndvispace","ndvispace_resid"))
+p1a=p1+geom_sf(aes(fill = m_pred_spacendvi))+pts
+p1b=p1+geom_sf(aes(fill = m_pred_space))+pts
+p1c=p1+geom_sf(aes(fill = m_pred_ndvi))+pts
 
-#'  
-#' Plot predictions from the three models, together with the observed presences and absences: 
-## ------------------------------------------------------------------------
-    ggplot(filter(predictionsl,!grepl("resid|present",var)), aes(map_id = id)) +
-    geom_map(aes(fill = value), map = pfinch)+
-      facet_wrap(~var)+
-    geom_point(data=finch@data,aes(x=x,y=y,col=as.logical(present)),size=.5)+
-    scale_color_manual(values=c("transparent","black"),name="Present")+
-    expand_limits(x = pfinch$long, y = pfinch$lat)+
-    scale_fill_gradientn(colours = c("blue","grey","red"))+
-    coord_equal()+
-   theme(axis.ticks = element_blank(), axis.text = element_blank())
+grid.arrange(p1a,p1b,p1c,ncol=3)  
 
 
 #' 
 #' ## Model comparison
 #' 
-#' We can compare model performance of the models with Akaike's Information Criterion (AIC).  This uses the formula  $-2*log-likelihood + k*npar$, where
+#' We can compare model performance of the models with Akaike's Information Criterion (AIC).  This uses the formula  $AIC=-2*log-likelihood + k*npar$, where
 #' 
 #' * $npar$ number of parameters in the fitted model
 #' * $k = 2$ penalty per parameter 
@@ -346,31 +322,32 @@ predictionsl= melt(predictions,
 #' Lower is better...
 #' 
 ## ------------------------------------------------------------------------
-kable(AIC(ndvi.only, space.only, space.and.ndvi))
+datatable(AIC(ndvi.only, space.only, space.and.ndvi))
 
 #' 
 #' ## Spatial Autocorrelation of  Residuals
 #' 
-#' Should always check the spatial correlation in model residuals to evaluate assumptions.   We will use the function ```correlog``` from the ```ncf``` package. An overview of other [functions that plot correlograms is here.](http://www.petrkeil.com/?p=1050).
+#' Should always check the spatial correlation in model residuals to evaluate assumptions.   We will use the function ```correlog``` from the ```ncf``` package. 
 #' 
 ## ---- message=F,results='hide'-------------------------------------------
 inc=10000  #spatial increment of correlogram in m
 
-cor=predictionsl%>%
-  filter(grepl("present",var)|grepl("resid",var))%>%
-  group_by(var)%>%
-  do(var=.$var,cor=correlog(.$x,.$y,.$value,increment=inc, resamp=100))%>%
+cor=finch%>%
+  dplyr::select(Y_CEN,X_CEN,contains("resid"),present)%>%
+  gather(key = "key", value = "value",contains("resid"),present,-Y_CEN,-X_CEN)%>%
+  group_by(key)%>%
+  do(var=.$key,cor=correlog(.$X_CEN,.$Y_CEN,.$value,increment=inc, resamp=100))%>%
   do(data.frame(
-      var=.$var[[1]],
+      key=.$key[[1]],
       Distance = .$cor$mean.of.class/1000,
       Correlation=.$cor$correlation,
-      pvalue=.$cor$p))
+      pvalue=.$cor$p, stringsAsFactors=F))
 
 #' 
 #' And we can plot the correlograms:
 ## ------------------------------------------------------------------------
 
-ggplot(cor,aes(x=Distance,y=Correlation,col=var,group=var))+
+ggplot(cor,aes(x=Distance,y=Correlation,col=key,group=key))+
   geom_point(aes(shape=pvalue<=0.05))+
   geom_line()+
   xlab("Distance (km)")+ylab("Spatial\nAuto-correlation")
