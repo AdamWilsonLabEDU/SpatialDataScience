@@ -17,8 +17,8 @@ Course content is designed to be flexible to accommodate student interest and ab
 | 10/26 | **Weather/Climate Data Processing ** | Processing daily weather data from NOAA  | Homework # 3  | 7| 
 | 11/2 | **Satellite Data Processing** | Working with MODIS Satellite data |  First draft of project for peer assessment   | 8 |
 | 11/9 | **High Performance Computing & Software Integration** | Parallel processing and high performance computing in R, Calling other programs from within R. | Peer Evaluation Due | 9 |
-| 11/16 |  | | Homework # 4 | 10 |
+| 11/16 | Dynamic Visualization | | Homework # 4 | 10 |
 | 11/23 | **Thanksgiving** | (no class)   |  | |
-| 11/30 |  **Version Control** |  Managing code with "version control"" using Github. | Second draft of project Due 12/1 at midnight | |
+| 11/30 | Species Distribution Modeling  |  Exploring spatial regression | Second draft of project Due 12/1 at midnight | |
 | 12/7 | **Final Project Presentations** | | 5 minute presentation of your final project | |
 | 12/8 | **Final Project Due in UBLearns** | | See <a href=Project.html>Project description for more information</a> |
