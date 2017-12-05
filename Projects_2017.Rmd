@@ -34,7 +34,11 @@ d=data.frame(url=c(
   "https://yifan70932.github.io/RDataScience_Project",
   "https://went7.github.io/Rfinal/",
   "https://jongseow.github.io/RDataScience_Project/",
-  "https://jessicatwood.github.io/RDataScience_Project/"
+  "https://jessicatwood.github.io/RDataScience_Project/",
+  "https://junjieli.shinyapps.io/shiny/",
+  "https://penghangliu.github.io/RDataScience_Project/",
+  "https://sarapete.github.io/RDataScience_Project/",
+  "https://atancyl.github.io/RDataScience_Project/"
   ),stringsAsFactors = F)
 
 d=d%>%mutate(user=sub("https://","",url))%>%
