@@ -49,7 +49,7 @@ d=d%>%mutate(user=sub("https://","",url))%>%
 ```{r, eval=F, echo=F, message=F}
 #https://github.com/sindresorhus/pageres-cli
 file.remove(list.files(dirname(d$img[1]),full=T))
-foreach(i=1:nrow(d)) %dopar% {
+foreach(i=1:nrow(d)) %do% {
   system(paste0("pageres -c ",d$url[i]," 1000x2000 --filename=",d$img[i]))
 }
 ```
