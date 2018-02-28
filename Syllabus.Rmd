@@ -1,5 +1,6 @@
 ---
 title: "Syllabus"
+output: pdf_document
 ---
 
 # GEO503: R Data Science
@@ -81,8 +82,28 @@ Course grading will follow the [grading procedures of the UB Graduate School](ht
 ## Textbook
 There will be no textbook for the course.  All materials will be available through this website.
 
+## Attendance Policy
+This class will include ample opportunities for in-class discussion. You are expected to attend every class session, but you are permitted two unexcused absences during the semester.  Please use these wisely, you never know when an unexpected illness or other event will occur.The University at Buffalo’s class attendance policy (http://undergrad-catalog.buffalo.edu/policies/course/attendance.html) is as follows:
+> Students may be justifiably absent from classes due to religious observances, illness documented by a physician or other appropriate health care professional, conflicts with university-sanctioned activities documented by an appropriate university administrator, public emergencies, and documented personal or family emergencies. The student is responsible for notifying the instructor in writing with as much advance notice as possible. 
+
+If a student does not attend a class session they will be counted as absent (as described above) unless they meet ALL THREE of the following criteria:
+
+1. The student provides a note from an appropriate authority, as outlined at https://catalog.buffalo.edu/policies/attendance.html 
+2. The student contacts the instructor either before, or on the day of, the scheduled class, unless the note explains why the instructor could not be contacted.
+3. The student turns in the lab assignment by the original deadline, unless the note from the authority explains why the student needs more time (due to extended illness, etc.). 
+
+See the University website for cancellations/delays due to weather or other unforeseen events (http://emergency.buffalo.edu/).
+
+
 ## Academic Integrity 
-The course will follow the university Academic Integrity Policy.   Please review it and ask if you have any questions.  Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source.  If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension. 
+
+Academic integrity is a fundamental university value. Through the honest completion of academic work, students sustain the integrity of the university while facilitating the university's imperative for the transmission of knowledge and culture based upon the generation of new and innovative ideas. Examples of academic dishonesty include: submitting work from another course, plagiarism, cheating, falsification, misrepresentation, and usage of confidential documents. If a student is suspected of academic dishonesty, then a three-step consultative resolution will be employed. First, the instructor will notify the student of the incident and arrange a meeting. Second, the instructor will orally inform the student of the sanction, which could include: warning, revision, reduction in grade, or failure of course. Third, the instructor will provide the student with a written copy of the decision.  See the university policy for more information (https://catalog.buffalo.edu/policies/integrity.html). Please review it and ask if you have any questions.  
+
+Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source.  If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension.
+
+## Accessibility Resources
+If you have any disability which requires reasonable accommodations to enable you to participate in this course, please contact the Office of Accessibility Resources, 25 Capen Hall, 645-2608, and also the instructor of this course.  The office will provide you with information and review appropriate arrangements for reasonable accommodations (http://www.student-affairs.buffalo.edu/ods/)  
+
 
 # Course Content
 Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  See the [course schedule for detailed course content](Schedule.html).
