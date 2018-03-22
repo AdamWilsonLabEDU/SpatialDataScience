@@ -1,6 +1,5 @@
 ---
 title: "Syllabus"
-output: pdf_document
 ---
 
 # GEO503: R Data Science
@@ -80,7 +79,7 @@ Course grading will follow the [grading procedures of the UB Graduate School](ht
 | Flawed                | <60%                | 0.5             | F             |
 
 ## Textbook
-There will be no textbook for the course.  All materials will be available through this website.
+There will be no textbook for the course.  All materials will be available through the course website (http://adamwilson.us/RDataScience/).
 
 ## Attendance Policy
 This class will include ample opportunities for in-class discussion. You are expected to attend every class session, but you are permitted two unexcused absences during the semester.  Please use these wisely, you never know when an unexpected illness or other event will occur.The University at Buffalo’s class attendance policy (http://undergrad-catalog.buffalo.edu/policies/course/attendance.html) is as follows:
