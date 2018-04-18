@@ -1,8 +1,14 @@
 ---
 title: "Syllabus"
+#output:
+#  pdf_document: default
+#urlcolor: blue
 ---
 
-# GEO503: R Data Science
+# Spatial Data Science
+
+# Course Description
+This course introduces students to the fundamentals of spatial data science. The first part of the course introduces students to a high-level programming language (currently R).  The second part covers methods to incorporate spatial data into data science workflows. The third part addresses the generation of dynamic, reproducible research output including figures, maps, manuscripts, and websites. The course includes an extensive project for students to conduct spatial analysis related to their research. Familiarity with basic GIS concepts (raster, vector, geographic projection, etc.) will be assumed, but no prior coding experience is required.  
 
 # Logistics
 Professor Adam M. Wilson ([adamwilson.us](adamwilson.us))
@@ -13,7 +19,7 @@ Office Hours: Tuesdays 9:00-11:00am
 Thursdays 9:30-12:10pm in 144 Wilkeson Quad.  
 
 ## Course Structure	
-The course will focus on programming in the R language. Typical class sessions will consist of a short (~30 minute) lecture followed by around two hours of interactive exercises.   All teaching and exercises are done from within [RStudio](rstudio.com). 
+The course will focus on programming in the R language. Typical class sessions will consist of a short (<30 minute) lecture followed by interactive exercises and activities.   All teaching and exercises are done from within [RStudio](rstudio.com). 
 
 ## UBLearns
 Course announcements, homeworks, and other materials will be distributed through [UBLearns](https://ublearns.buffalo.edu).  Please check the site regularly (or enable email notifications).  
@@ -25,14 +31,13 @@ During the course we will complete class exercises on your personal laptop (unde
 During the week, I will attempt to respond to emails within 24 hours of receiving them (not including weekends).  Do not expect an immediate response (please plan accordingly).  For example, do not send an email with a question about a homework the same day that the homework is due.   If you send an email over the weekend, do not expect any response until Monday or Tuesday.
 
 # Student Learning Outcomes
-Successful completion of this course will enable the student to use the R programming language to: 
+Successful completion of this course will enable the student to: 
 
-1. develop approaches for integration of information/data
+1. understand the develop approaches for integration of information/data
 2. inspect data and apply basic statistics to analysis and communication of geographical topics
-3. Understand and use scientific methodologies to perform spatial analyses in reproducible research workflows.  
+3. Understand and use scientific methodologies to perform spatial data analyses in reproducible research workflows.  
 
 These learning outcomes can be related to those expected of students completing the Geography program. 
-
 
 # Course Requirements
 ## Grading
@@ -43,10 +48,10 @@ The major course components are as follows:
 You are expected to attend class, actively participate in class discussions, and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.
 
 ### Package introduction (10%)
-Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session.  See full [Package Introduction Description](PackageIntro.html) for more details.  
+Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session.  See full [Package Introduction Description](http://adamwilson.us/RDataScience/PackageIntro.html) for more details.  
 
 ### Homeworks (30%)
-Four homework assignments will be assigned throughout the semester and due before class the following week.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](Homework.html) for more details.  
+Four homework assignments will be assigned throughout the semester and due before class the following week.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](http://adamwilson.us/RDataScience/Homework.html) for more details.  
 
 ### Final Project and Presentation (50%)
 The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  This project can be related to the student’s own research or a separate topic.  
@@ -58,7 +63,7 @@ The final project will consist of a poster-length summary of an analysis that te
 * Presentation (5%)
 * Final draft (35%)
 
-See the [schedule](Schedule.html) for details on deadlines.  Unexcused late submissions will be docked 10 percentage points per 24 hour period.  See full [Project Description](Project.html) for more details.  
+See the [schedule](http://adamwilson.us/RDataScience/Schedule.html) for details on deadlines.  Unexcused late submissions will be docked 10 percentage points per 24 hour period.  See full [Project Description](http://adamwilson.us/RDataScience/Project.html) for more details.  
 
 **There will be no final exam.**
 
@@ -79,7 +84,7 @@ Course grading will follow the [grading procedures of the UB Graduate School](ht
 | Flawed                | <60%                | 0.5             | F             |
 
 ## Textbook
-There will be no textbook for the course.  All materials will be available through the course website (http://adamwilson.us/RDataScience/).
+We will read [_R for Data Science_](http://r4ds.had.co.nz/) which is available online. All additional materials will be available through the course website (http://adamwilson.us/RDataScience/).
 
 ## Attendance Policy
 This class will include ample opportunities for in-class discussion. You are expected to attend every class session, but you are permitted two unexcused absences during the semester.  Please use these wisely, you never know when an unexpected illness or other event will occur.The University at Buffalo’s class attendance policy (http://undergrad-catalog.buffalo.edu/policies/course/attendance.html) is as follows:
@@ -96,14 +101,16 @@ See the University website for cancellations/delays due to weather or other unfo
 
 ## Academic Integrity 
 
-Academic integrity is a fundamental university value. Through the honest completion of academic work, students sustain the integrity of the university while facilitating the university's imperative for the transmission of knowledge and culture based upon the generation of new and innovative ideas. Examples of academic dishonesty include: submitting work from another course, plagiarism, cheating, falsification, misrepresentation, and usage of confidential documents. If a student is suspected of academic dishonesty, then a three-step consultative resolution will be employed. First, the instructor will notify the student of the incident and arrange a meeting. Second, the instructor will orally inform the student of the sanction, which could include: warning, revision, reduction in grade, or failure of course. Third, the instructor will provide the student with a written copy of the decision.  See the university policy for more information (https://catalog.buffalo.edu/policies/integrity.html). Please review it and ask if you have any questions.  
+Academic integrity is a fundamental university value. Through the honest completion of academic work, students sustain the integrity of the university while facilitating the university's imperative for the transmission of knowledge and culture based upon the generation of new and innovative ideas. Examples of academic dishonesty include: submitting work from another course, plagiarism, cheating, falsification, misrepresentation, and usage of confidential documents. 
 
 Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source.  If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension.
+
+If a student is suspected of academic dishonesty, then a three-step consultative resolution will be employed. First, the instructor will notify the student of the incident and arrange a meeting. Second, the instructor will orally inform the student of the sanction, which could include: warning, revision, reduction in grade, or failure of course. Third, the instructor will provide the student with a written copy of the decision.  See the university policy for more information (https://catalog.buffalo.edu/policies/integrity.html). Please review it and ask if you have any questions.  
 
 ## Accessibility Resources
 If you have any disability which requires reasonable accommodations to enable you to participate in this course, please contact the Office of Accessibility Resources, 25 Capen Hall, 645-2608, and also the instructor of this course.  The office will provide you with information and review appropriate arrangements for reasonable accommodations (http://www.student-affairs.buffalo.edu/ods/)  
 
 
 # Course Content
-Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  See the [course schedule for detailed course content](Schedule.html).
+Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  See the [course schedule on the website for detailed course content](http://adamwilson.us/RDataScience/Schedule.html).
 

@@ -38,7 +38,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
   }
 }
 </script>
@@ -273,7 +273,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GEO 503: R Spatial Data Science</a>
+      <a class="navbar-brand" href="index.html">GEO 511: Spatial Data Science</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -425,21 +425,20 @@ div.tocify {
 <pre class="r"><code>library(dplyr)
 filter(starwars, species == &quot;Human&quot;)</code></pre>
 <pre><code>## # A tibble: 35 x 13
-##                  name height  mass    hair_color skin_color eye_color
-##                 &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt;         &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;
-##  1     Luke Skywalker    172    77         blond       fair      blue
-##  2        Darth Vader    202   136          none      white    yellow
-##  3        Leia Organa    150    49         brown      light     brown
-##  4          Owen Lars    178   120   brown, grey      light      blue
-##  5 Beru Whitesun lars    165    75         brown      light      blue
-##  6  Biggs Darklighter    183    84         black      light     brown
-##  7     Obi-Wan Kenobi    182    77 auburn, white       fair blue-gray
-##  8   Anakin Skywalker    188    84         blond       fair      blue
-##  9     Wilhuff Tarkin    180    NA  auburn, grey       fair      blue
-## 10           Han Solo    180    80         brown       fair     brown
-## # ... with 25 more rows, and 7 more variables: birth_year &lt;dbl&gt;,
-## #   gender &lt;chr&gt;, homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
-## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+##    name     height  mass hair_color skin_color eye_color birth_year gender
+##    &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+##  1 Luke Sk…    172   77. blond      fair       blue            19.0 male  
+##  2 Darth V…    202  136. none       white      yellow          41.9 male  
+##  3 Leia Or…    150   49. brown      light      brown           19.0 female
+##  4 Owen La…    178  120. brown, gr… light      blue            52.0 male  
+##  5 Beru Wh…    165   75. brown      light      blue            47.0 female
+##  6 Biggs D…    183   84. black      light      brown           24.0 male  
+##  7 Obi-Wan…    182   77. auburn, w… fair       blue-gray       57.0 male  
+##  8 Anakin …    188   84. blond      fair       blue            41.9 male  
+##  9 Wilhuff…    180   NA  auburn, g… fair       blue            64.0 male  
+## 10 Han Solo    180   80. brown      fair       brown           29.0 male  
+## # ... with 25 more rows, and 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 
 <!-- Google Analytics -->
