@@ -4,11 +4,12 @@ output:
   html_document:
     css: thumbnail-gallery.css
     toc: false
+    keep_md: true
 ---
 
 This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
 
-![Productivity](/Users/adamw/Documents/repos/RDataScience/00_CourseIntroduction/assets/data-science.png)
+![Productivity](00_CourseIntroduction/assets/data-science.png)
 Figure from _R for Data Science_ by Grolemund & Wickham (2017)
 
 Each student wrote a script (using the [R](https://www.r-project.org/) programming language) to perform these steps and generate a website showcasing their analysis. The focus of the course is on the design and implementation of the complete data processing research workflow itself (not any particular statistics/methods/models). The challenge is to string all the steps together in a _coherent, reproducible flow from raw data to final outputs_.  
@@ -20,7 +21,9 @@ You are invited to explore the student projects below (click on a thumbnail to v
 
 ```{r,echo=F, warning=F, message=F}
 library(dplyr)
+#library(kableExtra)
 library(knitr)
+library(bsplus)
 library(doParallel)
 registerDoParallel(4)
 #devtools::install_github("ijlyttle/bsplus")
@@ -82,17 +85,18 @@ for(i in 1:nrow(d)) {
                               src = paste0(d$img[i],".png"),
                               target="_blank"),
         caption=bs_carousel_caption(title = d$title[i]))
-  if(i>1) imgt=imgt%>%bs_append(content = bs_carousel_image(longdesc=d$url[i],
-                                                            src = paste0(d$img[i],".png"),
-                                                            target="_blank"),
-                                    caption=bs_carousel_caption(title = d$title[i]))
+  if(i>1) imgt=imgt%>%bs_append(content = 
+                                  bs_carousel_image(longdesc=d$url[i],
+                                  src = paste0(d$img[i],".png"),
+                                  target="_blank"),
+                                caption=bs_carousel_caption(title = d$title[i]))
 }
 
 imgt
 ```
 
 
-```{r,eval=T,results='asis',echo=F, out.width="30%"}
+```{r,eval=F,results='asis',echo=F, out.width="30%"}
  
     fimg=function(src,href,title=""){
     paste0(" <div class='col-xs-12 col-sm-6 col-md-3'>
@@ -129,7 +133,22 @@ fgal=function(list){
     </div><!-- End container -->")}
 
 
-fimg2(src=d$img,href=d$url,title=d$title)%>%fgal()
+imgt=fimg2(src=d$img,href=d$url,title=d$title)%>%fgal()
+imgt
 
+```
 
+```{r,asis=T, echo=F}
+d$href2=paste0("<a href=",d$url," target='_blank'>",
+               " <img src=",d$img,".png alt='' height='30%'>", # height='50%'
+                "</a>") 
+
+n=nrow(d)
+n2=round(n/2)
+
+d%>%
+  select(Student=user,Title=title,Thumbnail=href2)%>%
+  kable()#%>%
+#  kable_styling()%>%
+#  column_spec(2, width="30em")
 ```

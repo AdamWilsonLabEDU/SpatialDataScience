@@ -13,7 +13,7 @@ output:
     includes:
       after_body: include/after_body.html
     css: styles.css
-    keep_md: no
+    keep_md: false
     lib_dir: site_libs
     self_contained: no
 name: Spatial Data Science
