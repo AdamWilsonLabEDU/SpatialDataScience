@@ -1,5 +1,5 @@
 ---
-title: "Spatial Data Science Syllabus"
+title: "Syllabus"
 ---
 
 # Course Description
@@ -8,10 +8,10 @@ This course introduces students to the fundamentals of spatial data science. The
 # Logistics
 Professor Adam M. Wilson ([adamwilson.us](adamwilson.us))
 
-Office Hours: Tuesdays 9:00-11:00am
+Office Hours: Tuesdays & Thursdays 10:00-11:00am
 
 ## Schedule 
-Tuesdays/Thursdays 11-12:20pm in 144 Wilkeson Quad.  
+Tuesdays/Thursdays 2-3:20pm in 144 Wilkeson Quad.  
 
 ## Course Structure	
 The course will focus on programming in the R language. Typical class sessions will consist of a short (<30 minute) lecture followed by interactive exercises and activities.   All teaching and exercises are done from within [RStudio](rstudio.com). 
@@ -79,7 +79,7 @@ Course grading will follow the [grading procedures of the UB Graduate School](ht
 | Flawed                | <60%                | 0.5             | F             |
 
 ## Textbook
-We will read [_R for Data Science_](http://r4ds.had.co.nz/) which is available online. All additional materials will be available through the course website (http://adamwilson.us/SpatialDataScience/).
+We will read parts of [_R for Data Science_](http://r4ds.had.co.nz/) and [_Geocomputation with R_](https://geocompr.robinlovelace.net/) which are both available online. All additional materials will be available through the course website (http://adamwilson.us/SpatialDataScience/).
 
 ## Attendance Policy
 This class will include ample opportunities for in-class discussion. You are expected to attend every class session, but you are permitted two unexcused absences during the semester.  Please use these wisely, you never know when an unexpected illness or other event will occur.The University at Buffalo’s class attendance policy (http://undergrad-catalog.buffalo.edu/policies/course/attendance.html) is as follows:

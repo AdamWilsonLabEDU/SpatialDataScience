@@ -22,7 +22,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -92,6 +93,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -154,14 +158,74 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -175,7 +239,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GEO 511: Spatial Data Science</a>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -316,170 +380,56 @@ $(document).ready(function () {
 <h2>Student Project Gallery</h2>
 <p>You are invited to explore the student projects below (click on a thumbnail to visit their website). The embedded code reveals their methodological details in addition to their narrative and graphical stories. If you find something interesting, you are free to download and re-run the script to reproduce the entire analysis (from acquiring the original data through generating the tables/figures and even the webpage itself).</p>
 [1] “
-<div id="tourpackages-carousel" class="container">
+<div class='container' id='tourpackages-carousel'>
 
-<div class="row">
-<p style="color:white">
+<p style='color:white'>
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
+<div class='col-xs-12 col-sm-6 col-md-3'>
+
 <div class="col-xs-12 col-sm-6 col-md-3">
 
-<div class="thumbnail">
-<a href=https://gsaugust.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_gsaugust.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://dongonchoi.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_dongonchoi.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://finallyegg.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_finallyegg.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://aflesnia.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_aflesnia.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://faithlxy.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_faithlxy.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://luyc95.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_luyc95.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://littlepennypaw.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_littlepennypaw.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://xhrui.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_xhrui.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://ebschust.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_ebschust.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://gcschwer.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_gcschwer.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://hannahstokes.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_hannahstokes.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://atancyl.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_atancyl.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://danqing1234.github.io/DanqingW_FirstDraft/ target='_blank'><img src=assets/projthumbs/web_danqing1234.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://yifan70932.github.io/RDataScience_Project target='_blank'><img src=assets/projthumbs/web_yifan70932.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://went7.github.io/Rfinal/ target='_blank'><img src=assets/projthumbs/web_went7.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://jongseow.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_jongseow.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://jessicatwood.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_jessicatwood.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://penghangliu.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_penghangliu.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://sarapete.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_sarapete.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://atancyl.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_atancyl.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://kdvorenkamp.github.io/RDataScience_Project/ target='_blank'><img src=assets/projthumbs/web_kdvorenkamp.png alt=''></a>
-</div>
-
-</div>
-<div class="col-xs-12 col-sm-6 col-md-3">
-
-<div class="thumbnail">
-<a href=https://junjieli.shinyapps.io/shiny/ target='_blank'><img src=assets/projthumbs/web_junjieli.png alt=''></a>
-</div>
-
-</div>
 </p>
 </div>
 <!-- End row -->
-
-</div>
-<!-- End container -->
 <p>&quot;</p>
 </div>
 

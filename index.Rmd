@@ -1,5 +1,5 @@
 ---
-title: "GEO511: Spatial Data Science"
+title: "GEO503: Spatial Data Science"
 subtitle: "Introduction to Spatial Data Science with R"
 ---
 

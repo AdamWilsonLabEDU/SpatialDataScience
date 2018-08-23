@@ -4,17 +4,17 @@ title: "Course Schedule"
 
 Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  
 
-| Date    |  Title   | Description |  Assignment | Package Presentation Group |
+| Week    |  Title   | Description |  Assignment | Package Presentation Group |
 |:--|:--|:----------------------------------------|:------------|---:|
-| 8/31    | **Introduction & Overview** | Course Motivation & Objectives. Workflow & repeatable research in an era of big data for spatial environmental analysis. Getting started with the R Project for Statistical Computing & RStudio.|  Read [Introduction to R](https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf) |
+| 8/28    | **Introduction & Overview** | Course Motivation & Objectives. Workflow & repeatable research in an era of big data. Getting started with the R Project for Statistical Computing & RStudio.|  [R4DS Chapter 1](http://r4ds.had.co.nz/introduction.html) |
 | 9/7 | **Data Wrangling ** | Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet). |  Practice homework submitted during class. |
 | 9/14 | **Data Wrangling 2** | Filtering, selecting, joining data sets. Data gymnastics with dplyr. |  Homework #1 due before class  | 1 |
 | 9/21 | **Graphics** | More base graphics (scatterplots, histograms).  The _grammar of graphics_: ggplot2 and extensions (ggmap, rasterVis, etc.). |  | 2 |
 | 9/28 | **Spatial Data** | Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics | Homework # 2 | 3 |
-| 10/5 | **Spatial Raster I** | Working with gridded spatial data | Project Proposal Due 10/10 | 4| 
-| 10/12 | **Spatial Raster II** | A 'mini' project - looking at sea level rise in Bangladesh |     | 5| 
-| 10/19 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. | | 6 | 
-| 10/26 | **Weather/Climate Data Processing ** | Processing daily weather data from NOAA  | Homework # 3  | 7| 
+| 10/5 | **Spatial Raster I** | Working with gridded spatial data | Project Proposal Due 10/10 | 4|
+| 10/12 | **Spatial Raster II** | A 'mini' project - looking at sea level rise in Bangladesh |     | 5|
+| 10/19 | **Reproducible Research & Literate Programming** | RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc. | | 6 |
+| 10/26 | **Weather/Climate Data Processing ** | Processing daily weather data from NOAA  | Homework # 3  | 7|
 | 11/2 | **Satellite Data Processing** | Working with MODIS Satellite data |  First draft of project for peer assessment   | 8 |
 | 11/9 | **High Performance Computing & Software Integration** | Parallel processing and high performance computing in R, Calling other programs from within R. | Peer Evaluation Due | 9 |
 | 11/16 | Dynamic Visualization | | Homework # 4 | 10 |

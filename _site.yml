@@ -16,5 +16,5 @@ output:
     keep_md: no
     lib_dir: site_libs
     self_contained: no
-name: Spatia Data Science
+name: Spatial Data Science
 
