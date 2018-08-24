@@ -1,8 +1,5 @@
 #' ---
 #' title: "Introduction to R"
-#' output:
-#'   html_document:
-#'     code_folding: show
 #' ---
 #' 
 #' 

@@ -368,27 +368,24 @@ div.tocify {
       <a href="01_Rintro.html">01 First Steps</a>
     </li>
     <li>
-      <a href="02_DataWrangling.html">02 Data Wrangling</a>
+      <a href="02_Plotting.html">02 Graphics</a>
     </li>
     <li>
-      <a href="03_Plotting.html">03 Plotting</a>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Spatial Analyses</li>
-    <li>
-      <a href="04_Spatial.html">04 Spatial Data</a>
-    </li>
     <li>
       <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
     </li>
     <li>
       <a href="05_Raster.html">05 Spatial Raster Data</a>
     </li>
-    <li>
-      <a href="06_RasterTwo.html">06 More Raster Data</a>
-    </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
     <li>
       <a href="07_Reproducibile.html">07 Reproducible Research</a>
     </li>
@@ -491,18 +488,43 @@ filter(starwars, species == &quot;Human&quot;)</code></pre>
 <pre><code>## # A tibble: 35 x 13
 ##    name  height  mass hair_color skin_color eye_color birth_year gender
 ##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
-##  1 Luke…    172    77 blond      fair       blue            19   male  
-##  2 Dart…    202   136 none       white      yellow          41.9 male  
-##  3 Leia…    150    49 brown      light      brown           19   female
-##  4 Owen…    178   120 brown, gr… light      blue            52   male  
-##  5 Beru…    165    75 brown      light      blue            47   female
-##  6 Bigg…    183    84 black      light      brown           24   male  
-##  7 Obi-…    182    77 auburn, w… fair       blue-gray       57   male  
-##  8 Anak…    188    84 blond      fair       blue            41.9 male  
-##  9 Wilh…    180    NA auburn, g… fair       blue            64   male  
-## 10 Han …    180    80 brown      fair       brown           29   male  
-## # ... with 25 more rows, and 5 more variables: homeworld &lt;chr&gt;,
-## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+##  1 Luke…    172  77   blond      fair       blue            19   male  
+##  2 Dart…    202 136   none       white      yellow          41.9 male  
+##  3 Leia…    150  49   brown      light      brown           19   female
+##  4 Owen…    178 120   brown, gr… light      blue            52   male  
+##  5 Beru…    165  75   brown      light      blue            47   female
+##  6 Bigg…    183  84   black      light      brown           24   male  
+##  7 Obi-…    182  77   auburn, w… fair       blue-gray       57   male  
+##  8 Anak…    188  84   blond      fair       blue            41.9 male  
+##  9 Wilh…    180  NA   auburn, g… fair       blue            64   male  
+## 10 Han …    180  80   brown      fair       brown           29   male  
+## 11 Wedg…    170  77   brown      fair       hazel           21   male  
+## 12 Jek …    180 110   brown      fair       blue            NA   male  
+## 13 Palp…    170  75   grey       pale       yellow          82   male  
+## 14 Boba…    183  78.2 black      fair       brown           31.5 male  
+## 15 Land…    177  79   black      dark       brown           31   male  
+## 16 Lobot    175  79   none       light      blue            37   male  
+## 17 Mon …    150  NA   auburn     fair       blue            48   female
+## 18 Arve…     NA  NA   brown      fair       brown           NA   male  
+## 19 Qui-…    193  89   brown      fair       blue            92   male  
+## 20 Fini…    170  NA   blond      fair       blue            91   male  
+## 21 Shmi…    163  NA   black      fair       brown           72   female
+## 22 Mace…    188  84   none       dark       brown           72   male  
+## 23 Greg…    185  85   black      dark       brown           NA   male  
+## 24 Cordé    157  NA   brown      light      brown           NA   female
+## 25 Clie…    183  NA   brown      fair       blue            82   male  
+## 26 Dormé    165  NA   brown      light      brown           NA   female
+## 27 Dooku    193  80   white      fair       brown          102   male  
+## 28 Bail…    191  NA   black      tan        brown           67   male  
+## 29 Jang…    183  79   black      tan        brown           66   male  
+## 30 Joca…    167  NA   white      fair       blue            NA   female
+## 31 Raym…    188  79   brown      light      brown           NA   male  
+## 32 Finn      NA  NA   black      dark       dark            NA   male  
+## 33 Rey       NA  NA   brown      light      hazel           NA   female
+## 34 Poe …     NA  NA   brown      light      brown           NA   male  
+## 35 Padm…    165  45   brown      light      brown           46   female
+## # ... with 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+## #   vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
 </div>
 
 <!-- Google Analytics -->

@@ -368,27 +368,24 @@ div.tocify {
       <a href="01_Rintro.html">01 First Steps</a>
     </li>
     <li>
-      <a href="02_DataWrangling.html">02 Data Wrangling</a>
+      <a href="02_Plotting.html">02 Graphics</a>
     </li>
     <li>
-      <a href="03_Plotting.html">03 Plotting</a>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Module 2: Spatial Analyses</li>
-    <li>
-      <a href="04_Spatial.html">04 Spatial Data</a>
-    </li>
     <li>
       <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
     </li>
     <li>
       <a href="05_Raster.html">05 Spatial Raster Data</a>
     </li>
-    <li>
-      <a href="06_RasterTwo.html">06 More Raster Data</a>
-    </li>
     <li class="divider"></li>
-    <li class="dropdown-header">Module 2: Advanced Programming</li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
     <li>
       <a href="07_Reproducibile.html">07 Reproducible Research</a>
     </li>
@@ -472,12 +469,15 @@ div.tocify {
 
 
 <p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
-<table style="width:96%;">
+<p><strong>Readings</strong></p>
+<p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
+<table style="width:99%;">
 <colgroup>
 <col width="5%" />
 <col width="5%" />
 <col width="58%" />
-<col width="19%" />
+<col width="15%" />
+<col width="6%" />
 <col width="6%" />
 </colgroup>
 <thead>
@@ -486,6 +486,7 @@ div.tocify {
 <th align="left">Title</th>
 <th align="left">Description</th>
 <th align="left">Assignment</th>
+<th align="left">Readings</th>
 <th align="right">Package Presentation Group</th>
 </tr>
 </thead>
@@ -493,85 +494,97 @@ div.tocify {
 <tr class="odd">
 <td align="left">8/28</td>
 <td align="left"><strong>Introduction &amp; Overview</strong></td>
-<td align="left">Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data. Getting started with the R Project for Statistical Computing &amp; RStudio.</td>
-<td align="left"><a href="http://r4ds.had.co.nz/introduction.html">R4DS Chapter 1</a></td>
+<td align="left">Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data. Getting started with R &amp; RStudio. Data structures (vectors, matrices, data frames).</td>
+<td align="left"></td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 1-2</a></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">9/7</td>
-<td align="left"><strong>Data Wrangling </strong></td>
-<td align="left">Data structures (vectors, matrices, data frames). Base graphics. Reading and writing data (from disk and internet).</td>
-<td align="left">Practice homework submitted during class.</td>
+<td align="left"><strong>Graphics</strong></td>
+<td align="left">The <em>grammar of graphics</em>: ggplot2</td>
+<td align="left">Practice homework</td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 3</a></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
 <td align="left">9/14</td>
-<td align="left"><strong>Data Wrangling 2</strong></td>
-<td align="left">Filtering, selecting, joining data sets. Data gymnastics with dplyr.</td>
-<td align="left">Homework #1 due before class</td>
+<td align="left"><strong>Data Wrangling </strong></td>
+<td align="left">Data Transformation: Filtering, selecting, transforming</td>
+<td align="left"></td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 4-5</a></td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">9/21</td>
-<td align="left"><strong>Graphics</strong></td>
-<td align="left">More base graphics (scatterplots, histograms). The <em>grammar of graphics</em>: ggplot2 and extensions (ggmap, rasterVis, etc.).</td>
-<td align="left"></td>
+<td align="left"><strong>Data Wrangling 2</strong></td>
+<td align="left">Joining data</td>
+<td align="left">Homework #1: Graphics</td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS</a></td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td align="left">9/28</td>
-<td align="left"><strong>Spatial Data</strong></td>
-<td align="left">Spatial Libraries: raster, sp, rgeos, rgdal. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection (e.g. connecting points with polygons and rasters), overlays, zonal statistics</td>
-<td align="left">Homework # 2</td>
+<td align="left"><strong>Spatial Vector Data</strong></td>
+<td align="left">Vector data processing. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection, overlays, zonal statistics</td>
+<td align="left"></td>
+<td align="left"><a href="https://geocompr.robinlovelace.net/">GCR 1-2</a></td>
 <td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">10/5</td>
-<td align="left"><strong>Spatial Raster I</strong></td>
-<td align="left">Working with gridded spatial data</td>
-<td align="left">Project Proposal Due 10/10</td>
+<td align="left"><strong>Spatial Raster Data</strong></td>
+<td align="left">Gridded spatial data</td>
+<td align="left">Homework # 2: Data Wrangling</td>
+<td align="left"><a href="https://geocompr.robinlovelace.net/">GCR 3-4</a></td>
 <td align="right">4</td>
 </tr>
 <tr class="odd">
 <td align="left">10/12</td>
-<td align="left"><strong>Spatial Raster II</strong></td>
-<td align="left">A ‘mini’ project - looking at sea level rise in Bangladesh</td>
+<td align="left"><strong>Creating Workflows</strong></td>
+<td align="left">Example A ‘mini’ project: Sea level rise in Bangladesh</td>
+<td align="left">Project Proposal</td>
 <td align="left"></td>
 <td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">10/19</td>
-<td align="left"><strong>Reproducible Research &amp; Literate Programming</strong></td>
-<td align="left">RMarkdown to create dynamic research outputs. Publishing to github/word/html/etc.</td>
-<td align="left"></td>
+<td align="left"><strong>Reproducible Research &amp; Literate Programming </strong></td>
+<td align="left">Data I/O. RMarkdown to create dynamic research outputs. Publishing to github/word/html/etc.</td>
+<td align="left">Homework # 3 Spatial</td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 11, 26-30</a></td>
 <td align="right">6</td>
 </tr>
 <tr class="odd">
 <td align="left">10/26</td>
-<td align="left"><strong>Weather/Climate Data Processing </strong></td>
+<td align="left"><strong>APIs, time-series, and weather Data </strong></td>
 <td align="left">Processing daily weather data from NOAA</td>
-<td align="left">Homework # 3</td>
+<td align="left"></td>
+<td align="left"></td>
 <td align="right">7</td>
 </tr>
 <tr class="even">
 <td align="left">11/2</td>
 <td align="left"><strong>Satellite Data Processing</strong></td>
-<td align="left">Working with MODIS Satellite data</td>
-<td align="left">First draft of project for peer assessment</td>
+<td align="left">MODIS Satellite data</td>
+<td align="left">Homework # 4</td>
+<td align="left"></td>
 <td align="right">8</td>
 </tr>
 <tr class="odd">
 <td align="left">11/9</td>
 <td align="left"><strong>High Performance Computing &amp; Software Integration</strong></td>
 <td align="left">Parallel processing and high performance computing in R, Calling other programs from within R.</td>
-<td align="left">Peer Evaluation Due</td>
+<td align="left">Project 1st draft for peer assessment</td>
+<td align="left"></td>
 <td align="right">9</td>
 </tr>
 <tr class="even">
 <td align="left">11/16</td>
-<td align="left">Dynamic Visualization</td>
-<td align="left"></td>
-<td align="left">Homework # 4</td>
+<td align="left"><strong>Dynamic Visualization</strong></td>
+<td align="left">Interactive web-based visualizations</td>
+<td align="left">Peer Evaluation Due</td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 28</a></td>
 <td align="right">10</td>
 </tr>
 <tr class="odd">
@@ -579,13 +592,15 @@ div.tocify {
 <td align="left"><strong>Thanksgiving</strong></td>
 <td align="left">(no class)</td>
 <td align="left"></td>
+<td align="left"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
 <td align="left">11/30</td>
-<td align="left">Species Distribution Modeling</td>
-<td align="left">Exploring spatial regression</td>
+<td align="left"><strong>Modeling Basics</strong></td>
+<td align="left">Building and summarizing models</td>
 <td align="left">Second draft of project Due 12/1 at midnight</td>
+<td align="left"><a href="http://r4ds.had.co.nz">R4DS 23-25</a></td>
 <td align="right"></td>
 </tr>
 <tr class="odd">
@@ -593,6 +608,7 @@ div.tocify {
 <td align="left"><strong>Final Project Presentations</strong></td>
 <td align="left"></td>
 <td align="left">5 minute presentation of your final project</td>
+<td align="left"></td>
 <td align="right"></td>
 </tr>
 <tr class="even">
@@ -600,7 +616,7 @@ div.tocify {
 <td align="left"><strong>Final Project Due in UBLearns</strong></td>
 <td align="left"></td>
 <td align="left">See <a href=Project.html>Project description for more information</a></td>
-<td align="right"></td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>

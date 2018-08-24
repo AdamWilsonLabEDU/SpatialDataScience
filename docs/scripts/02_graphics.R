@@ -1,0 +1,757 @@
+#' ---
+#' title: "Getting Graphic"
+#' subtitle: "Base graphics and `ggplot2`"
+#' ---
+#' 
+#' 
+#' <div>
+#' <object data="03_assets/03_Plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+#'   <p>It appears you don't have a PDF plugin for this browser.
+#'    No biggie... you can <a href="03_assets/03_Plotting.pdf">click here to
+#'   download the PDF file.</a></p>  
+#'  </object>
+#'  </div>
+#'  <p><a href="03_assets/03_Plotting.pdf">Download the PDF of the presentation</a></p>  
+#' 
+#' 
+#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+#' 
+#' 
+#' ## Data
+#' In this module, we'll primarily use the `mtcars` data object.  The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+#' 
+#' A data frame with 32 observations on 11 variables.
+#' 
+#' | Column name   |  Description                              |
+#' |:--------------|:------------------------------------------|
+#' | mpg           |	Miles/(US) gallon                         |
+#' |	cyl           |	Number of cylinders                       |
+#' |	disp          |	Displacement (cu.in.)                     |
+#' |	hp            |	Gross horsepower                          |
+#' |	drat          |	Rear axle ratio                           |
+#' |	wt            |	Weight (lb/1000)                          |
+#' |	qsec          |	1/4 mile time                             |
+#' |	vs            |	V/S                                       |
+#' |	am            |	Transmission (0 = automatic, 1 = manual)  |
+#' |	gear          |	Number of forward gears                   |
+#' |	carb          |	Number of carburetors                     |
+#' 
+#' 
+#' Here's what the data look like:
+## ----warning=F-----------------------------------------------------------
+library(ggplot2);library(knitr)
+kable(head(mtcars))
+
+#' 
+#' 
+#' # Base graphics
+#' 
+#' 
+#' ## Base `plot()`
+#' 
+#' R has a set of 'base graphics' that can do many plotting tasks (scatterplots, line plots, histograms, etc.)
+#' 
+## ------------------------------------------------------------------------
+plot(y=mtcars$mpg,x=mtcars$wt)
+
+#' 
+#' Or you can use the more common *formula* notation:
+#' 
+## ------------------------------------------------------------------------
+plot(mpg~wt,data=mtcars)
+
+#' 
+#' And you can customize with various parameters:
+#' 
+## ------------------------------------------------------------------------
+plot(mpg~wt,data=mtcars,
+  ylab="Miles per gallon (mpg)",
+  xlab="Weight (1000 pounds)",
+  main="Fuel Efficiency vs. Weight",
+  col="red"
+  )
+
+#' 
+#' 
+#' Or switch to a line plot:
+#' 
+## ------------------------------------------------------------------------
+plot(mpg~wt,data=mtcars,
+  type="l",
+  ylab="Miles per gallon (mpg)",
+  xlab="Weight (1000 pounds)",
+  main="Fuel Efficiency vs. Weight",
+  col="blue"
+  )
+
+#' 
+#' 
+#' See `?plot` for details.
+#' 
+#' ## Histograms
+#' 
+#' Check out the help for basic histograms.
+## ----results='hide'------------------------------------------------------
+?hist
+
+#' 
+#' Plot a histogram of the fuel efficiencies in the `mtcars` dataset.
+#' 
+## ------------------------------------------------------------------------
+hist(mtcars$mpg)
+
+#' 
+#' 
+#' # [`ggplot2`](http://ggplot2.org)
+#' The _grammar of graphics_:  consistent aesthetics, multidimensional conditioning, and step-by-step plot building.
+#' 
+#' 
+#' 1.	Data: 		The raw data
+#' 2.	`geom_`: The geometric shapes representing data
+#' 3.	`aes()`:	Aesthetics of the geometric and statistical objects (color, size, shape, and position)
+#' 4.	`scale_`:	Maps between the data and the aesthetic dimensions
+#' 
+#' ```
+#' data
+#' + geometry,
+#' + aesthetic mappings like position, color and size
+#' + scaling of ranges of the data to ranges of the aesthetics
+#' ```
+#' 
+#' 
+#' ### Additional settings
+#' 
+#' 5.	`stat_`:	Statistical summaries of the data that can be plotted, such as quantiles, fitted curves (loess, linear models), etc.
+#' 6.	`coord_`:	Transformation for mapping data coordinates into the plane of the data rectangle
+#' 7.	`facet_`:	Arrangement of data into grid of plots
+#' 8.	`theme`:	Visual defaults (background, grids, axes, typeface, colors, etc.)
+#' 
+#' For example, a simple scatterplot:
+#' <img src="03_assets/ggplot_intro1.png" alt="alt text" width="100%">
+#' 
+#' Add variable colors and sizes: 
+#' <img src="03_assets/ggplot_intro2.png" alt="alt text" width="100%">
+#' 
+#' ## Simple scatterplot
+#' 
+#' First, create a *blank* ggplot object with the data and x-y geometry set up.  
+## ------------------------------------------------------------------------
+p <- ggplot(mtcars, aes(x=wt, y=mpg))
+summary(p)
+p
+
+#' 
+#' 
+## ------------------------------------------------------------------------
+p + geom_point()
+
+#' 
+#' Or you can do both at the same time:
+## ------------------------------------------------------------------------
+ggplot(mtcars, aes(x=wt, y=mpg)) + 
+  geom_point()
+
+#' 
+#' 
+#' ### Aesthetic map: color by # of cylinders
+#' 
+## ------------------------------------------------------------------------
+p + 
+  geom_point(aes(colour = factor(cyl)))
+ 
+
+#' 
+#' ### Set shape using # of cylinders 
+## ------------------------------------------------------------------------
+p + 
+  geom_point(aes(shape = factor(cyl)))
+
+#' 
+#' ### Adjust size by `qsec` 
+## ------------------------------------------------------------------------
+p + 
+  geom_point(aes(size = qsec))
+
+#' 
+#' ### Color by cylinders and size by `qsec` 
+## ------------------------------------------------------------------------
+p + 
+  geom_point(aes(colour = factor(cyl),size = qsec))
+
+#' 
+#' ### Multiple aesthetics
+## ----fig.height=4--------------------------------------------------------
+p + 
+  geom_point(aes(colour = factor(cyl),size = qsec,shape=factor(gear)))
+
+#' 
+#' ### Add a linear model
+## ------------------------------------------------------------------------
+p + geom_point() + 
+  geom_smooth(method="lm")
+
+#' 
+#' ### Add a LOESS smooth
+## ------------------------------------------------------------------------
+p + geom_point() + 
+  geom_smooth(method="loess")
+
+#' 
+#' 
+#' ### Change scale color
+#' 
+## ------------------------------------------------------------------------
+p + geom_point(aes(colour = cyl)) + 
+  scale_colour_gradient(low = "blue")
+
+#' 
+#' ### Change scale shapes
+#' 
+## ------------------------------------------------------------------------
+p + geom_point(aes(shape = factor(cyl))) + 
+  scale_shape(solid = FALSE)
+
+#' 
+#' ### Set aesthetics to fixed value
+## ------------------------------------------------------------------------
+ggplot(mtcars, aes(wt, mpg)) + 
+  geom_point(colour = "red", size = 3)
+
+#' 
+#' ### Transparancy: alpha=0.2
+## ------------------------------------------------------------------------
+d <- ggplot(diamonds, aes(carat, price))
+d + geom_point(alpha = 0.2)
+
+#' 
+#' Varying alpha useful for large data sets
+#' 
+#' ### Transparancy: alpha=0.1
+#' 
+## ------------------------------------------------------------------------
+d + 
+  geom_point(alpha = 0.1)
+
+#' 
+#' ### Transparancy: alpha=0.01
+#' 
+## ------------------------------------------------------------------------
+d + 
+  geom_point(alpha = 0.01)
+
+#' 
+#' 
+#' ## Building ggplots
+#' 
+#' <img src="03_assets/ggplotSyntax.png" alt="alt text" width="90%">
+#' 
+#' ## Other Plot types
+#' 
+#' <img src="03_assets/ggplot01.png" alt="alt text" width="70%">
+#' 
+#' 
+#' <div class="well">
+#' Edit plot `p` to include:
+#' 
+#' 1. points
+#' 2. A smooth ('loess') curve
+#' 3. a "rug" to the plot
+#' 
+#' ```
+#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' ```
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
+#' <div id="demo1" class="collapse">
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
+#' 
+#' 
+#' <img src="03_assets/ggplot02.png" alt="alt text" width="100%">
+#' 
+#' <img src="03_assets/ggplot03.png" alt="alt text" width="70%">
+#' 
+#' <img src="03_assets/ggplot05.png" alt="alt text" width="80%">
+#' 
+#' ### Discrete X, Continuous Y
+#' 
+## ------------------------------------------------------------------------
+p <- ggplot(mtcars, aes(factor(cyl), mpg))
+p + geom_point()
+
+#' 
+#' ### Discrete X, Continuous Y + geom_jitter()
+#' 
+## ------------------------------------------------------------------------
+p + 
+  geom_jitter()
+
+#' 
+#' ### Discrete X, Continuous Y + geom_violin()
+#' 
+## ------------------------------------------------------------------------
+p + 
+  geom_violin()
+
+#' 
+#' ### Discrete X, Continuous Y + geom_violin()
+#' 
+## ------------------------------------------------------------------------
+p + 
+  geom_violin() + geom_jitter(position = position_jitter(width = .1))
+
+#' 
+#' <img src="03_assets/ggplot06.png" alt="alt text" width="100%">
+#' 
+#' ### Three Variables
+#' <img src="03_assets/ggplot07.png" alt="alt text" width="120%">
+#' 
+#' Will return to this when we start working with raster maps.
+#' 
+#' ### Stats
+#' Visualize a data transformation
+#' 
+#' <img src="03_assets/ggplotStat01.png" alt="alt text" width="100%">
+#' 
+#' * Each stat creates additional variables with a common ``..name..`` syntax
+#' * Often two ways: `stat_bin(geom="bar")`  OR  `geom_bar(stat="bin")`
+#' 
+#' <img src="03_assets/ggplotStat02.png" alt="alt text" width="100%">
+#' 
+#' ### 2D kernel density estimation
+#' 
+#' Old Faithful Geyser Data on duration and waiting times.
+#' 
+## ------------------------------------------------------------------------
+library("MASS")
+data(geyser)
+m <- ggplot(geyser, aes(x = duration, y = waiting))
+
+#' 
+#' <img src="03_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small>[photo: Greg Willis](https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg)</small>
+#' 
+#' See `?geyser` for details.
+#' 
+## ------------------------------------------------------------------------
+m + 
+  geom_point()
+
+#' 
+## ------------------------------------------------------------------------
+m + 
+  geom_point() +  stat_density2d(geom="contour")
+
+#' 
+#' Check `?geom_density2d()` for details
+#' 
+## ------------------------------------------------------------------------
+m + 
+  geom_point() +  stat_density2d(geom="contour") +
+  xlim(0.5, 6) + ylim(40, 110)
+
+#' 
+#' Update limits to show full contours.  Check `?geom_density2d()` for details
+#' 
+#' 
+#' 
+#' 
+## ------------------------------------------------------------------------
+m + stat_density2d(aes(fill = ..level..), geom="polygon") + 
+  geom_point(col="red")
+
+#' 
+#' Check `?geom_density2d()` for details
+#' 
+#' 
+#' 
+#' <img src="03_assets/ggplotStat03.png" alt="alt text" width="80%">
+#' 
+#' 
+#' <div class="well">
+#' ## Your turn
+#' 
+#' Edit plot `m` to include: 
+#' 
+#' * The point data (with red points) on top
+#' * A `binhex` plot of the Old Faithful data
+#' 
+#' Experiment with the number of bins to find one that works.  
+#' 
+#' See `?stat_binhex` for details.
+#' 
+#' ```
+#' #install.packages("hexbin")
+#' library(hexbin)
+#' m <- ggplot(geyser, aes(x = duration, y = waiting))
+#' ```
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+#' <div id="demo2" class="collapse">
+#' 
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
+#' ## Specifying Scales
+#' 
+#' <img src="03_assets/ggplotScales01.png" alt="alt text" width="100%">
+#' 
+#' 
+#' 
+#' ### Discrete color: default
+#' 
+## ------------------------------------------------------------------------
+b=ggplot(mpg,aes(fl))+
+  geom_bar( aes(fill = fl)); b
+
+#' 
+#' 
+#' 
+#' 
+#' ### Discrete color: greys
+#' 
+## ------------------------------------------------------------------------
+b + scale_fill_grey( start = 0.2, end = 0.8, 
+                   na.value = "red")
+
+#' 
+#' 
+#' 
+#' ### Continuous color: defaults
+#' 
+## ---- message=F----------------------------------------------------------
+a <- ggplot(mpg, aes(x=hwy,y=cty,col=displ)) + 
+  geom_point(); a
+
+#' 
+#' 
+#' 
+#' ### Continuous color: `gradient`
+#' 
+## ---- message=F----------------------------------------------------------
+a +  scale_color_gradient( low = "red", 
+                          high = "yellow")
+
+#' 
+#' 
+#' 
+#' ### Continuous color: `gradient2`
+#' 
+## ---- message=F----------------------------------------------------------
+a + scale_color_gradient2(low = "red", high = "blue", 
+                       mid = "white", midpoint = 4)
+
+#' 
+#' 
+#' 
+#' ### Continuous color: `gradientn`
+#' 
+## ---- message=F----------------------------------------------------------
+a + scale_color_gradientn(
+  colours = rainbow(10))
+
+#' 
+#' 
+#' 
+#' ### Discrete color: brewer
+#' 
+## ------------------------------------------------------------------------
+b + 
+  scale_fill_brewer( palette = "Blues")
+
+#' 
+#' ## [colorbrewer2.org](http://colorbrewer2.org)
+#' 
+#' 
+#' <img src="03_assets/brewer1.png" alt="alt text" width="100%">
+#' 
+#' 
+#' 
+#' ## ColorBrewer: Diverging
+#' 
+#' <img src="03_assets/brewer2.png" alt="alt text" width="100%">
+#' 
+#' ## ColorBrewer: Filtered
+#' 
+#' <img src="03_assets/brewer3.png" alt="alt text" width="100%">
+#' 
+#' 
+#' <div class="well">
+#' ## Your turn
+#' 
+#' 
+#' Edit the contour plot of the geyser data:
+#' 
+#' 1. Reduce the size of the points
+#' 2. Use a sequential brewer palette (select from [colorbrewer2.org](http://colorbrewer2.org)) 
+#' 3. Add informative x and y labels
+#' 
+#' ```
+#' m <- ggplot(geyser, aes(x = duration, y = waiting)) +
+#'   stat_density2d(aes(fill = ..level..), geom="polygon") + 
+#'   geom_point(col="red")
+#' ```
+#' 
+#' Note:  `scale_fill_distiller()` rather than `scale_fill_brewer()` for continuous data
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo3">Show Solution</button>
+#' <div id="demo3" class="collapse">
+#' 
+#' 
+#' Or use `geom=tile` for a raster representation.
+#' 
+#' 
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
+#' ## Axis scaling
+#' 
+#' 
+#' Create noisy exponential data
+#' 
+## ------------------------------------------------------------------------
+set.seed(201)
+n <- 100
+dat <- data.frame(
+    xval = (1:n+rnorm(n,sd=5))/20,
+    yval = 10^((1:n+rnorm(n,sd=5))/20)
+)
+
+#' 
+#' 
+#' 
+#' Make scatter plot with regular (linear) axis scaling
+## ------------------------------------------------------------------------
+sp <- ggplot(dat, aes(xval, yval)) + geom_point()
+sp
+
+#' 
+#' <small> Example from [R Cookbook](http://www.cookbook-r.com/Graphs/Axes_(ggplot2)/) </small>
+#' 
+#' 
+#' 
+#' log10 scaling of the y axis (with visually-equal spacing)
+#' 
+## ------------------------------------------------------------------------
+sp + scale_y_log10()
+
+#' 
+#' ## Coordinate Systems
+#' 
+#' <img src="03_assets/ggplotCoords.png" alt="alt text" width="55%">
+#' 
+#' 
+#' ## Position
+#' 
+#' <img src="03_assets/ggplotPosition.png" alt="alt text" width="80%">
+#' 
+#' 
+#' 
+#' ### Stacked bars
+#' 
+## ------------------------------------------------------------------------
+ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar()
+
+
+#' 
+#' 
+#' 
+#' ### Dodged bars
+#' 
+#' 
+## ------------------------------------------------------------------------
+ggplot(diamonds, aes(clarity, fill=cut)) + geom_bar(position="dodge")
+
+
+#' 
+#' 
+#' # Facets
+#' 
+#' Use facets to divide graphic into *small multiples* based on a categorical variable.  
+#' 
+#' `facet_wrap()` for one variable:
+#' 
+## ------------------------------------------------------------------------
+ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
+  geom_point()+
+  facet_wrap(~year)
+
+#' 
+#' 
+#' 
+#' `facet_grid()`: two variables
+#' 
+## ------------------------------------------------------------------------
+ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
+  geom_point()+
+  facet_grid(year~cyl)
+
+#' 
+#' *Small multiples* (via facets) are very useful for visualization of timeseries (and especially timeseries of spatial data.)
+#' 
+#' 
+#' # Themes
+#' Set *default* display parameters (colors, font sizes, etc.) for different purposes (for example print vs. presentation) using themes.
+#' 
+#' ## GGplot Themes
+#' 
+#' <img src="03_assets/ggplotThemes.png" alt="alt text" width="80%">
+#' 
+#' Quickly change plot appearance with themes.
+#' 
+#' ### More options in the `ggthemes` package.
+## ------------------------------------------------------------------------
+library(ggthemes)
+
+#' 
+#' Or build your own!
+#' 
+#' 
+#' 
+#' ### Theme examples: default
+## ------------------------------------------------------------------------
+p=ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
+  geom_jitter() +
+  labs(
+    x = "City mileage/gallon",
+    y = "Highway mileage/gallon",
+    color = "Cylinders"
+  )
+
+#' 
+#' 
+#' 
+#' ### Theme examples: default
+## ------------------------------------------------------------------------
+p
+
+#' 
+#'  
+#' 
+#' ### Theme examples: Solarized
+## ------------------------------------------------------------------------
+p + theme_solarized()
+
+#' 
+#'  
+#' 
+#' ### Theme examples: Solarized Dark
+## ------------------------------------------------------------------------
+p +  theme_solarized(light=FALSE)
+
+#' 
+#'  
+#' 
+#' ### Theme examples: Excel
+## ------------------------------------------------------------------------
+p + theme_excel() 
+
+#' 
+#'  
+#' 
+#' ### Theme examples: _The Economist_
+## ------------------------------------------------------------------------
+p + theme_economist()
+
+#' 
+#' ## Theme examples: _XKCD_ 
+#' XKCD: A webcomic of romance, sarcasm, math, and language.
+#' 
+#' <img src="03_assets/convincing.png" alt="alt text" width="100%">
+#' Note: the following code will only work if you have the xkcd font installed.  See `xkcd::vignette("xkcd-intro")` for details.
+#' 
+## ---- warning=FALSE, message=F-------------------------------------------
+library(xkcd)
+
+ggplot(mtcars, aes(mpg, wt)) + 
+     geom_point() +
+     geom_smooth()+
+      ylab("Weight")+xlab("Miles per Gallon")+
+      theme_xkcd() 
+
+
+#' 
+#' # Saving/exporting
+#' 
+#' ## Saving using the GUI
+#' <img src="03_assets/ggplot_guisave.png" alt="alt text" width="80%">
+#' 
+#' 
+#' 
+#' 
+#' ## Saving using `ggsave()`
+#' Save a `ggplot` with sensible defaults:
+## ----eval=F--------------------------------------------------------------
+## ggsave(filename, plot = last_plot(), scale = 1, width, height)
+
+#' 
+#' 
+#' 
+#' ## Saving using devices
+#' 
+#' Save any plot with maximum flexibility:
+#' 
+## ----eval=F--------------------------------------------------------------
+## pdf(filename, width, height)  # open device
+## ggplot()                      # draw the plot(s)
+## dev.off()                     # close the device
+
+#' 
+#' **Formats**
+#' 
+#' * pdf
+#' * jpeg
+#' * png
+#' * tif
+#' 
+#' and more...
+#' 
+#' 
+#' <div class="well">
+#' ## Your turn
+#' 
+#' 1. Save the `p` plot from above using `png()` and `dev.off()`
+#' 2. Switch to the solarized theme with `light=FALSE`
+#' 2. Adjust fontsize with `base_size` in the theme `+ theme_solarized(base_size=24)`
+#' 
+#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
+#' <div id="demo4" class="collapse">
+#' 
+#' ## Save a plot: Example 1
+#' 
+#' 
+#' <img src="03_assets/test1.png" alt="alt text" width="80%">
+#' 
+#' 
+#' ## Save a plot: Example 2
+#' 
+#' <img src="03_assets/test2.png" alt="alt text" width="80%">
+#' 
+#' 
+#' </div>
+#' </div>
+#' 
+#' 
+#' ## GGPLOT2 Documentation
+#' 
+#' Perhaps R's best documented package: [docs.ggplot2.org](http://docs.ggplot2.org/current/)
+#' 
+#' <img src="03_assets/ggplotDoc.png" alt="alt text" width="100%">
+#' 
+#' ## Colophon
+#' 
+#' Sources:
+#' 
+#' *  [ggplot cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)
+#' 
+#' Licensing: 
+#' 
+#' * Presentation: [CC-BY-3.0 ](http://creativecommons.org/licenses/by/3.0/us/)
+#' * Source code: [MIT](http://opensource.org/licenses/MIT) 
+#' 

@@ -17,4 +17,3 @@ output:
     lib_dir: site_libs
     self_contained: no
 name: Spatial Data Science
-

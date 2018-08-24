@@ -16,22 +16,20 @@ left:
         href: 00_CourseIntroductionFrame.html
       - text: "01 First Steps"
         href: 01_Rintro.html
-      - text: "02 Data Wrangling"
-        href: 02_DataWrangling.html
-      - text: "03 Plotting"
-        href: 03_Plotting.html
+      - text: "02 Graphics"
+        href: 02_Plotting.html
+      - text: "03 Data Wrangling"
+        href: 03_DataWrangling.html
       - text: "-----------------"
       - text: "Module 2: Spatial Analyses"
-      - text: "04 Spatial Data"
-        href: 04_Spatial.html
       - text: "04 Spatial Data with sf"
         href: 04_Spatial_with_sf.html
       - text: "05 Spatial Raster Data"
         href: 05_Raster.html
-      - text: "06 More Raster Data"
-        href: 06_RasterTwo.html
       - text: "-----------------"
-      - text: "Module 2: Advanced Programming"
+      - text: "Module 3: Advanced Programming"
+      - text: "06 Creating Workflows"
+        href: 06_CreatingWorkflows.html
       - text: "07 Reproducible Research"
         href: 07_Reproducibile.html
       - text: "08 Weather Data Processing"

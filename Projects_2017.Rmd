@@ -4,7 +4,6 @@ output:
   html_document:
     css: thumbnail-gallery.css
     toc: false
-    keep_md: true
 ---
 
 This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
@@ -23,7 +22,6 @@ You are invited to explore the student projects below (click on a thumbnail to v
 library(dplyr)
 #library(kableExtra)
 library(knitr)
-library(bsplus)
 library(doParallel)
 registerDoParallel(4)
 #devtools::install_github("ijlyttle/bsplus")
@@ -139,16 +137,11 @@ imgt
 ```
 
 ```{r,asis=T, echo=F}
+# Build html for the image with link
 d$href2=paste0("<a href=",d$url," target='_blank'>",
                " <img src=",d$img,".png alt='' height='30%'>", # height='50%'
                 "</a>") 
-
-n=nrow(d)
-n2=round(n/2)
-
 d%>%
-  select(Student=user,Title=title,Thumbnail=href2)%>%
-  kable()#%>%
-#  kable_styling()%>%
-#  column_spec(2, width="30em")
+  dplyr::select(Student=user,Title=title,Thumbnail=href2)%>%
+  kable()
 ```

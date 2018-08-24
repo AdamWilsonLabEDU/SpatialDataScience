@@ -380,12 +380,13 @@ glimpse(airports)
 #' 
 #' ## Plot the `flights` data
 #' 
-#' The section below shows some 'advanced' coding to extract the geographic locations for all flights and plotting.  This is just meant as an example to illustrate how one might use these functions to perform a mini-analysis that results in a map.  
+#' The section below shows some 'advanced' coding to extract the geographic locations for all flights and plotting the connections as 'great circles' on a map.  This is just meant as an example to illustrate how one might use these functions to perform a more advanced analysis and spatial visualization.  
 #' 
 #' ### Join destination airports
 #' 
 ## ---- result=F, warning=F------------------------------------------------
 library(geosphere)
+library(rgdal)
 library(maps)
 library(ggplot2)
 library(sp)
