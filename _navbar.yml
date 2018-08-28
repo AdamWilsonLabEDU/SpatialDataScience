@@ -17,7 +17,7 @@ left:
       - text: "01 First Steps"
         href: 01_Rintro.html
       - text: "02 Graphics"
-        href: 02_Plotting.html
+        href: 02_graphics.html
       - text: "03 Data Wrangling"
         href: 03_DataWrangling.html
       - text: "-----------------"
