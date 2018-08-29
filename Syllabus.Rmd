@@ -1,5 +1,5 @@
 ---
-title: "Syllabus"
+title: "GEO 503: Spatial Data Science"
 ---
 
 # Course Description

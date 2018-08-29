@@ -3,19 +3,12 @@
 #' ---
 #' 
 #' 
-#' <div>
-#' <object data="01_assets/01_Rintro.pdf" type="application/pdf" width="100%" height="600px"> 
-#'   <p>It appears you don't have a PDF plugin for this browser.
-#'    No biggie... you can <a href="01_assets/01_Rintro.pdf">click here to
-#'   download the PDF file.</a></p>  
-#'  </object>
-#'  </div>
-#'  <p><a href="01_assets/01_Rintro.pdf">Download the PDF of the presentation</a></p>  
+#' # Logistics
+#' [<i class="fas fa-desktop fa-3x" aria-hidden="true"></i> Presentation](presentations/day_02_intro.html){target="_blank"}.  
 #' 
+#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`){target="_blank"}.  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
 #' # First Steps
-#' 
-#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
 #' ## Variables
 ## ------------------------------------------------------------------------
@@ -284,7 +277,7 @@ mean(data[,1])
 #' New packages: `install.packages()` or use the package manager. 
 #' 
 ## ----message=F,warning=FALSE---------------------------------------------
-library(raster)
+library(ggplot2)
 
 #' 
 #' > R may ask you to choose a CRAN mirror. CRAN is the distributed network of servers that provides access to R's software.  It doesn't really matter which you chose, but closer ones are likely to be faster.  From RStudio, you can select the mirror under Tools→Options or just wait until it asks you.
@@ -292,3 +285,7 @@ library(raster)
 #' 
 #' If you don't have the packages above, install them in the package manager or by running `install.packages("raster")`.
 #' 
+#' 
+#' # Today's task
+#' 
+#' Now [complete the first task here](CS_01.html) by yourself or in small groups.

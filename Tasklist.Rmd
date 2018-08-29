@@ -1,0 +1,28 @@
+---
+title: "Tasklist"
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+yamls=yaml_dir()
+```
+
+Below are a set of tasks that we will work in class (either alone or in small groups).
+
+
+```{r reading,results='asis',echo=F}
+for(i in 1:length(yamls)){
+  cat("\n ___ \n")
+  cat(paste("# [",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
+  cat(paste(" ",yamls[[i]]$date,"  \n \n ",sep=""))
+  cat(paste(" ",yamls[[i]]$subtitle,"  \n \n ",sep=""))
+  cat("\n## Readings \n")
+  md_bullet(yamls[[i]]$reading)
+  cat("\n## Tasks \n")
+  md_bullet(yamls[[i]]$tasks)
+}
+```

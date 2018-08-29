@@ -47,6 +47,8 @@ left:
       - text: "-----------------"
   - text: "Assignments"
     menu:
+      - text: "Task list"
+        href: Tasklist.html
       - text: "Homeworks"
         href: Homework.html
       - text: "Package Introduction"

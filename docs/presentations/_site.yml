@@ -1,0 +1,21 @@
+output: 
+  revealjs::revealjs_presentation:
+      lib_dir: externals
+      keep_md: true
+      incremental: true
+      theme: white
+      highlight: tango
+      center: true
+      code_folding: hide
+      css: reveal.css
+      reveal_plugins: ["search", "zoom", "chalkboard"]
+      self_contained: false
+      reveal_options:
+        previewLinks: true
+        mouseWheel: true
+        slideNumber: true
+        minScale: 1
+        maxScale: 3
+        margin: 0.1
+        width: "100%"
+        height: "100%"

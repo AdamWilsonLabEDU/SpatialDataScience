@@ -17,3 +17,5 @@ knitr::opts_chunk$set(cache=T,
                                   'R', sep = '.'))
   knitr::purl(input,output,documentation=2,quiet=T,envir=new.env())
   knitr::opts_chunk$set(cache=TRUE)
+  
+  
