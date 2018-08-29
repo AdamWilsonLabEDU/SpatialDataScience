@@ -1,7 +1,7 @@
 ---
 title: Create a simple, functioning script
 date: 2018-08-30 
-subtitle: Write a script that reads in data, calculates a statistic, and then plots a distribution of a variable.
+subtitle: Write a script that reads in data, calculates a statistic, and makes a plot.
 reading:
   - R4DS [Chapter 1](http://r4ds.had.co.nz/introduction.html)
   - R4DS [Chapter 2](http://r4ds.had.co.nz/explore-intro.html)
@@ -11,7 +11,7 @@ tasks:
   - Create a new R script in RStudio
   - Load the iris dataset with `data(iris)`
   - Calculate the mean of the `Petal.Length` field
-  - Plot the distribution of the `Petal.Length` field as a histogram
+  - Plot the distribution of the `Petal.Length` column as a histogram
   - Save the script
   - Click 'Source' in RStudio to run it from beginning to end
 ---

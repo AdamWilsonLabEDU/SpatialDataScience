@@ -13,17 +13,14 @@ params:
 
 [Popularity of Data Science Software](http://r4stats.com/articles/popularity)
 
+
 # Becoming the Critic.
 
+## Original Graph
+![](http://www.perceptualedge.com/images/example9problem.gif)
 
-```r
-vlink <- "http://www.perceptualedge.com/example9.php"
-titlelink <- paste0('{data-background-iframe="', vlink, '"}')
-```
-
-## {data-background-iframe="http://www.perceptualedge.com/example9.php"}
-
-[Visualization of the Day](http://www.perceptualedge.com/example9.php)
+## Revised Graph
+![](http://www.perceptualedge.com/images/example9solution.jpg)
 
 ## 
 > Above all else, show the data
@@ -94,4 +91,4 @@ https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf
 
 ## Let's get coding...
 
-Now open [today's activity](01_Rintro.html) and work through the exercise.
+Now open [today's activity](../01_Rintro.html) and work through the exercise.

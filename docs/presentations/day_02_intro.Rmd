@@ -16,14 +16,11 @@ params:
 
 # Becoming the Critic.
 
-```{r}
-vlink <- "http://www.perceptualedge.com/example9.php"
-titlelink <- paste0('{data-background-iframe="', vlink, '"}')
-```
+## Original Graph
+![](http://www.perceptualedge.com/images/example9problem.gif)
 
-## `r titlelink`
-
-[Visualization of the Day](`r vlink`)
+## Revised Graph
+![](http://www.perceptualedge.com/images/example9solution.jpg)
 
 ## 
 > Above all else, show the data
