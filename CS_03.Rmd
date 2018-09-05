@@ -1,0 +1,75 @@
+---
+title: Wealth and Life Expectancy
+date: 2018-09-11 
+subtitle: Advanced ggplot
+reading:
+  - The [ggplot2 vignette](https://ggplot2.tidyverse.org/){target='blank'}
+  - R4DS [Chapter 3 - Data visualization](http://r4ds.had.co.nz/data-visualisation.html){target='blank'}
+  - The [Hans Rosling The River of Myths](https://youtu.be/OwII-dwh-bk){target='blank'}
+  - Watch the [Hons Rosling video](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"}
+tasks:
+   - Recreate the two graphics shown below using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can)
+   - Build weighted average data set for each continent using `group_by()` followed by `summarise()` with the `weighted.mean()` of GDP that will be the black continent average line on the second plot.
+   - Use `library(ggplot2)` and the `theme_bw()` to duplicate the first plot
+   - Use  `scale_y_continuous(trans = "sqrt")` to get the correct scale on the y-axis.
+   - Use `library(ggplot2)` and the `theme_bw()` to duplicate the second plot. You will need to use the new data you summarized to make the black lines and dots showing the continent average.
+   - Use `ggsave()` and save each plot as a `.png` with a width of 15 inches
+   - Save your script.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+source("functions.R")
+```
+
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(metadata$reading)
+```
+
+# Background
+
+[Hans Rosling](http://www.gapminder.org/news/sad-to-announce-hans-rosling-passed-away-this-morning/){target="blank"} is one of the most popular data scientists on the web. [His original TED talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"} was very popular among my friends when it came out.  We are going to create some graphics using his formatted data as our weekly case study. Note that we need to remove Kuwait from the data ([discussion on this](https://github.com/jennybc/gapminder/issues/9){target="blank"})
+
+# Instructions
+
+In this exercise you will recreate the two graphics shown below using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can). Specific instructions/steps are listed in the 'tasks' section.
+
+
+```{r code1, eval=TRUE,echo=FALSE, fig.width=15, message=FALSE}
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+
+gapminder <- gapminder %>% filter(country != "Kuwait")
+gapminder.continent <- gapminder %>% 
+                          group_by(continent, year) %>% 
+                          summarise(gdpPercap = weighted.mean(x = gdpPercap, w = pop), 
+                                    pop = sum(as.numeric(pop)))
+
+ggplot(data = gapminder, aes(color = continent, x = lifeExp, y = gdpPercap)) + 
+  geom_point(aes(size = pop/100000)) + 
+  facet_wrap(~year, nrow = 1) + 
+  scale_y_continuous(trans = "sqrt") +
+  theme_bw() + 
+  labs(x = "Life Expectancy", y = "GDP per capita", size = "Population (100k)", color = "continent")
+
+ggplot(data = gapminder, aes(color = continent, x = year, y = gdpPercap)) + 
+  geom_point(aes(size = pop/100000)) + 
+  geom_line(aes(group = country)) +
+  geom_point(data = gapminder.continent, color = "black", aes(size = pop/100000)) +
+  geom_line(data = gapminder.continent, color = "black") +
+  facet_wrap(~continent, nrow = 1) +
+  theme_bw() + 
+  labs(x = "Year", y = "GDP per capita", color = "Continent", size = "Population (100k)")
+
+```
+
+# Specific Tasks
+
+```{r tasks,results='asis',echo=F}
+md_bullet(metadata$tasks)
+```

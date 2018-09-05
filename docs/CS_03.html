@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2018-09-11" />
 
-<title>Tasklist</title>
+<title>Wealth and Life Expectancy</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -242,7 +243,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -469,86 +470,15 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Tasklist</h1>
+<h1 class="title toc-ignore">Wealth and Life Expectancy</h1>
+<h3 class="subtitle"><em>Advanced ggplot</em></h3>
+<h4 class="date"><em>2018-09-11</em></h4>
 
 </div>
 
 
-<p>Below are a set of tasks that we will work on in class (either alone or in small groups).</p>
-<hr />
-<div id="cs_01-create-a-simple-functioning-script" class="section level1">
-<h1><a href="./CS_01.html">CS_01 : Create a simple, functioning script</a></h1>
-<p>2018-08-30</p>
-<p>Write a script that reads in data, calculates a statistic, and makes a plot.</p>
-<button data-toggle="collapse" class="btn-sm" data-target="#i1">
-Readings
-</button>
-<div id="i1" class="collapse">
-<h2 id="readings">Readings</h2>
-<ul>
-<li>R4DS <a href="http://r4ds.had.co.nz/introduction.html">Chapter 1</a></li>
-<li>R4DS <a href="http://r4ds.had.co.nz/explore-intro.html">Chapter 2</a></li>
-<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-basic-r"><em>How to Make a Histogram with Basic R</em></a></li>
-<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-ggplot2"><em>How to Make a Histogram with ggplot</em></a></li>
-</ul>
-</div>
-<button data-toggle="collapse" class="btn-sm" data-target="#t1">
-Tasks
-</button>
-<div id="t1" class="collapse">
-<h2 id="tasks">Tasks</h2>
-<ul>
-<li>Create a new R script in RStudio</li>
-<li>Load the iris dataset with <code>data(iris)</code></li>
-<li>Calculate the mean of the <code>Petal.Length</code> field</li>
-<li>Plot the distribution of the <code>Petal.Length</code> column as a histogram</li>
-<li>Save the script</li>
-<li>Click ‘Source’ in RStudio to run it from beginning to end</li>
-</ul>
-</div>
-<hr />
-</div>
-<div id="cs_02-my-grandfather-says-climate-is-cooling" class="section level1">
-<h1><a href="./CS_02.html">CS_02 : My grandfather says climate is cooling</a></h1>
-<p>2018-09-06</p>
-<p>Import data, generate and save a graphic.</p>
-<button data-toggle="collapse" class="btn-sm" data-target="#i2">
-Readings
-</button>
-<div id="i2" class="collapse">
-<h2 id="readings-1">Readings</h2>
-<ul>
-<li>The <a href="https://ggplot2.tidyverse.org/">ggplot2 vignette</a></li>
-</ul>
-</div>
-<button data-toggle="collapse" class="btn-sm" data-target="#t2">
-Tasks
-</button>
-<div id="t2" class="collapse">
-<h2 id="tasks-1">Tasks</h2>
-<ul>
-<li>Create a new R script in RStudio</li>
-<li>Load data from a comma-separated-values formatted text file hosted on a website</li>
-<li>Graph the annual mean temperature in June, July and August (<code>JJA</code>) using ggplot</li>
-<li>Add a smooth line with <code>geom_smooth()</code></li>
-<li>Add informative axis labels using <code>xlab()</code> and <code>ylab()</code> including <a href="https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&amp;dt=1&amp;ds=5">units</a></li>
-<li>Add a graph title with <code>ggtitle()</code></li>
-<li>Save a graphic to a png file using <code>png()</code> and <code>dev.off()</code> OR <a href="https://ggplot2.tidyverse.org/reference/ggsave.html"><code>ggsave</code></a></li>
-<li>Save the script</li>
-<li>Click ‘Source’ in RStudio to run the script from beginning to end to re-run the entire process</li>
-</ul>
-</div>
-<hr />
-</div>
-<div id="cs_03-wealth-and-life-expectancy" class="section level1">
-<h1><a href="./CS_03.html">CS_03 : Wealth and Life Expectancy</a></h1>
-<p>2018-09-11</p>
-<p>Advanced ggplot</p>
-<button data-toggle="collapse" class="btn-sm" data-target="#i3">
-Readings
-</button>
-<div id="i3" class="collapse">
-<h2 id="readings-2">Readings</h2>
+<div id="reading" class="section level1">
+<h1>Reading</h1>
 <ul>
 <li>The <a href="https://ggplot2.tidyverse.org/" target="blank">ggplot2 vignette</a></li>
 <li>R4DS <a href="http://r4ds.had.co.nz/data-visualisation.html" target="blank">Chapter 3 - Data visualization</a></li>
@@ -556,11 +486,17 @@ Readings
 <li>Watch the <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen" target="blank">Hons Rosling video</a></li>
 </ul>
 </div>
-<button data-toggle="collapse" class="btn-sm" data-target="#t3">
-Tasks
-</button>
-<div id="t3" class="collapse">
-<h2 id="tasks-2">Tasks</h2>
+<div id="background" class="section level1">
+<h1>Background</h1>
+<p><a href="http://www.gapminder.org/news/sad-to-announce-hans-rosling-passed-away-this-morning/" target="blank">Hans Rosling</a> is one of the most popular data scientists on the web. <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen" target="blank">His original TED talk</a> was very popular among my friends when it came out. We are going to create some graphics using his formatted data as our weekly case study. Note that we need to remove Kuwait from the data (<a href="https://github.com/jennybc/gapminder/issues/9" target="blank">discussion on this</a>)</p>
+</div>
+<div id="instructions" class="section level1">
+<h1>Instructions</h1>
+<p>In this exercise you will recreate the two graphics shown below using <code>gapminder</code> dataset from <code>library(gapminder)</code> (get them to match as closely as you can). Specific instructions/steps are listed in the ‘tasks’ section.</p>
+<p><img src="CS_03_files/figure-html/code1-1.png" width="1440" /><img src="CS_03_files/figure-html/code1-2.png" width="1440" /></p>
+</div>
+<div id="specific-tasks" class="section level1">
+<h1>Specific Tasks</h1>
 <ul>
 <li>Recreate the two graphics shown below using <code>gapminder</code> dataset from <code>library(gapminder)</code> (get them to match as closely as you can)</li>
 <li>Build weighted average data set for each continent using <code>group_by()</code> followed by <code>summarise()</code> with the <code>weighted.mean()</code> of GDP that will be the black continent average line on the second plot.</li>
@@ -570,7 +506,6 @@ Tasks
 <li>Use <code>ggsave()</code> and save each plot as a <code>.png</code> with a width of 15 inches</li>
 <li>Save your script.</li>
 </ul>
-</div>
 </div>
 
 <!-- Google Analytics -->
