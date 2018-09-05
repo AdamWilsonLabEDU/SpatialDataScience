@@ -5,13 +5,13 @@
 #' 
 #' 
 #' <div>
-#' <object data="03_assets/03_Plotting.pdf" type="application/pdf" width="100%" height="600px"> 
+#' <object data="02_assets/02_Plotting.pdf" type="application/pdf" width="100%" height="600px"> 
 #'   <p>It appears you don't have a PDF plugin for this browser.
-#'    No biggie... you can <a href="03_assets/03_Plotting.pdf">click here to
+#'    No biggie... you can <a href="02_assets/02_Plotting.pdf">click here to
 #'   download the PDF file.</a></p>  
 #'  </object>
 #'  </div>
-#'  <p><a href="03_assets/03_Plotting.pdf">Download the PDF of the presentation</a></p>  
+#'  <p><a href="02_assets/02_Plotting.pdf">Download the PDF of the presentation</a></p>  
 #' 
 #' 
 #' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
@@ -713,29 +713,10 @@ ggplot(mtcars, aes(mpg, wt)) +
 #' and more...
 #' 
 #' 
-#' <div class="well">
-#' ## Your turn
+#' # Today's task
 #' 
-#' 1. Save the `p` plot from above using `png()` and `dev.off()`
-#' 2. Switch to the solarized theme with `light=FALSE`
-#' 2. Adjust fontsize with `base_size` in the theme `+ theme_solarized(base_size=24)`
+#' Now [complete the first task here](CS_02.html) by yourself or in small groups.
 #' 
-#' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">Show Solution</button>
-#' <div id="demo4" class="collapse">
-#' 
-#' ## Save a plot: Example 1
-#' 
-#' 
-#' <img src="03_assets/test1.png" alt="alt text" width="80%">
-#' 
-#' 
-#' ## Save a plot: Example 2
-#' 
-#' <img src="03_assets/test2.png" alt="alt text" width="80%">
-#' 
-#' 
-#' </div>
-#' </div>
 #' 
 #' 
 #' ## GGPLOT2 Documentation

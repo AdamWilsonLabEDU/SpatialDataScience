@@ -442,6 +442,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
       <a href="Resources.html">Resources</a>
     </li>
     <li>
@@ -473,14 +476,14 @@ div.tocify {
 
 
 <div>
-<object data="03_assets/03_Plotting.pdf" type="application/pdf" width="100%" height="600px">
+<object data="02_assets/02_Plotting.pdf" type="application/pdf" width="100%" height="600px">
 <p>
-It appears you don’t have a PDF plugin for this browser. No biggie… you can <a href="03_assets/03_Plotting.pdf">click here to download the PDF file.</a>
+It appears you don’t have a PDF plugin for this browser. No biggie… you can <a href="02_assets/02_Plotting.pdf">click here to download the PDF file.</a>
 </p>
 </object>
 </div>
 <p>
-<a href="03_assets/03_Plotting.pdf">Download the PDF of the presentation</a>
+<a href="02_assets/02_Plotting.pdf">Download the PDF of the presentation</a>
 </p>
 <p><a href="scripts/02_graphics.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="data" class="section level2">
@@ -1172,30 +1175,11 @@ dev.off()                     # close the device</code></pre>
 <li>tif</li>
 </ul>
 <p>and more…</p>
-<div class="well">
-<h2 id="your-turn-2">Your turn</h2>
-<ol style="list-style-type: decimal">
-<li>Save the <code>p</code> plot from above using <code>png()</code> and <code>dev.off()</code></li>
-<li>Switch to the solarized theme with <code>light=FALSE</code></li>
-<li>Adjust fontsize with <code>base_size</code> in the theme <code>+ theme_solarized(base_size=24)</code></li>
-</ol>
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
-Show Solution
-</button>
-<div id="demo4" class="collapse">
-<h2 id="save-a-plot-example-1">Save a plot: Example 1</h2>
-<pre class="r"><code>png(&quot;03_assets/test1.png&quot;,width=600,height=300)
-p +  theme_solarized(light=FALSE)
-dev.off()</code></pre>
-<p><img src="03_assets/test1.png" alt="alt text" width="80%"></p>
-<h2 id="save-a-plot-example-2">Save a plot: Example 2</h2>
-<pre class="r"><code>png(&quot;03_assets/test2.png&quot;,width=600,height=300)
-p +  theme_solarized(light=FALSE, base_size=24)
-dev.off()</code></pre>
-<p><img src="03_assets/test2.png" alt="alt text" width="80%"></p>
 </div>
 </div>
-</div>
+<div id="todays-task" class="section level1">
+<h1>Today’s task</h1>
+<p>Now <a href="CS_02.html">complete the first task here</a> by yourself or in small groups.</p>
 <div id="ggplot2-documentation" class="section level2">
 <h2>GGPLOT2 Documentation</h2>
 <p>Perhaps R’s best documented package: <a href="http://docs.ggplot2.org/current/">docs.ggplot2.org</a></p>
@@ -1226,6 +1210,13 @@ dev.off()</code></pre>
 </script>
 
 <!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
 <div id="disqus_thread" style="margin-top: 45px;"></div>
 <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -1241,7 +1232,7 @@ dev.off()</code></pre>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
               comments powered by Disqus.</a>
 </noscript>
-
+-->
 
 <!-- give the footer some space -->
 <br/>

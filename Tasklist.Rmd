@@ -17,12 +17,12 @@ Below are a set of tasks that we will work in class (either alone or in small gr
 ```{r reading,results='asis',echo=F}
 for(i in 1:length(yamls)){
   cat("\n ___ \n") 
-  cat(paste("## [",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
+  cat(paste("# [",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
   cat(paste(" ",yamls[[i]]$date,"  \n \n ",sep=""))
   cat(paste(" ",yamls[[i]]$subtitle,"  \n \n ",sep=""))
-  cat("\n### Readings \n")
+  cat("\n## Readings \n")
   md_bullet(yamls[[i]]$reading)
-  cat("\n### Tasks \n")
+  cat("\n## Tasks \n")
   md_bullet(yamls[[i]]$tasks)
 }
 ```

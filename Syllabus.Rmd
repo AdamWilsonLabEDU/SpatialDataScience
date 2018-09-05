@@ -1,5 +1,5 @@
 ---
-title: "GEO 503: Spatial Data Science"
+title: 'GEO 503: Spatial Data Science'
 ---
 
 # Course Description
@@ -28,9 +28,10 @@ During the week, I will attempt to respond to emails within 24 hours of receivin
 # Student Learning Outcomes
 Successful completion of this course will enable the student to: 
 
-1. Understand principles of data science and their application to the analysis of spatial data.
-2. Develop reproducible data processing workflows to transform, visualize, and model spatial data.
-3. Create dynamic reproducible research output including figures, maps, manuscripts, and websites.
+1. convert data from varied formats or structures to a desirable format for analysis and visualization 2. clean, transform and merge data attributes/variables appropriately
+3. effectively display and communicate meaning from spatial, temporal, and textual data
+4. articulate the process, benefits, and challenges of "Big Data" manipulation
+5. use current analysis, presentation, and collaboration tools in the data science field.
 
 These learning outcomes are related to those expected of students completing the Geography program. 
 

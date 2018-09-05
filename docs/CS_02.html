@@ -10,8 +10,9 @@
 
 
 
+<meta name="date" content="2018-09-06" />
 
-<title>Resources</title>
+<title>My grandfather says climate is cooling</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -469,49 +470,68 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Resources</h1>
+<h1 class="title toc-ignore">My grandfather says climate is cooling</h1>
+<h3 class="subtitle"><em>Import data, generate and save a graphic.</em></h3>
+<h4 class="date"><em>2018-09-06</em></h4>
 
 </div>
 
 
-<div id="data-science" class="section level2">
-<h2>Data Science</h2>
+<div id="background" class="section level1">
+<h1>Background</h1>
+<div id="reading" class="section level2">
+<h2>Reading</h2>
 <ul>
-<li><a href="https://www.quora.com/What-classes-should-I-take-if-I-want-to-become-a-data-scientist">What classes should I take if I want to become a data scientist?</a></li>
+<li>R4DS <a href="http://r4ds.had.co.nz/introduction.html">Chapter 1</a></li>
+<li>R4DS <a href="http://r4ds.had.co.nz/explore-intro.html">Chapter 2</a></li>
+<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-basic-r"><em>How to Make a Histogram with Basic R</em></a></li>
+<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-ggplot2"><em>How to Make a Histogram with ggplot</em></a></li>
 </ul>
+<p>You are at a family gathering at Niagara Falls and your grandfather, who lives nearby, claims that summer temperatures are colder now than they were when he was a kid in the 1920s. Your inner data scientist thinks this is an unlikely but you decide to look into it.</p>
+<p>You will use the NASA GISS temperature record for the Buffalo Niagara Airport available <a href="https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&amp;dt=1&amp;ds=5">from this website</a>. Later we’ll learn how to use APIs to interact with online databases, but for now we’ll work with a simple csv file.</p>
 </div>
-<div id="getting-started-with-r" class="section level2">
-<h2>Getting Started with R</h2>
-<div style="height: 10px;">
+<div id="download-the-temperature-data" class="section level2">
+<h2>Download the temperature data</h2>
+<pre class="r"><code>library(tidyverse)
 
+# define the link to the data - you can try this in your browser too
+dataurl=&quot;https://raw.githubusercontent.com/AdamWilsonLab/SpatialDataScience/master/docs/02_assets/buffaloweather.csv&quot;</code></pre>
+<p>This url points to a CSV file with monthly mean temperatures from the GISS dataset. You can <a href="https://raw.githubusercontent.com/AdamWilsonLab/SpatialDataScience/master/docs/02_assets/buffaloweather.csv">check out the file here</a>. Now use <code>read_csv()</code> to download and import the CSV file directly from the website (cool, huh!?).</p>
+<pre class="r"><code>temp=read_csv(dataurl,
+              skip=1, #skip the first line which has column names
+              na=&quot;999.90&quot;, # tell R that 999.90 means missing in this dataset
+              col_names = c(&quot;YEAR&quot;,&quot;JAN&quot;,&quot;FEB&quot;,&quot;MAR&quot;, # define column names 
+                            &quot;APR&quot;,&quot;MAY&quot;,&quot;JUN&quot;,&quot;JUL&quot;,  
+                            &quot;AUG&quot;,&quot;SEP&quot;,&quot;OCT&quot;,&quot;NOV&quot;,  
+                            &quot;DEC&quot;,&quot;DJF&quot;,&quot;MAM&quot;,&quot;JJA&quot;,  
+                            &quot;SON&quot;,&quot;metANN&quot;))
+# renaming is necessary becuase they used dashes (&quot;-&quot;)
+# in the column names and R doesn&#39;t like that.</code></pre>
 </div>
-<ul>
-<li><strong><a href="r_background.html">R Background</a>:</strong> We provide a background of who is using <em>R</em> and why</li>
-<li><strong><a href="r_help.html">First Use of R</a>:</strong> If you have no background with <em>R</em>, this page will provide some details on file types and the workflow of using R and R-Studio. Note the description of <code>.R</code> scripts. I would recommend that most of your work starts with a <code>.R</code> script, and then you build an <code>.Rmd</code> file from code in your script.</li>
-<li><strong><a href="rmarkdown_help.html">R-Studio First Use</a>:</strong> After you have installed <em>R</em> and R-Studio then this page will help you with building your first <code>.Rmd</code> file. We will use this type of file heavily throughout the semester.</li>
-<li><strong><a href="r_visualization.html">R Visualization</a>:</strong> Some random links about <em>R</em> packages for visualization.</li>
-<li><strong><a href="r_cheat.html">R Cheat Sheets</a>:</strong> This page has links to one-page guides to different R packages and data science tools.</li>
-<li><strong><a href="https://google.github.io/styleguide/Rguide.xml">Google’s R Style Guide</a>:</strong> A guide from Google on how to type clean code that allows your code to communicate with others. Think <a href="https://www.amazon.com/Elements-Style-William-Strunk-ebook/dp/B005IT0V8O/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;qid=&amp;sr=">Elements of Style</a>.</li>
-<li><a href="https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf">A very short introduction to R</a></li>
-<li><a href="http://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">R Markdown Cheat Sheet (PDF)</a>, a quick guide to the most commonly used markdown syntax, knitr options, and output formats.</li>
-<li><a href="http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide (PDF)</a>, a more comprehensive reference guide to markdown, knitr, and output format options.</li>
-<li><a href="http://r4stats.com/articles/popularity/">Who’s using R</a></li>
-</ul>
+<div id="explore-the-data" class="section level2">
+<h2>Explore the data</h2>
+<p>Now use your tools to explore the dataset. You can try <code>View(temp)</code> to open the table in a browsable ‘excel-like’ window. Or <code>summary(temp)</code> to get summaries of each column.</p>
 </div>
-<div id="infographic-resources" class="section level2">
-<h2>Infographic resources</h2>
-<ul>
-<li><a href="http://www.r-bloggers.com/r-how-to-layout-and-design-an-infographic/">Infographic Layout</a></li>
-</ul>
+<div id="develop-the-graphic" class="section level2">
+<h2>Develop the graphic</h2>
+<p>You want to make a nice graphic to show your uncle at your next family gathering. Be sure to include informative axis labels, a graph title, a graph subtitle describing the source of the data, the raw data, and a smoothed line showing the overal trend through time.</p>
 </div>
-<div id="learning-more" class="section level2">
-<h2>Learning more</h2>
-<p>For even more in-depth documentation see:</p>
+</div>
+<div id="specific-tasks" class="section level1">
+<h1>Specific Tasks</h1>
 <ul>
-<li><a href="http://adv-r.had.co.nz">Advanced R</a> book for R users who want to improve their programming skills and understanding of the language. It should also be useful for programmers coming to R from other languages, as it explains some of R’s quirks and shows how some parts that seem horrible do have a positive side.</li>
-<li>The website for the <a href="http://yihui.name/knitr/">knitr package</a>. Knitr is an extremely powerful tool for dynamic content generation and the website has a wealth of documentation and examples to help you utilize it to its full potential.</li>
-<li>A detailed overview about writing your own <a href="http://r-pkgs.had.co.nz">R Packages</a> by Hadley Wickham.</li>
+<li>Create a new R script in RStudio</li>
+<li>Load the iris dataset with <code>data(iris)</code></li>
+<li>Calculate the mean of the <code>Petal.Length</code> field</li>
+<li>Plot the distribution of the <code>Petal.Length</code> column as a histogram</li>
+<li>Save the script</li>
+<li>Click ‘Source’ in RStudio to run it from beginning to end</li>
 </ul>
+<p>What do you tell your grandfather?</p>
+</div>
+<div id="extra-time" class="section level1">
+<h1>Extra time?</h1>
+<p>If you have extra time, use the <a href="https://data.giss.nasa.gov/gistemp/stdata/">station selector</a> to find the links to download additional stations and make additional plots. You could even merge different stations into the same table and plot them together.</p>
 </div>
 
 <!-- Google Analytics -->

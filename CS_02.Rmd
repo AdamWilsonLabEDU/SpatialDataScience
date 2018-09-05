@@ -1,0 +1,90 @@
+---
+title: My grandfather says climate is cooling
+date: 2018-09-06 
+subtitle: Import data, generate and save a graphic.
+reading:
+  - The [ggplot2 vignette](https://ggplot2.tidyverse.org/)
+tasks:
+  - Create a new R script in RStudio
+  - Load data from a comma-separated-values formatted text file hosted on a website
+  - Graph the annual mean temperature in June, July and August (`JJA`) using ggplot
+  - Add a smooth line with `geom_smooth()`
+  - Add informative axis labels using `xlab()` and `ylab()` including [units](https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&dt=1&ds=5)
+  - Add a graph title with `ggtitle()`
+  - Save a graphic to a png file using `png()` and `dev.off()` OR [`ggsave`](https://ggplot2.tidyverse.org/reference/ggsave.html)
+  - Save the script
+  - Click 'Source' in RStudio to run the script from beginning to end
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+source("functions.R")
+```
+
+# Background
+
+## Reading
+```{r reading,results='asis',echo=F}
+md_bullet(metadata$reading)
+```
+
+You are at a family gathering at Niagara Falls and your grandfather, who lives nearby, claims that summer temperatures are colder now than they were when he was a kid in the 1920s.  Your inner data scientist thinks this is an unlikely but you decide to look into it.  
+
+You will use the NASA GISS temperature record for the Buffalo Niagara Airport available [from this website](https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&dt=1&ds=5).  Later we'll learn how to use APIs to interact with online databases, but for now we'll work with a simple csv file.
+
+## Download the temperature data
+
+```{r, message=F}
+library(tidyverse)
+
+# define the link to the data - you can try this in your browser too
+dataurl="https://raw.githubusercontent.com/AdamWilsonLab/SpatialDataScience/master/docs/02_assets/buffaloweather.csv"
+```
+
+This url points to a CSV file with monthly mean temperatures from the GISS dataset.  You can [check out the file here](`r dataurl`).  Now use `read_csv()` to download and import the CSV file directly from the website (cool, huh!?).
+
+```{r, message=F, eval=F}
+temp=read_csv(dataurl,
+              skip=1, #skip the first line which has column names
+              na="999.90", # tell R that 999.90 means missing in this dataset
+              col_names = c("YEAR","JAN","FEB","MAR", # define column names 
+                            "APR","MAY","JUN","JUL",  
+                            "AUG","SEP","OCT","NOV",  
+                            "DEC","DJF","MAM","JJA",  
+                            "SON","metANN"))
+# renaming is necessary becuase they used dashes ("-")
+# in the column names and R doesn't like that.
+```
+
+## Explore the data
+
+Now use your tools to explore the dataset.  You can try `View(temp)` to open the table in a browsable 'excel-like' window.  Or `summary(temp)` to get summaries of each column.
+
+## Develop the graphic
+
+You want to make a nice graphic to show your uncle at your next family gathering.  Be sure to include informative axis labels, a graph title, a graph subtitle describing the source of the data, the raw data, and a smoothed line showing the overal trend through time.
+
+```{r, eval=F,echo=F}
+p1=ggplot(temp,aes(x=YEAR,y=JJA))+
+  geom_line(col=grey(.2))+
+  geom_smooth(col="red")+
+  ylab("Mean Summer Temperatures (C)")+
+  ggtitle("Mean Summer Temperatures in Buffalo, NY (1880-2018)",
+          subtitle = "Data from the Global Historical Climate Network\n Red line is a LOESS smooth")+
+  xlab("Year")
+png("02_assets/buffalo.png")
+p1
+dev.off()
+```
+
+# Specific Tasks
+```{r tasks,results='asis',echo=F}
+md_bullet(metadata$tasks)
+```
+
+What do you tell your grandfather?
+
+# Extra time?
+
+If you have extra time, use the [station selector](https://data.giss.nasa.gov/gistemp/stdata/) to find the links to download additional stations and make additional plots.  You could even merge different stations into the same table and plot them together.  

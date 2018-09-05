@@ -442,6 +442,9 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
       <a href="Resources.html">Resources</a>
     </li>
     <li>
@@ -473,12 +476,12 @@ div.tocify {
 
 <p>Below are a set of tasks that we will work in class (either alone or in small groups).</p>
 <hr />
-<div id="create-a-simple-functioning-script" class="section level2">
-<h2><a href="./CS_01.html">Create a simple, functioning script</a></h2>
+<div id="create-a-simple-functioning-script" class="section level1">
+<h1><a href="./CS_01.html">Create a simple, functioning script</a></h1>
 <p>2018-08-30</p>
 <p>Write a script that reads in data, calculates a statistic, and makes a plot.</p>
-<div id="readings" class="section level3">
-<h3>Readings</h3>
+<div id="readings" class="section level2">
+<h2>Readings</h2>
 <ul>
 <li>R4DS <a href="http://r4ds.had.co.nz/introduction.html">Chapter 1</a></li>
 <li>R4DS <a href="http://r4ds.had.co.nz/explore-intro.html">Chapter 2</a></li>
@@ -486,8 +489,8 @@ div.tocify {
 <li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-ggplot2"><em>How to Make a Histogram with ggplot</em></a></li>
 </ul>
 </div>
-<div id="tasks" class="section level3">
-<h3>Tasks</h3>
+<div id="tasks" class="section level2">
+<h2>Tasks</h2>
 <ul>
 <li>Create a new R script in RStudio</li>
 <li>Load the iris dataset with <code>data(iris)</code></li>
@@ -495,6 +498,32 @@ div.tocify {
 <li>Plot the distribution of the <code>Petal.Length</code> column as a histogram</li>
 <li>Save the script</li>
 <li>Click ‘Source’ in RStudio to run it from beginning to end</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="my-grandfather-says-climate-is-cooling" class="section level1">
+<h1><a href="./CS_02.html">My grandfather says climate is cooling</a></h1>
+<p>2018-09-06</p>
+<p>Import data, generate and save a graphic.</p>
+<div id="readings-1" class="section level2">
+<h2>Readings</h2>
+<ul>
+<li>The <a href="https://ggplot2.tidyverse.org/">ggplot2 vignette</a></li>
+</ul>
+</div>
+<div id="tasks-1" class="section level2">
+<h2>Tasks</h2>
+<ul>
+<li>Create a new R script in RStudio</li>
+<li>Load data from a comma-separated-values formatted text file hosted on a website</li>
+<li>Graph the annual mean temperature in June, July and August (<code>JJA</code>) using ggplot</li>
+<li>Add a smooth line with <code>geom_smooth()</code></li>
+<li>Add informative axis labels using <code>xlab()</code> and <code>ylab()</code> including <a href="https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&amp;dt=1&amp;ds=5">units</a></li>
+<li>Add a graph title with <code>ggtitle()</code></li>
+<li>Save a graphic to a png file using <code>png()</code> and <code>dev.off()</code> OR <a href="https://ggplot2.tidyverse.org/reference/ggsave.html"><code>ggsave</code></a></li>
+<li>Save the script</li>
+<li>Click ‘Source’ in RStudio to run the script from beginning to end</li>
 </ul>
 </div>
 </div>
@@ -510,6 +539,13 @@ div.tocify {
 </script>
 
 <!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
 <div id="disqus_thread" style="margin-top: 45px;"></div>
 <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -525,7 +561,7 @@ div.tocify {
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
               comments powered by Disqus.</a>
 </noscript>
-
+-->
 
 <!-- give the footer some space -->
 <br/>
