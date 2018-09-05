@@ -1,0 +1,39 @@
+---
+title: "Course Schedule"
+---
+
+Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  
+
+**Readings**
+
+In the table below, R4DS refers to [_R for Data Science_ by Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz) and, while GCR refers to [_Geocomputation with R_ by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)](https://geocompr.robinlovelace.net/).
+
+
+```{r, echo=FALSE, message=FALSE, purl=FALSE}
+source("functions.R")
+library(fullcalendar)
+library(lubridate)
+library(dplyr)
+
+yamls=yaml_dir()
+
+dates_cs=do.call(rbind,lapply(yamls,function(x) cbind.data.frame(date=ymd(x$date),title=x$file2,
+                                                        type=x$type,url=x$url)))
+
+#dates_read=do.call(rbind,lapply(yamls,function(x) cbind.data.frame(
+#  date=floor_date(ymd(x$date)+1, "week"),
+#  title=x$reading,
+#  url="",
+#  type="reading")))
+
+dates_all=dates_cs#bind_rows(dates_cs,dates_read)
+
+dates_all$color=ifelse(dates_all$type=="CS","red","green")
+
+fullcalendar(dates_all, settings = list(firstDay = 1,
+                                    height = 500, aspectRatio = 1.75,
+                                    header = list(right= "week,month,listMonth"),
+                                    footer = list(right = "today prev,next, title"),
+                                    titleFormat = ' MM-YYYY'))
+
+```

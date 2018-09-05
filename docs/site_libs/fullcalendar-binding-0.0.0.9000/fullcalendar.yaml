@@ -1,0 +1,27 @@
+dependencies:
+  - name: moment
+    version: 2.20.1
+    src: htmlwidgets/lib/moment-2.20.1/
+    script:
+      - moment.min.js
+  - name: jquery
+    version: 3.2.1
+    src: htmlwidgets/lib/jquery-3.2.1/
+    script:
+      - jquery.min.js
+  - name: jquery-ui
+    version: 1.12.1
+    src: htmlwidgets/lib/jquery-ui-1.12.1/
+    script:
+      - jquery-ui.min.js
+  - name: fullcalendar
+    version: 3.8.0
+    src: htmlwidgets/lib/fullcalendar-3.8.0/
+    script:
+      - fullcalendar.min.js
+    stylesheet:
+      - fullcalendar.min.css
+
+
+
+

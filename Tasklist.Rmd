@@ -11,18 +11,26 @@ source("functions.R")
 yamls=yaml_dir()
 ```
 
-Below are a set of tasks that we will work in class (either alone or in small groups).
+Below are a set of tasks that we will work on in class (either alone or in small groups).
 
 
-```{r reading,results='asis',echo=F}
+```{r reading2,results='asis',echo=F}
 for(i in 1:length(yamls)){
   cat("\n ___ \n") 
-  cat(paste("# [",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
+  cat(paste("# [",yamls[[i]]$file2,": ",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
   cat(paste(" ",yamls[[i]]$date,"  \n \n ",sep=""))
   cat(paste(" ",yamls[[i]]$subtitle,"  \n \n ",sep=""))
+#  cat('<div class="well">')
+  cat(paste0('<button data-toggle="collapse" class="btn-sm" data-target="#i',i,'">Readings</button>'))
+  cat(paste0('<div id="i',i,'" class="collapse">'))
   cat("\n## Readings \n")
   md_bullet(yamls[[i]]$reading)
+  cat('</div>')
+  cat(paste0('<button data-toggle="collapse" class="btn-sm" data-target="#t',i,'">Tasks</button>'))
+  cat(paste0('<div id="t',i,'" class="collapse">'))
   cat("\n## Tasks \n")
   md_bullet(yamls[[i]]$tasks)
+cat('</div>')
 }
 ```
+

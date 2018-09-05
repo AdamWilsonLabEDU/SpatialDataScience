@@ -11,9 +11,9 @@
 
 
 
-<title>Tasklist</title>
+<title>Course Schedule</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-3.2.1/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -25,6 +25,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="site_libs/moment-2.20.1/moment.min.js"></script>
+<script src="site_libs/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<link href="site_libs/fullcalendar-3.8.0/fullcalendar.min.css" rel="stylesheet" />
+<script src="site_libs/fullcalendar-3.8.0/fullcalendar.min.js"></script>
+<script src="site_libs/fullcalendar-binding-0.0.0.9000/fullcalendar.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -242,7 +248,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -469,76 +475,16 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Tasklist</h1>
+<h1 class="title toc-ignore">Course Schedule</h1>
 
 </div>
 
 
-<p>Below are a set of tasks that we will work on in class (either alone or in small groups).</p>
-<hr />
-<div id="cs_01-create-a-simple-functioning-script" class="section level1">
-<h1><a href="./CS_01.html">CS_01 : Create a simple, functioning script</a></h1>
-<p>2018-08-30</p>
-<p>Write a script that reads in data, calculates a statistic, and makes a plot.</p>
-<button data-toggle="collapse" class="btn-sm" data-target="#i1">
-Readings
-</button>
-<div id="i1" class="collapse">
-<h2 id="readings">Readings</h2>
-<ul>
-<li>R4DS <a href="http://r4ds.had.co.nz/introduction.html">Chapter 1</a></li>
-<li>R4DS <a href="http://r4ds.had.co.nz/explore-intro.html">Chapter 2</a></li>
-<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-basic-r"><em>How to Make a Histogram with Basic R</em></a></li>
-<li>Datacamp’s <a href="https://www.datacamp.com/community/tutorials/make-histogram-ggplot2"><em>How to Make a Histogram with ggplot</em></a></li>
-</ul>
-</div>
-<button data-toggle="collapse" class="btn-sm" data-target="#t1">
-Tasks
-</button>
-<div id="t1" class="collapse">
-<h2 id="tasks">Tasks</h2>
-<ul>
-<li>Create a new R script in RStudio</li>
-<li>Load the iris dataset with <code>data(iris)</code></li>
-<li>Calculate the mean of the <code>Petal.Length</code> field</li>
-<li>Plot the distribution of the <code>Petal.Length</code> column as a histogram</li>
-<li>Save the script</li>
-<li>Click ‘Source’ in RStudio to run it from beginning to end</li>
-</ul>
-</div>
-<hr />
-</div>
-<div id="cs_02-my-grandfather-says-climate-is-cooling" class="section level1">
-<h1><a href="./CS_02.html">CS_02 : My grandfather says climate is cooling</a></h1>
-<p>2018-09-06</p>
-<p>Import data, generate and save a graphic.</p>
-<button data-toggle="collapse" class="btn-sm" data-target="#i2">
-Readings
-</button>
-<div id="i2" class="collapse">
-<h2 id="readings-1">Readings</h2>
-<ul>
-<li>The <a href="https://ggplot2.tidyverse.org/">ggplot2 vignette</a></li>
-</ul>
-</div>
-<button data-toggle="collapse" class="btn-sm" data-target="#t2">
-Tasks
-</button>
-<div id="t2" class="collapse">
-<h2 id="tasks-1">Tasks</h2>
-<ul>
-<li>Create a new R script in RStudio</li>
-<li>Load data from a comma-separated-values formatted text file hosted on a website</li>
-<li>Graph the annual mean temperature in June, July and August (<code>JJA</code>) using ggplot</li>
-<li>Add a smooth line with <code>geom_smooth()</code></li>
-<li>Add informative axis labels using <code>xlab()</code> and <code>ylab()</code> including <a href="https://data.giss.nasa.gov/cgi-bin/gistemp/stdata_show.cgi?id=425003010120&amp;dt=1&amp;ds=5">units</a></li>
-<li>Add a graph title with <code>ggtitle()</code></li>
-<li>Save a graphic to a png file using <code>png()</code> and <code>dev.off()</code> OR <a href="https://ggplot2.tidyverse.org/reference/ggsave.html"><code>ggsave</code></a></li>
-<li>Save the script</li>
-<li>Click ‘Source’ in RStudio to run the script from beginning to end to re-run the entire process</li>
-</ul>
-</div>
-</div>
+<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
+<p><strong>Readings</strong></p>
+<p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
+<div id="htmlwidget-686092dc917a388ea16d" style="width:672px;height:480px;" class="fullcalendar html-widget"></div>
+<script type="application/json" data-for="htmlwidget-686092dc917a388ea16d">{"x":{"firstDay":1,"height":500,"aspectRatio":1.75,"header":{"right":"week,month,listMonth"},"footer":{"right":"today prev,next, title"},"titleFormat":" MM-YYYY","events":[{"date":"2018-08-30","title":"CS_01","type":"CS","url":"./CS_01.html","color":"red"},{"date":"2018-09-06","title":"CS_02","type":"CS","url":"./CS_02.html","color":"red"}]},"evals":[],"jsHooks":[]}</script>
 
 <!-- Google Analytics -->
 <script>
