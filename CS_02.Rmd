@@ -66,7 +66,7 @@ Now use your tools to explore the dataset.  You can try `View(temp)` to open the
 
 ## Develop the graphic
 
-You want to make a nice graphic to show your uncle at your next family gathering.  Be sure to include informative axis labels, a graph title, a graph subtitle describing the source of the data, the raw data, and a smoothed line showing the overal trend through time.
+You want to make a nice graphic to show your grandfather at your next family gathering.  Be sure to include informative axis labels, a graph title, a graph subtitle describing the source of the data, the raw data, and a smoothed line showing the overal trend through time.
 
 ```{r, eval=F,echo=F}
 p1=ggplot(temp,aes(x=YEAR,y=JJA))+
