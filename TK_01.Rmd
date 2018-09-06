@@ -53,7 +53,7 @@ git clone https://github.com/us-robotics/brain.git
 3. Sally's next step is to add the PositronicBrain.R file to the list of changed files to commit.
 
 ```
-git add PositronicBrain.T
+git add PositronicBrain.R
 ```
 
 4. When Sally is done adding files, she will commit those changes, adding a brief message to describe her changes.
