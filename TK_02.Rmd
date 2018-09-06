@@ -1,0 +1,44 @@
+---
+title: Transitioning to Version Control with Git/Github
+date: 2018-09-11 
+subtitle: Install Git and get organized!
+reading:
+  - Chapters [13-15 in Happy Git and Github for the useR - Installation](http://happygitwithr.com){target='blank'}
+  - Overview of [Using the R-Studio GUI by R-Studio](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN){target='blank'}
+  - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}
+  - RStudio and [the Git GUI](https://www.youtube.com/watch?v=E2d91v1Twcc){target='blank'}
+tasks:
+  - Create a new project in Rstudio and connect it to your new repository I created in GitHub
+  - Download [this zipfile](data/GEO503.zip.zip) and move the folder structure into your new local repository (folder). Check your folder structure in your git repo to match the format for our class.
+  - Update your README.md in your repository
+  - Push the repository up to GitHub
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+source("functions.R")
+```
+
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(metadata$reading)
+```
+
+## Course Folder Structure
+
+After syncing your local computer with your class repository, please [download this zipfile](data/GEO503.zip.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
+
+
+```{r, out.width="400px", echo=F}
+knitr::include_graphics("img/folderstructure.png")
+```
+
+# Tasks
+```{r tasks,results='asis',echo=F}
+md_bullet(metadata$tasks)
+```
+

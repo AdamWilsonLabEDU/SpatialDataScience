@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Spatially-explicit logistic regression</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/blazy-1.8.2/blazy.min.js"></script>
+<script src="site_libs/pymjs-1.3.2/pym.v1.js"></script>
+<script src="site_libs/widgetframe-binding-0.3.0/widgetframe.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="10_Git.html">10 Version Control with Git</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="Homework.html">Homeworks</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Spatially-explicit logistic regression</h1>
+
+</div>
+
+
+<p><a href="scripts/13_SDM_Exercise.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<pre class="r"><code>library(knitr)
+library(raster)
+library(rasterVis)
+library(dplyr)
+library(ggplot2)
+# devtools::install_github(&quot;dkahle/ggmap&quot;)
+library(ggmap)
+library(rgdal)
+library(rgeos)
+library(tidyr)
+library(sf)
+library(leaflet)
+library(DT)
+library(widgetframe)
+
+## New Packages
+library(mgcv) # package for Generalized Additive Models
+library(ncf) # has an easy function for correlograms
+library(grid)
+library(gridExtra)
+library(xtable)
+library(maptools)</code></pre>
+<div id="goal-of-this-class" class="section level2">
+<h2>Goal of this class</h2>
+<ul>
+<li>To demonstrate a simple presence/absence modelling in spatial context.</li>
+<li>To model spatial dependence (autocorrelation) in the response.</li>
+</ul>
+<p>Overview of <a href="http://cran.r-project.org/web/views/Spatial.html">R’s spatial toolset is here</a>.</p>
+<p>Note: this is <em>not</em> meant to be an exhaustive introduction to species distribution modelling.</p>
+</div>
+<div id="modeling-spatial-autocorrelation" class="section level2">
+<h2>Modeling spatial autocorrelation</h2>
+<p>Today we will model space by <strong>smooth splines</strong> in <code>mgcv</code> package.</p>
+<p>Examples of Alternative approaches:</p>
+<ul>
+<li>Simple polynomials</li>
+<li>Eigenvector Mapping: <code>vegan</code>, <code>spdep</code></li>
+<li>Predictive process: <code>spbayes</code></li>
+</ul>
+<p>Methods that tweak variance-covariance matrix of <strong>Multivariate Normal Distribution</strong>:</p>
+<ul>
+<li>Generalized Least Squares: <code>MASS</code>, <code>nlme</code></li>
+<li>Autoregressive Models: <code>spdep</code></li>
+<li>GeoBUGS module in OpenBUGS</li>
+</ul>
+<p>See <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x/full">Dormann et al. 2007 Ecography, 30: 609-628</a> for a review.</p>
+</div>
+<div id="species-distribution-modeling" class="section level2">
+<h2>Species Distribution Modeling</h2>
+<p>We’ll attempt to explain the spatial distribution of the Purple finch (<em>Carpodacus purpureus</em>) in San Diego county, California:</p>
+<p><img src="12_assets/finch_photo.png" alt="purple finch" /> (photo/Wikimedia)</p>
+</div>
+<div id="preparing-the-data" class="section level2">
+<h2>Preparing the data</h2>
+<p>Load a vector dataset (shapefile) representing the <a href="http://sdplantatlas.org/BirdAtlas/BirdPages.htm">San Diego bird atlas data</a> for the Purple finch:</p>
+<pre class="r"><code>finch &lt;- read_sf(system.file(&quot;extdata&quot;, &quot;finch&quot;, 
+                package = &quot;DataScienceData&quot;),
+                layer=&quot;finch&quot;)
+
+st_crs(finch)=&quot;+proj=utm +zone=11 +ellps=GRS80 +datum=NAD83 +units=m +no_defs &quot;</code></pre>
+<div id="plot-the-shapefile" class="section level3">
+<h3>Plot the shapefile</h3>
+<p>Plot the finch dataset in leaflet.</p>
+<pre class="r"><code>st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+  leaflet() %&gt;% addTiles() %&gt;%
+  addPolygons()%&gt;%
+  frameWidget(height=400)</code></pre>
+<div id="htmlwidget-5df978fd3f7ccaf1fe9e" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5df978fd3f7ccaf1fe9e">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>But we can do better than that. Let’s add a couple layers and an overview map.</p>
+<pre class="r"><code>st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+  leaflet() %&gt;% addTiles() %&gt;%
+  addPolygons(label=paste(finch$BLOCKNAME,&quot; (NDVI=&quot;,finch$ndvi,&quot;)&quot;),
+              group = &quot;NDVI&quot;,
+              color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile(&quot;YlOrRd&quot;, ndvi)(ndvi),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE)) %&gt;%
+    addPolygons(label=paste(finch$BLOCKNAME,&quot; (NDVI=&quot;,finch$ndvi,&quot;)&quot;),
+              group = &quot;Presence/Absence&quot;,
+              color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ifelse(finch$present,&quot;red&quot;,&quot;transparent&quot;),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE)) %&gt;%
+  addLayersControl(
+    baseGroups = c(&quot;NDVI&quot;, &quot;Presence/Absence&quot;),
+    options = layersControlOptions(collapsed = FALSE)
+  )%&gt;%
+addMiniMap()%&gt;%
+  frameWidget(height = 600)</code></pre>
+<div id="htmlwidget-529e1b2842b5ac56b65b" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-529e1b2842b5ac56b65b">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-5.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
+<p>Explore the other variables in the <code>finch</code> dataset with <code>summary(finch)</code>. Build on the map above to add the mean elevation (<code>meanelev</code>) in each polygon as an additional layer.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+<pre class="r"><code>st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+  leaflet() %&gt;% addTiles() %&gt;%
+  addPolygons(label=paste(finch$BLOCKNAME,&quot; (NDVI=&quot;,finch$ndvi,&quot;)&quot;),
+              group = &quot;NDVI&quot;,
+              color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile(&quot;YlOrRd&quot;, ndvi)(ndvi),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE)) %&gt;%
+  addPolygons(label=paste(finch$BLOCKNAME,&quot; (Elevation=&quot;,finch$meanelev,&quot;)&quot;),
+              group = &quot;Elevation&quot;,
+              color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile(&quot;YlOrRd&quot;, meanelev)(meanelev),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE)) %&gt;%
+    addPolygons(label=paste(finch$BLOCKNAME,&quot; (NDVI=&quot;,finch$ndvi,&quot;)&quot;),
+              group = &quot;Presence/Absence&quot;,
+              color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ifelse(finch$present,&quot;red&quot;,&quot;transparent&quot;),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE)) %&gt;%
+  addLayersControl(
+    baseGroups = c(&quot;NDVI&quot;, &quot;Elevation&quot;,&quot;Presence/Absence&quot;),
+    options = layersControlOptions(collapsed = FALSE)
+  )%&gt;%
+addMiniMap()%&gt;%
+  frameWidget(height=600)</code></pre>
+<div id="htmlwidget-8e14d6ef512560b732b0" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e14d6ef512560b732b0">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-6.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>You could also visualize these data with multiple ggplot panels:</p>
+<pre class="r"><code>p1=ggplot(finch) +
+    scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;)+
+    coord_equal()+
+    ylab(&quot;&quot;)+xlab(&quot;&quot;)+
+     theme(legend.position = &quot;right&quot;)+
+    theme(axis.ticks = element_blank(), axis.text = element_blank())
+
+p1a=p1+geom_sf(aes(fill = ndvi))
+p1b=p1+geom_sf(aes(fill = meanelev))
+p1c=p1+geom_sf(aes(fill = urban))
+p1d=p1+geom_sf(aes(fill = maxtmp))
+
+grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  </code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-7-1.png" width="2100" /></p>
+</div>
+</div>
+<div id="explore-the-data" class="section level2">
+<h2>Explore the data</h2>
+<p>Now look at the associated data frame (analogous to the *.dbf file that accompanies a shapefile):</p>
+<pre class="r"><code>datatable(finch, options = list(pageLength = 5))%&gt;%
+  frameWidget(height=400)</code></pre>
+<div id="htmlwidget-6c9ccf74152594a7a09c" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6c9ccf74152594a7a09c">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<blockquote>
+<p>Note: in your final projects, don’t simply print out large tables or outputs… Filter/select only data relevent to tell your ‘story’…</p>
+</blockquote>
+</div>
+<div id="scaling-and-centering-the-environmental-variables" class="section level2">
+<h2>Scaling and centering the environmental variables</h2>
+<p>Statistical models generally perform better when covariates have a mean of zero and variance of 1. We can quickly calculate this using the <code>scale()</code> function:</p>
+<p>First let’s select only the columns we will use for modeling.</p>
+<pre class="r"><code>finch=mutate(finch,ndvi_scaled=as.numeric(scale(ndvi)))</code></pre>
+</div>
+<div id="fitting-the-models" class="section level2">
+<h2>Fitting the models</h2>
+<p>Compare three models:</p>
+<ol style="list-style-type: decimal">
+<li>Only NDVI</li>
+<li>Only Space</li>
+<li>Space and NDVI</li>
+</ol>
+<div id="model-1---only-ndvi" class="section level3">
+<h3>Model 1 - only NDVI</h3>
+<p>Now we will do the actual modelling. The first simple model links the probability of a presences or absences to NDVI.</p>
+<p><br /><span class="math display">log(<em>p</em><sub><em>i</em></sub>/1 − <em>p</em><sub><em>i</em></sub>)=<em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>N</em><em>D</em><em>V</em><em>I</em><sub><em>i</em></sub></span><br /> <br /><span class="math display"><em>o</em><sub><em>i</em></sub> ∼ <em>B</em><em>e</em><em>r</em><em>n</em><em>o</em><em>u</em><em>l</em><em>l</em><em>i</em>(<em>p</em><sub><em>i</em></sub>)</span><br /></p>
+<blockquote>
+<p>Note: this assumes residuals are <em>iid</em> (independent and identically distributed).</p>
+</blockquote>
+<p>It can be fitted by simple glm() in R:</p>
+<pre class="r"><code>  ndvi.only &lt;- glm(present~ndvi_scaled, 
+                   data=finch, family=&quot;binomial&quot;)</code></pre>
+<p>Extract predictions and residuals:</p>
+<pre class="r"><code>  finch$m_pred_ndvi &lt;- predict(ndvi.only, type=&quot;response&quot;)
+  finch$m_resid_ndvi &lt;- residuals(ndvi.only)</code></pre>
+<p>Plot the estimated logistic curve:</p>
+<pre class="r"><code>ggplot(finch,aes(x=ndvi/256,y=m_pred_ndvi))+
+  geom_line(col=&quot;red&quot;)+ 
+  geom_point(mapping=aes(y=present))+
+  xlab(&quot;NDVI&quot;)+
+  ylab(&quot;P(presence)&quot;)</code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-12-1.png" width="2100" /></p>
+<p>Print a summary table:</p>
+<pre class="r"><code>xtable(ndvi.only,
+       caption=&quot;Model summary for &#39;NDVI-only&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
+<!-- Wed Nov 29 16:43:39 2017 -->
+<table border="1">
+<caption align="bottom">
+Model summary for ‘NDVI-only’
+</caption>
+<tr>
+<th>
+</th>
+<th>
+Estimate
+</th>
+<th>
+Std. Error
+</th>
+<th>
+z value
+</th>
+<th>
+Pr(&gt;|z|)
+</th>
+</tr>
+<tr>
+<td align="right">
+(Intercept)
+</td>
+<td align="right">
+-2.9388
+</td>
+<td align="right">
+0.2960
+</td>
+<td align="right">
+-9.93
+</td>
+<td align="right">
+0.0000
+</td>
+</tr>
+<tr>
+<td align="right">
+ndvi_scaled
+</td>
+<td align="right">
+2.6521
+</td>
+<td align="right">
+0.3223
+</td>
+<td align="right">
+8.23
+</td>
+<td align="right">
+0.0000
+</td>
+</tr>
+</table>
+</div>
+<div id="model-2---only-space" class="section level3">
+<h3>Model 2 - only space</h3>
+<p>The second model fits only the spatial trend in the data (using GAM and splines):</p>
+<pre class="r"><code>  space.only &lt;- gam(present~s(X_CEN, Y_CEN),
+                   data=finch, family=&quot;binomial&quot;)</code></pre>
+<p>Extract the predictions and residuals</p>
+<pre class="r"><code>  finch$m_pred_space &lt;- as.numeric(predict(space.only, type=&quot;response&quot;))
+  finch$m_resid_space &lt;- residuals(space.only)</code></pre>
+<p>Plot the <strong><em>spatial term</em></strong> of the model:</p>
+<pre class="r"><code>  finch$m_space=as.numeric(predict(space.only,type=&quot;terms&quot;))
+
+st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+  leaflet() %&gt;% addTiles() %&gt;%
+  addPolygons(color = &quot;#444444&quot;, 
+              weight = 0.1, 
+              smoothFactor = 0.5,
+              opacity = 1.0, 
+              fillOpacity = 0.5,
+              fillColor = ~colorQuantile(&quot;YlOrRd&quot;, m_space)(m_space),
+              highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
+                bringToFront = TRUE))%&gt;%
+  frameWidget(height=200)</code></pre>
+<div id="htmlwidget-79713072df5c0fefa22e" style="width:100%;height:200px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-79713072df5c0fefa22e">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-16.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(space.only)$s.table, 
+       caption=&quot;Model summary for &#39;Space-only&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
+<!-- Wed Nov 29 16:43:41 2017 -->
+<table border="1">
+<caption align="bottom">
+Model summary for ‘Space-only’
+</caption>
+<tr>
+<th>
+</th>
+<th>
+edf
+</th>
+<th>
+Ref.df
+</th>
+<th>
+Chi.sq
+</th>
+<th>
+p-value
+</th>
+</tr>
+<tr>
+<td align="right">
+s(X_CEN,Y_CEN)
+</td>
+<td align="right">
+28.83
+</td>
+<td align="right">
+28.98
+</td>
+<td align="right">
+51.06
+</td>
+<td align="right">
+0.01
+</td>
+</tr>
+</table>
+</div>
+<div id="model-3---space-and-ndvi" class="section level3">
+<h3>Model 3 - space and NDVI</h3>
+<p>The third model uses both the NDVI and spatial trends to explain the finch’s occurrences:</p>
+<pre class="r"><code>  space.and.ndvi &lt;- gam(present~ndvi + s(X_CEN, Y_CEN),
+                   data=finch, family=&quot;binomial&quot;)
+  ## extracting predictions and residuals:
+  finch$m_pred_spacendvi &lt;- as.numeric(predict(space.and.ndvi, type=&quot;response&quot;))
+  finch$m_resid_spacendvi &lt;- residuals(space.and.ndvi)</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(space.and.ndvi)$s.table,
+       caption=&quot;Model summary for &#39;Space and NDVI&#39;&quot;)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
+<!-- Wed Nov 29 16:43:42 2017 -->
+<table border="1">
+<caption align="bottom">
+Model summary for ‘Space and NDVI’
+</caption>
+<tr>
+<th>
+</th>
+<th>
+edf
+</th>
+<th>
+Ref.df
+</th>
+<th>
+Chi.sq
+</th>
+<th>
+p-value
+</th>
+</tr>
+<tr>
+<td align="right">
+s(X_CEN,Y_CEN)
+</td>
+<td align="right">
+23.35
+</td>
+<td align="right">
+25.84
+</td>
+<td align="right">
+47.74
+</td>
+<td align="right">
+0.01
+</td>
+</tr>
+</table>
+<p>Plot the <strong><em>spatial term</em></strong> of the model:</p>
+<pre class="r"><code>  finch$m_ndvispace=as.numeric(predict(space.and.ndvi,type=&quot;terms&quot;)[,2])
+
+  st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+    ggplot(aes(x=X_CEN,y=Y_CEN)) +
+    geom_sf(aes(fill = m_ndvispace))+
+    geom_point(aes(col=as.logical(present)))+
+  scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;,name=&quot;Spatial Effects&quot;)+
+  scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;)</code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-20-1.png" width="4200" /></p>
+</div>
+</div>
+<div id="examine-the-fitted-models" class="section level2">
+<h2>Examine the fitted models</h2>
+<p>Now let’s put all of the predictions together into a single <em>long</em> table:</p>
+<pre class="r"><code>p1=st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
+  ggplot()+
+  scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;)+
+  scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;,guide=&quot;none&quot;)+
+  coord_equal()+
+  ylab(&quot;&quot;)+xlab(&quot;&quot;)+
+  theme(legend.position = &quot;right&quot;)+
+  theme(axis.ticks = element_blank(), axis.text = element_blank())
+
+pts=geom_point(data=finch,aes(x=X_CEN,y=Y_CEN,col=as.logical(present)),size=.5)
+    
+
+p1a=p1+geom_sf(aes(fill = m_pred_spacendvi))+pts
+p1b=p1+geom_sf(aes(fill = m_pred_space))+pts
+p1c=p1+geom_sf(aes(fill = m_pred_ndvi))+pts
+
+grid.arrange(p1a,p1b,p1c,ncol=1)  </code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-21-1.png" width="2100" /></p>
+</div>
+<div id="model-comparison" class="section level2">
+<h2>Model comparison</h2>
+<p>We can compare model performance of the models with Akaike’s Information Criterion (AIC). This uses the formula <span class="math inline"><em>A</em><em>I</em><em>C</em> = −2 * <em>l</em><em>o</em><em>g</em> − <em>l</em><em>i</em><em>k</em><em>e</em><em>l</em><em>i</em><em>h</em><em>o</em><em>o</em><em>d</em> + <em>k</em> * <em>n</em><em>p</em><em>a</em><em>r</em></span>, where</p>
+<ul>
+<li><span class="math inline"><em>n</em><em>p</em><em>a</em><em>r</em></span> number of parameters in the fitted model</li>
+<li><span class="math inline"><em>k</em> = 2</span> penalty per parameter</li>
+</ul>
+<p>Lower is better…</p>
+<pre class="r"><code>datatable(AIC(ndvi.only, 
+              space.only, 
+              space.and.ndvi))</code></pre>
+<div id="htmlwidget-e907524724b8692d9096" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e907524724b8692d9096">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi"],[2,29.8323138321685,25.3517420259682],[232.605812199647,183.750431036677,165.783735501497]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="spatial-autocorrelation-of-residuals" class="section level2">
+<h2>Spatial Autocorrelation of Residuals</h2>
+<p>Should always check the spatial correlation in model residuals to evaluate assumptions. We will use the function <code>correlog</code> from the <code>ncf</code> package.</p>
+<pre class="r"><code>inc=10000  #spatial increment of correlogram in m
+
+# add coordinates of each polygon&#39;s centroid to the sf dataset 
+finch[,c(&quot;x&quot;,&quot;y&quot;)]=st_centroid(finch)%&gt;%st_coordinates()
+
+#use by() in dplyr package to compute a correlogram for each parameter
+cor=finch%&gt;%
+  dplyr::select(y,x,contains(&quot;resid&quot;),present)%&gt;%
+  gather(key = &quot;key&quot;, value = &quot;value&quot;,contains(&quot;resid&quot;),present,-y,-x)%&gt;%
+  group_by(key)%&gt;%
+  do(var=.$key,cor=correlog(.$x,.$y,.$value,increment=inc, resamp=100,quiet=T))%&gt;%
+  do(data.frame(
+      key=.$key[[1]],
+      Distance = .$cor$mean.of.class/1000,
+      Correlation=.$cor$correlation,
+      pvalue=.$cor$p, stringsAsFactors=F))</code></pre>
+<p>And we can plot the correlograms:</p>
+<pre class="r"><code>ggplot(cor,aes(x=Distance,y=Correlation,col=key,group=key))+
+  geom_point(aes(shape=pvalue&lt;=0.05))+
+  geom_line()+
+  xlab(&quot;Distance (km)&quot;)+ylab(&quot;Spatial\nAuto-correlation&quot;)</code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
+</div>
+<div id="what-did-we-gain-by-making-the-model-spatially-explicit" class="section level2">
+<h2>What did we gain by making the model “spatially explicit”?</h2>
+<ul>
+<li>We know that the effect of NDVI is not artificially amplified by pseudoreplication.</li>
+<li>We have more realistic predictions.</li>
+<li>We have a fitted surface that can be interpreted – perhaps to guide us towards some additional spatially-structured predictors that can be important.</li>
+</ul>
+<div class="well">
+<h2 id="your-turn-1">Your turn</h2>
+<p>Try adding additional co-variates into the spatial model (e.g. elevation or climate).</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<pre class="r"><code>m1 &lt;- gam(present~ndvi+meanelev+
+            wintert+meanppt+urban + 
+            s(X_CEN, Y_CEN),
+            data=finch, family=&quot;binomial&quot;)
+m2 &lt;- gam(present~ndvi+meanppt + 
+            s(X_CEN, Y_CEN),
+            data=finch, family=&quot;binomial&quot;)</code></pre>
+<p>Print a summary table</p>
+<pre class="r"><code>xtable(summary(m1)$p.table)%&gt;%
+    print(type=&quot;html&quot;)</code></pre>
+<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
+<!-- Wed Nov 29 16:44:26 2017 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+Estimate
+</th>
+<th>
+Std. Error
+</th>
+<th>
+z value
+</th>
+<th>
+Pr(&gt;|z|)
+</th>
+</tr>
+<tr>
+<td align="right">
+(Intercept)
+</td>
+<td align="right">
+-8.93
+</td>
+<td align="right">
+19.66
+</td>
+<td align="right">
+-0.45
+</td>
+<td align="right">
+0.65
+</td>
+</tr>
+<tr>
+<td align="right">
+ndvi
+</td>
+<td align="right">
+0.08
+</td>
+<td align="right">
+0.03
+</td>
+<td align="right">
+2.67
+</td>
+<td align="right">
+0.01
+</td>
+</tr>
+<tr>
+<td align="right">
+meanelev
+</td>
+<td align="right">
+-0.01
+</td>
+<td align="right">
+0.01
+</td>
+<td align="right">
+-1.02
+</td>
+<td align="right">
+0.31
+</td>
+</tr>
+<tr>
+<td align="right">
+wintert
+</td>
+<td align="right">
+-0.88
+</td>
+<td align="right">
+1.57
+</td>
+<td align="right">
+-0.56
+</td>
+<td align="right">
+0.58
+</td>
+</tr>
+<tr>
+<td align="right">
+meanppt
+</td>
+<td align="right">
+0.03
+</td>
+<td align="right">
+0.02
+</td>
+<td align="right">
+1.33
+</td>
+<td align="right">
+0.18
+</td>
+</tr>
+<tr>
+<td align="right">
+urban
+</td>
+<td align="right">
+0.00
+</td>
+<td align="right">
+0.03
+</td>
+<td align="right">
+0.17
+</td>
+<td align="right">
+0.87
+</td>
+</tr>
+</table>
+<p>Compare all models</p>
+<pre class="r"><code>datatable(AIC(ndvi.only, 
+          space.only, 
+          space.and.ndvi,
+          m1,m2))</code></pre>
+<div id="htmlwidget-0c0d6f45f68901b11492" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0c0d6f45f68901b11492">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi","m1","m2"],[2,29.8323138321685,25.3517420259682,28.9184248617403,26.1585597408225],[232.605812199647,183.750431036677,165.783735501497,170.010159019245,165.733188000478]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

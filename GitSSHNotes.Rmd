@@ -1,5 +1,5 @@
 ---
-title: "Setting up password-less pushing and pulling to GitHub from RStudio"
+title: "Git and GitHub"
 ---
 
 

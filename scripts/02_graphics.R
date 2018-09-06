@@ -127,10 +127,10 @@ hist(mtcars$mpg)
 #' 8.	`theme`:	Visual defaults (background, grids, axes, typeface, colors, etc.)
 #' 
 #' For example, a simple scatterplot:
-#' <img src="03_assets/ggplot_intro1.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplot_intro1.png" alt="alt text" width="100%">
 #' 
 #' Add variable colors and sizes: 
-#' <img src="03_assets/ggplot_intro2.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplot_intro2.png" alt="alt text" width="100%">
 #' 
 #' ## Simple scatterplot
 #' 
@@ -243,11 +243,11 @@ d +
 #' 
 #' ## Building ggplots
 #' 
-#' <img src="03_assets/ggplotSyntax.png" alt="alt text" width="90%">
+#' <img src="02_assets/ggplotSyntax.png" alt="alt text" width="90%">
 #' 
 #' ## Other Plot types
 #' 
-#' <img src="03_assets/ggplot01.png" alt="alt text" width="70%">
+#' <img src="02_assets/ggplot01.png" alt="alt text" width="70%">
 #' 
 #' 
 #' <div class="well">
@@ -270,11 +270,11 @@ d +
 #' 
 #' 
 #' 
-#' <img src="03_assets/ggplot02.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplot02.png" alt="alt text" width="100%">
 #' 
-#' <img src="03_assets/ggplot03.png" alt="alt text" width="70%">
+#' <img src="02_assets/ggplot03.png" alt="alt text" width="70%">
 #' 
-#' <img src="03_assets/ggplot05.png" alt="alt text" width="80%">
+#' <img src="02_assets/ggplot05.png" alt="alt text" width="80%">
 #' 
 #' ### Discrete X, Continuous Y
 #' 
@@ -304,22 +304,22 @@ p +
   geom_violin() + geom_jitter(position = position_jitter(width = .1))
 
 #' 
-#' <img src="03_assets/ggplot06.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplot06.png" alt="alt text" width="100%">
 #' 
 #' ### Three Variables
-#' <img src="03_assets/ggplot07.png" alt="alt text" width="120%">
+#' <img src="02_assets/ggplot07.png" alt="alt text" width="120%">
 #' 
 #' Will return to this when we start working with raster maps.
 #' 
 #' ### Stats
 #' Visualize a data transformation
 #' 
-#' <img src="03_assets/ggplotStat01.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplotStat01.png" alt="alt text" width="100%">
 #' 
 #' * Each stat creates additional variables with a common ``..name..`` syntax
 #' * Often two ways: `stat_bin(geom="bar")`  OR  `geom_bar(stat="bin")`
 #' 
-#' <img src="03_assets/ggplotStat02.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplotStat02.png" alt="alt text" width="100%">
 #' 
 #' ### 2D kernel density estimation
 #' 
@@ -331,7 +331,7 @@ data(geyser)
 m <- ggplot(geyser, aes(x = duration, y = waiting))
 
 #' 
-#' <img src="03_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small>[photo: Greg Willis](https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg)</small>
+#' <img src="02_assets/Old_Faithful.jpg" alt="alt text" width="50%"> <small>[photo: Greg Willis](https://commons.wikimedia.org/wiki/File:Old_Faithful_(3679482556).jpg)</small>
 #' 
 #' See `?geyser` for details.
 #' 
@@ -367,7 +367,7 @@ m + stat_density2d(aes(fill = ..level..), geom="polygon") +
 #' 
 #' 
 #' 
-#' <img src="03_assets/ggplotStat03.png" alt="alt text" width="80%">
+#' <img src="02_assets/ggplotStat03.png" alt="alt text" width="80%">
 #' 
 #' 
 #' <div class="well">
@@ -398,7 +398,7 @@ m + stat_density2d(aes(fill = ..level..), geom="polygon") +
 #' 
 #' ## Specifying Scales
 #' 
-#' <img src="03_assets/ggplotScales01.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplotScales01.png" alt="alt text" width="100%">
 #' 
 #' 
 #' 
@@ -467,17 +467,17 @@ b +
 #' ## [colorbrewer2.org](http://colorbrewer2.org)
 #' 
 #' 
-#' <img src="03_assets/brewer1.png" alt="alt text" width="100%">
+#' <img src="02_assets/brewer1.png" alt="alt text" width="100%">
 #' 
 #' 
 #' 
 #' ## ColorBrewer: Diverging
 #' 
-#' <img src="03_assets/brewer2.png" alt="alt text" width="100%">
+#' <img src="02_assets/brewer2.png" alt="alt text" width="100%">
 #' 
 #' ## ColorBrewer: Filtered
 #' 
-#' <img src="03_assets/brewer3.png" alt="alt text" width="100%">
+#' <img src="02_assets/brewer3.png" alt="alt text" width="100%">
 #' 
 #' 
 #' <div class="well">
@@ -544,12 +544,12 @@ sp + scale_y_log10()
 #' 
 #' ## Coordinate Systems
 #' 
-#' <img src="03_assets/ggplotCoords.png" alt="alt text" width="55%">
+#' <img src="02_assets/ggplotCoords.png" alt="alt text" width="55%">
 #' 
 #' 
 #' ## Position
 #' 
-#' <img src="03_assets/ggplotPosition.png" alt="alt text" width="80%">
+#' <img src="02_assets/ggplotPosition.png" alt="alt text" width="80%">
 #' 
 #' 
 #' 
@@ -601,7 +601,7 @@ ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
 #' 
 #' ## GGplot Themes
 #' 
-#' <img src="03_assets/ggplotThemes.png" alt="alt text" width="80%">
+#' <img src="02_assets/ggplotThemes.png" alt="alt text" width="80%">
 #' 
 #' Quickly change plot appearance with themes.
 #' 
@@ -663,7 +663,7 @@ p + theme_economist()
 #' ## Theme examples: _XKCD_ 
 #' XKCD: A webcomic of romance, sarcasm, math, and language.
 #' 
-#' <img src="03_assets/convincing.png" alt="alt text" width="100%">
+#' <img src="02_assets/convincing.png" alt="alt text" width="100%">
 #' Note: the following code will only work if you have the xkcd font installed.  See `xkcd::vignette("xkcd-intro")` for details.
 #' 
 ## ---- warning=FALSE, message=F-------------------------------------------
@@ -680,7 +680,7 @@ ggplot(mtcars, aes(mpg, wt)) +
 #' # Saving/exporting
 #' 
 #' ## Saving using the GUI
-#' <img src="03_assets/ggplot_guisave.png" alt="alt text" width="80%">
+#' <img src="02_assets/ggplot_guisave.png" alt="alt text" width="80%">
 #' 
 #' 
 #' 
@@ -723,7 +723,7 @@ ggplot(mtcars, aes(mpg, wt)) +
 #' 
 #' Perhaps R's best documented package: [docs.ggplot2.org](http://docs.ggplot2.org/current/)
 #' 
-#' <img src="03_assets/ggplotDoc.png" alt="alt text" width="100%">
+#' <img src="02_assets/ggplotDoc.png" alt="alt text" width="100%">
 #' 
 #' ## Colophon
 #' 

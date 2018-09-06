@@ -1,0 +1,87 @@
+---
+title: Transitioning to Version Control with Git/Github
+date: 2018-09-06 
+subtitle: Install Git and get organized!
+reading:
+  - Chapters [4-8 in Happy Git and Github for the useR - Installation](http://happygitwithr.com/installation-pain.html){target='blank'}
+tasks:
+  - Create a [GitHub account](https://github.com/join?source=header-home){target="blank"} and post your github username [here](https://goo.gl/forms/wy25GL0YWZIHplDH2)
+  - Install git on your computer
+  - Sign up for the [GitHub Education pack](https://education.github.com/pack)
+  - Work through readings on git and github
+  - Make sure git works in R-Studio
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+source("functions.R")
+```
+
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(metadata$reading)
+```
+
+# Background
+
+Version control systems (VCS) allow developers to maintain a record of how their code has changed over time. When used properly, a VCS can help a developer track down the exact point in time when a bug was introduced or fixed, easily undo changes, and collaborate with other developers.
+
+There are many types of version control systems. Some of the more popular ones include CVS, subversion, mercurial, and git. In recent years, git has quickly become the most popular of the group.[^1]
+
+## Git
+
+Git stores files in a type of database called a `repository` or `repo`. Most data science teams that work with git keep a central repository on a server somewhere that everyone on the team can access. This repository stores the files and the history of every change made to each file, including who made the changes and when those changes were made.
+
+Git works with groups of changes called `commits`. A single commit might have many changes associated with it. Those changes might include updates to, existing files, the addition of new files, or the removal of files.
+
+## Example
+Imagine a developer named Sally who has started a new job for US Robotics. She's told that her first assignment is to fix a bug in the positronic brain code that is causing all of the robots to walk around in circles. She takes the following steps:
+
+
+1. First, Sally will clone the central repository which creates a copy of the repository on her computer.
+
+```
+git clone https://github.com/us-robotics/brain.git
+```
+
+2. Next, Sally finds the bug in the PositronicBrain.R file that is causing the odd behavior. She quickly fixes the bug and saves her changes.
+
+3. Sally's next step is to add the PositronicBrain.R file to the list of changed files to commit.
+
+```
+git add PositronicBrain.T
+```
+
+4. When Sally is done adding files, she will commit those changes, adding a brief message to describe her changes.
+
+```
+git commit -m "Fixed the bug that made robots attack ice cream shops."
+```
+
+5. Now that her changes are finished before she can share them, she must pull any changes her teammates have made from the central repository into her local copy.
+
+```
+git pull
+```
+
+6. After making sure that there isn't a conflict between her teammates' changes and her own, she is ready to push her changes up to the central repository.
+
+```
+git push
+```
+
+Most of your interactions with a git repository will follow the same six steps that Sally followed. **Note the sequence of the pull and push commands.**
+
+This is critical when working with git: **Always pull before you push.**
+
+As we are getting introduced to git and GitHub, you will be the only one that is working with your repository.  This will make the `git pull` less used in our day-to-day workflow. We will only need to get the workflow for adding files from our local repository to the GitHub central repository.
+
+# Tasks
+```{r tasks,results='asis',echo=F}
+md_bullet(metadata$tasks)
+```
+
