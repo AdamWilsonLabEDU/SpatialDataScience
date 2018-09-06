@@ -15,7 +15,7 @@ One limitation is that your project must use publicly accessible data. If you wa
 
 ## Project Phases
 
-### Project proposal
+### Project Proposal
 
 The project proposal will be 1 page or less and include the following:
 
@@ -24,6 +24,9 @@ The project proposal will be 1 page or less and include the following:
 2.  Proposed data sources: Be as specific as possible.
 3.  Proposed methods: List the approach you will use. Don't simply list packages, tell me what you will do with them.
 4.  Expected results: Describe what you want to produce (graphics, analyses, etc.)
+
+
+Finding good data takes time, and can take longer than the time to tidy your data.  This task could easily take 3-6 hours to find the data you need for your project.  After you find good data sources make sure to complete the remaining tasks.
 
 ### First Draft
 
@@ -150,21 +153,6 @@ Sites with examples of visual display of quantitative information
 * [40 Brilliant and Complex Topics Explained Perfectly By Infographics](https://designschool.canva.com/blog/best-infographics/)
 * [NY Times Graphics Department](https://twitter.com/nytgraphics)
 * [Open Data through R](https://github.com/ropensci/opendata): This Task View contains information about using R to obtain, parse, manipulate, create, and share open data. Much open data is available on the web, and the WebTechnologies TaskView addresses how to obtain and parse web-based data. There is obvious overlap between the two TaskViews, so some packages are described on both. There is also a considerable amount of open data available as R packages on CRAN.
-
-
-## Example Project Titles from Fall 2016
-
-* Understanding the influence of environmental variables on the distribution of mosses -- a data driven analysis
-* Food Security
-* Soil Radiation
-* Obesity
-* Space-time clustering-based analysis on lighting distribution
-* The role of recruitment on octocoral community dynamics
-* Spatial accessibility of primary care in Erie County, NY
-* Flint Michigan water crisis
-* Relationship between the unemployment and the gross domestic production (GDP)
-* Zimbabwean Bushmeat
-* U.S. Unemployment rates
 
 ## References
 
