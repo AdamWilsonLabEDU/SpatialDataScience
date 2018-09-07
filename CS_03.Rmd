@@ -1,15 +1,17 @@
 ---
-title: Wealth and Life Expectancy
+title: Wealth over time
 date: 2018-09-11 
-subtitle: Advanced ggplot
+subtitle: Data wrangling plus more advanced ggplot
 reading:
   - The [ggplot2 vignette](https://ggplot2.tidyverse.org/){target='blank'}
   - R4DS [Chapter 3 - Data visualization](http://r4ds.had.co.nz/data-visualisation.html){target='blank'}
   - The [Hans Rosling The River of Myths](https://youtu.be/OwII-dwh-bk){target='blank'}
   - Watch the [Hons Rosling video](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"}
 tasks:
-   - Recreate the two graphics shown below using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can)
-   - Build weighted average data set for each continent using `group_by()` followed by `summarise()` with the `weighted.mean()` of GDP that will be the black continent average line on the second plot.
+   - Recreate the two graphics shown using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can)
+   - Use `filter()` to remove "Kuwait" for reasons noted in the background
+   - Use `group_by()` to group by `continent` and `year`
+   - Use `summarize()` to calculate 1) `gdpPercapweighted.mean(x=gdpPercap,w=pop)` and 2)  pop = sum(as.numeric(pop)) that will be the data for the black continent average line on the second plot.
    - Use `library(ggplot2)` and the `theme_bw()` to duplicate the first plot
    - Use  `scale_y_continuous(trans = "sqrt")` to get the correct scale on the y-axis.
    - Use `library(ggplot2)` and the `theme_bw()` to duplicate the second plot. You will need to use the new data you summarized to make the black lines and dots showing the continent average.
@@ -27,12 +29,12 @@ source("functions.R")
 # Reading
 
 ```{r reading,results='asis',echo=F}
-md_bullet(metadata$reading)
+md_bullet(rmarkdown::metadata$reading)
 ```
 
 # Background
 
-[Hans Rosling](http://www.gapminder.org/news/sad-to-announce-hans-rosling-passed-away-this-morning/){target="blank"} is one of the most popular data scientists on the web. [His original TED talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"} was very popular among my friends when it came out.  We are going to create some graphics using his formatted data as our weekly case study. Note that we need to remove Kuwait from the data ([discussion on this](https://github.com/jennybc/gapminder/issues/9){target="blank"})
+[Hans Rosling](http://www.gapminder.org/news/sad-to-announce-hans-rosling-passed-away-this-morning/){target="blank"} is one of the most popular data scientists on the web. [His original TED talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"} was very popular when it came out.  We are going to create some graphics using his formatted data as our weekly case study. Note that we need to remove Kuwait from the data ([discussion on this](https://github.com/jennybc/gapminder/issues/9){target="blank"})
 
 # Instructions
 
@@ -71,5 +73,5 @@ ggplot(data = gapminder, aes(color = continent, x = year, y = gdpPercap)) +
 # Specific Tasks
 
 ```{r tasks,results='asis',echo=F}
-md_bullet(metadata$tasks)
+md_bullet(rmarkdown::metadata$tasks)
 ```

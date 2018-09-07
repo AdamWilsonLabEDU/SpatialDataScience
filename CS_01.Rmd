@@ -22,6 +22,11 @@ library(knitr)
 library(kableExtra)
 source("functions.R")
 ```
+# Reading
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
 # Background
 You are working on a new project and your colleague has asked you to calculate the mean Petal Length in the dataset she collected in the field.  
 
@@ -38,12 +43,7 @@ For the histogram, you can either use the basic `hist()` function (easier but le
 
 When you complete this task, you will have done some 'reproducible research' resulting in a script that calculates a statistic and makes a graph.  In future lessons we'll cover how to save the graphic to your hardrive (if you are curious, check out the examples in `?png`)
 
-## Reading
-```{r reading,results='asis',echo=F}
-md_bullet(metadata$reading)
-```
-
 # Tasks
 ```{r tasks,results='asis',echo=F}
-md_bullet(metadata$tasks)
+md_bullet(rmarkdown::metadata$tasks)
 ```

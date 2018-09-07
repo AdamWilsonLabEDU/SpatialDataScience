@@ -17,19 +17,20 @@ Below are a set of tasks that we will work on in class (either alone or in small
 
 
 ```{r reading2,results='asis',echo=F}
+# This chunk prints an index of all the task titles along with a preview of the sub-tasks 
 for(i in 1:length(yamls)){
-  cat("\n ___ \n") 
+  cat("\n___\n") 
   cat(paste("# [",yamls[[i]]$file2,": ",yamls[[i]]$title,"](",yamls[[i]]$url,") \n"))
   cat(paste(" ",yamls[[i]]$date,"  \n \n ",sep=""))
   cat(paste(" ",yamls[[i]]$subtitle,"  \n \n ",sep=""))
-#  cat('<div class="well">')
-  cat(paste0('<button data-toggle="collapse" class="btn btn-link" data-target="#i',i,'">Show Readings & Tasks </button>'))
+  cat(paste0('<a class="btn btn-link" href="',yamls[[i]]$url,'" role="button" >Full Description</a>'))
+  cat(paste0('<button data-toggle="collapse" class="btn btn-link" data-target="#i',i,'">Preview Readings & Tasks </button>'))
   cat(paste0('<div id="i',i,'" class="collapse">'))
-  cat("\n## Readings \n")
+  cat("\n## Readings\n")
   md_bullet(yamls[[i]]$reading)
-  cat("\n## Tasks \n")
+  cat("\n## Tasks\n")
   md_bullet(yamls[[i]]$tasks)
-cat('</div>')
+  cat('</div>')
 }
 ```
 

@@ -18,14 +18,14 @@ tasks:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(knitr)
+library(knitr); library(rmarkdown)
 source("functions.R")
 ```
 
-
 # Reading
+
 ```{r reading,results='asis',echo=F}
-md_bullet(metadata$reading)
+md_bullet(rmarkdown::metadata$reading)
 ```
 
 # Background
@@ -86,8 +86,9 @@ dev.off()
 ```
 
 # Specific Tasks
+
 ```{r tasks,results='asis',echo=F}
-md_bullet(metadata$tasks)
+md_bullet(rmarkdown::metadata$tasks)
 ```
 
 What do you tell your grandfather?

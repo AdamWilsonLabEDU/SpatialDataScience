@@ -23,7 +23,7 @@ source("functions.R")
 # Reading
 
 ```{r reading,results='asis',echo=F}
-md_bullet(metadata$reading)
+md_bullet(rmarkdown::metadata$reading)
 ```
 
 # Background
@@ -82,6 +82,6 @@ As we are getting introduced to git and GitHub, you will be the only one that is
 
 # Tasks
 ```{r tasks,results='asis',echo=F}
-md_bullet(metadata$tasks)
+md_bullet(rmarkdown::metadata$tasks)
 ```
 
