@@ -480,8 +480,9 @@ div.tocify {
 <h1><a href="./CS_01.html">CS_01 : Create a simple, functioning script</a></h1>
 <p>2018-08-30</p>
 <p>Write a script that reads in data, calculates a statistic, and makes a plot.</p>
+<a class="btn btn-link" href="./CS_01.html" role="button" >Full Description</a>
 <button data-toggle="collapse" class="btn btn-link" data-target="#i1">
-Show Readings &amp; Tasks
+Preview Readings &amp; Tasks
 </button>
 <div id="i1" class="collapse">
 <h2 id="readings">Readings</h2>
@@ -507,8 +508,9 @@ Show Readings &amp; Tasks
 <h1><a href="./CS_02.html">CS_02 : My grandfather says climate is cooling</a></h1>
 <p>2018-09-06</p>
 <p>Import data, generate and save a graphic.</p>
+<a class="btn btn-link" href="./CS_02.html" role="button" >Full Description</a>
 <button data-toggle="collapse" class="btn btn-link" data-target="#i2">
-Show Readings &amp; Tasks
+Preview Readings &amp; Tasks
 </button>
 <div id="i2" class="collapse">
 <h2 id="readings-1">Readings</h2>
@@ -534,8 +536,9 @@ Show Readings &amp; Tasks
 <h1><a href="./TK_01.html">TK_01 : Transitioning to Version Control with Git/Github</a></h1>
 <p>2018-09-06</p>
 <p>Install Git and get organized!</p>
+<a class="btn btn-link" href="./TK_01.html" role="button" >Full Description</a>
 <button data-toggle="collapse" class="btn btn-link" data-target="#i3">
-Show Readings &amp; Tasks
+Preview Readings &amp; Tasks
 </button>
 <div id="i3" class="collapse">
 <h2 id="readings-2">Readings</h2>
@@ -553,12 +556,13 @@ Show Readings &amp; Tasks
 </div>
 <hr />
 </div>
-<div id="cs_03-wealth-and-life-expectancy" class="section level1">
-<h1><a href="./CS_03.html">CS_03 : Wealth and Life Expectancy</a></h1>
+<div id="cs_03-wealth-over-time" class="section level1">
+<h1><a href="./CS_03.html">CS_03 : Wealth over time</a></h1>
 <p>2018-09-11</p>
-<p>Advanced ggplot</p>
+<p>Data wrangling plus more advanced ggplot</p>
+<a class="btn btn-link" href="./CS_03.html" role="button" >Full Description</a>
 <button data-toggle="collapse" class="btn btn-link" data-target="#i4">
-Show Readings &amp; Tasks
+Preview Readings &amp; Tasks
 </button>
 <div id="i4" class="collapse">
 <h2 id="readings-3">Readings</h2>
@@ -570,8 +574,10 @@ Show Readings &amp; Tasks
 </ul>
 <h2 id="tasks-3">Tasks</h2>
 <ul>
-<li>Recreate the two graphics shown below using <code>gapminder</code> dataset from <code>library(gapminder)</code> (get them to match as closely as you can)</li>
-<li>Build weighted average data set for each continent using <code>group_by()</code> followed by <code>summarise()</code> with the <code>weighted.mean()</code> of GDP that will be the black continent average line on the second plot.</li>
+<li>Recreate the two graphics shown using <code>gapminder</code> dataset from <code>library(gapminder)</code> (get them to match as closely as you can)</li>
+<li>Use <code>filter()</code> to remove “Kuwait” for reasons noted in the background</li>
+<li>Use <code>group_by()</code> to group by <code>continent</code> and <code>year</code></li>
+<li>Use <code>summarize()</code> to calculate 1) <code>gdpPercapweighted.mean(x=gdpPercap,w=pop)</code> and 2) pop = sum(as.numeric(pop)) that will be the data for the black continent average line on the second plot.</li>
 <li>Use <code>library(ggplot2)</code> and the <code>theme_bw()</code> to duplicate the first plot</li>
 <li>Use <code>scale_y_continuous(trans = &quot;sqrt&quot;)</code> to get the correct scale on the y-axis.</li>
 <li>Use <code>library(ggplot2)</code> and the <code>theme_bw()</code> to duplicate the second plot. You will need to use the new data you summarized to make the black lines and dots showing the continent average.</li>
@@ -585,8 +591,9 @@ Show Readings &amp; Tasks
 <h1><a href="./TK_02.html">TK_02 : Transitioning to Version Control with Git/Github</a></h1>
 <p>2018-09-11</p>
 <p>Install Git and get organized!</p>
+<a class="btn btn-link" href="./TK_02.html" role="button" >Full Description</a>
 <button data-toggle="collapse" class="btn btn-link" data-target="#i5">
-Show Readings &amp; Tasks
+Preview Readings &amp; Tasks
 </button>
 <div id="i5" class="collapse">
 <h2 id="readings-4">Readings</h2>
@@ -598,9 +605,10 @@ Show Readings &amp; Tasks
 </ul>
 <h2 id="tasks-4">Tasks</h2>
 <ul>
-<li>Create a new project in Rstudio and connect it to your new repository I created in GitHub</li>
+<li>Create a new project in Rstudio and connect it to your new repository I created for you in GitHub (these are labeled <code>YEAR_GEO503_GITHUBUSERNAME</code>)</li>
 <li>Download <a href="data/GEO503.zip.zip">this zipfile</a> and move the folder structure into your new local repository (folder). Check your folder structure in your git repo to match the format for our class.</li>
 <li>Update your README.md in your repository</li>
+<li>Commit your changes to Git</li>
 <li>Push the repository up to GitHub</li>
 </ul>
 </div>

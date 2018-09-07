@@ -8,9 +8,10 @@ reading:
   - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}
   - RStudio and [the Git GUI](https://www.youtube.com/watch?v=E2d91v1Twcc){target='blank'}
 tasks:
-  - Create a new project in Rstudio and connect it to your new repository I created in GitHub
+  - Create a new project in Rstudio and connect it to your new repository I created for you in GitHub (these are labeled `YEAR_GEO503_GITHUBUSERNAME`)
   - Download [this zipfile](data/GEO503.zip.zip) and move the folder structure into your new local repository (folder). Check your folder structure in your git repo to match the format for our class.
   - Update your README.md in your repository
+  - Commit your changes to Git
   - Push the repository up to GitHub
 ---
 
@@ -30,7 +31,7 @@ md_bullet(metadata$reading)
 
 ## Course Folder Structure
 
-After syncing your local computer with your class repository, please [download this zipfile](data/GEO503.zip.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
+For the rest of the course, you should keep your files organzed in a git-managed repository.  After syncing your local computer with your class repository, please [download this zipfile](data/GEO503.zip.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
 
 
 ```{r, out.width="400px", echo=F}
