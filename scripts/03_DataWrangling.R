@@ -4,13 +4,13 @@
 #' 
 #' 
 #' <div>
-#' <object data="02_assets/02_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
+#' <object data="03_assets/03_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
 #'   <p>It appears you don't have a PDF plugin for this browser.
-#'    No biggie... you can <a href="02_assets/02_DataWrangling.pdf">click here to
+#'    No biggie... you can <a href="03_assets/03_DataWrangling.pdf">click here to
 #'   download the PDF file.</a></p>  
 #'  </object>
 #'  </div>
-#'  <p><a href="02_assets/02_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
+#'  <p><a href="03_assets/03_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
 #' 
 #' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 
@@ -20,7 +20,7 @@
 #' ## Running code
 #' * `ctrl-R` (or `command-R`) to run current line
 #' * Highlight `code` in script and run `ctrl-R` (or `command-R`) to run selection
-#' * Buttons: <img src="02_assets/Source.png" style="width: 25%"/>
+#' * Buttons: <img src="03_assets/Source.png" style="width: 25%"/>
 #' 
 #' ## Switching windows
 #' * `ctrl-1`: script window
@@ -316,7 +316,7 @@ flights %>%
 #' # Combining data sets
 #' 
 #' ## `dplyr` _join_ methods
-#' <img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join1.png" alt="Drawing" style="width: 50%;"/>
 #' 
 #' * `left_join(a, b, by = "x1")` Join matching rows from b to a.
 #' * `right_join(a, b, by = "x1")` Join matching rows from a to b.
@@ -327,26 +327,26 @@ flights %>%
 #' ### Left Join
 #' `left_join(a, b, by = "x1")` Join matching rows from b to a.
 #' 
-#' <img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/>
-#' <img src="02_assets/join_left.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join1.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join_left.png" alt="Drawing" style="width: 50%;"/>
 #' 
 #' ### Right Join
 #' `right_join(a, b, by = "x1")` Join matching rows from a to b.
 #' 
-#' <img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/>
-#' <img src="02_assets/join_right.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join1.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join_right.png" alt="Drawing" style="width: 50%;"/>
 #' 
 #' ### Inner Join
 #' `inner_join(a, b, by = "x1")` Retain only rows in both sets.
 #' 
-#' <img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/>
-#' <img src="02_assets/join_inner.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join1.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join_inner.png" alt="Drawing" style="width: 50%;"/>
 #' 
 #' ### Full Join
 #' `full_join(a, b, by = "x1")` Join data. Retain all values, all rows.
 #' 
-#' <img src="02_assets/join1.png" alt="Drawing" style="width: 50%;"/>
-#' <img src="02_assets/join_full.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join1.png" alt="Drawing" style="width: 50%;"/>
+#' <img src="03_assets/join_full.png" alt="Drawing" style="width: 50%;"/>
 #' 
 #' 
 ## ------------------------------------------------------------------------
@@ -377,10 +377,14 @@ glimpse(airports)
 #' 
 #' 
 #' 
+#' # Today's task
 #' 
-#' ## Plot the `flights` data
+#' Now [complete the first task here](CS_03.html) by yourself or in small groups.
 #' 
-#' The section below shows some 'advanced' coding to extract the geographic locations for all flights and plotting the connections as 'great circles' on a map.  This is just meant as an example to illustrate how one might use these functions to perform a more advanced analysis and spatial visualization.  
+#' 
+#' # Extras
+#' 
+#' If you made it through the material above, here's an example of some more 'advanced' coding to extract the geographic locations for all flights and plotting the connections as 'great circles' on a map.  This is just meant as an example to illustrate how one might use these functions to perform a more advanced analysis and spatial visualization.  
 #' 
 #' ### Join destination airports
 #' 
