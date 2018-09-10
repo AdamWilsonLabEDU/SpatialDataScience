@@ -1,5 +1,5 @@
 ---
-title: Transitioning to Version Control with Git/Github
+title: Git-01
 date: 2018-09-06 
 subtitle: Install Git and get organized!
 reading:
@@ -7,9 +7,9 @@ reading:
 tasks:
   - Create a [GitHub account](https://github.com/join?source=header-home){target="blank"} and post your github username [here](https://goo.gl/forms/wy25GL0YWZIHplDH2)
   - Install git on your computer
-  - Sign up for the [GitHub Education pack](https://education.github.com/pack)
-  - Work through readings on git and github
   - Make sure git works in R-Studio
+  - Work through readings on git and github
+  - Sign up for the [GitHub Education pack](https://education.github.com/pack)
 ---
 
 ```{r setup, include=FALSE}
@@ -85,3 +85,4 @@ As we are getting introduced to git and GitHub, you will be the only one that is
 md_bullet(rmarkdown::metadata$tasks)
 ```
 
+<i> <small> Adapted from [BYU M335 Data Science Course](https://byuistats.github.io/M335) </small> </i>

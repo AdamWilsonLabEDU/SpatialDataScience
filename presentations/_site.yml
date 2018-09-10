@@ -5,17 +5,18 @@ output:
       incremental: true
       theme: white
       highlight: tango
-      center: true
+      center: false
       code_folding: hide
       css: reveal.css
       reveal_plugins: ["search", "zoom", "chalkboard"]
       self_contained: false
+      transition: zoom
       reveal_options:
-        previewLinks: true
+        previewLinks: false
         mouseWheel: true
         slideNumber: true
         minScale: 1
         maxScale: 3
         margin: 0.1
-        width: "100%"
+        width: "90%"
         height: "100%"

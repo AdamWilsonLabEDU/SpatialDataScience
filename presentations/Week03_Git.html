@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Version Control</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="externals/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="externals/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Version Control</h1>
+</section>
+
+<section><section id="version-control-keeping-track-of-your-files." class="titleslide slide level1"><h1>Version Control: Keeping track of your files.</h1></section><section class="slide level2">
+
+<blockquote>
+<p>“The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood, and verified.”</p>
+</blockquote>
+<p><small> Max Kuhn, CRAN Task View: Reproducible Research </small></p>
+</section><section id="philosphy" class="slide level2">
+<h2>Philosphy</h2>
+<p>Remember, the data and code are <em>real</em>, the products (tables, figures) are ephemeral…</p>
+</section><section id="motivations-claerbouts-principle" class="slide level2">
+<h2>Motivations: Claerbout’s principle</h2>
+<blockquote>
+<p>“An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result.”</p>
+</blockquote>
+<p><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small></p>
+</section><section id="our-work-exists-on-a-spectrum-of-reproducibility" class="slide level2">
+<h2>Our work exists on a spectrum of reproducibility</h2>
+<p><img src="Week_03_Git_assets/peng-spectrum.jpg" alt="alt text" width="800"></p>
+<p><small>Peng 2011, <em>Science</em> 334(6060) pp. 1226-1227</small></p>
+</section><section id="tracking-changes-with-version-control" class="slide level2">
+<h2>Tracking changes with version control</h2>
+<p><strong>Payoffs</strong></p>
+<ul>
+<li class="fragment">Eases collaboration</li>
+<li class="fragment">Can track changes in any file type (plain text)</li>
+<li class="fragment">Can revert file to any point in its tracked history</li>
+</ul>
+<p><strong>Costs</strong></p>
+<ul>
+<li class="fragment">Learning curve</li>
+</ul>
+</section></section>
+<section><section id="git" class="titleslide slide level1"><h1>Git</h1></section><section id="section" class="slide level2">
+<h2><img src="Week_03_Git_assets/git.png" alt="alt text" width="30%"></h2>
+<ul>
+<li class="fragment"><strong>Strong support for non-linear development:</strong> Rapid branching and merging, specific tools for visualizing and navigating a non-linear development history.</li>
+<li class="fragment"><strong>Distributed development:</strong> No central server needed, each user has a full copy</li>
+<li class="fragment"><strong>Efficient handling of large projects:</strong> Designed to manage the Linux OS</li>
+<li class="fragment"><strong>Cryptographic authentication of history:</strong> The ID of a particular version depends uponthe complete history. Once published, it is not possible to change the old versions without it being noticed.</li>
+</ul>
+</section><section id="git-has-integrity" class="slide level2">
+<h2>Git Has Integrity</h2>
+<p>Everything <em>checksummed</em> before storage and then referred by <em>checksum</em>.</p>
+<blockquote>
+<p>It’s impossible to change the contents of any file or directory without Git knowing. You can’t lose information in transit or get file corruption without Git being able to detect it.</p>
+</blockquote>
+</section><section id="checksum" class="slide level2">
+<h2>Checksum</h2>
+<p>A way of reducing digital information to a unique ID:</p>
+<p><img src="Week_03_Git_assets/checksum.jpg" alt="alt text" width="50%"></p>
+<p>A 40-character hexadecimal SHA-1 hash: <code>24b9da6552252987aa493b52f8696cd6d3b00373</code></p>
+<p>Git doesn’t care about filenames, extensions, etc. It’s the information that matters…</p>
+</section><section id="the-3-states-of-files" class="slide level2">
+<h2>The 3 states of files</h2>
+<h3 id="staged-modified-committed">staged, modified, committed</h3>
+<p><img src="Week_03_Git_assets/staging.png" alt="alt text" width="75%"></p>
+<p>The important stuff is hidden in the <code>.git</code> folder.</p>
+</section></section>
+<section><section id="github" class="titleslide slide level1"><h1>Github</h1></section><section id="think-of-github-as-a" class="slide level2">
+<h2>Think of Github as a…</h2>
+<ul>
+<li class="fragment">Server to back up your files</li>
+<li class="fragment">Website to share your files</li>
+<li class="fragment">Method to track changes to your files</li>
+<li class="fragment">Platform to collaboratively develop code</li>
+<li class="fragment">Social media to show off your coding wizardry</li>
+</ul>
+</section><section id="example-course-website-managed-with-github" class="slide level2">
+<h2>Example: course website managed with GitHub</h2>
+<p><a href=http://adamwilson.us/SpatialDataScience/03_DataWrangling.html> <img src="Week_03_Git_assets/githubcoursewebsite.png" alt="alt text" width="100%"></a></p>
+</section><section id="github-alternatives" class="slide level2">
+<h2>Github Alternatives</h2>
+<p>Host your own server or use another private company, such as BitBucket.</p>
+</section><section id="git-use-in-this-course" class="slide level2">
+<h2>Git use in this course</h2>
+<ol type="1">
+<li class="fragment">Set up class repository</li>
+<li class="fragment">Make changes (edit the code)</li>
+<li class="fragment">Save those changes as you go (ctrl-S)</li>
+<li class="fragment">Stage changes (get ready to commit them)</li>
+<li class="fragment">Commit changes at various milestones (like the end of the day or when you finish something)</li>
+<li class="fragment">Push those changes to github (back them up)</li>
+<li class="fragment">repeat</li>
+</ol>
+<p>See Tasks <a href="Tk_01.html">1</a> and <a href="Tk_02.html">2</a>.</p>
+</section><section id="function-of-git-repository-for-this-course" class="slide level2">
+<h2>Function of Git Repository for this course</h2>
+<ol type="1">
+<li class="fragment">Force you to learn git (a little)</li>
+<li class="fragment">Force you to stay organized</li>
+<li class="fragment">Prepare you for collaborative coding</li>
+<li class="fragment">Allow me to see your in-class <em>participation</em></li>
+</ol>
+</section><section id="commit-to-github-from-within-rstudio" class="slide level2">
+<h2>Commit to GitHub from within RStudio</h2>
+<h3 id="steps">Steps:</h3>
+<ol type="1">
+<li class="fragment">Edit: make changes to a file in the repository you cloned above</li>
+<li class="fragment">Stage: tell git which changes you want to commit</li>
+<li class="fragment">Commit (with a message)</li>
+<li class="fragment">Push: send the updated files to GitHub</li>
+</ol>
+</section><section id="staging" class="slide level2">
+<h2>Staging</h2>
+<p><img src="Week_03_Git_assets/Stage.png" alt="alt text" width="75%"></p>
+<p>Select which changed files (added, deleted, or edited) you want to commit.</p>
+</section><section id="committing" class="slide level2">
+<h2>Committing</h2>
+<p><img src="Week_03_Git_assets/Commit.png" alt="alt text" width="100%"></p>
+<p>Add a <em>commit message</em> and click commit.</p>
+</section><section id="syncing-push" class="slide level2">
+<h2>Syncing (<code>push</code>)</h2>
+<p><img src="Week_03_Git_assets/Push.png" alt="alt text" width="100%"></p>
+<p>Click the green arrow to sync with GitHub.</p>
+</section></section>
+<section><section id="more-advanced-git" class="titleslide slide level1"><h1>More advanced Git</h1></section><section id="git-file-lifecycle" class="slide level2">
+<h2>Git File Lifecycle</h2>
+<p><img src="Week_03_Git_assets/lifecycle.png" alt="alt text" width="100%"></p>
+</section><section id="git-command-line-from-rstudio" class="slide level2">
+<h2>Git command line from RStudio</h2>
+<p>RStudio has limited functionality.</p>
+<p><img src="Week_03_Git_assets/CommandLine.png" alt="alt text" width="75%"></p>
+</section><section id="git-help" class="slide level2">
+<h2>Git help</h2>
+<pre><code>$ git help &lt;verb&gt;
+$ git &lt;verb&gt; --help
+$ man git-&lt;verb&gt;</code></pre>
+<p>For example, you can get the manpage help for the config command by running <code>git help config</code></p>
+</section><section id="git-status" class="slide level2">
+<h2>Git status</h2>
+<p><img src="Week_03_Git_assets/GitCL.png" alt="alt text" width="75%"></p>
+<p>Similar to info in git tab in RStudio</p>
+</section><section id="git-config" class="slide level2">
+<h2>Git config</h2>
+<p><code>git config</code> shows you all the git configuration settings:</p>
+<ul>
+<li class="fragment"><code>user.email</code></li>
+<li class="fragment"><code>remote.origin.url</code> (e.g. to connect to GitHub)</li>
+</ul>
+</section><section id="branching" class="slide level2">
+<h2>Branching</h2>
+<p>Branches used to develop features isolated from each other. <img src="Week_03_Git_assets/Merge.png" alt="alt text" width="100%"></p>
+<p>Default: <em>master</em> branch. Use other branches for development/collaboration and merge them back upon completion.</p>
+</section><section id="basic-branching" class="slide level2">
+<h2>Basic Branching</h2>
+<pre><code>$ git checkout -b devel   # create new branch and switch to it
+
+
+$ git checkout master  #switch back to master
+$ git merge devel  #merge in changes from devel branch</code></pre>
+<p>But we won’t do much with branching in this course…</p>
+</section><section id="git-can-do-far-more" class="slide level2">
+<h2>Git can do far more!</h2>
+<p>Check out the (free) book <a href="https://git-scm.com/book/en/v2">ProGIT</a></p>
+<p><img src="Week_03_Git_assets/progit2.png" alt="alt text" width="30%"></p>
+<p>Or the <a href="https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf">cheatsheet</a>.</p>
+</section><section id="colophon" class="slide level2">
+<h2>Colophon</h2>
+<p><small> Slides adapted from Dr. Çetinkaya-Rundel and <a href="https://github.com/benmarwick/CSSS-Primer-Reproducible-Research">Ben Marwick’s presentation to the UW Center for Statistics and Social Sciences (12 March 2014)</a> (<a href="http://orcid.org/0000-0001-7879-4531">OrcID</a>) </small></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="externals/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="externals/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+        // Transition style
+        transition: 'zoom', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '90%',
+        height: '100%',
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 1,
+        maxScale: 3,
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

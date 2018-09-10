@@ -75,3 +75,6 @@ ggplot(data = gapminder, aes(color = continent, x = year, y = gdpPercap)) +
 ```{r tasks,results='asis',echo=F}
 md_bullet(rmarkdown::metadata$tasks)
 ```
+
+
+<i> <small> Adapted from [BYU M335 Data Science Course](https://byuistats.github.io/M335) </small> </i>
