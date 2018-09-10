@@ -1,8 +1,7 @@
 ---
 title: Wealth over time
-date: 2018-09-11 
+date: 2018-09-13 
 subtitle: Data wrangling plus more advanced ggplot
-provenance: Adapted from [BYU M335 Data Science Course](https://byuistats.github.io/M335/weekly_projects/cs02_details.html)
 reading:
   - The [ggplot2 vignette](https://ggplot2.tidyverse.org/){target='blank'}
   - R4DS [Chapter 3 - Data visualization](http://r4ds.had.co.nz/data-visualisation.html){target='blank'}

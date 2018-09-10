@@ -36,7 +36,7 @@ See the presentation associated with this task [here](presentations/Week03_Git.h
 
 ## Course Folder Structure
 
-For the rest of the course, you should keep your files organzed in a git-managed repository.  After syncing your local computer with your class repository, please [download this zipfile](data/GEO503.zip.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
+For the rest of the course, you should keep your files organzed in a git-managed repository.  After syncing your local computer with your class repository, please [download this zipfile](data/GEO503.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
 
 
 ```{r, out.width="400px", echo=F}
