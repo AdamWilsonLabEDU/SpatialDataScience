@@ -454,6 +454,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">Version Control</h1>
 </section>
 
+<section><section id="keeping-up" class="titleslide slide level1"><h1>Keeping up</h1></section><section id="learning-r-with-swirl" class="slide level2">
+<h2>Learning R with Swirl</h2>
+</section><section id="section" class="slide level2" data-background-iframe="https://swirlstats.com/students.html">
+<h2></h2>
+<p><a href="https://swirlstats.com/students.html" class="uri">https://swirlstats.com/students.html</a></p>
+</section></section>
 <section><section id="version-control-keeping-track-of-your-files." class="titleslide slide level1"><h1>Version Control: Keeping track of your files.</h1></section><section class="slide level2">
 
 <blockquote>
@@ -463,16 +469,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="philosphy" class="slide level2">
 <h2>Philosphy</h2>
 <p>Remember, the data and code are <em>real</em>, the products (tables, figures) are ephemeral…</p>
-</section><section id="motivations-claerbouts-principle" class="slide level2">
-<h2>Motivations: Claerbout’s principle</h2>
-<blockquote>
-<p>“An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result.”</p>
-</blockquote>
-<p><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small></p>
 </section><section id="our-work-exists-on-a-spectrum-of-reproducibility" class="slide level2">
 <h2>Our work exists on a spectrum of reproducibility</h2>
 <p><img src="Week_03_Git_assets/peng-spectrum.jpg" alt="alt text" width="800"></p>
 <p><small>Peng 2011, <em>Science</em> 334(6060) pp. 1226-1227</small></p>
+<h3 id="the-claerbout-principle">The Claerbout Principle</h3>
+<blockquote>
+<p>“An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result.”</p>
+</blockquote>
+<p><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small></p>
 </section><section id="tracking-changes-with-version-control" class="slide level2">
 <h2>Tracking changes with version control</h2>
 <p><strong>Payoffs</strong></p>
@@ -486,7 +491,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Learning curve</li>
 </ul>
 </section></section>
-<section><section id="git" class="titleslide slide level1"><h1>Git</h1></section><section id="section" class="slide level2">
+<section><section id="git" class="titleslide slide level1"><h1>Git</h1></section><section id="section-1" class="slide level2">
 <h2><img src="Week_03_Git_assets/git.png" alt="alt text" width="30%"></h2>
 <ul>
 <li class="fragment"><strong>Strong support for non-linear development:</strong> Rapid branching and merging, specific tools for visualizing and navigating a non-linear development history.</li>
@@ -521,9 +526,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">Platform to collaboratively develop code</li>
 <li class="fragment">Social media to show off your coding wizardry</li>
 </ul>
-</section><section id="example-course-website-managed-with-github" class="slide level2">
-<h2>Example: course website managed with GitHub</h2>
-<p><a href=http://adamwilson.us/SpatialDataScience/03_DataWrangling.html> <img src="Week_03_Git_assets/githubcoursewebsite.png" alt="alt text" width="100%"></a></p>
+</section><section id="section-2" class="slide level2" data-background-iframe="https://github.com/AdamWilsonLab/SpatialDataScience">
+<h2></h2>
+<p>Example: course website managed with GitHub</p>
 </section><section id="github-alternatives" class="slide level2">
 <h2>Github Alternatives</h2>
 <p>Host your own server or use another private company, such as BitBucket.</p>
@@ -543,36 +548,46 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Function of Git Repository for this course</h2>
 <ol type="1">
 <li class="fragment">Force you to learn git (a little)</li>
-<li class="fragment">Force you to stay organized</li>
+<li class="fragment">Force you to organize</li>
 <li class="fragment">Prepare you for collaborative coding</li>
 <li class="fragment">Allow me to see your in-class <em>participation</em></li>
 </ol>
 </section><section id="commit-to-github-from-within-rstudio" class="slide level2">
 <h2>Commit to GitHub from within RStudio</h2>
-<h3 id="steps">Steps:</h3>
+<h3 id="basic-steps">Basic Steps</h3>
 <ol type="1">
 <li class="fragment">Edit: make changes to a file in the repository you cloned above</li>
 <li class="fragment">Stage: tell git which changes you want to commit</li>
 <li class="fragment">Commit (with a message)</li>
 <li class="fragment">Push: send the updated files to GitHub</li>
 </ol>
-</section><section id="staging" class="slide level2">
-<h2>Staging</h2>
+</section><section id="edit" class="slide level2">
+<h2>Edit</h2>
+<p>Git tracks <em>all</em> changes to files inside a repository.</p>
+</section><section id="stage" class="slide level2">
+<h2>Stage</h2>
 <p><img src="Week_03_Git_assets/Stage.png" alt="alt text" width="75%"></p>
 <p>Select which changed files (added, deleted, or edited) you want to commit.</p>
-</section><section id="committing" class="slide level2">
-<h2>Committing</h2>
+</section><section id="commit" class="slide level2">
+<h2>Commit</h2>
 <p><img src="Week_03_Git_assets/Commit.png" alt="alt text" width="100%"></p>
 <p>Add a <em>commit message</em> and click commit.</p>
-</section><section id="syncing-push" class="slide level2">
-<h2>Syncing (<code>push</code>)</h2>
+</section><section id="sync-push" class="slide level2">
+<h2>Sync (<code>push</code>)</h2>
 <p><img src="Week_03_Git_assets/Push.png" alt="alt text" width="100%"></p>
 <p>Click the green arrow to sync with GitHub.</p>
-</section></section>
-<section><section id="more-advanced-git" class="titleslide slide level1"><h1>More advanced Git</h1></section><section id="git-file-lifecycle" class="slide level2">
+</section><section id="git-file-lifecycle" class="slide level2">
 <h2>Git File Lifecycle</h2>
 <p><img src="Week_03_Git_assets/lifecycle.png" alt="alt text" width="100%"></p>
-</section><section id="git-command-line-from-rstudio" class="slide level2">
+</section><section id="and-much-more" class="slide level2">
+<h2>And much more!</h2>
+<p>Git has many, many more features…</p>
+</section></section>
+<section><section id="lets-do-it" class="titleslide slide level1"><h1>Let’s do it!</h1></section><section id="task-2" class="slide level2" data-background-iframe="../TK_02.html">
+<h2>Task 2</h2>
+<p><a href="../TK_02.html">Task 2</a></p>
+</section></section>
+<section><section id="more-advanced-git" class="titleslide slide level1"><h1>More advanced Git</h1></section><section id="git-command-line-from-rstudio" class="slide level2">
 <h2>Git command line from RStudio</h2>
 <p>RStudio has limited functionality.</p>
 <p><img src="Week_03_Git_assets/CommandLine.png" alt="alt text" width="75%"></p>
@@ -634,7 +649,7 @@ $ git merge devel  #merge in changes from devel branch</code></pre>
         // Enable slide navigation via mouse wheel
         mouseWheel: true,
         // Opens links in an iframe preview overlay
-        previewLinks: false,
+        previewLinks: true,
         // Transition style
         transition: 'zoom', // none/fade/slide/convex/concave/zoom
         // Transition style for full page slide backgrounds

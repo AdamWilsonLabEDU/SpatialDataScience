@@ -8,10 +8,10 @@ reading:
   - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}
   - RStudio and [the Git GUI](https://www.youtube.com/watch?v=E2d91v1Twcc){target='blank'}
 tasks:
-  - Create a new project in Rstudio and connect it to your new repository I created for you in GitHub (these are labeled `YEAR_GEO503_GITHUBUSERNAME`). Helpful instructions are [here](http://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio)
-  - Download [this zipfile](data/folder_structure/GEO503.zip) and move the folder structure into your new local repository (folder). Check your folder structure in your git repo to match the format for our class.
+  - Create a new repository for this course by following [this link](https://classroom.github.com/a/etsQwbE7).  
+  - Create a new project in Rstudio and connect it to the new repository in GitHub (these are labeled `YEAR-GEO503-GITHUBUSERNAME`). Helpful instructions are [here](http://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio)
   - Update your README.md in your repository
-  - Commit your changes to Git
+  - Stage and Commit your changes to Git (using the git tab in the upper right of RStudio)
   - Push the repository up to GitHub
 ---
 
@@ -36,7 +36,7 @@ See the presentation associated with this task [here](presentations/Week03_Git.h
 
 ## Course Folder Structure
 
-For the rest of the course, you should keep your files organzed in a git-managed repository.  After syncing your local computer with your class repository, please [download this zipfile](data/folder_structure/GEO503.zip) and then move the folder structure into your local repository (folder).  After you have moved the folders and `pushed` to your GitHub repository, your repo should match the folder structure in the following image.
+For the rest of the course, you should keep your files organzed in a git-managed repository.  After syncing your local computer with your class repository, you will have a folder structure similar to the image below.
 
 
 ```{r, out.width="400px", echo=F}

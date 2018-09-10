@@ -12,7 +12,7 @@ output:
       self_contained: false
       transition: zoom
       reveal_options:
-        previewLinks: false
+        previewLinks: true
         mouseWheel: true
         slideNumber: true
         minScale: 1

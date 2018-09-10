@@ -2,6 +2,14 @@
 title: "Version Control"
 ---
 
+# Keeping up
+
+## Learning R with Swirl
+
+## {data-background-iframe="https://swirlstats.com/students.html"}
+
+[https://swirlstats.com/students.html](https://swirlstats.com/students.html)
+
 # Version Control: \n Keeping track of your files.
 
 ---
@@ -14,16 +22,17 @@ title: "Version Control"
 ## Philosphy  
 Remember, the data and code are _real_, the products (tables, figures) are ephemeral...  
 
-## Motivations: Claerbout's principle
-
-> "An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result." 
-
-<small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small>
 
 ## Our work exists on a spectrum of reproducibility
 <img src="Week_03_Git_assets/peng-spectrum.jpg" alt="alt text" width="800">
 
 <small>Peng 2011, _Science_ 334(6060) pp. 1226-1227</small>
+
+### The Claerbout Principle
+> "An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result." 
+
+<small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small>
+
 
 ## Tracking changes with version control 
 
@@ -77,10 +86,8 @@ The important stuff is hidden in the `.git` folder.
 * Platform to collaboratively develop code
 * Social media to show off your coding wizardry
 
-## Example: course website managed with GitHub
-
-<a href=http://adamwilson.us/SpatialDataScience/03_DataWrangling.html> <img src="Week_03_Git_assets/githubcoursewebsite.png" alt="alt text" width="100%"></a>
-
+## {data-background-iframe="https://github.com/AdamWilsonLab/SpatialDataScience"}
+Example: course website managed with GitHub
 
 ## Github Alternatives
 
@@ -101,39 +108,53 @@ See Tasks [1](Tk_01.html) and [2](Tk_02.html).
 ## Function of Git Repository for this course
 
 1. Force you to learn git (a little)
-2. Force you to stay organized
+2. Force you to organize
 3. Prepare you for collaborative coding
 4. Allow me to see your in-class _participation_
 
 ## Commit to GitHub from within RStudio
 
-### Steps:
+### Basic Steps
 
 1. Edit: make changes to a file in the repository you cloned above
 2. Stage: tell git which changes you want to commit
 3. Commit (with a message)
 4. Push: send the updated files to GitHub
 
-## Staging
+## Edit
+
+Git tracks _all_ changes to files inside a repository.
+
+## Stage
 <img src="Week_03_Git_assets/Stage.png" alt="alt text" width="75%">
 
 Select which changed  files (added, deleted, or edited) you want to commit.
 
-## Committing
+## Commit
 <img src="Week_03_Git_assets/Commit.png" alt="alt text" width="100%">
 
 Add a _commit message_ and click commit.
 
-## Syncing (`push`)
+## Sync (`push`)
 <img src="Week_03_Git_assets/Push.png" alt="alt text" width="100%">
 
 Click the green arrow to sync with GitHub.
 
-# More advanced Git
-
 ## Git File Lifecycle
 
 <img src="Week_03_Git_assets/Lifecycle.png" alt="alt text" width="100%">
+
+## And much more!
+
+Git has many, many more features...
+
+#  Let's do it!
+
+## Task 2 {data-background-iframe="../TK_02.html"}
+
+[Task 2](../TK_02.html)
+
+# More advanced Git
 
 ## Git command line from RStudio
 

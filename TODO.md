@@ -8,3 +8,15 @@ Project page:
 Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
 Markmyassignment: https://github.com/MansMeg/markmyassignment/tree/master/inst/extdata
+
+
+Use datacamp education for instruction/assignments
+Then class time for teamwork and case studies
+
+Schedule:  Table with
+date, readings, datacamp exercises, tasks, case study
+
+Grades
+datacamp exercises
+task completion
+case studies
