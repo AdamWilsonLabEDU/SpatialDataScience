@@ -8,20 +8,24 @@ title: "Version Control"
 
 https://www.datacamp.com/home
 
+## Advantages of DataCamp
+
+1. Slick dynamic interface
+2. Lots of help available
+3. Can provide hints (reducing XP points)
+4. Easy to earn extra XP points with 'practice'
+5. Free access to their 'premium' content (typically $29/month)
+6. Additional 'Certification' that you can list on LinkedIn, CV, etc.
+
+## Data Camp Screenshot
+
+![Data Camp](Week_03_Git_assets/data_camp.png)
 
 ## Proposed course restructure
 
 1. DataCamp chapter 'assignments' instead of homeworks
 2. Less talking / lecturing material in class
 3. More time in class to work on group case studies, ask questions, etc.
-
-## Advantages of DataCamp
-
-1. Really slick interface
-2. Dynamic with lots of help available
-3. Can provide hints (reducing XP points)
-4. Easy to earn extra points with 'practice'
-
 
 # Version Control: \n Keeping track of your files.
 

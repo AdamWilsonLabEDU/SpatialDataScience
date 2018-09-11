@@ -20,3 +20,16 @@ Grades
 datacamp exercises
 task completion
 case studies
+
+Datacamp
+* [Introduction to R]() (6,200 XP)Iw2ftV
+
+* [Introduction to the tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse) (4,150 XP)
+* 
+
+
+tasks
+early:
+set up datacamp account
+explore available classes and select 3-5 that you are interested in taking (list these in README)
+
