@@ -4,11 +4,24 @@ title: "Version Control"
 
 # Keeping up
 
-## Learning R with Swirl
+## DataCamp {data-background-iframe="https://web.archive.org/web/20180909011807/https://www.datacamp.com/"}
 
-## {data-background-iframe="https://swirlstats.com/students.html"}
+https://www.datacamp.com/home
 
-[https://swirlstats.com/students.html](https://swirlstats.com/students.html)
+
+## Proposed course restructure
+
+1. DataCamp chapter 'assignments' instead of homeworks
+2. Less talking / lecturing material in class
+3. More time in class to work on group case studies, ask questions, etc.
+
+## Advantages of DataCamp
+
+1. Really slick interface
+2. Dynamic with lots of help available
+3. Can provide hints (reducing XP points)
+4. Easy to earn extra points with 'practice'
+
 
 # Version Control: \n Keeping track of your files.
 
@@ -86,8 +99,9 @@ The important stuff is hidden in the `.git` folder.
 * Platform to collaboratively develop code
 * Social media to show off your coding wizardry
 
-## {data-background-iframe="https://github.com/AdamWilsonLab/SpatialDataScience"}
-Example: course website managed with GitHub
+## Example: course website managed with GitHub
+
+[https://github.com/AdamWilsonLab/SpatialDataScience](https://github.com/AdamWilsonLab/SpatialDataScience)
 
 ## Github Alternatives
 

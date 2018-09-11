@@ -13,8 +13,8 @@ Markmyassignment: https://github.com/MansMeg/markmyassignment/tree/master/inst/e
 Use datacamp education for instruction/assignments
 Then class time for teamwork and case studies
 
-Schedule:  Table with
-date, readings, datacamp exercises, tasks, case study
+Schedule Table (one row per week with):
+date, readings, datacamp exercises, presentation, tasks, case studies
 
 Grades
 datacamp exercises
