@@ -31,8 +31,7 @@ Successful completion of this course will enable the student to:
 1. convert data from varied formats or structures to a desirable format for analysis and visualization
 2. clean, transform and merge data attributes/variables appropriately
 3. effectively display and communicate meaning from spatial, temporal, and textual data
-4. articulate the process, benefits, and challenges of "Big Data" manipulation
-5. use current analysis, presentation, and collaboration tools in the data science field.
+4. use current analysis, presentation, and collaboration tools in the spatial data science field.
 
 These learning outcomes are related to those expected of students completing the Geography program. 
 
@@ -42,13 +41,13 @@ These learning outcomes are related to those expected of students completing the
 The major course components are as follows:
 
 ### Course Participation (10%)
-You are expected to attend class, actively participate in class discussions, and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.
+You are expected to attend class, actively participate in class discussions, and follow along during in-class interactive exercises.  If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged.  The course includes many tasks that are performed both in and out of class (see the [tasklist](Tasklist.html)). You do not need to hand any of these in, but these tasks typically result in files being added to your course repository which will be considered for your participation grade.
 
 ### Package introduction (10%)
 Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session.  See full [Package Introduction Description](http://adamwilson.us/SpatialDataScience/PackageIntro.html) for more details.  
 
-### Homeworks (30%)
-Four homework assignments will be assigned throughout the semester and due before class the following week.  Assignments will be provided via UBLearns as R scripts with embedded questions.   See full [Homework Description](http://adamwilson.us/SpatialDataScience/Homework.html) for more details.  
+### Data Camp Exercises (30%)
+Several mini-courses will be assigned via DataCamp throughout the semester.  These assignments will be graded pass/fail and contribute 30% to your final grade. For example, if you complete 75% of the assignments, you will receive 30% x 75% = 26% for this component.  See full [DataCamp Description](http://adamwilson.us/SpatialDataScience/DataCamp.html) for more details.  
 
 ### Final Project and Presentation (50%)
 The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest.  This project can be related to the student’s own research or a separate topic.  

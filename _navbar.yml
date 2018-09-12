@@ -47,8 +47,8 @@ left:
     menu:
       - text: "Task list"
         href: Tasklist.html
-      - text: "Homeworks"
-        href: Homework.html
+      - text: "DataCamp"
+        href: DataCamp.html
       - text: "Package Introduction"
         href: PackageIntro.html
       - text: "Final Project"
