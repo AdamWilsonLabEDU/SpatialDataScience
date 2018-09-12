@@ -1,0 +1,23 @@
+---
+title: "DataCamp Assignments"
+---
+
+## Description
+
+<a  href="http://datacamp.com"> <img src="img/DataCamp_logo.png" width=50% ></img></a>
+
+DataCamp offers interactive R, Python, Sheets, SQL and shell courses. All on topics in data science, statistics and machine learning. Learn from a team of expert teachers in the comfort of your browser with video lessons and fun coding challenges and projects.
+
+You will receive an invitation for free access to their 'premium' materials for the next six months.  
+
+Available [courses are listed here](https://www.datacamp.com/courses).
+
+## DataCamp in this course
+
+We will use DataCamp to reinforce your learning and assess your development as a data scientist. Throughout the semester, various chapters will be assigned via DataCamp in our [DataCamp 'classroom'](https://www.datacamp.com/enterprise/spatial-data-science).  
+
+You must complete the assigned chapters by the due dates designated in DataCamp.
+
+You are welcome to work collaboratively on the DataCamp assignments but you are responsible for understanding your responses to the various challenges.  So an acceptable question to ask a classmate would be, “which functions did you use to answer number 4?,” while an unacceptable question would be “please email/chat/read me your code for question #4.”    
+
+See [Syllabus for more information.](Syllabus.html)  
