@@ -527,7 +527,7 @@ head(d2)
 ## ------------------------------------------------------------------------
 ggplot(d2,aes(x=value))+
   geom_density()+
-  facet_wrap(~ID,scales="free")
+  facet_wrap(~cell,scales="free")
 
 #' 
 #' 

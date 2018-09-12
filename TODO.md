@@ -7,8 +7,10 @@ Project page:
 Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
 
+# Structure updates
+Add a datacamp course for each/most of the 14 case studies
 Use datacamp education for instruction/assignments
-Then class time for teamwork and case studies
+Then class time for questions/case studies
 
 Grading changes
 30% datacamp
@@ -18,29 +20,20 @@ Grading changes
 
 Include letter to instructor with grade request.
 
-Schedule Table (one row per week with):
-date, readings, datacamp exercises, presentation, tasks, case studies
-
-Grades
-datacamp exercises
-task completion
-case studies
-
-## Git Classroom
-* set up course folder structure
-* use github classroom
+Schedule Page (one row per week with):
+date, readings, datacamp, presentation, tasks, casestudy
 
 
 ## Datacamp
 
-### Background
-* [Working with the RStudio IDE (Part 1)](https://www.datacamp.com/courses/working-with-the-rstudio-ide-part-1)
-* [Working with the RStudio IDE (Part 2)](https://www.datacamp.com/courses/working-with-the-rstudio-ide-part-2)
-
 ### Assigned
 * [Introduction to R]() (6,200 XP)
-* [Introduction to the tidyverse](https://www.datacamp.com/courses/introduction-to-the-tidyverse) (4,150 XP)
+* [Exploratory Data Analysis in R: Case Study](https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study)
 * [Spatial Analysis in R with sf and raster](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster) (4,550Xp 5 hours)
+
+## Git Classroom
+* set up course folder structure
+* use github classroom
 
 
 ## Tasks to add
@@ -48,3 +41,7 @@ early:
 set up datacamp account
 explore available classes and select 3-5 that you are interested in taking (list these in README)
 
+
+
+late:
+earn an additional 5,000 datacamp XP in a topic/course of your choosing

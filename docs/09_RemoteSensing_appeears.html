@@ -512,11 +512,11 @@ lulcf</code></pre>
 <pre class="r"><code>#IF that doesn&#39;t work</code></pre>
 <pre class="r"><code>lulc=stack(lulcf,varname=&quot;Land_Cover_Type_1&quot;)
 plot(lulc)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
 <p>We’ll just pick one year to work with to keep this simple:</p>
 <pre class="r"><code>lulc=lulc[[13]]
 plot(lulc)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-5-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
 <div id="process-landcover-data" class="section level3">
 <h3>Process landcover data</h3>
 <p>Get cover clases from <a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mcd12q1">MODIS website</a></p>
@@ -612,7 +612,7 @@ gplot(lulc)+
   coord_equal()+
   theme(legend.position = &quot;bottom&quot;)+
   guides(fill=guide_legend(ncol=1,byrow=TRUE))</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="land-surface-temperature" class="section level2">
@@ -623,7 +623,7 @@ gplot(lulc)+
 lstf
 lst=stack(lstf,varname=&quot;LST_Day_1km&quot;)
 plot(lst[[1:12]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-9-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
 <p>You may get a warning about some attributes being 8-byte converted to double precisions. You can ignore these warnings.</p>
 </div>
 <div id="convert-lst-to-degrees-c" class="section level2">
@@ -631,7 +631,7 @@ plot(lst[[1:12]])</code></pre>
 <p>You can convert LST from Degrees Kelvin (K) to Celcius (C) with <code>offs()</code>.</p>
 <pre class="r"><code>offs(lst)=-273.15
 plot(lst[[1:10]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-10-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-10-1.png" /><!-- --></p>
 </div>
 <div id="modland-quality-control" class="section level1">
 <h1>MODLAND Quality control</h1>
@@ -645,7 +645,7 @@ plot(lst[[1:10]])</code></pre>
 </div>
 <pre class="r"><code>lstqc=stack(lstf,varname=&quot;QC_Day&quot;)
 plot(lstqc[[1:2]])</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-11-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
 <div id="lst-qc-data" class="section level3">
 <h3>LST QC data</h3>
 <p>QC data are encoded in 8-bit ‘words’ to compress information.</p>
@@ -1040,7 +1040,7 @@ QC_Data%&gt;%
   scale_fill_manual(values=c(&quot;blue&quot;,&quot;red&quot;),name=&quot;Keep&quot;)+
   coord_equal()+
   theme(legend.position = &quot;bottom&quot;)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 <p>Mask the lst data using the QC data</p>
 <pre class="r"><code>lst2=mask(lst,mask=lstkeep,maskval=0)</code></pre>
 </div>
@@ -1072,7 +1072,7 @@ names(lst_seas)=c(&quot;Q1_Winter&quot;,
   scale_fill_gradientn(colours=c(&quot;blue&quot;,mid=&quot;grey&quot;,&quot;red&quot;))+
   coord_equal()+
   theme(axis.text.x=element_text(angle=60, hjust=1))</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-1">Your turn</h2>
 <p>Use <code>stackApply()</code> to generate and plot monthly median lst values.</p>
@@ -1096,7 +1096,7 @@ gplot(lst_month)+geom_raster(aes(fill=value))+
   facet_wrap(~variable)+
   scale_fill_gradientn(colours=c(&quot;blue&quot;,mid=&quot;grey&quot;,&quot;red&quot;))+
   coord_equal()</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-25-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-25-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -1119,7 +1119,7 @@ lwt=data.frame(date=getZ(lst2),
 
 ggplot(lwt,aes(x=date,y=lst))+
   geom_path()</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-26-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-26-1.png" /><!-- --></p>
 <p>See the <code>library(rts)</code> for more timeseries related functions.</p>
 </div>
 <div id="combine-land-cover-and-lst-data" class="section level2">
@@ -1133,7 +1133,7 @@ ggplot(lwt,aes(x=date,y=lst))+
 par(mfrow=c(1,2)) 
 plot(lulc)
 plot(lulc2)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-27-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-27-1.png" /><!-- --></p>
 <pre class="r"><code>par(mfrow=c(1,1))</code></pre>
 </div>
 <div id="summarize-mean-monthly-temperatures-by-landcover" class="section level3">
@@ -1176,7 +1176,7 @@ head(lcds1)</code></pre>
   geom_point(alpha=.5,position=&quot;jitter&quot;)+
   geom_violin(alpha=.5,col=&quot;red&quot;,scale = &quot;width&quot;)+
   theme(axis.text.x=element_text(angle=90, hjust=1))</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-31-1.png" width="2100" /></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="use-zonal-statistics-to-calculate-summaries" class="section level3">
@@ -1272,7 +1272,7 @@ head(lctl)%&gt;%kable()</code></pre>
 <pre class="r"><code>filter(lctl,count&gt;=100)%&gt;%
   mutate(txt=paste0(round(mean,2),
                     &quot; (±&quot;,round(sd,2),&quot;)&quot;))%&gt;%
-  select(zone,count,txt,season)%&gt;%
+  dplyr::select(zone,count,txt,season)%&gt;%
   spread(season, txt)%&gt;%
   kable()</code></pre>
 <table>

@@ -25,7 +25,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="site_libs/htmlwidgets-1.2/htmlwidgets.js"></script>
 <script src="site_libs/blazy-1.8.2/blazy.min.js"></script>
 <script src="site_libs/pymjs-1.3.2/pym.v1.js"></script>
 <script src="site_libs/widgetframe-binding-0.3.0/widgetframe.js"></script>
@@ -548,8 +548,8 @@ st_crs(finch)=&quot;+proj=utm +zone=11 +ellps=GRS80 +datum=NAD83 +units=m +no_de
   leaflet() %&gt;% addTiles() %&gt;%
   addPolygons()%&gt;%
   frameWidget(height=400)</code></pre>
-<div id="htmlwidget-5df978fd3f7ccaf1fe9e" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5df978fd3f7ccaf1fe9e">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-258c00cfc3e0ae254df0" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-258c00cfc3e0ae254df0">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-4.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <p>But we can do better than that. Let’s add a couple layers and an overview map.</p>
 <pre class="r"><code>st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
   leaflet() %&gt;% addTiles() %&gt;%
@@ -579,8 +579,8 @@ st_crs(finch)=&quot;+proj=utm +zone=11 +ellps=GRS80 +datum=NAD83 +units=m +no_de
   )%&gt;%
 addMiniMap()%&gt;%
   frameWidget(height = 600)</code></pre>
-<div id="htmlwidget-529e1b2842b5ac56b65b" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-529e1b2842b5ac56b65b">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-5.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3e134d312ef9ad1c42f5" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e134d312ef9ad1c42f5">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-5.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
 <p>Explore the other variables in the <code>finch</code> dataset with <code>summary(finch)</code>. Build on the map above to add the mean elevation (<code>meanelev</code>) in each polygon as an additional layer.</p>
@@ -626,8 +626,8 @@ Show Solution
   )%&gt;%
 addMiniMap()%&gt;%
   frameWidget(height=600)</code></pre>
-<div id="htmlwidget-8e14d6ef512560b732b0" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8e14d6ef512560b732b0">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-6.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2c32d5e7ce076ebaeb1f" style="width:100%;height:600px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2c32d5e7ce076ebaeb1f">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-6.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>You could also visualize these data with multiple ggplot panels:</p>
@@ -638,13 +638,16 @@ addMiniMap()%&gt;%
      theme(legend.position = &quot;right&quot;)+
     theme(axis.ticks = element_blank(), axis.text = element_blank())
 
-p1a=p1+geom_sf(aes(fill = ndvi))
-p1b=p1+geom_sf(aes(fill = meanelev))
-p1c=p1+geom_sf(aes(fill = urban))
-p1d=p1+geom_sf(aes(fill = maxtmp))
-
-grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  </code></pre>
-<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-7-1.png" width="2100" /></p>
+p1a=p1+geom_sf(aes(fill = ndvi))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>p1b=p1+geom_sf(aes(fill = meanelev))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>p1c=p1+geom_sf(aes(fill = urban))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>p1d=p1+geom_sf(aes(fill = maxtmp))</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  </code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="explore-the-data" class="section level2">
@@ -652,8 +655,8 @@ grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  </code></pre>
 <p>Now look at the associated data frame (analogous to the *.dbf file that accompanies a shapefile):</p>
 <pre class="r"><code>datatable(finch, options = list(pageLength = 5))%&gt;%
   frameWidget(height=400)</code></pre>
-<div id="htmlwidget-6c9ccf74152594a7a09c" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6c9ccf74152594a7a09c">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ad2b290eee7ba4ca4b9b" style="width:100%;height:400px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ad2b290eee7ba4ca4b9b">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-8.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <blockquote>
 <p>Note: in your final projects, don’t simply print out large tables or outputs… Filter/select only data relevent to tell your ‘story’…</p>
 </blockquote>
@@ -691,13 +694,13 @@ grid.arrange(p1a,p1b,p1c,p1d,ncol=1)  </code></pre>
   geom_point(mapping=aes(y=present))+
   xlab(&quot;NDVI&quot;)+
   ylab(&quot;P(presence)&quot;)</code></pre>
-<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-12-1.png" width="2100" /></p>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
 <p>Print a summary table:</p>
 <pre class="r"><code>xtable(ndvi.only,
        caption=&quot;Model summary for &#39;NDVI-only&#39;&quot;)%&gt;%
     print(type=&quot;html&quot;)</code></pre>
-<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Wed Nov 29 16:43:39 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
+<!-- Wed Sep 12 17:12:54 2018 -->
 <table border="1">
 <caption align="bottom">
 Model summary for ‘NDVI-only’
@@ -776,14 +779,14 @@ st_transform(finch,&quot;+proj=longlat +datum=WGS84&quot;)%&gt;%
               highlightOptions = highlightOptions(color = &quot;white&quot;, weight = 2,
                 bringToFront = TRUE))%&gt;%
   frameWidget(height=200)</code></pre>
-<div id="htmlwidget-79713072df5c0fefa22e" style="width:100%;height:200px;" class="widgetframe html-widget"></div>
-<script type="application/json" data-for="htmlwidget-79713072df5c0fefa22e">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-16.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d42cdceb2a0492c066ef" style="width:100%;height:200px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d42cdceb2a0492c066ef">{"x":{"url":"13_SDM_Exercise_files/figure-html//widgets/widget_unnamed-chunk-16.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
 <p>Print a summary table</p>
 <pre class="r"><code>xtable(summary(space.only)$s.table, 
        caption=&quot;Model summary for &#39;Space-only&#39;&quot;)%&gt;%
     print(type=&quot;html&quot;)</code></pre>
-<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Wed Nov 29 16:43:41 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
+<!-- Wed Sep 12 17:12:57 2018 -->
 <table border="1">
 <caption align="bottom">
 Model summary for ‘Space-only’
@@ -835,8 +838,8 @@ s(X_CEN,Y_CEN)
 <pre class="r"><code>xtable(summary(space.and.ndvi)$s.table,
        caption=&quot;Model summary for &#39;Space and NDVI&#39;&quot;)%&gt;%
     print(type=&quot;html&quot;)</code></pre>
-<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Wed Nov 29 16:43:42 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
+<!-- Wed Sep 12 17:26:23 2018 -->
 <table border="1">
 <caption align="bottom">
 Model summary for ‘Space and NDVI’
@@ -884,7 +887,7 @@ s(X_CEN,Y_CEN)
     geom_point(aes(col=as.logical(present)))+
   scale_fill_gradient2(low=&quot;blue&quot;,mid=&quot;grey&quot;,high=&quot;red&quot;,name=&quot;Spatial Effects&quot;)+
   scale_color_manual(values=c(&quot;transparent&quot;,&quot;black&quot;),name=&quot;Present&quot;)</code></pre>
-<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-20-1.png" width="4200" /></p>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 </div>
 </div>
 <div id="examine-the-fitted-models" class="section level2">
@@ -902,12 +905,14 @@ s(X_CEN,Y_CEN)
 pts=geom_point(data=finch,aes(x=X_CEN,y=Y_CEN,col=as.logical(present)),size=.5)
     
 
-p1a=p1+geom_sf(aes(fill = m_pred_spacendvi))+pts
-p1b=p1+geom_sf(aes(fill = m_pred_space))+pts
-p1c=p1+geom_sf(aes(fill = m_pred_ndvi))+pts
-
-grid.arrange(p1a,p1b,p1c,ncol=1)  </code></pre>
-<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-21-1.png" width="2100" /></p>
+p1a=p1+geom_sf(aes(fill = m_pred_spacendvi))+pts</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>p1b=p1+geom_sf(aes(fill = m_pred_space))+pts</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>p1c=p1+geom_sf(aes(fill = m_pred_ndvi))+pts</code></pre>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<pre class="r"><code>grid.arrange(p1a,p1b,p1c,ncol=1)  </code></pre>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
 </div>
 <div id="model-comparison" class="section level2">
 <h2>Model comparison</h2>
@@ -920,8 +925,8 @@ grid.arrange(p1a,p1b,p1c,ncol=1)  </code></pre>
 <pre class="r"><code>datatable(AIC(ndvi.only, 
               space.only, 
               space.and.ndvi))</code></pre>
-<div id="htmlwidget-e907524724b8692d9096" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e907524724b8692d9096">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi"],[2,29.8323138321685,25.3517420259682],[232.605812199647,183.750431036677,165.783735501497]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-316060cd3acf0643ae01" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-316060cd3acf0643ae01">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi"],[2,29.8323138321685,25.3517420259682],[232.605812199647,183.750431036677,165.783735501497]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-autocorrelation-of-residuals" class="section level2">
 <h2>Spatial Autocorrelation of Residuals</h2>
@@ -929,9 +934,10 @@ grid.arrange(p1a,p1b,p1c,ncol=1)  </code></pre>
 <pre class="r"><code>inc=10000  #spatial increment of correlogram in m
 
 # add coordinates of each polygon&#39;s centroid to the sf dataset 
-finch[,c(&quot;x&quot;,&quot;y&quot;)]=st_centroid(finch)%&gt;%st_coordinates()
-
-#use by() in dplyr package to compute a correlogram for each parameter
+finch[,c(&quot;x&quot;,&quot;y&quot;)]=st_centroid(finch)%&gt;%st_coordinates()</code></pre>
+<pre><code>## Warning in st_centroid.sf(finch): st_centroid assumes attributes are
+## constant over geometries of x</code></pre>
+<pre class="r"><code>#use by() in dplyr package to compute a correlogram for each parameter
 cor=finch%&gt;%
   dplyr::select(y,x,contains(&quot;resid&quot;),present)%&gt;%
   gather(key = &quot;key&quot;, value = &quot;value&quot;,contains(&quot;resid&quot;),present,-y,-x)%&gt;%
@@ -947,7 +953,7 @@ cor=finch%&gt;%
   geom_point(aes(shape=pvalue&lt;=0.05))+
   geom_line()+
   xlab(&quot;Distance (km)&quot;)+ylab(&quot;Spatial\nAuto-correlation&quot;)</code></pre>
-<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
+<p><img src="13_SDM_Exercise_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
 </div>
 <div id="what-did-we-gain-by-making-the-model-spatially-explicit" class="section level2">
 <h2>What did we gain by making the model “spatially explicit”?</h2>
@@ -973,8 +979,8 @@ m2 &lt;- gam(present~ndvi+meanppt +
 <p>Print a summary table</p>
 <pre class="r"><code>xtable(summary(m1)$p.table)%&gt;%
     print(type=&quot;html&quot;)</code></pre>
-<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
-<!-- Wed Nov 29 16:44:26 2017 -->
+<!-- html table generated in R 3.4.4 by xtable 1.8-2 package -->
+<!-- Wed Sep 12 17:47:03 2018 -->
 <table border="1">
 <tr>
 <th>
@@ -1100,8 +1106,8 @@ urban
           space.only, 
           space.and.ndvi,
           m1,m2))</code></pre>
-<div id="htmlwidget-0c0d6f45f68901b11492" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0c0d6f45f68901b11492">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi","m1","m2"],[2,29.8323138321685,25.3517420259682,28.9184248617403,26.1585597408225],[232.605812199647,183.750431036677,165.783735501497,170.010159019245,165.733188000478]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2e29a71adb06d7ef5dc8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e29a71adb06d7ef5dc8">{"x":{"filter":"none","data":[["ndvi.only","space.only","space.and.ndvi","m1","m2"],[2,29.8323138321685,25.3517420259682,28.9184248617403,26.1585597408225],[232.605812199647,183.750431036677,165.783735501497,170.010159019245,165.733188000478]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>df<\/th>\n      <th>AIC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>

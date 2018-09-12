@@ -557,7 +557,7 @@ And plot density plots (like histograms).
 ```{r}
 ggplot(d2,aes(x=value))+
   geom_density()+
-  facet_wrap(~ID,scales="free")
+  facet_wrap(~cell,scales="free")
 ```
 
 

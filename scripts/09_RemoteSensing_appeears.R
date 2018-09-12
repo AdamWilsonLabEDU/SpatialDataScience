@@ -460,7 +460,7 @@ head(lctl)%>%kable()
 filter(lctl,count>=100)%>%
   mutate(txt=paste0(round(mean,2),
                     " (±",round(sd,2),")"))%>%
-  select(zone,count,txt,season)%>%
+  dplyr::select(zone,count,txt,season)%>%
   spread(season, txt)%>%
   kable()
 

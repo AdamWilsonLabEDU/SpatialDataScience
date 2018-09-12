@@ -1231,30 +1231,12 @@ Show Solution
 <p>If you made it through the material above, here’s an example of some more ‘advanced’ coding to extract the geographic locations for all flights and plotting the connections as ‘great circles’ on a map. This is just meant as an example to illustrate how one might use these functions to perform a more advanced analysis and spatial visualization.</p>
 <div id="join-destination-airports" class="section level3">
 <h3>Join destination airports</h3>
-<pre class="r"><code>library(geosphere)</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<pre class="r"><code>library(rgdal)</code></pre>
-<pre><code>## rgdal: version: 1.3-3, (SVN revision 759)
-##  Geospatial Data Abstraction Library extensions to R successfully loaded
-##  Loaded GDAL runtime: GDAL 2.1.3, released 2017/20/01
-##  Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/gdal
-##  GDAL binary built with GEOS: FALSE 
-##  Loaded PROJ.4 runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-##  Path to PROJ.4 shared files: /Library/Frameworks/R.framework/Versions/3.4/Resources/library/rgdal/proj
-##  Linking to sp version: 1.2-7</code></pre>
-<pre class="r"><code>library(maps)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;maps&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     map</code></pre>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code>library(geosphere)
+library(rgdal)
+library(maps)
+library(ggplot2)
 library(sp)
 library(rgeos)</code></pre>
-<pre><code>## rgeos version: 0.3-28, (SVN revision 572)
-##  GEOS runtime version: 3.6.1-CAPI-1.10.1 r0 
-##  Linking to sp version: 1.2-7 
-##  Polygon checking: TRUE</code></pre>
 <pre class="r"><code>data=
   select(airports,
          dest=faa,
@@ -1326,7 +1308,7 @@ wrld &lt;- c(geom_polygon(
   labs(y = &quot;Latitude&quot;, x = &quot;Longitude&quot;,
        title = &quot;Count of Flights from New York in 2013&quot;)</code></pre>
 <pre><code>## Warning: Ignoring unknown aesthetics: order</code></pre>
-<p><img src="03_DataWrangling_files/figure-html/unnamed-chunk-36-1.png" width="2100" /></p>
+<p><img src="03_DataWrangling_files/figure-html/unnamed-chunk-36-1.png" /><!-- --></p>
 </div>
 <div id="colophon" class="section level2">
 <h2>Colophon</h2>

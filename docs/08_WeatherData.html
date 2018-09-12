@@ -620,7 +620,7 @@ st = ghcnd_stations()
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
   geom_point(size=.1,col=&quot;red&quot;)+
   coord_equal()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-6-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
 <p>It’s hard to see all the points, let’s bin them…</p>
 <pre class="r"><code>ggplot(st,aes(y=latitude,x=longitude)) +
   annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
@@ -629,7 +629,7 @@ st = ghcnd_stations()
   scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
                        breaks = c(1,10,100,1000))+
   coord_equal()</code></pre>
-<img src="08_WeatherData_files/figure-html/unnamed-chunk-7-1.png" width="2100" />
+<img src="08_WeatherData_files/figure-html/unnamed-chunk-7-1.png" /><!-- -->
 <div class="well">
 <h2 id="your-turn">Your turn</h2>
 <p>Produce a binned map (like above) with the following modifications:</p>
@@ -651,7 +651,7 @@ Show Solution
   scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
     breaks = c(1,10,50))+
   coord_equal()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-8-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -670,7 +670,7 @@ Show Solution
 <pre class="r"><code>geocode(&quot;My Grandma&#39;s house&quot;)</code></pre>
 <pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=My%20Grandma%27s%20house</code></pre>
 <pre><code>##         lon      lat
-## 1 -104.9874 39.68546</code></pre>
+## 1 -97.18744 32.82241</code></pre>
 <p>But this is pretty safe for well known places.</p>
 <pre class="r"><code>coords=as.matrix(geocode(&quot;Buffalo, NY&quot;))</code></pre>
 <pre><code>## Source : https://maps.googleapis.com/maps/api/geocode/json?address=Buffalo%2C%20NY</code></pre>
@@ -684,13 +684,12 @@ Show Solution
               between(longitude,coords[1]-1,coords[1]+1)&amp;
          element==&quot;TMAX&quot;)</code></pre>
 <pre><code>## # A tibble: 3 x 11
-##            id latitude longitude elevation state       name gsn_flag
-##         &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;
-## 1 USC00301010  42.8833  -78.8833    -999.9    NY    BUFFALO         
-## 2 USC00301018  42.9333  -78.9000     177.1    NY BUFFALO #2         
-## 3 USW00014733  42.9486  -78.7369     211.2    NY    BUFFALO         
-## # ... with 4 more variables: wmo_id &lt;chr&gt;, element &lt;chr&gt;,
-## #   first_year &lt;int&gt;, last_year &lt;int&gt;</code></pre>
+##   id    latitude longitude elevation state name  gsn_flag wmo_id element
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  
+## 1 USC0…     42.9     -78.9    -1000. NY    BUFF… &quot;&quot;       &quot;&quot;     TMAX   
+## 2 USC0…     42.9     -78.9      177. NY    BUFF… &quot;&quot;       &quot;&quot;     TMAX   
+## 3 USW0…     42.9     -78.7      211. NY    BUFF… &quot;&quot;       HCN 7… TMAX   
+## # ... with 2 more variables: first_year &lt;int&gt;, last_year &lt;int&gt;</code></pre>
 <p>You could also spatially filter using <code>over()</code> in sp package…</p>
 <p>With the station ID, we can now download daily data from NOAA.</p>
 <pre class="r"><code>d=meteo_tidy_ghcnd(&quot;USW00014733&quot;,
@@ -698,14 +697,14 @@ Show Solution
                    keep_flags=T)
 head(d)</code></pre>
 <pre><code>## # A tibble: 6 x 14
-##            id       date mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
-##         &lt;chr&gt;     &lt;date&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;      &lt;chr&gt;
-## 1 USW00014733 1938-05-01          T                           0           
-## 2 USW00014733 1938-05-02          T                           0           
-## 3 USW00014733 1938-05-03                                     25           
-## 4 USW00014733 1938-05-04                                    112           
-## 5 USW00014733 1938-05-05          T                           0           
-## 6 USW00014733 1938-05-06                                     64           
+##   id    date       mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
+##   &lt;chr&gt; &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     
+## 1 USW0… 1938-05-01 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 2 USW0… 1938-05-02 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 3 USW0… 1938-05-03 &quot; &quot;        &quot; &quot;        &quot; &quot;           25 &quot; &quot;       
+## 4 USW0… 1938-05-04 &quot; &quot;        &quot; &quot;        &quot; &quot;          112 &quot; &quot;       
+## 5 USW0… 1938-05-05 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 6 USW0… 1938-05-06 &quot; &quot;        &quot; &quot;        &quot; &quot;           64 &quot; &quot;       
 ## # ... with 7 more variables: qflag_tmax &lt;chr&gt;, qflag_tmin &lt;chr&gt;,
 ## #   sflag_prcp &lt;chr&gt;, sflag_tmax &lt;chr&gt;, sflag_tmin &lt;chr&gt;, tmax &lt;dbl&gt;,
 ## #   tmin &lt;dbl&gt;</code></pre>
@@ -774,7 +773,7 @@ head(d)</code></pre>
        aes(y=tmax,x=date))+
   geom_line(col=&quot;red&quot;)</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-16-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
 <p>Limit to a few years and plot the daily range and average temperatures.</p>
 <pre class="r"><code>d_filtered_recent=filter(d_filtered,date&gt;as.Date(&quot;2013-01-01&quot;))
 
@@ -783,7 +782,7 @@ head(d)</code></pre>
     geom_ribbon(col=&quot;grey&quot;,fill=&quot;grey&quot;)+
     geom_line(aes(y=(tmax+tmin)/2),col=&quot;red&quot;)</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-17-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
 </div>
 <div id="zoo-package-for-rolling-functions" class="section level3">
 <h3>Zoo package for rolling functions</h3>
@@ -811,7 +810,7 @@ head(d)</code></pre>
 <pre><code>## Warning: Removed 70 rows containing missing values (geom_path).
 
 ## Warning: Removed 70 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-19-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-1">Your Turn</h2>
 <p>Plot a 30-day rolling “right” aligned sum of precipitation.</p>
@@ -828,7 +827,7 @@ ggplot(tp,aes(y=prcp,x=date))+
   geom_line(col=&quot;red&quot;) </code></pre>
 <pre><code>## Warning: Removed 40 rows containing missing values (geom_path).</code></pre>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-20-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -845,7 +844,7 @@ ggplot(tp,aes(y=prcp,x=date))+
   geom_point()+
   geom_abline(intercept=0, slope=1)</code></pre>
 <pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-22-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
 <div id="autocorrelation-functions" class="section level3">
 <h3>Autocorrelation functions</h3>
 <ul>
@@ -855,12 +854,12 @@ ggplot(tp,aes(y=prcp,x=date))+
 <div id="autocorrelation" class="section level4">
 <h4>Autocorrelation</h4>
 <pre class="r"><code>acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-23-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
 </div>
 <div id="partial-autocorrelation" class="section level4">
 <h4>Partial Autocorrelation</h4>
 <pre class="r"><code>pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-24-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
 </div>
 </div>
 </div>
@@ -886,10 +885,8 @@ ggplot(tp,aes(y=prcp,x=date))+
             ifelse(month%in%c(3,4,5),&quot;Spring&quot;,
               ifelse(month%in%c(6,7,8),&quot;Summer&quot;,
                 ifelse(month%in%c(9,10,11),&quot;Fall&quot;,NA)))),
-        dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))</code></pre>
-<pre><code>## Warning in format.POSIXlt(as.POSIXlt(x), ...): unknown timezone &#39;default/
-## America/New_York&#39;</code></pre>
-<pre class="r"><code>knitr::kable(head(d_filtered2))</code></pre>
+        dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))
+knitr::kable(head(d_filtered2))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1049,17 +1046,17 @@ ggplot(tp,aes(y=prcp,x=date))+
             tmax=mean(tmax,na.rm=T),
             prcp=mean(prcp,na.rm=T))</code></pre>
 <pre><code>## # A tibble: 2 x 5
-##   period     n     tmin     tmax     prcp
-##    &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1  early 13394 4.199753 13.67348 25.07871
-## 2   late 15645 4.764507 13.75706 28.44032</code></pre>
+##   period     n  tmin  tmax  prcp
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 early  13394  4.20  13.7  25.1
+## 2 late   15645  4.76  13.8  28.4</code></pre>
 <p>But be careful, there were lots of missing data in the beginning of the record</p>
 <pre class="r"><code>d_filtered2%&gt;%
   group_by(year)%&gt;%
   summarize(n=n())%&gt;%
   ggplot(aes(x=year,y=n))+
   geom_line(col=&quot;grey&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
 <pre class="r"><code># which years don&#39;t have complete data?
 d_filtered2%&gt;%
   group_by(year)%&gt;%
@@ -1082,7 +1079,7 @@ d_filtered2%&gt;%
             )%&gt;%
   ggplot(aes(x=dec,y=tmax))+
   geom_line(col=&quot;grey&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-29-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
 <div id="look-for-specific-events-was-2017-unusually-hot-in-buffalo-ny" class="section level3">
 <h3>Look for specific events: was 2017 unusually hot in Buffalo, NY?</h3>
 <p>Let’s compare 2017 with all the previous years in the dataset. First add ‘day of year’ to the data to facilitate showing all years on the same plot.</p>
@@ -1096,7 +1093,7 @@ d_filtered2%&gt;%
   geom_line(data=filter(df,year&gt;2016),col=&quot;red&quot;)+  # add 2017 in red
   scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;)</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-31-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
 <p>Then ‘zoom’ into just the past few months and add 2017 in red.</p>
 <pre class="r"><code>ggplot(df,aes(x=doydate,y=tmax,group=year))+
   geom_line(col=&quot;grey&quot;,alpha=.5)+
@@ -1105,7 +1102,7 @@ d_filtered2%&gt;%
   scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;,
                lim=c(as.Date(&quot;2017-08-01&quot;),as.Date(&quot;2017-10-31&quot;)))</code></pre>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-32-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
 <p>So there was an unusually warm spell in late September.</p>
 <div id="summarize-by-season" class="section level4">
 <h4>Summarize by season</h4>
@@ -1121,7 +1118,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   facet_grid(season~.,scales = &quot;free_y&quot;)+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
 </div>
 <div id="linear-regression-of-maximum-temperature-in-fall" class="section level4">
 <h4>Linear regression of maximum temperature in fall</h4>
@@ -1131,7 +1128,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
 ggplot(s1,aes(y=tmin,x=year))+
   stat_smooth(method=&quot;lm&quot;, se=T)+
   geom_line()</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
 <pre class="r"><code>lm1=lm(tmin~year, data=s1)
 str(lm1)</code></pre>
 <pre><code>## List of 13
@@ -1258,9 +1255,11 @@ str(lm1)</code></pre>
 <pre><code>## [1] 0.2338852</code></pre>
 <p>Print a summary table:</p>
 <pre class="r"><code>tidy(lm1)</code></pre>
-<pre><code>##          term     estimate   std.error statistic      p.value
-## 1 (Intercept) -23.55100905 8.042521664 -2.928312 4.480319e-03
-## 2        year   0.01971327 0.004065921  4.848415 6.333192e-06</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic    p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 (Intercept) -23.6      8.04        -2.93 0.00448   
+## 2 year          0.0197   0.00407      4.85 0.00000633</code></pre>
 </div>
 </div>
 <div id="autoregressive-models" class="section level3">
@@ -1304,19 +1303,19 @@ years=as.numeric(as.character(unique(ci@date.factors$annual)))</code></pre>
 <h3>Cumulative dry days</h3>
 <pre class="r"><code>cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
 </div>
 <div id="diurnal-temperature-range" class="section level3">
 <h3>Diurnal Temperature Range</h3>
 <pre class="r"><code>dtr=climdex.dtr(ci, freq = c(&quot;annual&quot;))
 plot(dtr~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-41-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-41-1.png" /><!-- --></p>
 </div>
 <div id="frost-days" class="section level3">
 <h3>Frost Days</h3>
 <pre class="r"><code>fd=climdex.fd(ci)
 plot(fd~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-42-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
 <div class="well">
 <h2 id="your-turn-2">Your Turn</h2>
 <p>See all available indices with:</p>
@@ -1337,13 +1336,13 @@ Show Solution
 <div id="demo4" class="collapse">
 <pre class="r"><code>r10mm=climdex.r10mm(ci)
 plot(r10mm~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-1.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-1.png" /><!-- --></p>
 <pre class="r"><code>prcptot=climdex.prcptot(ci)
 plot(prcptot~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-2.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-2.png" /><!-- --></p>
 <pre class="r"><code>gsl=climdex.gsl(ci)
 plot(gsl~years,type=&quot;l&quot;)</code></pre>
-<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-3.png" width="2100" /></p>
+<p><img src="08_WeatherData_files/figure-html/unnamed-chunk-44-3.png" /><!-- --></p>
 </div>
 </div>
 </div>
