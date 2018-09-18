@@ -498,7 +498,7 @@ div.tocify {
 <li>Recreate the two graphics shown using <code>gapminder</code> dataset from <code>library(gapminder)</code> (get them to match as closely as you can)</li>
 <li>Use <code>filter()</code> to remove “Kuwait” for reasons noted in the background</li>
 <li>Use <code>group_by()</code> to group by <code>continent</code> and <code>year</code></li>
-<li>Use <code>summarize()</code> to calculate 1) <code>gdpPercapweighted.mean(x=gdpPercap,w=pop)</code> and 2) pop = sum(as.numeric(pop)) that will be the data for the black continent average line on the second plot.</li>
+<li>Use <code>summarize()</code> to calculate 1) <code>gdpPercapweighted=mean(x=gdpPercap,w=pop)</code> and 2) <code>pop = sum(as.numeric(pop))</code> that will be the data for the black continent average line on the second plot.</li>
 <li>Use <code>library(ggplot2)</code> and the <code>theme_bw()</code> to duplicate the first plot</li>
 <li>Use <code>scale_y_continuous(trans = &quot;sqrt&quot;)</code> to get the correct scale on the y-axis.</li>
 <li>Use <code>library(ggplot2)</code> and the <code>theme_bw()</code> to duplicate the second plot. You will need to use the new data you summarized to make the black lines and dots showing the continent average.</li>
