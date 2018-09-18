@@ -1,0 +1,91 @@
+---
+title: "Package Presentation"
+author: "Your Name"
+output: 
+  revealjs::revealjs_presentation:
+      incremental: true
+      theme: white
+      highlight: tango
+      self_contained: false
+---
+
+
+## Lead Author: Yihui Xie
+
+Software engineer at Rstudio
+PhD Department of Statistics, Iowa State University
+Founded Chinese website Capital of Statistics & initiated 1st Chinese R conference
+
+R packages: 
+* `animation`
+* `formatR`
+* `knitr`
+
+---
+
+![](yihui.png)
+
+> “I know I cannot eat code, so I cook almost every day to stay away from my computer for two hours.”
+
+## Animation package
+
+Makes animations!
+
+* probability theory
+* mathematical statistics
+* multivariate statistics
+* nonparametric statistics
+* sampling survey
+* linear models
+* time series
+* computational statistics
+* data mining
+* machine learning 
+
+**Save to Flash, GIF, HTML pages, PDF and videos**
+
+## Basic steps…
+
+1. Uses a ’loop’ to make a series of plots
+2. Package ‘combines’ them into an animation
+
+## Example Code: Linear Regression
+
+```{r, results='hide'}
+library(animation)
+saveGIF({    
+ani.options(interval = 0.3, nmax = 50)
+  par(
+    mar = c(4, 4, 0.5, 0.1),
+    mgp = c(2, 0.5, 0),
+    tcl = -0.3)
+  least.squares()
+  },
+img.name = "least.squares",
+htmlfile = "least.squares.gif",
+ani.height = 600, 
+ani.width = 1000,
+title = "Demonstration of Least Squares")
+```
+
+```{r, results='hide'}
+library(animation)
+saveGIF({    
+ani.options(interval = 0.3, nmax = 50)
+  par(
+    mar = c(4, 4, 0.5, 0.1),
+    mgp = c(2, 0.5, 0),
+    tcl = -0.3)
+  least.squares()
+  },
+img.name = "least.squares",
+htmlfile = "least.squares.gif",
+ani.height = 600, 
+ani.width = 1000,
+title = "Demonstration of Least Squares")
+```
+
+
+---
+
+<img src="animation.gif"></img>

@@ -17,8 +17,12 @@ library(dplyr)
 
 yamls=yaml_dir()
 
-dates_cs=do.call(rbind,lapply(yamls,function(x) cbind.data.frame(date=ymd(x$date),title=x$file2,
-                                                        type=x$type,url=x$url)))
+dates_cs=do.call(rbind,lapply(yamls,function(x) 
+  cbind.data.frame(
+    date=ymd(x$date),
+    title=x$file2,
+    type=x$type,
+    url=x$url)))
 
 #dates_read=do.call(rbind,lapply(yamls,function(x) cbind.data.frame(
 #  date=floor_date(ymd(x$date)+1, "week"),

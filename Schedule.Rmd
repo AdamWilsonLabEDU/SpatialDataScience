@@ -13,14 +13,14 @@ In the table below, R4DS refers to [_R for Data Science_ by Garrett Grolemund an
 Homeworks are due at 5pm on the Friday of the week specified below.
 
 | Week    |  Title   | Description |  Assignment | Readings | Package Presentation Group |
-|:--|:--|:----------------------------------------|:---------|:---|---:|
+|:--|:--|:----------------------------------------|:---------|:---|---:| 
 | 8/28    | **Introduction & Overview** | Course Motivation & Objectives. Workflow & repeatable research in an era of big data. Getting started with R & RStudio. Data structures (vectors, matrices, data frames).| | [R4DS 1-2](http://r4ds.had.co.nz) |
 | 9/4 | **Graphics** | The _grammar of graphics_: ggplot2 |  | [R4DS 3](http://r4ds.had.co.nz) |  |
 | 9/11 | **Data Wrangling ** | Data Transformation: Filtering, selecting, transforming  | | [R4DS 4-5](http://r4ds.had.co.nz) | 1|
-| 9/18 | **Data Wrangling 2** | Joining data | [9/28 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments) | [R4DS ](http://r4ds.had.co.nz) | 2 |
+| 9/18 | **Data Wrangling 2** | Joining data | [9/21 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments) | [R4DS 11-13](http://r4ds.had.co.nz) | 2 |
 | 9/25 | **Spatial Vector Data** | Vector data processing. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection, overlays, zonal statistics |  | [GCR 1-2](https://geocompr.robinlovelace.net/) | 3 |
 | 10/2 | **Spatial Raster Data** | Gridded spatial data |  [10/5 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments)  | [GCR 3-4](https://geocompr.robinlovelace.net/) | 4|
-| 10/9 | **Creating Workflows** | Example A 'mini' project: Sea level rise in Bangladesh | Project Proposal |  | 5|
+| 10/9 | **Creating Workflows** | Example A 'mini' project: Sea level rise in Bangladesh | Project Proposal |  [R4DS 6-10](http://r4ds.had.co.nz) | 5|
 | 10/16 | **Reproducible Research & Literate Programming ** | Data I/O. RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.| [10/19 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments) |  [R4DS 11, 26-30](http://r4ds.had.co.nz) | 6 |
 | 10/23 | **APIs, time-series, and weather Data ** | Processing daily weather data from NOAA  |  | | 7|
 | 10/30 | **Satellite Data Processing** | MODIS Satellite data |Homework # 4  |   | 8 |
