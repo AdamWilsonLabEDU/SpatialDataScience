@@ -41,7 +41,6 @@ md_bullet(rmarkdown::metadata$tasks)
 
 In this exercise you will recreate the two graphics shown below using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can). Specific instructions/steps are listed in the 'Detailed Steps' section.
 
-
 ## Wealth and life expectancy through time
 
 ```{r code1, eval=TRUE,echo=FALSE, fig.width=15, message=FALSE}
@@ -75,7 +74,6 @@ p2
 # ggsave(file="week_04/case_study/plot1.png",plot=p1,width = 15,height=8)
 # ggsave(file="week_04/case_study/plot2.png",plot=p2,width = 15,height=8)
 ```
-
 
 ## Detailed Steps
 
