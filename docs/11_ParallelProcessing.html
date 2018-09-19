@@ -746,7 +746,7 @@ sample_n(data,size,replace=T)</code></pre>
 <h3>Simple Generalized Linear Model</h3>
 <p>This is the formal definition of the model we’ll use:</p>
 <p><span class="math inline"><em>y</em><sub><em>i</em></sub> ∼ <em>B</em><em>e</em><em>r</em><em>n</em><em>o</em><em>u</em><em>l</em><em>l</em><em>i</em>(<em>p</em><sub><em>i</em></sub>)</span></p>
-<p><span class="math inline"><em>l</em><em>o</em><em>g</em><em>i</em><em>t</em>(<em>p</em><sub><em>i</em></sub>)=<em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>X</em><sub><em>i</em></sub></span></p>
+<p><span class="math inline"><em>l</em><em>o</em><em>g</em><em>i</em><em>t</em>(<em>p</em><sub><em>i</em></sub>) = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>X</em><sub><em>i</em></sub></span></p>
 <p>The index <span class="math inline"><em>i</em></span> identifies each grid cell (data point). <span class="math inline"><em>β</em><sub>0</sub></span> - <span class="math inline"><em>β</em><sub>1</sub></span> are model coefficients (intercept and slope), and <span class="math inline"><em>y</em><sub><em>i</em></sub></span> is the simulated observation from cell <span class="math inline"><em>i</em></span>.</p>
 <pre class="r"><code>trials = 10000
 tsize = 100
@@ -1152,10 +1152,7 @@ system.time(fn(r))</code></pre>
 <div id="high-performance-computers-hpc" class="section level1">
 <h1>High Performance Computers (HPC)</h1>
 <p><em>aka</em> <em>supercomputers</em>, for example, check out the <a href="https://www.buffalo.edu/ccr.html">University at Buffalo HPC</a></p>
-<div class="figure">
-<img src="10_Presentation/assets/CCR.png" />
-
-</div>
+<p><img src="10_Presentation/assets/CCR.png" /></p>
 <p>Working on a cluster can be quite different from a laptop/workstation. The most important difference is the existence of <em>scheduler</em> that manages large numbers of individual tasks.</p>
 <div id="slurm-and-r" class="section level2">
 <h2>SLURM and R</h2>

@@ -526,7 +526,7 @@ library(maptools)</code></pre>
 <li>Autoregressive Models: <code>spdep</code></li>
 <li>GeoBUGS module in OpenBUGS</li>
 </ul>
-<p>See <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x/full">Dormann et al. 2007 Ecography, 30: 609-628</a> for a review.</p>
+<p>See <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.2007.0906-7590.05171.x/full">Dormann et al. 2007 Ecography, 30: 609-628</a> for a review.</p>
 </div>
 <div id="species-distribution-modeling" class="section level2">
 <h2>Species Distribution Modeling</h2>
@@ -678,7 +678,7 @@ p1a=p1+geom_sf(aes(fill = ndvi))</code></pre>
 <div id="model-1---only-ndvi" class="section level3">
 <h3>Model 1 - only NDVI</h3>
 <p>Now we will do the actual modelling. The first simple model links the probability of a presences or absences to NDVI.</p>
-<p><br /><span class="math display">log(<em>p</em><sub><em>i</em></sub>/1 − <em>p</em><sub><em>i</em></sub>)=<em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>N</em><em>D</em><em>V</em><em>I</em><sub><em>i</em></sub></span><br /> <br /><span class="math display"><em>o</em><sub><em>i</em></sub> ∼ <em>B</em><em>e</em><em>r</em><em>n</em><em>o</em><em>u</em><em>l</em><em>l</em><em>i</em>(<em>p</em><sub><em>i</em></sub>)</span><br /></p>
+<p><br /><span class="math display">log (<em>p</em><sub><em>i</em></sub>/1 − <em>p</em><sub><em>i</em></sub>) = <em>β</em><sub>0</sub> + <em>β</em><sub>1</sub><em>N</em><em>D</em><em>V</em><em>I</em><sub><em>i</em></sub></span><br /> <br /><span class="math display"><em>o</em><sub><em>i</em></sub> ∼ <em>B</em><em>e</em><em>r</em><em>n</em><em>o</em><em>u</em><em>l</em><em>l</em><em>i</em>(<em>p</em><sub><em>i</em></sub>)</span><br /></p>
 <blockquote>
 <p>Note: this assumes residuals are <em>iid</em> (independent and identically distributed).</p>
 </blockquote>
@@ -916,7 +916,7 @@ p1a=p1+geom_sf(aes(fill = m_pred_spacendvi))+pts</code></pre>
 </div>
 <div id="model-comparison" class="section level2">
 <h2>Model comparison</h2>
-<p>We can compare model performance of the models with Akaike’s Information Criterion (AIC). This uses the formula <span class="math inline"><em>A</em><em>I</em><em>C</em> = −2 * <em>l</em><em>o</em><em>g</em> − <em>l</em><em>i</em><em>k</em><em>e</em><em>l</em><em>i</em><em>h</em><em>o</em><em>o</em><em>d</em> + <em>k</em> * <em>n</em><em>p</em><em>a</em><em>r</em></span>, where</p>
+<p>We can compare model performance of the models with Akaike’s Information Criterion (AIC). This uses the formula <span class="math inline"><em>A</em><em>I</em><em>C</em> =  − 2 * <em>l</em><em>o</em><em>g</em> − <em>l</em><em>i</em><em>k</em><em>e</em><em>l</em><em>i</em><em>h</em><em>o</em><em>o</em><em>d</em> + <em>k</em> * <em>n</em><em>p</em><em>a</em><em>r</em></span>, where</p>
 <ul>
 <li><span class="math inline"><em>n</em><em>p</em><em>a</em><em>r</em></span> number of parameters in the fitted model</li>
 <li><span class="math inline"><em>k</em> = 2</span> penalty per parameter</li>

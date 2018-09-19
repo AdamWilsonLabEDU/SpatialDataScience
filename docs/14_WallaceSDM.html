@@ -515,10 +515,7 @@ run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
 <p><br> <img src="14_assets/Wallace2a.png" /></p>
 <p><br> The samples may exhibit spatial autocorrelation, which is best to account for in the model or remove before modeling. For example, there might be a bunch of samples near cities because these are mostly from iNaturalist (citizen science) and citizen often live near cities. So lets spatially thin the points and make sure they’re all at least 10km from one another. It takes a sec. That left me with 163 points for modeling (yours may be different).</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace2b.png" />
-
-</div>
+<p><img src="14_assets/Wallace2b.png" /></p>
 <p><br></p>
 <p>Download these points for later reference.</p>
 </div>
@@ -534,10 +531,7 @@ run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
 <h1>Prep environmental data</h1>
 <p>Now we need to choose the extent of the modeling domain. This jargon means that we have to define a sensible region to fit the model. Contrary to many publications, species ranges are not typically best modeling on domains defined by squares or political boundaries. Press some buttons on this screen to explore the options, but end up with something like what I show below. We’ll explore the consequences shortly. Press the <strong>Mask</strong> button to trim the environmental layers to this polygon and download the result.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace4a.png" />
-
-</div>
+<p><img src="14_assets/Wallace4a.png" /></p>
 <p><br></p>
 </div>
 <div id="partition-occurrences" class="section level1">
@@ -589,37 +583,22 @@ run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
 <p><img src="14_assets/Wallace7b.png" /> <br></p>
 <p>We can also map the predictions. At first glance it looks like a decent model because the presence points correspond to regions of higher suitability.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace7c.png" />
-
-</div>
+<p><img src="14_assets/Wallace7c.png" /></p>
 <p><br></p>
 </div>
 <div id="project" class="section level1">
 <h1>Project</h1>
 <p>Next we can evaluate the models ability to project first to new locations (extending the domain) and new times (2070). First, extend the domain by drawing a polygon like the one below. Double-clicking on each of the 4 corners of this one draws the polygon. Next, press <code>Select</code> and then <code>Project</code> to build the new map.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace8a.png" />
-
-</div>
+<p><img src="14_assets/Wallace8a.png" /></p>
 <p><br></p>
 <p>Below are the predictions to a much larger region. Looks like northern Canada should get ready for a red maple invasion… So it appears we’ve fit a response that doesn’t generalize well to other regions. One way to determine how that happened is to look back at the response curves to determine which predictors are contributing to high suitability in northern Canada. This is best done with MESS plots in the maxent software package, and we haven’t included those in <code>wallace</code> just yet. So we’ll explore another way to avoid this poor prediction below.</p>
 <p>As another example, of <code>wallace</code>’s features, we can also project to future climate scenarios. Select the options as below and forecast the future range of A. rubrum under an extreme climate change scenario. <br></p>
-<div class="figure">
-<img src="14_assets/Wallace8b.png" />
-
-</div>
+<p><img src="14_assets/Wallace8b.png" /></p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace8c.png" />
-
-</div>
+<p><img src="14_assets/Wallace8c.png" /></p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace8d.png" />
-
-</div>
+<p><img src="14_assets/Wallace8d.png" /></p>
 <p><br></p>
 </div>
 <div id="extracting-the-code" class="section level1">
@@ -627,10 +606,7 @@ run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
 <p>A major advantage of <code>wallace</code> compared to other GUI-based software is that you can extract all the code used to run the analysis. This allows you to recall what you did, share it, or modify it. The code is best extracted in <strong>R markdown</strong> format, which is a convienient format for combining R and text (and actually forms the basis of this website). Other formats are also available; for example Microsoft Word output mught be useful if you live in the ’90s.</p>
 <p>To download the code, select Rmd and click Download. You may need to go to your R window and allow R to set up a cache to proceed. Extraction takes a minute; currently it has to rerun all the analyses we just did. We’ll fix this in an upcoming release to avoid the redundancy.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/Wallace9a.png" />
-
-</div>
+<p><img src="14_assets/Wallace9a.png" /></p>
 <p><br></p>
 <p>Now, you should have an .Rmd file that contains your complete analysis. Sometimes, if you make a bunch of mistakes while playing with the GUI, you might get an error when extracting the .Rmd. If that happens, you can download mine <a href="https://cmerow.github.io/RDataScience/14_assets/Outputs/wallace-session-2017-01-26.Rmd">here</a></p>
 <p>Rmd files combine regular text with <strong>code chunks</strong>, shown by the red arrow below. Modules from <code>wallace</code> are indicated as headers denoted by <strong>###</strong>. For a quick reference to Rmd syntax, see <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">here</a></p>
@@ -645,17 +621,11 @@ run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
 <h1>Improving the model</h1>
 <p>Let’s revisit that crappy prediction into northern Canada. This issue derived from a poor choice of modeling domain and an overfit model. Try rerunning the analysis by extending the domain to include many locations where the species does not occur (see below) and using a simpler model that includes only linear and quadtratic features.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/WallaceNexta.png" />
-
-</div>
+<p><img src="14_assets/WallaceNexta.png" /></p>
 <p><br></p>
 <p>Here are the improved predictions that avoid prediction in northern Canada.</p>
 <p><br></p>
-<div class="figure">
-<img src="14_assets/WallaceNexta.png" />
-
-</div>
+<p><img src="14_assets/WallaceNexta.png" /></p>
 </div>
 
 <!-- Google Analytics -->

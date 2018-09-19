@@ -20,7 +20,7 @@ yamls=yaml_dir()
 dates_cs=do.call(rbind,lapply(yamls,function(x) 
   cbind.data.frame(
     date=ymd(x$date),
-    title=x$file2,
+    title=x$name,
     type=x$type,
     url=x$url)))
 
