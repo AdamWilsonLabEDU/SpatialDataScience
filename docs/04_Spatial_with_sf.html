@@ -494,7 +494,7 @@ library(maptools)</code></pre>
 <p>There are currently two main approaches in R to handle geographic vector data.</p>
 <div id="the-sp-package" class="section level2">
 <h2>The <code>sp</code> package</h2>
-<p>The first package to provide classes and methods for spatial data types in R is called <a href="https://cran.r-project.org/package=sp"><code>sp</code></a><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. Development of the <code>sp</code> package began in the early 2000s in an attempt to standardize how spatial data would be treated in R and to allow for better interoperability between different analysis packages that use spatial data. The package (first release on CRAN in 2005) provides classes and methods to create <em>points</em>, <em>lines</em>, <em>polygons</em>, and <em>grids</em> and to operate on them. About 350 of the spatial analysis packages use the spatial data types that are implemented in <code>sp</code> i.e. they “depend” on the <code>sp</code> package and many more are indirectly dependent.</p>
+<p>The first package to provide classes and methods for spatial data types in R is called <a href="https://cran.r-project.org/package=sp"><code>sp</code></a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Development of the <code>sp</code> package began in the early 2000s in an attempt to standardize how spatial data would be treated in R and to allow for better interoperability between different analysis packages that use spatial data. The package (first release on CRAN in 2005) provides classes and methods to create <em>points</em>, <em>lines</em>, <em>polygons</em>, and <em>grids</em> and to operate on them. About 350 of the spatial analysis packages use the spatial data types that are implemented in <code>sp</code> i.e. they “depend” on the <code>sp</code> package and many more are indirectly dependent.</p>
 <p>The foundational structure for any spatial object in <code>sp</code> is the <code>Spatial</code> class. It has two “slots” (<a href="http://stackoverflow.com/a/4714080">new-style S4 class objects in R have pre-defined components called slots</a>):</p>
 <ul>
 <li><p>a <strong>bounding box</strong></p></li>
@@ -505,7 +505,7 @@ library(maptools)</code></pre>
 <div id="i.-create-geometric-objects-topology" class="section level3">
 <h3>I. Create geometric objects (topology)</h3>
 <p><strong>Points</strong> (which may have 2 or 3 dimensions) are the most basic spatial data objects. They are generated out of either a single coordinate or a set of coordinates, like a two-column matrix or a dataframe with a column for latitude and one for longitude.<br />
-<strong>Lines</strong> are generated out of <code>Line</code> objects. A <code>Line</code> object is a spaghetti collection of 2D coordinates<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> and is generated out of a two-column matrix or a dataframe with a column for latitude and one for longitude. A <code>Lines</code> object is a <strong>list</strong> of one or more <code>Line</code> objects, for example all the contours at a single elevation.<br />
+<strong>Lines</strong> are generated out of <code>Line</code> objects. A <code>Line</code> object is a spaghetti collection of 2D coordinates<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> and is generated out of a two-column matrix or a dataframe with a column for latitude and one for longitude. A <code>Lines</code> object is a <strong>list</strong> of one or more <code>Line</code> objects, for example all the contours at a single elevation.<br />
 <strong>Polygons</strong> are generated out of <code>Polygon</code> objects. A <code>Polygon</code> object is a spaghetti collection of 2D coordinates with equal first and last coordinates and is generated out of a two-column matrix or a dataframe with a column for latitude and one for longitude. A <code>Polygons</code> object is a <strong>list</strong> of one or more <code>Polygon</code> objects, for example islands belonging to the same country.</p>
 <p>See here for a very simple example for how to create a <code>Line</code> object:</p>
 <pre class="r"><code>ln &lt;- Line(matrix(runif(6), ncol=2))
@@ -567,10 +567,10 @@ str(sp_lns_dfr)</code></pre>
 ##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
 ##   .. .. ..@ projargs: chr NA</code></pre>
 <p>A number of spatial methods are available for the classes in <code>sp</code>. Common ones include:</p>
-<table style="width:94%;">
+<table>
 <colgroup>
 <col width="18%" />
-<col width="76%" />
+<col width="81%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -613,7 +613,7 @@ str(sp_lns_dfr)</code></pre>
 </div>
 <div id="the-sf-package" class="section level2">
 <h2>The <code>sf</code> package</h2>
-<p>The second package, first released on CRAN in late October 2016, is called <a href="https://cran.r-project.org/package=sf"><code>sf</code></a><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>. It implements a formal standard called <a href="https://en.wikipedia.org/wiki/Simple_Features">“Simple Features”</a> that specifies a storage and access model of spatial geometries (point, line, polygon). A feature geometry is called simple when it consists of points connected by straight line pieces, and does not intersect itself. This standard has been adopted widely, not only by spatial databases such as PostGIS, but also more recent standards such as GeoJSON.</p>
+<p>The second package, first released on CRAN in late October 2016, is called <a href="https://cran.r-project.org/package=sf"><code>sf</code></a><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. It implements a formal standard called <a href="https://en.wikipedia.org/wiki/Simple_Features">“Simple Features”</a> that specifies a storage and access model of spatial geometries (point, line, polygon). A feature geometry is called simple when it consists of points connected by straight line pieces, and does not intersect itself. This standard has been adopted widely, not only by spatial databases such as PostGIS, but also more recent standards such as GeoJSON.</p>
 <p><a href="https://en.wikipedia.org/wiki/Simple_Features">Simple features</a> or <a href="http://www.opengeospatial.org/standards/sfa"><em>simple feature access</em></a> refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the <em>spatial</em> geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.</p>
 <p>The standard is widely implemented in spatial databases (such as PostGIS), commercial GIS (e.g., <a href="http://www.esri.com/">ESRI ArcGIS</a>) and forms the vector data basis for libraries such as <a href="http://www.gdal.org/">GDAL</a>. A subset of simple features forms the <a href="http://geojson.org/">GeoJSON</a> standard.</p>
 <p>If you work with PostGis or GeoJSON you may have come across the <a href="https://en.wikipedia.org/wiki/Well-known_text">WKT (well-known text)</a> format, for example like these:</p>
@@ -694,10 +694,7 @@ file</code></pre>
 <p>If we print the first three features, we see their attribute values and an abridged version of the geometry</p>
 <pre class="r"><code>print(nc[9:15], n = 3)</code></pre>
 <p>which would give the following output:</p>
-<div class="figure">
-<img src="04_Spatial_with_sf/sf_xfig.png" />
-
-</div>
+<p><img src="04_Spatial_with_sf/sf_xfig.png" /></p>
 <p>In the output we see:</p>
 <ul>
 <li>in green a simple feature: a single record, or <code>data.frame</code> row, consisting of attributes and geometry</li>
@@ -1170,10 +1167,10 @@ st_agr(meuse_sf)</code></pre>
 ## constant constant constant constant 
 ## Levels: constant aggregate identity</code></pre>
 <p>When not specified, this field is filled with <code>NA</code> values, but if non-<code>NA</code>, it has one of three possibilities</p>
-<table style="width:60%;">
+<table>
 <colgroup>
-<col width="11%" />
-<col width="48%" />
+<col width="17%" />
+<col width="82%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1479,9 +1476,9 @@ title(&quot;polygon&quot;)</code></pre>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>R Bivand (2011) <a href="http://geostat-course.org/system/files/monday_slides.pdf">Introduction to representing spatial objects in R</a><a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>Coordinates should be of type double and will be promoted if not.<a href="#fnref2">↩</a></p></li>
-<li id="fn3"><p>E. Pebesma &amp; R. Bivand (2016)<a href="http://pebesma.staff.ifgi.de/pebesma_sfr.pdf">Spatial data in R: simple features and future perspectives</a><a href="#fnref3">↩</a></p></li>
+<li id="fn1"><p>R Bivand (2011) <a href="http://geostat-course.org/system/files/monday_slides.pdf">Introduction to representing spatial objects in R</a><a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Coordinates should be of type double and will be promoted if not.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>E. Pebesma &amp; R. Bivand (2016)<a href="http://pebesma.staff.ifgi.de/pebesma_sfr.pdf">Spatial data in R: simple features and future perspectives</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 

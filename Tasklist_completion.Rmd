@@ -1,0 +1,33 @@
+---
+title: "Task Completion list"
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+library(dplyr)
+source("functions.R")
+yamls=yaml_dir()
+yamls=yamls[order(sapply(yamls,function(x) x$date))]
+```
+
+Below are a set of tasks that we will work on in class (either alone or in small groups).
+
+
+```{r reading2,results='asis',echo=F}
+# This chunk prints an index of all the task titles along with a preview of the sub-tasks 
+tasks=do.call(rbind.data.frame,lapply(yamls, FUN=function(x) {
+  cbind.data.frame(
+    complete=0,
+    tasks=x$tasks,
+    task=paste0("[",x$name,"](",x$url,")"),
+    date=x$date
+  )
+}
+))
+
+knitr::kable(tasks)
+```
+

@@ -639,10 +639,7 @@ plot(lst[[1:10]])</code></pre>
 <div id="mod11a2-land-surface-temperature-quality-control" class="section level2">
 <h2>MOD11A2 (Land Surface Temperature) Quality Control</h2>
 <p><a href="https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod11a2">MOD11A2 QC Layer table</a></p>
-<div class="figure">
-<img src="09_presentation/09_assets/lst_qc.png" />
-
-</div>
+<p><img src="09_presentation/09_assets/lst_qc.png" /></p>
 <pre class="r"><code>lstqc=stack(lstf,varname=&quot;QC_Day&quot;)
 plot(lstqc[[1:2]])</code></pre>
 <p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-11-1.png" /><!-- --></p>
@@ -653,10 +650,7 @@ plot(lstqc[[1:2]])</code></pre>
 <pre><code>## .
 ##    2   17   33   65   81   97  145 
 ## 1569    8    5  675  335    4   90</code></pre>
-<div class="figure">
-<img src="09_presentation/09_assets/QCdata.png" />
-
-</div>
+<p><img src="09_presentation/09_assets/QCdata.png" /></p>
 <pre class="r"><code>intToBits(65)</code></pre>
 <pre><code>##  [1] 01 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 ## [24] 00 00 00 00 00 00 00 00 00</code></pre>

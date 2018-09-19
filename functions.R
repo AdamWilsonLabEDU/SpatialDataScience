@@ -12,9 +12,9 @@ yaml_extract=function(file){
   yaml2=paste(yaml[1:(which(yaml=="---")-1)])
   yaml3=read_yaml(text=yaml2)
   yaml3$file=file
-  yaml3$file2=sub("[.]Rmd","",basename(file))
-  yaml3$type=sub("_.*","",yaml3$file2)
-  yaml3$number=as.numeric(sub("^.*_","",yaml3$file2))
+  yaml3$name=sub("[.]Rmd","",basename(file))
+  yaml3$type=sub("_.*","",yaml3$name)
+  yaml3$number=as.numeric(sub("^.*_","",yaml3$name))
   yaml3$url=paste(sub("[.]Rmd",".html",yaml3$file))
   return(yaml3)
 }

@@ -6,7 +6,12 @@ output:
     toc_depth: 1
 ---
 
-
+2```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+library(dplyr)
+source("functions.R")
+yamls=yaml_dir()
+yamls=yamls[order(sapply(yamls,function(x) x$date))]
+```
 
 Below are a set of tasks that we will work on in class (either alone or in small groups).
 
@@ -105,14 +110,8 @@ ___
 - Watch the [Hons Rosling video](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen){target="blank"}
 
 ## Tasks
-- Recreate the two graphics shown using `gapminder` dataset from `library(gapminder)` (get them to match as closely as you can)
-- Use `filter()` to remove "Kuwait" for reasons noted in the background
-- Use `group_by()` to group by `continent` and `year`
-- Use `summarize()` to calculate 1) `gdpPercapweighted.mean(x=gdpPercap,w=pop)` and 2)  pop = sum(as.numeric(pop)) that will be the data for the black continent average line on the second plot.
-- Use `library(ggplot2)` and the `theme_bw()` to duplicate the first plot
-- Use  `scale_y_continuous(trans = "sqrt")` to get the correct scale on the y-axis.
-- Use `library(ggplot2)` and the `theme_bw()` to duplicate the second plot. You will need to use the new data you summarized to make the black lines and dots showing the continent average.
-- Use `ggsave()` and save each plot as a `.png` with a width of 15 inches
-- Save your script.
+- Recreate layered graphics with ggplot including raw and transformed data
+- Save graphical output as a .png file
+- Save your script as a .R or .Rmd in your course repository
 </div>
 

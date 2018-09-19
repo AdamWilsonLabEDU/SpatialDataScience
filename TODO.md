@@ -21,14 +21,14 @@ Grading changes
 Include letter to instructor with grade request.
 
 Schedule Page (one row per week with):
-date, readings, datacamp, presentation, tasks, casestudies.
+date, readings, datacamp, present last week's case study, package presentation, tasks, casestudies.
+
 
 ## Typical week/session
-Read chapter, take DataCamp course, perform tasks, meet in class for: questions & case studies, commit to github.
+Finish last week's case study and commit, read chapter, take DataCamp course, perform tasks and commit to github, meet in class for: questions & case studies
 
 ## Datacamp
 Weekly courses due before topic in class
-
 
 ### Assigned
 * [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r) 
@@ -36,18 +36,21 @@ Weekly courses due before topic in class
 * [Spatial Analysis in R with sf and raster](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
 ## Git Classroom
-* set up course folder structure
+* setup git account
 * use github classroom
+* set up course folder structure
+* update profile on github
+* Add short description to top-level README in github repository
 
 
 ## Tasks to add
 early:
-set up datacamp account
-explore available classes and select 3-5 interesting ones (list these in README)
-setup git account
+* set up datacamp account
+* explore available classes and select 3-5 interesting ones (list these in README)
 
 
-
+### Project related tasks
+* convert project to separate tasks
 
 late:
 earn an additional 5,000 datacamp XP in a topic/course of your choosing
