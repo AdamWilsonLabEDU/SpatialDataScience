@@ -189,6 +189,24 @@ Below are a set of tasks that we will work on in class (either alone or in small
    <td style="text-align:left;"> [CS_03](./CS_03.html) </td>
    <td style="text-align:left;"> 2018-09-13 </td>
   </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Join two datasets using a common column </td>
+   <td style="text-align:left;"> [CS_04](./CS_04.html) </td>
+   <td style="text-align:left;"> 2018-09-20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Answer a question that requires understanding relational table </td>
+   <td style="text-align:left;"> [CS_04](./CS_04.html) </td>
+   <td style="text-align:left;"> 2018-09-20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Save your script as a .R or .Rmd in your course repository </td>
+   <td style="text-align:left;"> [CS_04](./CS_04.html) </td>
+   <td style="text-align:left;"> 2018-09-20 </td>
+  </tr>
 </tbody>
 </table>
 

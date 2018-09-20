@@ -114,4 +114,19 @@ ___
 - Save graphical output as a .png file
 - Save your script as a .R or .Rmd in your course repository
 </div>
+___
+# [ CS_04 :  Relational Data ]( ./CS_04.html ) 
+ 2018-09-20  
+ 
+  Joining Relational Data  
+ 
+ <a class="btn btn-link" href="./CS_04.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i6">Preview Readings & Tasks </button><div id="i6" class="collapse">
+## Readings
+- R4DS [Chapter 13 - Relational Data](http://r4ds.had.co.nz/relational-data.html){target='blank'}
+
+## Tasks
+- Join two datasets using a common column
+- Answer a question that requires understanding relational table
+- Save your script as a .R or .Rmd in your course repository
+</div>
 

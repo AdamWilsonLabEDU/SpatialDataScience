@@ -25,7 +25,6 @@ The project proposal will be 1 page or less and include the following:
 3.  Proposed methods: List the approach you will use. Don't simply list packages, tell me what you will do with them.
 4.  Expected results: Describe what you want to produce (graphics, analyses, etc.)
 
-
 Finding good data takes time, and can take longer than the time to tidy your data.  This task could easily take 3-6 hours to find the data you need for your project.  After you find good data sources make sure to complete the remaining tasks.
 
 ### First Draft

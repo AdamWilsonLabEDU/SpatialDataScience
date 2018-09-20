@@ -24,6 +24,12 @@ Schedule Page (one row per week with):
 date, readings, datacamp, present last week's case study, package presentation, tasks, casestudies.
 
 
+## Notes on content
+
+* split data wrangling into two weeks filter/summarize and joins
+
+
+
 ## Typical week/session
 Finish last week's case study and commit, read chapter, take DataCamp course, perform tasks and commit to github, meet in class for: questions & case studies
 
