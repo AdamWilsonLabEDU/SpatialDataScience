@@ -454,8 +454,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">Joining / Merging Data</h1>
 </section>
 
-<section><section id="relational-data-and-r" class="title-slide slide level1"><h1>Relational Data and R</h1></section><section id="defining-terms" class="slide level2">
-<h2>Defining Terms</h2>
+<section><section id="relational-data" class="title-slide slide level1"><h1>Relational Data</h1></section><section id="relational-data-1" class="slide level2">
+<h2>Relational Data</h2>
+<p><img data-src="http://r4ds.had.co.nz/diagrams/relational-nycflights.png" /></p>
+</section><section id="visualizing-relational-data" class="slide level2">
+<h2>Visualizing Relational Data</h2>
+<p><img data-src="http://r4ds.had.co.nz/diagrams/join-setup.png" /></p>
 <ul>
 <li class="fragment"><strong>Primary key</strong>: uniquely identifies an observation in its own table. For example, <code>planes$tailnum</code> is a primary key because it uniquely identifies each plane in the planes table.</li>
 <li class="fragment"><strong>Foreign key</strong>: uniquely identifies an observation in another table. For example, the <code>flights$tailnum</code> is a foreign key because it appears in the flights table where it matches each flight to a unique plane.</li>
@@ -467,12 +471,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment"><strong>Filtering joins</strong>: filter observations from one data frame based on whether or not they match an observation in the other table.</li>
 <li class="fragment"><strong>Set operations</strong>: treat observations as if they were set elements</li>
 </ul>
-</section><section id="relational-data" class="slide level2">
-<h2>Relational Data</h2>
-<p><img data-src="http://r4ds.had.co.nz/diagrams/relational-nycflights.png" /></p>
-</section><section id="visualizing-relational-data" class="slide level2">
-<h2>Visualizing Relational Data</h2>
-<p><img data-src="http://r4ds.had.co.nz/diagrams/join-setup.png" /></p>
 </section><section id="inner-join" class="slide level2">
 <h2>Inner Join</h2>
 <p><img data-src="http://r4ds.had.co.nz/diagrams/join-inner.png" /></p>
@@ -507,8 +505,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2><code>anti_join(x, y)</code> drops all observations in x that have a match in y.</h2>
 <p><img data-src="http://r4ds.had.co.nz/diagrams/join-anti.png" /></p>
 <p>Anti-joins are useful for diagnosing join mismatches.</p>
-</section><section id="other-cases-merge" class="slide level2">
-<h2>Other Cases (<code>merge()</code>)</h2>
+</section></section>
+<section><section id="compare-with-other-functions" class="title-slide slide level1"><h1>Compare with other functions</h1></section><section id="merge" class="slide level2">
+<h2><code>merge()</code></h2>
 <p><code>base::merge()</code> can perform all four types of joins:</p>
 <table>
 <thead>
@@ -540,8 +539,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li class="fragment">specific dplyr verbs more clearly convey the intent of your code: they are concealed in the arguments of <span class="bullet_code">merge()</span>.</li>
 <li class="fragment">dplyr’s joins are considerably faster and don’t mess with the order of the rows.</li>
 </ul>
-</section><section id="other-cases-sql" class="slide level2">
-<h2>Other Cases (SQL)</h2>
+</section><section id="sql" class="slide level2">
+<h2>SQL</h2>
 <p>SQL is the inspiration for dplyr’s conventions, so the translation is straightforward:</p>
 <table>
 <thead>
