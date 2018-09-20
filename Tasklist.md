@@ -6,12 +6,7 @@ output:
     toc_depth: 1
 ---
 
-2```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-library(dplyr)
-source("functions.R")
-yamls=yaml_dir()
-yamls=yamls[order(sapply(yamls,function(x) x$date))]
-```
+
 
 Below are a set of tasks that we will work on in class (either alone or in small groups).
 

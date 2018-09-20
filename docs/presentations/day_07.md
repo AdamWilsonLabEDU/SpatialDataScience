@@ -2,9 +2,15 @@
 title: "Joining / Merging Data"
 ---
 
-# Relational Data and R
+# Relational Data
 
-## Defining Terms
+## Relational Data
+
+![](http://r4ds.had.co.nz/diagrams/relational-nycflights.png)
+
+## Visualizing Relational Data
+
+![](http://r4ds.had.co.nz/diagrams/join-setup.png)
 
 * **Primary key**: uniquely identifies an observation in its own table. For example, `planes$tailnum` is a primary key because it uniquely identifies each plane in the planes table.
 * **Foreign key**: uniquely identifies an observation in another table. For example, the `flights$tailnum` is a foreign key because it appears in the flights table where it matches each flight to a unique plane.
@@ -15,13 +21,7 @@ title: "Joining / Merging Data"
 * **Filtering joins**: filter observations from one data frame based on whether or not they match an observation in the other table.
 * **Set operations**: treat observations as if they were set elements
 
-## Relational Data
 
-![](http://r4ds.had.co.nz/diagrams/relational-nycflights.png)
-
-## Visualizing Relational Data
-
-![](http://r4ds.had.co.nz/diagrams/join-setup.png)
 
 ## Inner Join
 ![](http://r4ds.had.co.nz/diagrams/join-inner.png)
@@ -62,7 +62,9 @@ Matches pairs of observations whenever their keys are equal:
 
 Anti-joins are useful for diagnosing join mismatches.
 
-## Other Cases (`merge()`)
+# Compare with other functions
+
+## `merge()`
 
 `base::merge()` can perform all four types of joins:
 
@@ -76,7 +78,7 @@ dplyr              | merge
 * specific dplyr verbs more clearly convey the intent of your code: they are concealed in the arguments of <span class="bullet_code">merge()</span>.
 * dplyr's joins are considerably faster and don't mess with the order of the rows.
 
-## Other Cases (SQL)
+## SQL
 
 SQL is the inspiration for dplyr's conventions, so the translation is straightforward:
 
