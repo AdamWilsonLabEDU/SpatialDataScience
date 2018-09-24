@@ -18,7 +18,9 @@ Grading changes
 30% participation: tasks, and case studies
 10% leadership (package presentation, leading a study group)
 
-Include letter to instructor with grade request.
+Package presentation?  IF keeping, use a Rmd structure inside course repositories so they can be opened on the fly. 
+
+For grade: include letter to instructor with grade request.
 
 Schedule Page (one row per week with):
 date, readings, datacamp, present last week's case study, package presentation, tasks, casestudies.
@@ -26,8 +28,11 @@ date, readings, datacamp, present last week's case study, package presentation, 
 
 ## Notes on content
 
-* split data wrangling into two weeks filter/summarize and joins
 
+## Structure of case studies
+
+* Fold hints in a button
+* Fold "Extra Work" in a button
 
 
 ## Typical week/session

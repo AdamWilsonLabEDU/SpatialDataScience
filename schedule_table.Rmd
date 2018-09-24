@@ -1,0 +1,33 @@
+---
+title: "Course Schedule"
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+library(dplyr)
+source("functions.R")
+yamls=yaml_dir()
+yamls=yamls[order(sapply(yamls,function(x) x$date))]
+```
+
+
+
+```{r table,results='asis',echo=F}
+# This chunk prints an index of all the task titles along with a preview of the sub-tasks 
+cat("| Week |  Module | Readings | Presentation | Tasks | Case Study |\n")
+cat("|:--|:--|:-:|:-:|:-:|:---|\n") 
+for(i in 1:length(yamls)){
+  cat(paste(
+    "| ",yamls[[i]]$date,
+    "| Module Title ",
+    "| [<i class='fas fa-book'></i>](",yamls[[i]]$url,")",
+    "| [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'}",
+    "| [<i class='fas fa-tasks'>      </i>](TK_01.html)",
+    "| [",yamls[[i]]$title,"](",yamls[[i]]$url,") | \n"
+    ))
+}
+```
+

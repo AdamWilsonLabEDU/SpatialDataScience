@@ -121,7 +121,7 @@ ___
 
 ## Tasks
 - Join two datasets using a common column
-- Answer a question that requires understanding relational table
+- Answer a question that requires understanding how multiple tables are related
 - Save your script as a .R or .Rmd in your course repository
 </div>
 

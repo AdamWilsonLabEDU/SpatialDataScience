@@ -483,39 +483,50 @@ div.tocify {
 <li>R4DS <a href="http://r4ds.had.co.nz/relational-data.html" target="blank">Chapter 13 - Relational Data</a></li>
 </ul>
 </div>
-<div id="tasks" class="section level1">
-<h1>Tasks</h1>
-<ul>
-<li>Join two datasets using a common column</li>
-<li>Answer a question that requires understanding relational table</li>
-<li>Save your script as a .R or .Rmd in your course repository</li>
-</ul>
-</div>
 <div id="background" class="section level1">
 <h1>Background</h1>
 <p>In this exercise you will use various data wrangling tools to answer questions from the data held in separate tables. We’ll use the data in the <code>nycflights13</code> package which has relationships between the tables as follows.</p>
 <p><img src="http://r4ds.had.co.nz/diagrams/relational-nycflights.png" /></p>
-<p>Your question: What is the full name (not the three letter code) of the destination airport farthest from the NYC airport?</p>
 </div>
-<div id="instructions" class="section level1">
-<h1>Instructions</h1>
-<p>Load the necessary packages</p>
+<div id="objective" class="section level1">
+<h1>Objective</h1>
+<blockquote>
+<p>What is the full name (not the three letter code) of the destination airport farthest from any of the NYC airports in the <code>flights</code> table?</p>
+</blockquote>
+</div>
+<div id="tasks" class="section level1">
+<h1>Tasks</h1>
+<ul>
+<li>Join two datasets using a common column</li>
+<li>Answer a question that requires understanding how multiple tables are related</li>
+<li>Save your script as a .R or .Rmd in your course repository</li>
+</ul>
+<p>You will need to load the necessary packages</p>
 <pre class="r"><code>library(tidyverse)
 library(nycflights13)</code></pre>
-<div id="detailed-steps" class="section level3">
-<h3>Detailed Steps</h3>
-<p>There are several ways to do this using at least two different joins. The details below describe one way.</p>
+<p><a href="scripts/CS_04_nocomments.R" target="_blank"><i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download starter R script (if desired)</a></p>
+<p>There are several ways to do this using at least two different joins. I found two solutions that use 5 or 6 functions separated by pipes (<code>%&gt;%</code>). Can you do it in fewer?</p>
+<div class="well">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Hints
+</button>
+<div id="demo1" class="collapse">
+<p>The details below describe one possible approach.</p>
 <ol style="list-style-type: decimal">
+<li>Open the help file for the <code>nycflights13</code> package by searching in the “Help” panel in RStudio.</li>
 <li>Look at the contents of the various tables to find the ones you need (<code>name</code>, <code>distance</code>, and <code>dest</code>). You can use <code>head()</code>, <code>glimpse()</code>, <code>View()</code>, <code>str()</code>.<br />
 </li>
 <li>In the table with distances, find the airport code that is farthest from the New York Airports (perhaps using <code>arrange()</code> and <code>slice()</code>)</li>
 <li>Join this table with the one that has the full airport names. You will either need to rename the columns so they match the other table or use the <code>by</code> parameter in the join. e.g. check out <code>?left_join()</code></li>
 <li><code>select()</code> only the <code>destName</code> column</li>
 </ol>
-<p>I found two solutions that use 5 or 6 functions separated by pipes (<code>%&gt;%</code>). Can you do it in fewer?</p>
 </div>
-<div id="extra-activities" class="section level2">
-<h2>Extra Activities</h2>
+</div>
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#extras">
+Extra time? Try these extra activities…
+</button>
+<div id="extras" class="collapse">
 <p>Soon we will introduce working with spatial data and doing similar kinds of operations. If you have time to play, see if you can figure out what this does:</p>
 <pre class="r"><code>airports %&gt;%
   distinct(lon,lat) %&gt;%
@@ -526,8 +537,9 @@ library(nycflights13)</code></pre>
 <p><img src="CS_04_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
 <p>Can you figure out how to map mean delays by destination airport as shown below?</p>
 <p><img src="CS_04_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
-<p><i> <small> Adapted from <a href="http://r4ds.had.co.nz/relational-data.html#filtering-joins">R for Data Science</a> </small> </i></p>
 </div>
+</div>
+<p><i> <small> Adapted from <a href="http://r4ds.had.co.nz/relational-data.html#filtering-joins">R for Data Science</a> </small> </i></p>
 </div>
 
 <!-- Google Analytics -->

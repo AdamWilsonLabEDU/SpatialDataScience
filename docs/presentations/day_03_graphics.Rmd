@@ -1,11 +1,12 @@
 ---
 title: "Day 3"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```# Becoming the Critic.
+```
+
+# Becoming the Critic.
 
 ## Original Graph
 ![](http://www.perceptualedge.com/images/example9problem.gif)
@@ -13,7 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Revised Graph
 ![](http://www.perceptualedge.com/images/example9solution.jpg)
 
-## 
+## Tufte
 > Above all else, show the data
 
-**Tufte**

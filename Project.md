@@ -7,9 +7,9 @@ output:
 
 ## Description
 
-The final project will consist of a poster-length report summarizing an analysis of your choice, coded in R, and presented within a R Markdown document.  The topic can be related to the student’s research interests or a separate topic.
+The final project will consist of a poster-length report summarizing an analysis of your choice, coded in R, and presented within a R Markdown document.  The topic can be related to your research interests or a separate topic.
 
-Your project does not have to involve big data or big, complicated analyses.  I'm looking for a demonstration of your creativity and programming skills.  A small, well designed project is better than a large, incomplete one.  Please focus on quality over quantity.  
+Your project does not have to involve big data or complicated analyses.  I'm looking for a demonstration of your creativity and programming skills.  A small, well designed project is better than a large, incomplete one.  Please focus on quality over quantity.
 
 One limitation is that your project must use publicly accessible data. If you want to use your own data, you must make it available on a website (e.g. [Figshare](figshare.org) or [Github](github.com)) so that others are able to re-run your code. Also check out [ROpenSci](https://ropensci.org/packages/) which has libraries that can pull data from many different sources.  You can also download data from publicly accessible servers.
 
@@ -17,7 +17,7 @@ One limitation is that your project must use publicly accessible data. If you wa
 
 ### Project Proposal
 
-The project proposal will be 1 page or less and include the following:
+The project proposal will  about 1 page in length and include the following:
 
 1.  Introduction to problem/question
 2.  Links to inspiring examples:  Include links and screenshots of a few (~3-5) example graphics found on the internet that convey what you want to do.  Include a few sentences about why you selected each link.
@@ -26,6 +26,8 @@ The project proposal will be 1 page or less and include the following:
 4.  Expected results: Describe what you want to produce (graphics, analyses, etc.)
 
 Finding good data takes time, and can take longer than the time to tidy your data.  This task could easily take 3-6 hours to find the data you need for your project.  After you find good data sources make sure to complete the remaining tasks.
+
+Use [this template (which is an R Markdown File) for your project proposal](Project_ProposalTemplate.Rmd).  You can see what this file looks like 'after rendering' [here](Project_ProposalTemplate.html).
 
 ### First Draft
 
