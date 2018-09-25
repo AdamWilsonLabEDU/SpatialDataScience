@@ -531,7 +531,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section><section id="link-to-this-script" class="slide level2">
 <h2>Link to this script</h2>
-<p><a href="day_08_spatial.Rmd"><i class="fa fa-screen"></i> If interested, you can download the R script associated with this presentation here</a>.</p>
+<p><a href="day_08_spatial.Rmd"><i class="fa fa-desktop"></i> If interested, you can download the R script associated with this presentation here</a>.</p>
 </section><section id="section" class="slide level2" data-background-iframe="https://cran.r-project.org/web/views/">
 <h2></h2>
 </section><section id="code-reading-challenge" class="slide level2">
@@ -688,7 +688,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>This standard has been adopted widely, not only by spatial databases such as PostGIS, but also more recent standards such as GeoJSON.</p>
 </section><section id="how-simple-features-in-r-are-organized" class="slide level2">
 <h2>How simple features in R are organized</h2>
-<p>Package <code>sf</code> represents simple features as native R objects.</p>
 <p>All spatial functions and methods in <code>sf</code> prefixed by <code>st_</code> (refering to <em>spatial and temporal</em>)</p>
 <p>Simple features are implemented as R native data, using simple data structures (S3 classes, lists, matrix, vector).</p>
 </section><section class="slide level2">
@@ -700,34 +699,33 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li><code>sf</code>, the table (<code>data.frame</code>) with feature attributes and feature geometries, which contains</li>
 <li><code>sfc</code>, the list-column with the geometries for each feature (record), which is composed of</li>
-<li><h2 id="sfg-the-feature-geometry-of-an-individual-simple-feature."><code>sfg</code>, the feature geometry of an individual simple feature.</h2></li>
+<li><code>sfg</code>, the feature geometry of an individual simple feature.</li>
 </ul>
+</section><section class="slide level2">
+
 <p>If you work with PostGis or GeoJSON you may have come across the <a href="https://en.wikipedia.org/wiki/Well-known_text">WKT (well-known text)</a> format, for example like these:</p>
-<pre><code>`POINT (30 10)
+<pre><code>POINT (30 10)
 LINESTRING (30 10, 10 30, 40 40)
-POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
+POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <p><code>sf</code> implements this standard natively in R. Data are structured and conceptualized very differently from the <code>sp</code> approach.</p>
 </section><section id="i.-create-geometric-objects-topology" class="slide level2">
 <h2>I. Create geometric objects (topology)</h2>
 <p>Geometric objects (simple features) can be created from a numeric vector, matrix or a list with the coordinates. They are called <code>sfg</code> objects for Simple Feature Geometry.</p>
-<p>See here for an example of how a LINESTRING <code>sfg</code> object is created:</p>
+<p>Create a LINESTRING <code>sfg</code> object:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">xy=<span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">xy</a></code></pre></div>
 <pre><code>##           [,1]      [,2]
-## [1,] 0.1686669 0.5509604
-## [2,] 0.4861247 0.5386277
-## [3,] 0.7994530 0.7468828</code></pre>
+## [1,] 0.9389804 0.7876401
+## [2,] 0.3921556 0.3908075
+## [3,] 0.9063959 0.6533879</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">lnstr_sfg &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(xy) </a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">class</span>(lnstr_sfg)</a></code></pre></div>
 <pre><code>## [1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">lnstr_sfg</a></code></pre></div>
-<pre><code>## LINESTRING (0.1686669 0.5509604, 0.4861247 0.5386277, 0.799453 0.7468828)</code></pre>
+<pre><code>## LINESTRING (0.9389804 0.7876401, 0.3921556 0.3908075, 0.9063959 0.6533879)</code></pre>
 </section><section id="ii.-combine-all-individual-single-feature-objects-for-the-special-column." class="slide level2">
 <h2>II. Combine all individual single feature objects for the special column.</h2>
-<p>In order to work our way towards a data frame for all features we create what is called an <code>sfc</code> object with all individual features, which stands for Simple Feature Collection. The <code>sfc</code> object also holds the bounding box and the projection information.</p>
-</section><section class="slide level2">
-
-<p>See here for an example of how a <code>sfc</code> object is created:</p>
+<p>Create a <code>sfc</code> (Simple Feature Collection) object of individual features:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">lnstr_sfc &lt;-<span class="st"> </span><span class="kw">st_sfc</span>(lnstr_sfg) <span class="co"># just one feature here</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">class</span>(lnstr_sfc)</a></code></pre></div>
 <pre><code>## [1] &quot;sfc_LINESTRING&quot; &quot;sfc&quot;</code></pre>
@@ -735,13 +733,14 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <pre><code>## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
+## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
 ## epsg (SRID):    NA
 ## proj4string:    NA</code></pre>
-<pre><code>## LINESTRING (0.1686669 0.5509604, 0.4861247 0.53...</code></pre>
+<pre><code>## LINESTRING (0.9389804 0.7876401, 0.3921556 0.39...</code></pre>
+<p>The <code>sfc</code> object also holds the bounding box and the projection information.</p>
 </section><section id="iii.-add-attributes." class="slide level2">
 <h2>III. Add attributes.</h2>
-<p>We now combine the dataframe with the attributes and the simple feature collection. See here how its done.</p>
+<p>Add attributes (in a <code>data.frame</code>) to the <code>sfc</code> object to make a <code>sf</code> (Simple Features) object:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">dfr=<span class="kw">data.frame</span>(<span class="dt">type=</span><span class="st">&quot;random&quot;</span>)</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2">lnstr_sf &lt;-<span class="st"> </span><span class="kw">st_sf</span>(dfr , lnstr_sfc)</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">class</span>(lnstr_sf)</a></code></pre></div>
@@ -750,11 +749,11 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <pre><code>## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
+## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.1686669 0.550...</code></pre>
+## 1 random LINESTRING (0.9389804 0.787...</code></pre>
 </section><section class="slide level2">
 
 <table>
@@ -767,7 +766,7 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">random</td>
-<td style="text-align: left;">c(0.168666906189173, 0.486124710645527, 0.799452994717285, 0.550960384076461, 0.538627681089565, 0.746882840059698)</td>
+<td style="text-align: left;">c(0.938980444334447, 0.392155600944534, 0.90639588679187, 0.787640138994902, 0.39080753410235, 0.653387865517288)</td>
 </tr>
 </tbody>
 </table>
@@ -781,9 +780,9 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </ul>
 </section><section class="slide level2">
 
-<p><code>sp</code> and <code>sf</code> are <em>not</em> only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example <code>spatstat</code>). Usuallly you can find functions that convert <code>sp</code> and increasingly <code>sf</code> objects to and from these formats.</p>
-</section><section class="slide level2">
-
+<p><code>sp</code> and <code>sf</code> are <em>not</em> only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example <code>spatstat</code>). Usually you can find functions that convert <code>sp</code> and increasingly <code>sf</code> objects to and from these formats.</p>
+</section><section id="converting-formats" class="slide level2">
+<h2>Converting formats</h2>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">data</span>(world) <span class="co">#load &#39;world&#39; data from spData package</span></a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">world_sp =<span class="st"> </span><span class="kw">as</span>(world, <span class="st">&quot;Spatial&quot;</span>) <span class="co"># convert from sf to sp</span></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3">world_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(world_sp) <span class="co">#convert from sp to sf</span></a>
@@ -2522,7 +2521,7 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">world_sp <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(name_long <span class="op">==</span><span class="st"> &quot;Papua New Guinea&quot;</span>)</a></code></pre></div>
-<p><code>Error in UseMethod(&quot;filter_&quot;) :    no applicable method for 'filter_' applied to an object of class &quot;c('SpatialPolygonsDataFrame', 'SpatialPolygons', 'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')&quot;</code></p>
+<p><code>Error in UseMethod(&quot;filter_&quot;) : no applicable method for 'filter_'</code> <code>applied to an object of class &quot;c('SpatialPolygonsDataFrame', 'SpatialPolygons',</code> <code>'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')&quot;</code></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">world <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(name_long <span class="op">==</span><span class="st"> &quot;Papua New Guinea&quot;</span>)</a></code></pre></div>
 <pre><code>## Simple feature collection with 1 feature and 10 fields
@@ -2594,12 +2593,42 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <blockquote>
 <p>Which countries have the highest population density?</p>
 </blockquote>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">pop_den &lt;-</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="st">  </span>world <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(worldbank_df, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_density =</span> pop<span class="op">/</span>area_km2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(name_long, pop_density) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop_density))</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">print</span>(world, <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## Simple feature collection with 177 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## First 3 features:
+##   iso_a2      name_long continent region_un       subregion
+## 1     FJ           Fiji   Oceania   Oceania       Melanesia
+## 2     TZ       Tanzania    Africa    Africa  Eastern Africa
+## 3     EH Western Sahara    Africa    Africa Northern Africa
+##                type  area_km2      pop lifeExp gdpPercap
+## 1 Sovereign country  19289.97   885806  69.960  8222.254
+## 2 Sovereign country 932745.79 52234869  64.163  2402.099
+## 3     Indeterminate  96270.60       NA      NA        NA
+##                             geom
+## 1 MULTIPOLYGON (((180 -16.067...
+## 2 MULTIPOLYGON (((33.90371 -0...
+## 3 MULTIPOLYGON (((-8.66559 27...</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">print</span>(worldbank_df, <span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 177 x 7
+##   name        iso_a2    HDI urban_pop unemployment pop_growth literacy
+##   &lt;chr&gt;       &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Afghanistan AF     NA       8609463         NA        3.18      NA  
+## 2 Angola      AO      0.504  11649562         NA        3.49      66.0
+## 3 Albania     AL     NA       1629715         17.5     -0.207     NA  
+## # ... with 174 more rows</code></pre>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">pop_den &lt;-</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="st">  </span>world <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="st">  </span><span class="kw">left_join</span>(worldbank_df, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_density =</span> pop<span class="op">/</span>area_km2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(name_long, pop_density) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop_density))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -2632,17 +2661,16 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </table>
 </section><section class="slide level2">
 
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">ggplot</span>(pop_den)<span class="op">+</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>pop_density,<span class="dt">geometry=</span>geom))<span class="op">+</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
-</section><section id="section-1" class="slide level2">
-<h2><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-21-1.png" /></h2>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">ggplot</span>(pop_den)<span class="op">+</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>pop_density,<span class="dt">geometry=</span>geom))<span class="op">+</span></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-22-1.png" /></p>
 </section><section id="non-spatial-operations" class="slide level2">
 <h2>Non-spatial operations</h2>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">world_cont =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="st">        </span><span class="kw">group_by</span>(continent) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="st">        </span><span class="kw">summarize</span>(<span class="dt">pop_sum =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb42-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop_sum))</a></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">world_cont =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">        </span><span class="kw">group_by</span>(continent) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">        </span><span class="kw">summarize</span>(<span class="dt">pop_sum =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop_sum))</a></code></pre></div>
 <pre><code>## Simple feature collection with 8 features and 2 fields
 ## geometry type:  GEOMETRY
 ## dimension:      XY
@@ -2659,8 +2687,8 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </section><section class="slide level2">
 
 <p>The <code>st_set_geometry</code> function can be used to remove the geometry column:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">world_df =<span class="kw">st_set_geometry</span>(world_cont, <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">class</span>(world_df)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">world_df =<span class="kw">st_set_geometry</span>(world_cont, <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">class</span>(world_df)</a></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
 </section><section id="spatial-operations" class="slide level2">
 <h2>Spatial operations</h2>
@@ -2677,75 +2705,72 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </section><section id="crs" class="slide level2">
 <h2>CRS</h2>
 <p>Transform (warp) to a different projection:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">na_<span class="dv">2163</span> =<span class="st"> </span>world <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">2163</span>) <span class="co">#US National Atlas Equal Area</span></a>
-<a class="sourceLine" id="cb46-4" data-line-number="4"><span class="kw">st_crs</span>(na_<span class="dv">2163</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">na_<span class="dv">2163</span> =<span class="st"> </span>world <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"><span class="st">  </span><span class="kw">st_transform</span>(<span class="dv">2163</span>) <span class="co">#US National Atlas Equal Area</span></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="kw">st_crs</span>(na_<span class="dv">2163</span>)</a></code></pre></div>
 <pre><code>## Coordinate Reference System:
 ##   EPSG: 2163 
 ##   proj4string: &quot;+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs&quot;</code></pre>
 </section><section id="compare-projections" class="slide level2">
 <h2>Compare projections</h2>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">library</span>(gridExtra)  <span class="co"># for combining ggplots</span></a></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;gridExtra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     combine</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">na =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb51-3" data-line-number="3">p1=na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5">p2=na <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
-<a class="sourceLine" id="cb51-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-26-1.png" /> For more on <code>grid.arrange</code>, see <a href="https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html">here</a>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(gridExtra)  <span class="co"># for combining ggplots</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">na =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>)</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">p1=na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">p2=na <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
+<a class="sourceLine" id="cb52-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png" /> For more on <code>grid.arrange</code>, see <a href="https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html">here</a>.</p>
 </section><section id="spatial-operations-1" class="slide level2">
 <h2>Spatial operations</h2>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">canada =<span class="st"> </span>na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(name_long<span class="op">==</span><span class="st">&quot;Canada&quot;</span>)</a>
-<a class="sourceLine" id="cb52-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb52-4" data-line-number="4">canada_buffer=canada<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="st">  </span><span class="kw">st_buffer</span>(<span class="dv">500000</span>)</a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="kw">ggplot</span>()<span class="op">+</span></a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada,<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))<span class="op">+</span></a>
-<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada_buffer,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">fill=</span><span class="ot">NA</span>)</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">canada =<span class="st"> </span>na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(name_long<span class="op">==</span><span class="st">&quot;Canada&quot;</span>)</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">canada_buffer=canada<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5"><span class="st">  </span><span class="kw">st_buffer</span>(<span class="dv">500000</span>)</a>
+<a class="sourceLine" id="cb53-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="kw">ggplot</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb53-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada,<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))<span class="op">+</span></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada_buffer,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">fill=</span><span class="ot">NA</span>)</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-28-1.png" /></p>
 </section></section>
 <section><section id="visualization" class="title-slide slide level1"><h1>Visualization</h1></section><section id="basic-maps" class="slide level2">
 <h2>Basic maps</h2>
 <ul>
 <li>Basic maps of <code>sf</code> objects can be quickly created using the <code>plot()</code> function:</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="dv">0</span>])</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-28-1.png" /></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="dv">0</span>])</a></code></pre></div>
+</section><section id="section-1" class="slide level2">
+<h2><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png" /></h2>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png" /></p>
 </section><section id="ggplot-and-geom_sf" class="slide level2">
 <h2>ggplot and geom_sf()</h2>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png" /></p>
-<p>All the nice ggplot features are available</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
 <a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
 <a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
 <p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png" /></p>
+<p>All the nice ggplot features are available</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-32-1.png" /></p>
 </section><section id="leaflet-javascript-library-for-interactive-maps" class="slide level2">
 <h2>leaflet: javascript library for interactive maps</h2>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
 <p><a href="https://leafletjs.com/">Leaflet</a> leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.</p>
 </section><section id="construct-the-leaflet-map" class="slide level2">
 <h2>Construct the leaflet map</h2>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">l=<span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
-<a class="sourceLine" id="cb58-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Life Expectancy =&quot;</span>, <span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
-<iframe id="test" style=" height:400px; width:100%;" scrolling="no" frameborder="0" src="leaflet.html">
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">l=<span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb59-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Life Expectancy =&quot;</span>, <span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
+<iframe id="test" style=" height:400px; width:100%;" scrolling="no" frameborder="0" src="world_leaflet.html">
 </iframe>
 <p>Page hosted on Github for free (except the domain name)…</p>
 </section><section id="raster-data-in-the-tidyverse" class="slide level2">

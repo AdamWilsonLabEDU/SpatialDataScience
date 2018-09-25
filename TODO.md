@@ -58,6 +58,7 @@ Weekly courses due before topic in class
 early:
 * set up datacamp account
 * explore available classes and select 3-5 interesting ones (list these in README)
+* Data visualization: https://dcl-2017-04.github.io/curriculum/vis-perception.html
 
 
 ### Project related tasks

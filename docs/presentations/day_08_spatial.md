@@ -17,7 +17,7 @@ Start thinking about:
 
 ## Link to this script
 
-[<i class="fa fa-screen"></i> If interested, you can download the R script associated with this presentation here](day_08_spatial.Rmd).
+[<i class="fa fa-desktop"></i> If interested, you can download the R script associated with this presentation here](day_08_spatial.Rmd).
 
 
 ## {data-background-iframe="https://cran.r-project.org/web/views/"}
@@ -184,8 +184,6 @@ This standard has been adopted widely, not only by spatial databases such as Pos
 
 ## How simple features in R are organized
 
-Package `sf` represents simple features as native R objects.
-
 All spatial functions and methods in `sf` prefixed by `st_` (refering to _spatial and temporal_)
 
 Simple features are implemented as R native data, using simple data structures (S3 classes, lists,
@@ -206,14 +204,14 @@ feature geometry of that feature.
 * `sf`, the table (`data.frame`) with feature attributes and feature geometries, which contains
 * `sfc`, the list-column with the geometries for each feature (record), which is composed of
 * `sfg`, the feature geometry of an individual simple feature.
----
 
+---
 
 If you work with PostGis or GeoJSON you may have come across the [WKT (well-known text)](https://en.wikipedia.org/wiki/Well-known_text) format, for example like these: 
 
-    `POINT (30 10)
+    POINT (30 10)
     LINESTRING (30 10, 10 30, 40 40)
-    POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`
+    POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))
 
 `sf` implements this standard natively in R. Data are structured and conceptualized very differently from the `sp` approach.
 
@@ -223,7 +221,7 @@ If you work with PostGis or GeoJSON you may have come across the [WKT (well-know
 
 Geometric objects (simple features) can be created from a numeric vector, matrix or a list with the coordinates. They are called `sfg` objects for Simple Feature Geometry.
 
-See here for an example of how a LINESTRING `sfg` object is created:
+Create a LINESTRING `sfg` object:
 
 ```r
 xy=matrix(runif(6), ncol=2)
@@ -232,9 +230,9 @@ xy
 
 ```
 ##           [,1]      [,2]
-## [1,] 0.1686669 0.5509604
-## [2,] 0.4861247 0.5386277
-## [3,] 0.7994530 0.7468828
+## [1,] 0.9389804 0.7876401
+## [2,] 0.3921556 0.3908075
+## [3,] 0.9063959 0.6533879
 ```
 
 ```r
@@ -251,18 +249,14 @@ lnstr_sfg
 ```
 
 ```
-## LINESTRING (0.1686669 0.5509604, 0.4861247 0.5386277, 0.799453 0.7468828)
+## LINESTRING (0.9389804 0.7876401, 0.3921556 0.3908075, 0.9063959 0.6533879)
 ```
 
 ---
 
 ## II. Combine all individual single feature objects for the special column. 
 
-In order to work our way towards a data frame for all features we create what is called an `sfc` object with all individual features, which stands for Simple Feature Collection. The `sfc` object also holds the bounding box and the projection information.
-
----
-
-See here for an example of how a `sfc` object is created:
+Create a `sfc` (Simple Feature Collection) object of individual features:
 
 ```r
 lnstr_sfc <- st_sfc(lnstr_sfg) # just one feature here
@@ -281,21 +275,21 @@ lnstr_sfc
 ## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
+## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ```
 
 ```
-## LINESTRING (0.1686669 0.5509604, 0.4861247 0.53...
+## LINESTRING (0.9389804 0.7876401, 0.3921556 0.39...
 ```
+The `sfc` object also holds the bounding box and the projection information.
 
----
 
 ## III. Add attributes. 
 
-We now combine the dataframe with the attributes and the simple feature collection.
-See here how its done.
+Add attributes (in a `data.frame`) to the `sfc` object to make a `sf` (Simple Features) object:
+
 
 ```r
 dfr=data.frame(type="random")
@@ -315,18 +309,18 @@ lnstr_sf
 ## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
+## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.1686669 0.550...
+## 1 random LINESTRING (0.9389804 0.787...
 ```
 
 ---
 
-type     lnstr_sfc                                                                                                           
--------  --------------------------------------------------------------------------------------------------------------------
-random   c(0.168666906189173, 0.486124710645527, 0.799452994717285, 0.550960384076461, 0.538627681089565, 0.746882840059698) 
+type     lnstr_sfc                                                                                                         
+-------  ------------------------------------------------------------------------------------------------------------------
+random   c(0.938980444334447, 0.392155600944534, 0.90639588679187, 0.787640138994902, 0.39080753410235, 0.653387865517288) 
 
 ---
 
@@ -339,9 +333,9 @@ random   c(0.168666906189173, 0.486124710645527, 0.799452994717285, 0.5509603840
 
 ---
 
-`sp` and `sf` are _not_ only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example `spatstat`). Usuallly you can find functions that convert `sp` and increasingly `sf` objects to and from these formats.
+`sp` and `sf` are _not_ only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example `spatstat`). Usually you can find functions that convert `sp` and increasingly `sf` objects to and from these formats.
 
----
+## Converting formats 
 
 
 ```r
@@ -2100,9 +2094,9 @@ str(world)
 world_sp %>% 
   filter(name_long == "Papua New Guinea")
 ```
-
-`Error in UseMethod("filter_") : 
-  no applicable method for 'filter_' applied to an object of class "c('SpatialPolygonsDataFrame', 'SpatialPolygons', 'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')"`
+`Error in UseMethod("filter_") : no applicable method for 'filter_' `
+`applied to an object of class "c('SpatialPolygonsDataFrame', 'SpatialPolygons',`
+`'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')"`
 
 
 ```r
@@ -2245,6 +2239,49 @@ world$geom
 
 
 ```r
+print(world, n=3)
+```
+
+```
+## Simple feature collection with 177 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## First 3 features:
+##   iso_a2      name_long continent region_un       subregion
+## 1     FJ           Fiji   Oceania   Oceania       Melanesia
+## 2     TZ       Tanzania    Africa    Africa  Eastern Africa
+## 3     EH Western Sahara    Africa    Africa Northern Africa
+##                type  area_km2      pop lifeExp gdpPercap
+## 1 Sovereign country  19289.97   885806  69.960  8222.254
+## 2 Sovereign country 932745.79 52234869  64.163  2402.099
+## 3     Indeterminate  96270.60       NA      NA        NA
+##                             geom
+## 1 MULTIPOLYGON (((180 -16.067...
+## 2 MULTIPOLYGON (((33.90371 -0...
+## 3 MULTIPOLYGON (((-8.66559 27...
+```
+
+```r
+print(worldbank_df, n=3)
+```
+
+```
+## # A tibble: 177 x 7
+##   name        iso_a2    HDI urban_pop unemployment pop_growth literacy
+##   <chr>       <chr>   <dbl>     <dbl>        <dbl>      <dbl>    <dbl>
+## 1 Afghanistan AF     NA       8609463         NA        3.18      NA  
+## 2 Angola      AO      0.504  11649562         NA        3.49      66.0
+## 3 Albania     AL     NA       1629715         17.5     -0.207     NA  
+## # ... with 174 more rows
+```
+
+---
+
+
+```r
 pop_den <-
   world %>% 
   left_join(worldbank_df, by = "iso_a2") %>%
@@ -2264,14 +2301,15 @@ Rwanda                  485.5621
 
 ---
 
+
 ```r
 ggplot(pop_den)+
   geom_sf(aes(fill=pop_density,geometry=geom))+
   scale_fill_viridis_c()
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-21-1.png)
----
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-22-1.png)
+
 
 ## Non-spatial operations
 
@@ -2353,20 +2391,7 @@ st_crs(na_2163)
 
 ```r
 library(gridExtra)  # for combining ggplots
-```
 
-```
-## 
-## Attaching package: 'gridExtra'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```r
 na = world %>% filter(continent == "North America")
 
 p1=na_2163 %>% ggplot()+geom_sf(aes(geometry=geom))
@@ -2376,7 +2401,7 @@ p2=na %>% ggplot()+geom_sf(aes(geometry=geom))
 grid.arrange(p1,p2,nrow=1)
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-26-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png)
 For more on `grid.arrange`, see [here](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html).
 
 ---
@@ -2396,7 +2421,7 @@ ggplot()+
   geom_sf(data=canada_buffer,col="red",fill=NA)
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-28-1.png)
 
 # Visualization
 
@@ -2410,14 +2435,15 @@ ggplot()+
 plot(world[0])
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-28-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png)
+---
 
 
 ```r
 plot(world["pop"])
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png)
 
 ## ggplot and geom_sf()
 
@@ -2428,7 +2454,7 @@ ggplot(world)+
   scale_fill_viridis_c()
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png)
 
 All the nice ggplot features are available
 
@@ -2439,7 +2465,7 @@ ggplot(world)+
   scale_fill_viridis_c()
 ```
 
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png)
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-32-1.png)
 
 
 
@@ -2465,7 +2491,7 @@ l=leaflet(world) %>%
 
 
 
-<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="leaflet.html"></iframe>
+<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="world_leaflet.html"></iframe>
 
 Page hosted on Github for free (except the domain name)...
 

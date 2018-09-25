@@ -3,9 +3,6 @@ title: "Spatial data"
 ---
 
 ```{r, echo=F,message=F,warning=F}
-library(methods)
-library(rgdal)
-library(sp)
 library(sf)
 library(spData)
 library(viridis)
@@ -25,7 +22,7 @@ Start thinking about:
 
 ## Link to this script
 
-[<i class="fa fa-screen"></i> If interested, you can download the R script associated with this presentation here](`r knitr::current_input()`).
+[<i class="fa fa-desktop"></i> If interested, you can download the R script associated with this presentation here](`r knitr::current_input()`).
 
 
 ## {data-background-iframe="https://cran.r-project.org/web/views/"}
@@ -191,8 +188,6 @@ This standard has been adopted widely, not only by spatial databases such as Pos
 
 ## How simple features in R are organized
 
-Package `sf` represents simple features as native R objects.
-
 All spatial functions and methods in `sf` prefixed by `st_` (refering to _spatial and temporal_)
 
 Simple features are implemented as R native data, using simple data structures (S3 classes, lists,
@@ -213,14 +208,14 @@ feature geometry of that feature.
 * `sf`, the table (`data.frame`) with feature attributes and feature geometries, which contains
 * `sfc`, the list-column with the geometries for each feature (record), which is composed of
 * `sfg`, the feature geometry of an individual simple feature.
----
 
+---
 
 If you work with PostGis or GeoJSON you may have come across the [WKT (well-known text)](https://en.wikipedia.org/wiki/Well-known_text) format, for example like these: 
 
-    `POINT (30 10)
+    POINT (30 10)
     LINESTRING (30 10, 10 30, 40 40)
-    POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`
+    POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))
 
 `sf` implements this standard natively in R. Data are structured and conceptualized very differently from the `sp` approach.
 
@@ -230,7 +225,7 @@ If you work with PostGis or GeoJSON you may have come across the [WKT (well-know
 
 Geometric objects (simple features) can be created from a numeric vector, matrix or a list with the coordinates. They are called `sfg` objects for Simple Feature Geometry.
 
-See here for an example of how a LINESTRING `sfg` object is created:
+Create a LINESTRING `sfg` object:
 ```{r}
 xy=matrix(runif(6), ncol=2)
 xy
@@ -243,23 +238,19 @@ lnstr_sfg
 
 ## II. Combine all individual single feature objects for the special column. 
 
-In order to work our way towards a data frame for all features we create what is called an `sfc` object with all individual features, which stands for Simple Feature Collection. The `sfc` object also holds the bounding box and the projection information.
-
----
-
-See here for an example of how a `sfc` object is created:
+Create a `sfc` (Simple Feature Collection) object of individual features:
 ```{r}
 lnstr_sfc <- st_sfc(lnstr_sfg) # just one feature here
 class(lnstr_sfc)
 lnstr_sfc
 ```
+The `sfc` object also holds the bounding box and the projection information.
 
----
 
 ## III. Add attributes. 
 
-We now combine the dataframe with the attributes and the simple feature collection.
-See here how its done.
+Add attributes (in a `data.frame`) to the `sfc` object to make a `sf` (Simple Features) object:
+
 ```{r}
 dfr=data.frame(type="random")
 lnstr_sf <- st_sf(dfr , lnstr_sfc)
@@ -283,9 +274,9 @@ knitr::kable(lnstr_sf)
 
 ---
 
-`sp` and `sf` are _not_ only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example `spatstat`). Usuallly you can find functions that convert `sp` and increasingly `sf` objects to and from these formats.
+`sp` and `sf` are _not_ only formats for spatial objects. Other spatial packages may use their own class definitions for spatial data (for example `spatstat`). Usually you can find functions that convert `sp` and increasingly `sf` objects to and from these formats.
 
----
+## Converting formats 
 
 ```{r}
 data(world) #load 'world' data from spData package
@@ -312,9 +303,9 @@ str(world)
 world_sp %>% 
   filter(name_long == "Papua New Guinea")
 ```
-
-`Error in UseMethod("filter_") : 
-  no applicable method for 'filter_' applied to an object of class "c('SpatialPolygonsDataFrame', 'SpatialPolygons', 'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')"`
+`Error in UseMethod("filter_") : no applicable method for 'filter_' `
+`applied to an object of class "c('SpatialPolygonsDataFrame', 'SpatialPolygons',`
+`'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')"`
 
 ```{r}
 world %>% 
@@ -375,12 +366,19 @@ print(world$geom, n = 3)
 
 > Which countries have the highest population density?
 
+```{r}
+print(world, n=3)
+print(worldbank_df, n=3)
+```
+
+---
+
 ```{r, warning=FALSE}
 pop_den <-
   world %>% 
   left_join(worldbank_df, by = "iso_a2") %>%
   mutate(pop_density = pop/area_km2) %>%
-  dplyr::select(name_long, pop_density) %>%
+  select(name_long, pop_density) %>%
   arrange(desc(pop_density))
 ```
 
@@ -392,12 +390,13 @@ pop_den%>%
 ```
 
 ---
+
 ```{r}
 ggplot(pop_den)+
   geom_sf(aes(fill=pop_density,geometry=geom))+
   scale_fill_viridis_c()
 ```
----
+
 
 ## Non-spatial operations
 
@@ -450,7 +449,7 @@ st_crs(na_2163)
 
 ## Compare projections
 
-```{r}
+```{r, message=F}
 library(gridExtra)  # for combining ggplots
 
 na = world %>% filter(continent == "North America")
@@ -490,6 +489,7 @@ ggplot()+
 ```{r}
 plot(world[0])
 ```
+---
 
 ```{r}
 plot(world["pop"])
@@ -504,14 +504,6 @@ ggplot(world)+
 ```
 
 All the nice ggplot features are available
-
-```{r}
-ggplot(world)+
-  geom_sf(aes(geometry=geom,fill=lifeExp))+
-  scale_fill_viridis_c()
-```
-
-
 
 ## leaflet: javascript library for interactive maps
 ```{r, message=F}
@@ -532,11 +524,11 @@ l=leaflet(world) %>%
 ```
 
 ```{r, echo=F, message=F}
-f <-"presentations/leaflet.html"
+f <-"presentations/world_leaflet.html"
 saveWidget(l,file.path(normalizePath(dirname(f)),basename(f)),libdir="externals",selfcontained = T)
 ```
 
-<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="leaflet.html"></iframe>
+<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="world_leaflet.html"></iframe>
 
 Page hosted on Github for free (except the domain name)...
 
