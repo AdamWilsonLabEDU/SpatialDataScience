@@ -451,15 +451,12 @@ st_crs(na_2163)
 
 ```{r, message=F}
 library(gridExtra)  # for combining ggplots
-
 na = world %>% filter(continent == "North America")
-
 p1=na_2163 %>% ggplot()+geom_sf(aes(geometry=geom))
-
 p2=na %>% ggplot()+geom_sf(aes(geometry=geom))
-
 grid.arrange(p1,p2,nrow=1)
 ```
+
 For more on `grid.arrange`, see [here](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html).
 
 ---
@@ -476,7 +473,6 @@ canada_buffer=canada%>%
 ggplot()+
   geom_sf(data=canada,aes(geometry=geom))+
   geom_sf(data=canada_buffer,col="red",fill=NA)
-
 ```
 
 # Visualization
