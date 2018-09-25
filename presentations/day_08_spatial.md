@@ -232,9 +232,9 @@ xy
 
 ```
 ##           [,1]      [,2]
-## [1,] 0.4823681 0.9655563
-## [2,] 0.4998738 0.4661652
-## [3,] 0.0516881 0.9409848
+## [1,] 0.1686669 0.5509604
+## [2,] 0.4861247 0.5386277
+## [3,] 0.7994530 0.7468828
 ```
 
 ```r
@@ -251,7 +251,7 @@ lnstr_sfg
 ```
 
 ```
-## LINESTRING (0.4823681 0.9655563, 0.4998738 0.4661652, 0.0516881 0.9409848)
+## LINESTRING (0.1686669 0.5509604, 0.4861247 0.5386277, 0.799453 0.7468828)
 ```
 
 ---
@@ -281,13 +281,13 @@ lnstr_sfc
 ## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.0516881 ymin: 0.4661652 xmax: 0.4998738 ymax: 0.9655563
+## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ```
 
 ```
-## LINESTRING (0.4823681 0.9655563, 0.4998738 0.46...
+## LINESTRING (0.1686669 0.5509604, 0.4861247 0.53...
 ```
 
 ---
@@ -315,18 +315,18 @@ lnstr_sf
 ## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.0516881 ymin: 0.4661652 xmax: 0.4998738 ymax: 0.9655563
+## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.4823681 0.965...
+## 1 random LINESTRING (0.1686669 0.550...
 ```
 
 ---
 
-type     lnstr_sfc                                                                                                            
--------  ---------------------------------------------------------------------------------------------------------------------
-random   c(0.482368146069348, 0.499873822787777, 0.0516881011426449, 0.965556304669008, 0.466165237128735, 0.940984828397632) 
+type     lnstr_sfc                                                                                                           
+-------  --------------------------------------------------------------------------------------------------------------------
+random   c(0.168666906189173, 0.486124710645527, 0.799452994717285, 0.550960384076461, 0.538627681089565, 0.746882840059698) 
 
 ---
 
@@ -2398,6 +2398,8 @@ ggplot()+
 
 ![](day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png)
 
+# Visualization
+
 
 ## Basic maps
 
@@ -2417,38 +2419,55 @@ plot(world["pop"])
 
 ![](day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png)
 
----
+## ggplot and geom_sf()
 
-## leaflet
+
+```r
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
+```
+
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png)
+
+All the nice ggplot features are available
+
+
+```r
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
+```
+
+![](day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png)
+
+
+
+## leaflet: javascript library for interactive maps
 
 ```r
 library(leaflet)
 library(widgetframe)
 ```
+ [Leaflet](https://leafletjs.com/)  leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.
 
-```
-## Loading required package: htmlwidgets
-```
+
+## Construct the leaflet map
 
 
 ```r
-leaflet(world) %>%
+l=leaflet(world) %>%
         addTiles() %>%
         addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5,
                     fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-                    popup = paste(round(world$lifeExp, 2)))
+                    popup = paste("Life Expectancy =", round(world$lifeExp, 2)))
 ```
 
 
-```r
-l = leaflet(world) %>%
-  addTiles() %>%
-  addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5, 
-              fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-              popup = paste(round(world$lifeExp, 2)))
-saveWidget(l, file = "leaflet.html",libdir="presentations/leaflet",selfcontained = T)
-```
-## {data-background-iframe="../leaflet.html"}
+
+<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="leaflet.html"></iframe>
+
+Page hosted on Github for free (except the domain name)...
 
 ---
 
@@ -2456,10 +2475,9 @@ saveWidget(l, file = "leaflet.html",libdir="presentations/leaflet",selfcontained
 
 Raster data is not yet closely connected to the **tidyverse**, however:
 
-- Some functions from the **raster** package works well in `pipes`
-- You can convert vector data to the `Spatial*` form using `as(my_vector, "Spatial")`before working on raster-vector interactions
-- There are some initial efforts to bring raster data closer to the **tidyverse**, such as [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), or [fasterize](https://github.com/ecohealthalliance/fasterize)
-- The development of the [stars](https://github.com/r-spatial/stars), package focused on multidimensional, large datasets should start soon. It will allow pipe-based workflows
+- Some functions from `raster` work well in `pipes`
+- Convert vector data to `Spatial*` form using `as(my_vector, "Spatial")` for raster-vector interactions
+- Some early efforts to bring raster data into the **tidyverse**, including [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), [fasterize](https://github.com/ecohealthalliance/fasterize), and [stars](https://github.com/r-spatial/stars) (multidimensional, large datasets).
 
 ---
 
@@ -2468,4 +2486,3 @@ Raster data is not yet closely connected to the **tidyverse**, however:
 - Slides adapted from:
     - "Robin Lovelace and Jakub Nowosad" draft book [_Geocomputation with R_ (to be published in 2018)](http://robinlovelace.net/geocompr/). Source code at https://github.com/robinlovelace/geocompr.
     - [Claudia Engel's spatial analysis workshop](https://github.com/cengel/rspatial/blob/master/2_spDataTypes.Rmd)
-

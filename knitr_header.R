@@ -4,6 +4,7 @@ knitr::opts_chunk$set(cache=T,
                       dpi=300,
                       dev="png",
                       tidy=FALSE, tidy.opts=list(width.cutoff=75))
+options(knitr.duplicate.label = 'allow')
 
 presentation_theme <- ggplot2::theme_grey()+
                 ggplot2::theme(

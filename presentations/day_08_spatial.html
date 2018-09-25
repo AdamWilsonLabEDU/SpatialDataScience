@@ -526,8 +526,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Project Proposal</h2>
 <p>Start thinking about:</p>
 <ul>
-<li class="fragment">Question you want to answer</li>
-<li class="fragment">Problem you want to solve</li>
+<li>Question you want to answer</li>
+<li>Problem you want to solve</li>
 </ul>
 </section><section id="link-to-this-script" class="slide level2">
 <h2>Link to this script</h2>
@@ -550,51 +550,51 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section><section id="working-with-spatial-data-in-r" class="title-slide slide level1"><h1>Working with Spatial Data in R</h1></section><section id="available-packages" class="slide level2">
 <h2>Available Packages</h2>
 <ul>
-<li class="fragment"><code>sp</code> First major spatial data package/format</li>
-<li class="fragment"><code>rgdal</code> reading and writing spatial data</li>
-<li class="fragment"><code>rgeos</code> Interface to open-source geometry engine (GEOS)</li>
-<li class="fragment"><code>sf</code> Spatial Features in the ‘tidyverse’</li>
-<li class="fragment"><code>raster</code> gridded data (like satellite imagery)</li>
-<li class="fragment">and a few others…</li>
+<li><code>sp</code> First major spatial data package/format</li>
+<li><code>rgdal</code> reading and writing spatial data</li>
+<li><code>rgeos</code> Interface to open-source geometry engine (GEOS)</li>
+<li><code>sf</code> Spatial Features in the ‘tidyverse’</li>
+<li><code>raster</code> gridded data (like satellite imagery)</li>
+<li>and a few others…</li>
 </ul>
 </section><section id="what-is-a-spatial-feature-sf" class="slide level2">
 <h2>What is a Spatial Feature (sf)?</h2>
 <p>Typically an object in the real world, such as a building or a tree.</p>
 <p>Features could include:</p>
 <ul>
-<li class="fragment">a forest (polygon)</li>
-<li class="fragment">a tree in the forest (point or polygon)</li>
-<li class="fragment">a branch on the tree (line?)</li>
-<li class="fragment">a complete image (multipoint, polygon, raster)</li>
-<li class="fragment">a satellite image pixel of that forest (point or polgyon or raster)</li>
+<li>a forest (polygon)</li>
+<li>a tree in the forest (point or polygon)</li>
+<li>a branch on the tree (line?)</li>
+<li>a complete image (multipoint, polygon, raster)</li>
+<li>a satellite image pixel of that forest (point or polgyon or raster)</li>
 </ul>
 </section><section id="spatial-features" class="slide level2">
 <h2>Spatial Features</h2>
 <p>What information do we need to store in order to define points, lines, polygons in geographic space?</p>
 <ul>
-<li class="fragment">lat/lon coordinates</li>
-<li class="fragment">projection</li>
-<li class="fragment">what type (point/line/poly)</li>
-<li class="fragment">if polygon, is it a hole or not</li>
-<li class="fragment">attribute data</li>
-<li class="fragment">… ?</li>
+<li>lat/lon coordinates</li>
+<li>projection</li>
+<li>what type (point/line/poly)</li>
+<li>if polygon, is it a hole or not</li>
+<li>attribute data</li>
+<li>… ?</li>
 </ul>
 </section><section id="geometry" class="slide level2">
 <h2>Geometry</h2>
 <p>Features have a <em>geometry</em> describing <em>where</em> on Earth the feature is located, and they have attributes, which describe other properties.</p>
 <p>A Tree:</p>
 <ul>
-<li class="fragment">delineation of its crown</li>
-<li class="fragment">its stem</li>
-<li class="fragment">point indicating its centre</li>
+<li>delineation of its crown</li>
+<li>its stem</li>
+<li>point indicating its centre</li>
 </ul>
 <p>Attributes:</p>
 <ul>
-<li class="fragment">species</li>
-<li class="fragment">height</li>
-<li class="fragment">diameter</li>
-<li class="fragment">date of observation</li>
-<li class="fragment">…</li>
+<li>species</li>
+<li>height</li>
+<li>diameter</li>
+<li>date of observation</li>
+<li>…</li>
 </ul>
 </section><section id="spatial-feature-standard" class="slide level2">
 <h2>Spatial Feature Standard</h2>
@@ -603,19 +603,19 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Dimensions</h2>
 <p>All geometries composed of points: coordinates in 2-, 3- or 4-dimensional space.</p>
 <ul>
-<li class="fragment"><strong>X</strong> coordinate in X direction (typically longitude or similar)</li>
-<li class="fragment"><strong>Y</strong> coordinate in Y direction (typically latitude or similar)</li>
-<li class="fragment"><strong>Z</strong> coordinate denoting altitude</li>
-<li class="fragment"><strong>M</strong> coordinate (rarely used), denoting some <em>measure</em> that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute); examples could be time of measurement, or measurement error.</li>
+<li><strong>X</strong> coordinate in X direction (typically longitude or similar)</li>
+<li><strong>Y</strong> coordinate in Y direction (typically latitude or similar)</li>
+<li><strong>Z</strong> coordinate denoting altitude</li>
+<li><strong>M</strong> coordinate (rarely used), denoting some <em>measure</em> that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute); examples could be time of measurement, or measurement error.</li>
 </ul>
 </section><section id="dimensions-1" class="slide level2">
 <h2>Dimensions</h2>
 <p>The four possible cases then are:</p>
 <ol type="1">
-<li class="fragment">2D (XY): x and y, easting and northing, or longitude and latitude</li>
-<li class="fragment">3D (XYZ): three-dimensional points</li>
-<li class="fragment">3D (XYM): three-dimensional points where 3rd is some attribute space</li>
-<li class="fragment">4D (XYZM): four-dimensional points as XYZM (the third axis is Z, fourth M)</li>
+<li>2D (XY): x and y, easting and northing, or longitude and latitude</li>
+<li>3D (XYZ): three-dimensional points</li>
+<li>3D (XYM): three-dimensional points where 3rd is some attribute space</li>
+<li>4D (XYZM): four-dimensional points as XYZM (the third axis is Z, fourth M)</li>
 </ol>
 </section><section id="common-simple-feature-sf-types" class="slide level2">
 <h2>Common Simple Feature (SF) types</h2>
@@ -665,16 +665,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Uncommon Geometry Types</h2>
 <p>10 more geometries 10 are rare:</p>
 <ul>
-<li class="fragment"><code>CIRCULARSTRING</code></li>
-<li class="fragment"><code>COMPOUNDCURVE</code></li>
-<li class="fragment"><code>CURVEPOLYGON</code></li>
-<li class="fragment"><code>MULTICURVE</code></li>
-<li class="fragment"><code>MULTISURFACE</code></li>
-<li class="fragment"><code>CURVE</code></li>
-<li class="fragment"><code>SURFACE</code></li>
-<li class="fragment"><code>POLYHEDRALSURFACE</code></li>
-<li class="fragment"><code>TIN</code></li>
-<li class="fragment"><code>TRIANGLE</code></li>
+<li><code>CIRCULARSTRING</code></li>
+<li><code>COMPOUNDCURVE</code></li>
+<li><code>CURVEPOLYGON</code></li>
+<li><code>MULTICURVE</code></li>
+<li><code>MULTISURFACE</code></li>
+<li><code>CURVE</code></li>
+<li><code>SURFACE</code></li>
+<li><code>POLYHEDRALSURFACE</code></li>
+<li><code>TIN</code></li>
+<li><code>TRIANGLE</code></li>
 </ul>
 <p>There are currently two main approaches in R to handle geographic vector data.</p>
 </section><section id="sp-package" class="slide level2">
@@ -698,9 +698,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="components" class="slide level2">
 <h2>Components</h2>
 <ul>
-<li class="fragment"><code>sf</code>, the table (<code>data.frame</code>) with feature attributes and feature geometries, which contains</li>
-<li class="fragment"><code>sfc</code>, the list-column with the geometries for each feature (record), which is composed of</li>
-<li class="fragment"><h2 id="sfg-the-feature-geometry-of-an-individual-simple-feature."><code>sfg</code>, the feature geometry of an individual simple feature.</h2></li>
+<li><code>sf</code>, the table (<code>data.frame</code>) with feature attributes and feature geometries, which contains</li>
+<li><code>sfc</code>, the list-column with the geometries for each feature (record), which is composed of</li>
+<li><h2 id="sfg-the-feature-geometry-of-an-individual-simple-feature."><code>sfg</code>, the feature geometry of an individual simple feature.</h2></li>
 </ul>
 <p>If you work with PostGis or GeoJSON you may have come across the <a href="https://en.wikipedia.org/wiki/Well-known_text">WKT (well-known text)</a> format, for example like these:</p>
 <pre><code>`POINT (30 10)
@@ -714,14 +714,14 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">xy=<span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">xy</a></code></pre></div>
 <pre><code>##           [,1]      [,2]
-## [1,] 0.4823681 0.9655563
-## [2,] 0.4998738 0.4661652
-## [3,] 0.0516881 0.9409848</code></pre>
+## [1,] 0.1686669 0.5509604
+## [2,] 0.4861247 0.5386277
+## [3,] 0.7994530 0.7468828</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">lnstr_sfg &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(xy) </a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">class</span>(lnstr_sfg)</a></code></pre></div>
 <pre><code>## [1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">lnstr_sfg</a></code></pre></div>
-<pre><code>## LINESTRING (0.4823681 0.9655563, 0.4998738 0.4661652, 0.0516881 0.9409848)</code></pre>
+<pre><code>## LINESTRING (0.1686669 0.5509604, 0.4861247 0.5386277, 0.799453 0.7468828)</code></pre>
 </section><section id="ii.-combine-all-individual-single-feature-objects-for-the-special-column." class="slide level2">
 <h2>II. Combine all individual single feature objects for the special column.</h2>
 <p>In order to work our way towards a data frame for all features we create what is called an <code>sfc</code> object with all individual features, which stands for Simple Feature Collection. The <code>sfc</code> object also holds the bounding box and the projection information.</p>
@@ -735,10 +735,10 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <pre><code>## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.0516881 ymin: 0.4661652 xmax: 0.4998738 ymax: 0.9655563
+## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
 ## epsg (SRID):    NA
 ## proj4string:    NA</code></pre>
-<pre><code>## LINESTRING (0.4823681 0.9655563, 0.4998738 0.46...</code></pre>
+<pre><code>## LINESTRING (0.1686669 0.5509604, 0.4861247 0.53...</code></pre>
 </section><section id="iii.-add-attributes." class="slide level2">
 <h2>III. Add attributes.</h2>
 <p>We now combine the dataframe with the attributes and the simple feature collection. See here how its done.</p>
@@ -750,11 +750,11 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <pre><code>## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.0516881 ymin: 0.4661652 xmax: 0.4998738 ymax: 0.9655563
+## bbox:           xmin: 0.1686669 ymin: 0.5386277 xmax: 0.799453 ymax: 0.7468828
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.4823681 0.965...</code></pre>
+## 1 random LINESTRING (0.1686669 0.550...</code></pre>
 </section><section class="slide level2">
 
 <table>
@@ -767,17 +767,17 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">random</td>
-<td style="text-align: left;">c(0.482368146069348, 0.499873822787777, 0.0516881011426449, 0.965556304669008, 0.466165237128735, 0.940984828397632)</td>
+<td style="text-align: left;">c(0.168666906189173, 0.486124710645527, 0.799452994717285, 0.550960384076461, 0.538627681089565, 0.746882840059698)</td>
 </tr>
 </tbody>
 </table>
 </section><section id="sf-highlights" class="slide level2">
 <h2>sf Highlights</h2>
 <ul>
-<li class="fragment">provides <strong>fast</strong> I/O, particularly relevant for large files</li>
-<li class="fragment">directly reads from and writes to spatial <strong>databases</strong> such as PostGIS</li>
-<li class="fragment">compatibile with the <em>tidyverse</em></li>
-<li class="fragment">recent <code>ggplot</code> release can read and plot the <code>sf</code> format without conversion</li>
+<li>provides <strong>fast</strong> I/O, particularly relevant for large files</li>
+<li>directly reads from and writes to spatial <strong>databases</strong> such as PostGIS</li>
+<li>compatibile with the <em>tidyverse</em></li>
+<li>recent <code>ggplot</code> release can read and plot the <code>sf</code> format without conversion</li>
 </ul>
 </section><section class="slide level2">
 
@@ -2517,8 +2517,8 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 </section><section class="slide level2">
 
 <ul>
-<li class="fragment"><p>The structures in the <strong>sp</strong> packages are more complicated - <code>str(world_sf)</code> vs <code>str(world_sp)</code></p></li>
-<li class="fragment"><p>Moreover, many of the <strong>sp</strong> functions are not “pipeable” (it’s hard to combine them with the <strong>tidyverse</strong>)</p></li>
+<li><p>The structures in the <strong>sp</strong> packages are more complicated - <code>str(world_sf)</code> vs <code>str(world_sp)</code></p></li>
+<li><p>Moreover, many of the <strong>sp</strong> functions are not “pipeable” (it’s hard to combine them with the <strong>tidyverse</strong>)</p></li>
 </ul>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">world_sp <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(name_long <span class="op">==</span><span class="st"> &quot;Papua New Guinea&quot;</span>)</a></code></pre></div>
@@ -2666,12 +2666,12 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <h2>Spatial operations</h2>
 <p>It’s a big topic which includes:</p>
 <ul>
-<li class="fragment">Spatial subsetting</li>
-<li class="fragment">Spatial joining/aggregation</li>
-<li class="fragment">Topological relations</li>
-<li class="fragment">Distances</li>
-<li class="fragment">Spatial geometry modification</li>
-<li class="fragment">Raster operations (map algebra)</li>
+<li>Spatial subsetting</li>
+<li>Spatial joining/aggregation</li>
+<li>Topological relations</li>
+<li>Distances</li>
+<li>Spatial geometry modification</li>
+<li>Raster operations (map algebra)</li>
 </ul>
 <p>See <a href="http://robinlovelace.net/geocompr/spatial-data-operations.html#spatial-operations-on-raster-data">Chapter 4</a> of <em>Geocomputation with R</em></p>
 </section><section id="crs" class="slide level2">
@@ -2712,49 +2712,57 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))`</code></pre>
 <a class="sourceLine" id="cb52-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada,<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))<span class="op">+</span></a>
 <a class="sourceLine" id="cb52-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data=</span>canada_buffer,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">fill=</span><span class="ot">NA</span>)</a></code></pre></div>
 <p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png" /></p>
-</section><section id="basic-maps" class="slide level2">
+</section></section>
+<section><section id="visualization" class="title-slide slide level1"><h1>Visualization</h1></section><section id="basic-maps" class="slide level2">
 <h2>Basic maps</h2>
 <ul>
-<li class="fragment">Basic maps of <code>sf</code> objects can be quickly created using the <code>plot()</code> function:</li>
+<li>Basic maps of <code>sf</code> objects can be quickly created using the <code>plot()</code> function:</li>
 </ul>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="dv">0</span>])</a></code></pre></div>
 <p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-28-1.png" /></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</a></code></pre></div>
 <p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-29-1.png" /></p>
-</section><section id="leaflet" class="slide level2">
-<h2>leaflet</h2>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
-<pre><code>## Loading required package: htmlwidgets</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
-<a class="sourceLine" id="cb57-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">l =<span class="st"> </span><span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">  </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>, </a>
-<a class="sourceLine" id="cb58-4" data-line-number="4">              <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
-<a class="sourceLine" id="cb58-5" data-line-number="5">              <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb58-6" data-line-number="6"><span class="kw">saveWidget</span>(l, <span class="dt">file =</span> <span class="st">&quot;leaflet.html&quot;</span>,<span class="dt">libdir=</span><span class="st">&quot;presentations/leaflet&quot;</span>,<span class="dt">selfcontained =</span> T)</a></code></pre></div>
-</section><section id="section-2" class="slide level2" data-background-iframe="../leaflet.html">
-<h2></h2>
+</section><section id="ggplot-and-geom_sf" class="slide level2">
+<h2>ggplot and geom_sf()</h2>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-30-1.png" /></p>
+<p>All the nice ggplot features are available</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png" /></p>
+</section><section id="leaflet-javascript-library-for-interactive-maps" class="slide level2">
+<h2>leaflet: javascript library for interactive maps</h2>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
+<p><a href="https://leafletjs.com/">Leaflet</a> leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.</p>
+</section><section id="construct-the-leaflet-map" class="slide level2">
+<h2>Construct the leaflet map</h2>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">l=<span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Life Expectancy =&quot;</span>, <span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
+<iframe id="test" style=" height:400px; width:100%;" scrolling="no" frameborder="0" src="leaflet.html">
+</iframe>
+<p>Page hosted on Github for free (except the domain name)…</p>
 </section><section id="raster-data-in-the-tidyverse" class="slide level2">
 <h2>Raster data in the tidyverse</h2>
 <p>Raster data is not yet closely connected to the <strong>tidyverse</strong>, however:</p>
 <ul>
-<li class="fragment">Some functions from the <strong>raster</strong> package works well in <code>pipes</code></li>
-<li class="fragment">You can convert vector data to the <code>Spatial*</code> form using <code>as(my_vector, &quot;Spatial&quot;)</code>before working on raster-vector interactions</li>
-<li class="fragment">There are some initial efforts to bring raster data closer to the <strong>tidyverse</strong>, such as <a href="https://github.com/hypertidy/tabularaster">tabularaster</a>, <a href="https://github.com/mdsumner/sfraster">sfraster</a>, or <a href="https://github.com/ecohealthalliance/fasterize">fasterize</a></li>
-<li class="fragment">The development of the <a href="https://github.com/r-spatial/stars">stars</a>, package focused on multidimensional, large datasets should start soon. It will allow pipe-based workflows</li>
+<li>Some functions from <code>raster</code> work well in <code>pipes</code></li>
+<li>Convert vector data to <code>Spatial*</code> form using <code>as(my_vector, &quot;Spatial&quot;)</code> for raster-vector interactions</li>
+<li>Some early efforts to bring raster data into the <strong>tidyverse</strong>, including <a href="https://github.com/hypertidy/tabularaster">tabularaster</a>, <a href="https://github.com/mdsumner/sfraster">sfraster</a>, <a href="https://github.com/ecohealthalliance/fasterize">fasterize</a>, and <a href="https://github.com/r-spatial/stars">stars</a> (multidimensional, large datasets).</li>
 </ul>
 </section><section id="sources" class="slide level2">
 <h2>Sources</h2>
 <ul>
-<li class="fragment">Slides adapted from:
+<li>Slides adapted from:
 <ul>
-<li class="fragment">“Robin Lovelace and Jakub Nowosad” draft book <a href="http://robinlovelace.net/geocompr/"><em>Geocomputation with R</em> (to be published in 2018)</a>. Source code at <a href="https://github.com/robinlovelace/geocompr" class="uri">https://github.com/robinlovelace/geocompr</a>.</li>
-<li class="fragment"><a href="https://github.com/cengel/rspatial/blob/master/2_spDataTypes.Rmd">Claudia Engel’s spatial analysis workshop</a></li>
+<li>“Robin Lovelace and Jakub Nowosad” draft book <a href="http://robinlovelace.net/geocompr/"><em>Geocomputation with R</em> (to be published in 2018)</a>. Source code at <a href="https://github.com/robinlovelace/geocompr" class="uri">https://github.com/robinlovelace/geocompr</a>.</li>
+<li><a href="https://github.com/cengel/rspatial/blob/master/2_spDataTypes.Rmd">Claudia Engel’s spatial analysis workshop</a></li>
 </ul></li>
 </ul>
 </section></section>

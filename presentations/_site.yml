@@ -2,7 +2,7 @@ output:
   revealjs::revealjs_presentation:
       lib_dir: externals
       keep_md: true
-      incremental: true
+      incremental: false
       theme: white
       highlight: tango
       center: false

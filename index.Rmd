@@ -14,5 +14,5 @@ The quantity and quality of data available for ecological and environmental rese
 # This section compiles all presentations in the "presentations" folder
 # just put it here so it runs each time the site is compiled.
 pres=list.files("presentations",full=T,pattern="Rmd")
-lapply(pres,function(x) rmarkdown::render(x))
+#lapply(pres,function(x) rmarkdown::render(x))
 ```

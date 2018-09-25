@@ -25,8 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -161,74 +162,14 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -519,6 +460,14 @@ div.tocify {
 <td align="left"><a href="./TK_02.html">Git-02</a></td>
 </tr>
 <tr class="odd">
+<td align="left">2018-09-11</td>
+<td align="left">Module Title</td>
+<td align="center"><a href="./TK_03.html"><i class='fas fa-book'></i></a></td>
+<td align="center"><a href="presentations/day_02_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="TK_01.html"><i class='fas fa-tasks'> </i></a></td>
+<td align="left"><a href="./TK_03.html">GDAL and sf</a></td>
+</tr>
+<tr class="even">
 <td align="left">2018-09-13</td>
 <td align="left">Module Title</td>
 <td align="center"><a href="./CS_03.html"><i class='fas fa-book'></i></a></td>
@@ -526,13 +475,21 @@ div.tocify {
 <td align="center"><a href="TK_01.html"><i class='fas fa-tasks'> </i></a></td>
 <td align="left"><a href="./CS_03.html">Wealth over time</a></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">2018-09-20</td>
 <td align="left">Module Title</td>
 <td align="center"><a href="./CS_04.html"><i class='fas fa-book'></i></a></td>
 <td align="center"><a href="presentations/day_02_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
 <td align="center"><a href="TK_01.html"><i class='fas fa-tasks'> </i></a></td>
 <td align="left"><a href="./CS_04.html">Relational Data</a></td>
+</tr>
+<tr class="even">
+<td align="left">2018-09-25</td>
+<td align="left">Module Title</td>
+<td align="center"><a href="./CS_05.html"><i class='fas fa-book'></i></a></td>
+<td align="center"><a href="presentations/day_02_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="TK_01.html"><i class='fas fa-tasks'> </i></a></td>
+<td align="left"><a href="./CS_05.html">Spatial Data</a></td>
 </tr>
 </tbody>
 </table>

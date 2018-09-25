@@ -5,12 +5,11 @@ title: "Spatial data"
 ```{r, echo=F,message=F,warning=F}
 library(methods)
 library(rgdal)
-library(rgeos)
 library(sp)
 library(sf)
-library(tidyverse)
 library(spData)
 library(viridis)
+library(tidyverse)
 ```
 
 ---
@@ -381,7 +380,7 @@ pop_den <-
   world %>% 
   left_join(worldbank_df, by = "iso_a2") %>%
   mutate(pop_density = pop/area_km2) %>%
-  select(name_long, pop_density) %>%
+  dplyr::select(name_long, pop_density) %>%
   arrange(desc(pop_density))
 ```
 
@@ -481,6 +480,8 @@ ggplot()+
 
 ```
 
+# Visualization
+
 
 ## Basic maps
 
@@ -494,31 +495,50 @@ plot(world[0])
 plot(world["pop"])
 ```
 
----
+## ggplot and geom_sf()
 
-## leaflet
 ```{r}
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
+```
+
+All the nice ggplot features are available
+
+```{r}
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
+```
+
+
+
+## leaflet: javascript library for interactive maps
+```{r, message=F}
 library(leaflet)
 library(widgetframe)
 ```
+ [Leaflet](https://leafletjs.com/)  leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.
 
-```{r, eval=F}
-leaflet(world) %>%
+
+## Construct the leaflet map
+
+```{r}
+l=leaflet(world) %>%
         addTiles() %>%
         addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5,
                     fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-                    popup = paste(round(world$lifeExp, 2)))
+                    popup = paste("Life Expectancy =", round(world$lifeExp, 2)))
 ```
 
-```{r, echo=T, message=T,results='asis'}
-l = leaflet(world) %>%
-  addTiles() %>%
-  addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5, 
-              fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-              popup = paste(round(world$lifeExp, 2)))
-saveWidget(l, file = "leaflet.html",libdir="presentations/leaflet",selfcontained = T)
+```{r, echo=F, message=F}
+f <-"presentations/leaflet.html"
+saveWidget(l,file.path(normalizePath(dirname(f)),basename(f)),libdir="externals",selfcontained = T)
 ```
-## {data-iframe="../leaflet.html"}
+
+<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="leaflet.html"></iframe>
+
+Page hosted on Github for free (except the domain name)...
 
 ---
 
@@ -526,10 +546,9 @@ saveWidget(l, file = "leaflet.html",libdir="presentations/leaflet",selfcontained
 
 Raster data is not yet closely connected to the **tidyverse**, however:
 
-- Some functions from the **raster** package works well in `pipes`
-- You can convert vector data to the `Spatial*` form using `as(my_vector, "Spatial")`before working on raster-vector interactions
-- There are some initial efforts to bring raster data closer to the **tidyverse**, such as [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), or [fasterize](https://github.com/ecohealthalliance/fasterize)
-- The development of the [stars](https://github.com/r-spatial/stars), package focused on multidimensional, large datasets should start soon. It will allow pipe-based workflows
+- Some functions from `raster` work well in `pipes`
+- Convert vector data to `Spatial*` form using `as(my_vector, "Spatial")` for raster-vector interactions
+- Some early efforts to bring raster data into the **tidyverse**, including [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), [fasterize](https://github.com/ecohealthalliance/fasterize), and [stars](https://github.com/r-spatial/stars) (multidimensional, large datasets).
 
 ---
 
@@ -538,4 +557,3 @@ Raster data is not yet closely connected to the **tidyverse**, however:
 - Slides adapted from:
     - "Robin Lovelace and Jakub Nowosad" draft book [_Geocomputation with R_ (to be published in 2018)](http://robinlovelace.net/geocompr/). Source code at https://github.com/robinlovelace/geocompr.
     - [Claudia Engel's spatial analysis workshop](https://github.com/cengel/rspatial/blob/master/2_spDataTypes.Rmd)
-

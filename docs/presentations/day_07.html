@@ -11,13 +11,8 @@
 
 
 
-<link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/theme/black.css" id="theme">
+<link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
 
-<style type="text/css">
-.reveal section img {
-  background: rgba(255, 255, 255, 0.85);
-}
-</style>
 
   <!-- some tweaks to reveal css -->
   <style type="text/css">
@@ -448,8 +443,9 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
-    <link href="externals/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-    <link href="externals/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+    <link href="externals/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="externals/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="externals/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 </head>
 <body>
   <div class="reveal">
@@ -466,15 +462,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Visualizing Relational Data</h2>
 <p><img data-src="http://r4ds.had.co.nz/diagrams/join-setup.png" /></p>
 <ul>
-<li class="fragment"><strong>Primary key</strong>: uniquely identifies an observation in its own table. For example, <code>planes$tailnum</code> is a primary key because it uniquely identifies each plane in the planes table.</li>
-<li class="fragment"><strong>Foreign key</strong>: uniquely identifies an observation in another table. For example, the <code>flights$tailnum</code> is a foreign key because it appears in the flights table where it matches each flight to a unique plane.</li>
+<li><strong>Primary key</strong>: uniquely identifies an observation in its own table. For example, <code>planes$tailnum</code> is a primary key because it uniquely identifies each plane in the planes table.</li>
+<li><strong>Foreign key</strong>: uniquely identifies an observation in another table. For example, the <code>flights$tailnum</code> is a foreign key because it appears in the flights table where it matches each flight to a unique plane.</li>
 </ul>
 </section><section id="families-of-verbs-designed-to-work-with-relational-data" class="slide level2">
 <h2>3 families of verbs designed to work with relational data</h2>
 <ul>
-<li class="fragment"><strong>Mutating joins</strong>: add new variables to one data frame from matching observations in another</li>
-<li class="fragment"><strong>Filtering joins</strong>: filter observations from one data frame based on whether or not they match an observation in the other table.</li>
-<li class="fragment"><strong>Set operations</strong>: treat observations as if they were set elements</li>
+<li><strong>Mutating joins</strong>: add new variables to one data frame from matching observations in another</li>
+<li><strong>Filtering joins</strong>: filter observations from one data frame based on whether or not they match an observation in the other table.</li>
+<li><strong>Set operations</strong>: treat observations as if they were set elements</li>
 </ul>
 </section><section id="inner-join" class="slide level2">
 <h2>Inner Join</h2>
@@ -483,9 +479,9 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="outer-joins" class="slide level2">
 <h2>Outer Joins</h2>
 <ul>
-<li class="fragment"><code>left_join</code> keeps all observations in x</li>
-<li class="fragment"><code>right_join</code> keeps all observations in y</li>
-<li class="fragment"><code>full_join</code> keeps all observations in x and y</li>
+<li><code>left_join</code> keeps all observations in x</li>
+<li><code>right_join</code> keeps all observations in y</li>
+<li><code>full_join</code> keeps all observations in x and y</li>
 </ul>
 </section><section id="outer-joins-1" class="slide level2">
 <h2>Outer Joins</h2>
@@ -541,8 +537,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </tbody>
 </table>
 <ul>
-<li class="fragment">specific dplyr verbs more clearly convey the intent of your code: they are concealed in the arguments of <span class="bullet_code">merge()</span>.</li>
-<li class="fragment">dplyr’s joins are considerably faster and don’t mess with the order of the rows.</li>
+<li>specific dplyr verbs more clearly convey the intent of your code: they are concealed in the arguments of <span class="bullet_code">merge()</span>.</li>
+<li>dplyr’s joins are considerably faster and don’t mess with the order of the rows.</li>
 </ul>
 </section><section id="sql" class="slide level2">
 <h2>SQL</h2>
@@ -574,15 +570,15 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </tbody>
 </table>
 <ul>
-<li class="fragment">Note that “INNER” and “OUTER” are optional, and often omitted.</li>
-<li class="fragment">SQL supports a wider range of join types than dplyr</li>
+<li>Note that “INNER” and “OUTER” are optional, and often omitted.</li>
+<li>SQL supports a wider range of join types than dplyr</li>
 </ul>
 </section><section id="set-operations" class="slide level2">
 <h2>Set Operations</h2>
 <ul>
-<li class="fragment"><code>intersect(x, y)</code>: return only observations in both x and y.</li>
-<li class="fragment"><code>union(x, y)</code>: return unique observations in x and y.</li>
-<li class="fragment"><code>setdiff(x, y)</code>: return observations in x, but not in y.</li>
+<li><code>intersect(x, y)</code>: return only observations in both x and y.</li>
+<li><code>union(x, y)</code>: return unique observations in x and y.</li>
+<li><code>setdiff(x, y)</code>: return observations in x, but not in y.</li>
 </ul>
 </section></section>
     </div>

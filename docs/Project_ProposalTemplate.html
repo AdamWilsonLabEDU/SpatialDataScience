@@ -26,8 +26,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -162,74 +163,14 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -480,13 +421,23 @@ div.tocify {
 <div id="introduction-to-problemquestion" class="section level1">
 <h1>Introduction to problem/question</h1>
 </div>
+<div id="problem-question" class="section level1">
+<h1>Problem / Question</h1>
+<p>Clearly describe the problem/question you would like to address in a single sentence.</p>
+</div>
 <div id="inspiring-examples" class="section level1">
 <h1>Inspiring Examples</h1>
 <p>Include links and screenshots (or embedded images) of a few (~3-5) example graphics found on the internet that convey what you want to do. Include a few sentences about why you selected each link.</p>
 <div id="example-1" class="section level2">
 <h2>Example 1</h2>
 <p><img src="https://theoreticalecology.files.wordpress.com/2012/05/6307925837_5074118a44_b.jpg" /></p>
-<p>I found this graphic easy to understand yet rich with detail. The graphic summarizes political shifts across the nation from Democratic (left) to Republican (right) with simple arrows.</p>
+<p>I found this graphic easy to understand yet rich with detail. The graphic summarizes political shifts across the nation from Democratic (left) to Republican (right) with simple arrows. This type of graphic could be used to illustrate many different kinds of changes (or movement) using simple <code>geom_segment()</code> in ggplot.</p>
+</div>
+<div id="example-2" class="section level2">
+<h2>Example 2</h2>
+</div>
+<div id="example-3" class="section level2">
+<h2>Example 3</h2>
 </div>
 </div>
 <div id="proposed-data-sources" class="section level1">

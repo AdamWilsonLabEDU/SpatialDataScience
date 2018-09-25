@@ -5,11 +5,11 @@ title: "Spatial data"
 ```{r, echo=F,message=F,warning=F}
 library(methods)
 library(rgdal)
-library(rgeos)
 library(sp)
 library(sf)
-library(tidyverse)
 library(spData)
+library(viridis)
+library(tidyverse)
 ```
 
 ---
@@ -23,8 +23,28 @@ Start thinking about:
 * Question you want to answer
 * Problem you want to solve
 
+## Link to this script
+
+[<i class="fa fa-screen"></i> If interested, you can download the R script associated with this presentation here](`r knitr::current_input()`).
+
 
 ## {data-background-iframe="https://cran.r-project.org/web/views/"}
+
+## Code Reading Challenge
+
+Write out in a sentence what this code is doing. Make sure to catch the key points in your sentence
+
+```{r eval=F}
+library(downloader)
+library(sf)
+library(fs)
+dams_path <- "https://research.idwr.idaho.gov/gis/Spatial/DamSafety/dam.zip"
+df <- tempfile(); uf <- tempfile()
+download(dams_path, df, mode = "wb")
+unzip(df, exdir = uf)
+dams <- read_sf(uf)
+file_delete(df); dir_delete(uf)
+```
 
 # Working with Spatial Data in R
 
@@ -50,20 +70,6 @@ Features could include:
 * a branch on the tree (line?)
 * a complete image (multipoint, polygon, raster)
 * a satellite image pixel of that forest (point or polgyon or raster)
-
----
-
-```{r, echo=F}
-px <- c(5, 7, 8, 9, 8, 7, 6) 
-py <- c(7, 3, 4, 8, 9, 15, 14) 
-plot(px, py, type="n", axes=F, xlab = '', ylab = '') 
-polygon(px, py, col = "khaki1")
-points(c(6, 9, 8, 8.5), c(9, 14, 8, 9), pch=20, col = "peachpuff4", lwd = 3)
-lines(c(5, 6, 7, 8), c(5, 6,10, 11), col = "steelblue1",  lwd = 3)
-lines(c(8, 9), c(14, 12), col = "dark green", lwd = 3)
-```
-
----
 
 ## Spatial Features
 
@@ -94,27 +100,23 @@ Attributes:
 
 * species 
 * height
-* diameter at breast height at a particular date
+* diameter
+* date of observation
 * ...
 
----
 ## Spatial Feature Standard
 
 "_A simple feature is defined by the OpenGIS Abstract specification to have both spatial and non-spatial attributes. Spatial attributes are geometry valued, and simple features are based on 2D geometry with linear interpolation between vertices._"  
 
----
-
 ## Dimensions
 
-All geometries composed of points. Points are coordinates in a
-2-, 3- or 4-dimensional space.  All points in a geometry have the
-same dimensionality. In addition to X and Y coordinates, there are
-two optional additional dimensions:
+All geometries composed of points: coordinates in 2-, 3- or 4-dimensional space.  
 
+* **X** coordinate in X direction (typically longitude or similar)
+* **Y** coordinate in Y direction (typically latitude or similar)
 * **Z** coordinate denoting altitude
 * **M** coordinate (rarely used), denoting some _measure_ that is associated with the point, rather than with the feature as a whole (in which case it would be a feature attribute); examples could be time of measurement, or measurement error.
 
----
 ## Dimensions
 
 The four possible cases then are:
@@ -124,7 +126,10 @@ The four possible cases then are:
 3. 3D (XYM): three-dimensional points where 3rd is some attribute space
 4. 4D (XYZM): four-dimensional points as XYZM (the third axis is Z, fourth M)
 
----
+## Common Simple Feature (SF) types
+
+![](https://geocompr.robinlovelace.net/figures/sf-classes.png)
+
 ## Seven common Simple Feature (SF) geometry types
 
 | type | description |
@@ -139,7 +144,6 @@ The four possible cases then are:
 
 Some formats only include these (e.g. [GeoJSON](https://tools.ietf.org/html/rfc7946))
 
----
 
 ## Uncommon Geometry Types 
 10 more geometries 10 are rare:
@@ -170,103 +174,18 @@ There are currently two main approaches in R to handle geographic vector data.
 
 ---
 
-# `sp` package
+## `sp` package
 
----
+First package for spatial data: [`sp`](https://cran.r-project.org/package=sp). Provides classes and methods to create _points_, _lines_, _polygons_, and _grids_ and to operate on them. 
 
-First package to provide classes and methods for spatial data types in R is called [`sp`](https://cran.r-project.org/package=sp). Provides classes and methods to create _points_, _lines_, _polygons_, and _grids_ and to operate on them. 
+~350 of the spatial analysis packages use `sp` data types, so it is important to know how to convert **sp** to and from **sf** objects.
 
-About 350 of the spatial analysis packages use the spatial data types that are implemented in `sp` i.e. they "depend" on the `sp` package and many more are indirectly dependent.
 
----
+## `sf` package
 
-Many spatial R packages still depends on the **sp** package, therefore it is important to know how to convert **sp** to and from **sf** objects
+[`sf`](https://cran.r-project.org/package=sf) implements a formal standard called ["Simple Features"](https://en.wikipedia.org/wiki/Simple_Features) that specifies a storage and access model of spatial geometries (point, line, polygon). 
 
----
-
-Foundational structure for any spatial object in `sp` is the `Spatial` class. It has two "slots" ([new-style S4 class objects in R have pre-defined components called slots](http://stackoverflow.com/a/4714080)):
-
-* a __bounding box__ 
-* a __CRS class object__ to define the Coordinate Reference System 
-
-Basic structure extended depending on the characteristics of the spatial object (point, line, polygon).
-
---- 
-
-##  I. Create geometric objects (topology)
-
-* __Points__ most basic spatial data objects. Typically from a two-column matrix/dataframe with a column for latitude and one for longitude.  
-*  __Lines__ are generated out of `Line` objects. A `Line` object is a collection of 2D coordinates and is generated out of a two-column matrix or a dataframe with a column for latitude and one for longitude. A `Lines` object is a __list__ of one or more `Line` objects.
-* __Polygons__ are generated out of `Polygon` objects. A `Polygon` object is a collection of 2D coordinates with equal first and last coordinates and is generated out of a two-column matrix or a dataframe with a column for latitude and one for longitude. A `Polygons` object is a __list__ of one or more `Polygon` objects, for example islands belonging to the same country.
-
----
-
-A very simple `Line` object:
-```{r}
-ln <- Line(matrix(runif(6), ncol=2))
-str(ln)
-ln@coords
-```
-
----
-
-A very simple `Lines` object:
-```{r}
-lns <- Lines(list(ln,ln), ID = "a") # this contains just two (identical) Lines!
-str(lns)
-```
-
----
-
-## II. Create spatial objects `Spatial*` object (`*` stands for Points, Lines, or Polygons). 
-
-Adds bounding box and the slot for the Coordinate Reference System or CRS. `SpatialPoints` can be directly generated out of the coordinates.  `SpatialLines` and `SpatialPolygons` objects are generated using lists of `Lines` or `Polygons` objects respectively (more below).
-
----
-
-See here for how to create a `SpatialLines` object:
-```{r}
-sp_lns <- SpatialLines(list(lns))
-str(sp_lns)
-```
- 
----
- 
-## III. Add attributes (_Optional_:) 
-
-Add attribute data, which will turn your `Spatial*` object into a `Spatial*DataFrame` object. ID fields are here required to match the data frame row names.
-
----
-
-Create a simple `SpatialLinesDataframe`:
-
-```{r}
-dfr <- data.frame(id = "a", use = "road", cars_per_hour = 10) # note how we use the ID from above!
-sp_lns_dfr <- SpatialLinesDataFrame(sp_lns, dfr, match.ID = "id")
-str(sp_lns_dfr)
-```
-
----
-
-## Commonly used spatial methods
-
-function | and what it does
------------- | ------------------------------------------------------
-`bbox()` | returns the bounding box coordinates
-`proj4string()` | sets or retrieves projection attributes using the CRS object.
-`CRS()` | creates an object of class of coordinate reference system arguments
-`spplot()` | plots all the attributes
-`coordinates()` | set or retrieve the spatial coordinates.
-`over(a, b)` | used to retrieve the polygon or grid indices on a set of points
-`spsample()` | sampling of spatial points within the spatial extent of objects
-
----
-
-# `sf` package
-
----
-
-[`sf`](https://cran.r-project.org/package=sf) implements a formal standard called ["Simple Features"](https://en.wikipedia.org/wiki/Simple_Features) that specifies a storage and access model of spatial geometries (point, line, polygon). A feature geometry is called simple when it consists of points connected by straight line pieces, and does not intersect itself. 
+A feature geometry is called simple when it consists of points connected by straight line pieces, and does not intersect itself. 
 
 This standard has been adopted widely, not only by spatial databases such as PostGIS, but also more recent standards such as GeoJSON. 
 
@@ -276,19 +195,18 @@ Package `sf` represents simple features as native R objects.
 
 All spatial functions and methods in `sf` prefixed by `st_` (refering to _spatial and temporal_)
 
-Simple features are implemented as
-R native data, using simple data structures (S3 classes, lists,
+Simple features are implemented as R native data, using simple data structures (S3 classes, lists,
 matrix, vector).  
 
 ---
 
-Attributes typically stored in `data.frame` objects (or the
-very similar `tbl_df`), we will also store feature geometries in
-a `data.frame` column. Since geometries are not single-valued,
+Stored as `data.frame` objects (or very similar `tbl_df`) with _feature geometries in
+a `data.frame` column_. 
+
+Since geometries are not single-valued,
 they are put in a list-column, a list of length equal to the number
 of records in the `data.frame`, with each list element holding the simple
-feature geometry of that feature.  The three classes used to
-represent simple features are:
+feature geometry of that feature.  
 
 ## Components
 
@@ -308,18 +226,17 @@ If you work with PostGis or GeoJSON you may have come across the [WKT (well-know
 
 ---
 
-In `sf` spatial objects are stored as a simple data frame with a special column that contains the information for the geographic coordinates. That special column is a list with the same length as the number of rows in the data frame. Each of the individual list elements then can be of any length needed to hold the coordinates that correspond to an individual feature.  
-
----
-
 ## I. Create geometric objects (topology)  
 
 Geometric objects (simple features) can be created from a numeric vector, matrix or a list with the coordinates. They are called `sfg` objects for Simple Feature Geometry.
 
 See here for an example of how a LINESTRING `sfg` object is created:
 ```{r}
-lnstr_sfg <- st_linestring(matrix(runif(6), ncol=2)) 
+xy=matrix(runif(6), ncol=2)
+xy
+lnstr_sfg <- st_linestring(xy) 
 class(lnstr_sfg)
+lnstr_sfg
 ```
 
 ---
@@ -332,8 +249,9 @@ In order to work our way towards a data frame for all features we create what is
 
 See here for an example of how a `sfc` object is created:
 ```{r}
-(lnstr_sfc <- st_sfc(lnstr_sfg)) # just one feature here
-class(lnstr_sfc) 
+lnstr_sfc <- st_sfc(lnstr_sfg) # just one feature here
+class(lnstr_sfc)
+lnstr_sfc
 ```
 
 ---
@@ -343,11 +261,16 @@ class(lnstr_sfc)
 We now combine the dataframe with the attributes and the simple feature collection.
 See here how its done.
 ```{r}
-(lnstr_sf <- st_sf(dfr , lnstr_sfc))
+dfr=data.frame(type="random")
+lnstr_sf <- st_sf(dfr , lnstr_sfc)
 class(lnstr_sf)
+lnstr_sf
 ```
 
-There are many methods available in the `sf` package, to find out use `methods(class="sp")`
+---
+```{r, echo=F}
+knitr::kable(lnstr_sf)
+```
 
 ---
 
@@ -356,7 +279,7 @@ There are many methods available in the `sf` package, to find out use `methods(c
 * provides **fast** I/O, particularly relevant for large files 
 * directly reads from and writes to spatial **databases** such as PostGIS
 * compatibile with the *tidyverse*
-* stay tuned for a new `ggplot` release that will be able to read and plot the `sf` format without the need of conversion to a data frame, like the `sp` format
+* recent `ggplot` release can read and plot the `sf` format without conversion
 
 ---
 
@@ -365,8 +288,9 @@ There are many methods available in the `sf` package, to find out use `methods(c
 ---
 
 ```{r}
-world_sp = as(world, "Spatial")
-world_sf = st_as_sf(world_sp)
+data(world) #load 'world' data from spData package
+world_sp = as(world, "Spatial") # convert from sf to sp
+world_sf = st_as_sf(world_sp) #convert from sp to sf
 str(world_sp)
 ```
 
@@ -386,11 +310,17 @@ str(world)
 
 ```{r, eval = F}
 world_sp %>% 
-  filter(name_long == "England")
+  filter(name_long == "Papua New Guinea")
 ```
 
 `Error in UseMethod("filter_") : 
   no applicable method for 'filter_' applied to an object of class "c('SpatialPolygonsDataFrame', 'SpatialPolygons', 'Spatial', 'SpatialPolygonsNULL', 'SpatialVector')"`
+
+```{r}
+world %>% 
+  filter(name_long == "Papua New Guinea")
+```
+
 
 ---
 
@@ -441,17 +371,32 @@ print(world$geom, n = 3)
 ```
 
 
-## Non-spatial operations on the sf objects
+## Non-spatial operations on sf objects
+
+> Which countries have the highest population density?
 
 ```{r, warning=FALSE}
-world %>% 
+pop_den <-
+  world %>% 
   left_join(worldbank_df, by = "iso_a2") %>%
-  select(name_long, pop, pop_growth, area_km2) %>%
-  arrange(area_km2) %>% 
   mutate(pop_density = pop/area_km2) %>%
-  rename(population = pop)
+  dplyr::select(name_long, pop_density) %>%
+  arrange(desc(pop_density))
 ```
 
+```{r echo=F}
+pop_den%>%
+  slice(1:5)%>%
+  st_set_geometry(NULL)%>%
+  knitr::kable()
+```
+
+---
+```{r}
+ggplot(pop_den)+
+  geom_sf(aes(fill=pop_density,geometry=geom))+
+  scale_fill_viridis_c()
+```
 ---
 
 ## Non-spatial operations
@@ -459,11 +404,12 @@ world %>%
 ```{r}
 world_cont = world %>% 
         group_by(continent) %>% 
-        summarize(pop_sum = sum(pop, na.rm = TRUE))
+        summarize(pop_sum = sum(pop, na.rm = TRUE))%>%
+  arrange(desc(pop_sum))
 ```
 
 ```{r, echo=FALSE}
-print(world_cont, n = 1)
+print(world_cont, n = 3)
 ```
 
 ---
@@ -505,19 +451,17 @@ st_crs(na_2163)
 ## Compare projections
 
 ```{r}
-na = world %>%
-  filter(continent == "North America") 
-par(mfrow = c(1, 2), mar=c(0,0,0,0))
-plot(na[0]);plot(na_2163[0])
+library(gridExtra)  # for combining ggplots
+
+na = world %>% filter(continent == "North America")
+
+p1=na_2163 %>% ggplot()+geom_sf(aes(geometry=geom))
+
+p2=na %>% ggplot()+geom_sf(aes(geometry=geom))
+
+grid.arrange(p1,p2,nrow=1)
 ```
-
----
-
-##  The `world` dataset
-
-```{r}
-plot(na_2163)
-```
+For more on `grid.arrange`, see [here](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html).
 
 ---
 
@@ -528,13 +472,15 @@ canada = na_2163 %>%
   filter(name_long=="Canada")
 
 canada_buffer=canada%>%
-  st_buffer(500000) %>%
-  filter()
+  st_buffer(500000)
 
-plot(select(canada,geom))
-plot(select(canada_buffer,geom),add=T,border="red")
+ggplot()+
+  geom_sf(data=canada,aes(geometry=geom))+
+  geom_sf(data=canada_buffer,col="red",fill=NA)
 
 ```
+
+# Visualization
 
 
 ## Basic maps
@@ -549,58 +495,60 @@ plot(world[0])
 plot(world["pop"])
 ```
 
----
+## ggplot and geom_sf()
 
-## [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html): Thematic Maps
-Syntax for creating plots is similar to that of ggplot2. 
-The add-on package `tmaptools` contains tool functions for reading and processing shape files.
-
----
-
-```{r, fig.align='center', fig.height=4, message=FALSE}
-library(tmap)
-tmap_mode("plot") #check the "view"
-tm_shape(world, projection="wintri") +
-        tm_polygons("lifeExp", title=c("Life expactancy"),
-          style="pretty", palette="RdYlGn", auto.palette.mapping=FALSE) +
-        tm_style_grey()
+```{r}
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
 ```
 
----
+All the nice ggplot features are available
 
-## leaflet
 ```{r}
+ggplot(world)+
+  geom_sf(aes(geometry=geom,fill=lifeExp))+
+  scale_fill_viridis_c()
+```
+
+
+
+## leaflet: javascript library for interactive maps
+```{r, message=F}
 library(leaflet)
 library(widgetframe)
 ```
+ [Leaflet](https://leafletjs.com/)  leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.
 
-```{r, eval=F}
-leaflet(world) %>%
+
+## Construct the leaflet map
+
+```{r}
+l=leaflet(world) %>%
         addTiles() %>%
         addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5,
                     fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-                    popup = paste(round(world$lifeExp, 2)))
+                    popup = paste("Life Expectancy =", round(world$lifeExp, 2)))
 ```
 
-```{r, echo=T, message=T,results='asis'}
-l = leaflet(world) %>%
-  addTiles() %>%
-  addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5, 
-              fillColor = ~colorQuantile("YlOrRd", lifeExp)(lifeExp),
-              popup = paste(round(world$lifeExp, 2)))
-saveWidget(l, file = "leaflet.html",selfcontained = T)
+```{r, echo=F, message=F}
+f <-"presentations/leaflet.html"
+saveWidget(l,file.path(normalizePath(dirname(f)),basename(f)),libdir="externals",selfcontained = T)
 ```
-<iframe src="leaflet.html" width=100% height=400px></iframe>
+
+<iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="leaflet.html"></iframe>
+
+Page hosted on Github for free (except the domain name)...
+
 ---
 
 ## Raster data in the tidyverse
 
 Raster data is not yet closely connected to the **tidyverse**, however:
 
-- Some functions from the **raster** package works well in `pipes`
-- You can convert vector data to the `Spatial*` form using `as(my_vector, "Spatial")`before working on raster-vector interactions
-- There are some initial efforts to bring raster data closer to the **tidyverse**, such as [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), or [fasterize](https://github.com/ecohealthalliance/fasterize)
-- The development of the [stars](https://github.com/r-spatial/stars), package focused on multidimensional, large datasets should start soon. It will allow pipe-based workflows
+- Some functions from `raster` work well in `pipes`
+- Convert vector data to `Spatial*` form using `as(my_vector, "Spatial")` for raster-vector interactions
+- Some early efforts to bring raster data into the **tidyverse**, including [tabularaster](https://github.com/hypertidy/tabularaster), [sfraster](https://github.com/mdsumner/sfraster), [fasterize](https://github.com/ecohealthalliance/fasterize), and [stars](https://github.com/r-spatial/stars) (multidimensional, large datasets).
 
 ---
 
@@ -609,4 +557,3 @@ Raster data is not yet closely connected to the **tidyverse**, however:
 - Slides adapted from:
     - "Robin Lovelace and Jakub Nowosad" draft book [_Geocomputation with R_ (to be published in 2018)](http://robinlovelace.net/geocompr/). Source code at https://github.com/robinlovelace/geocompr.
     - [Claudia Engel's spatial analysis workshop](https://github.com/cengel/rspatial/blob/master/2_spDataTypes.Rmd)
-

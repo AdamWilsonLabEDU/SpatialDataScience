@@ -25,8 +25,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -161,74 +162,14 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -564,9 +505,28 @@ div.tocify {
 <ul>
 <li>Create a new repository for this course by following <a href="https://classroom.github.com/a/etsQwbE7">this link</a>.</li>
 <li>Create a new project in Rstudio and connect it to the new repository in GitHub (these are labeled <code>YEAR-GEO503-GITHUBUSERNAME</code>). Helpful instructions are <a href="http://happygitwithr.com/rstudio-git-github.html#clone-the-new-github-repository-to-your-computer-via-rstudio">here</a></li>
-<li>Update your README.md in your repository</li>
+<li>Edit the README.md file in your repository to include a brief description of the repository (e.g. “Coursework for Spatial Data Science”).</li>
 <li>Stage and Commit your changes to Git (using the git tab in the upper right of RStudio)</li>
 <li>Push the repository up to GitHub</li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="tk_03-gdal-and-sf" class="section level1">
+<h1><a href="./TK_03.html">TK_03 : GDAL and sf</a></h1>
+<p>2018-09-11</p>
+<p>Install GDAL and sf on your laptop</p>
+<a class="btn btn-link" href="./TK_03.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i5">Preview Readings &amp; Tasks </button>
+<div id="i5" class="collapse">
+<h2 id="readings-4">Readings</h2>
+<ul>
+<li>Chapter <a href="http://r4ds.had.co.nz/workflow-projects.html" target="blank">8 R for Data Science - Projects</a></li>
+<li>RStudio and <a href="https://www.youtube.com/watch?v=E2d91v1Twcc" target="blank">the Git GUI</a></li>
+</ul>
+<h2 id="tasks-4">Tasks</h2>
+<ul>
+<li>Install GDAL</li>
+<li>Install the sf package</li>
 </ul>
 </div>
 <hr />
@@ -575,16 +535,16 @@ div.tocify {
 <h1><a href="./CS_03.html">CS_03 : Wealth over time</a></h1>
 <p>2018-09-13</p>
 <p>Data wrangling plus more advanced ggplot</p>
-<a class="btn btn-link" href="./CS_03.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i5">Preview Readings &amp; Tasks </button>
-<div id="i5" class="collapse">
-<h2 id="readings-4">Readings</h2>
+<a class="btn btn-link" href="./CS_03.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i6">Preview Readings &amp; Tasks </button>
+<div id="i6" class="collapse">
+<h2 id="readings-5">Readings</h2>
 <ul>
 <li>The <a href="https://ggplot2.tidyverse.org/" target="blank">ggplot2 vignette</a></li>
 <li>R4DS <a href="http://r4ds.had.co.nz/data-visualisation.html" target="blank">Chapter 3 - Data visualization</a></li>
 <li>The <a href="https://youtu.be/OwII-dwh-bk" target="blank">Hans Rosling The River of Myths</a></li>
 <li>Watch the <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen" target="blank">Hons Rosling video</a></li>
 </ul>
-<h2 id="tasks-4">Tasks</h2>
+<h2 id="tasks-5">Tasks</h2>
 <ul>
 <li>Recreate layered graphics with ggplot including raw and transformed data</li>
 <li>Save graphical output as a .png file</li>
@@ -597,16 +557,36 @@ div.tocify {
 <h1><a href="./CS_04.html">CS_04 : Relational Data</a></h1>
 <p>2018-09-20</p>
 <p>Joining Relational Data</p>
-<a class="btn btn-link" href="./CS_04.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i6">Preview Readings &amp; Tasks </button>
-<div id="i6" class="collapse">
-<h2 id="readings-5">Readings</h2>
+<a class="btn btn-link" href="./CS_04.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i7">Preview Readings &amp; Tasks </button>
+<div id="i7" class="collapse">
+<h2 id="readings-6">Readings</h2>
 <ul>
 <li>R4DS <a href="http://r4ds.had.co.nz/relational-data.html" target="blank">Chapter 13 - Relational Data</a></li>
 </ul>
-<h2 id="tasks-5">Tasks</h2>
+<h2 id="tasks-6">Tasks</h2>
 <ul>
 <li>Join two datasets using a common column</li>
 <li>Answer a question that requires understanding how multiple tables are related</li>
+<li>Save your script as a .R or .Rmd in your course repository</li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="cs_05-spatial-data" class="section level1">
+<h1><a href="./CS_05.html">CS_05 : Spatial Data</a></h1>
+<p>2018-09-25</p>
+<p>Working with Spatial Data and the sf package</p>
+<a class="btn btn-link" href="./CS_05.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i8">Preview Readings &amp; Tasks </button>
+<div id="i8" class="collapse">
+<h2 id="readings-7">Readings</h2>
+<ul>
+<li>Package <a href="https://r-spatial.github.io/sf/">SF</a></li>
+</ul>
+<h2 id="tasks-7">Tasks</h2>
+<ul>
+<li>Reproject spatial data using <code>st_transform()</code></li>
+<li>Perform spatial operations on spatial data (e.g. intersection and buffering)</li>
+<li>Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate it’s area</li>
 <li>Save your script as a .R or .Rmd in your course repository</li>
 </ul>
 </div>

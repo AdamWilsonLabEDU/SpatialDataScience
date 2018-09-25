@@ -31,8 +31,9 @@
 <link href="site_libs/fullcalendar-3.8.0/fullcalendar.min.css" rel="stylesheet" />
 <script src="site_libs/fullcalendar-3.8.0/fullcalendar.min.js"></script>
 <script src="site_libs/fullcalendar-binding-0.0.0.9000/fullcalendar.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -167,74 +168,14 @@ $(document).ready(function () {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -484,7 +425,7 @@ div.tocify {
 <p><strong>Readings</strong></p>
 <p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
 <div id="htmlwidget-686092dc917a388ea16d" style="width:672px;height:480px;" class="fullcalendar html-widget"></div>
-<script type="application/json" data-for="htmlwidget-686092dc917a388ea16d">{"x":{"firstDay":1,"height":500,"aspectRatio":1.75,"header":{"right":"week,month,listMonth"},"footer":{"right":"today prev,next, title"},"titleFormat":" MM-YYYY","events":[{"date":"2018-08-30","title":"CS_01","type":"CS","url":"./CS_01.html","color":"red"},{"date":"2018-09-06","title":"CS_02","type":"CS","url":"./CS_02.html","color":"red"},{"date":"2018-09-13","title":"CS_03","type":"CS","url":"./CS_03.html","color":"red"},{"date":"2018-09-20","title":"CS_04","type":"CS","url":"./CS_04.html","color":"red"},{"date":"2018-09-06","title":"TK_01","type":"TK","url":"./TK_01.html","color":"green"},{"date":"2018-09-11","title":"TK_02","type":"TK","url":"./TK_02.html","color":"green"}]},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-686092dc917a388ea16d">{"x":{"firstDay":1,"height":500,"aspectRatio":1.75,"header":{"right":"week,month,listMonth"},"footer":{"right":"today prev,next, title"},"titleFormat":" MM-YYYY","events":[{"date":"2018-08-30","title":"CS_01","type":"CS","url":"./CS_01.html","color":"red"},{"date":"2018-09-06","title":"CS_02","type":"CS","url":"./CS_02.html","color":"red"},{"date":"2018-09-13","title":"CS_03","type":"CS","url":"./CS_03.html","color":"red"},{"date":"2018-09-20","title":"CS_04","type":"CS","url":"./CS_04.html","color":"red"},{"date":"2018-09-25","title":"CS_05","type":"CS","url":"./CS_05.html","color":"red"},{"date":"2018-09-06","title":"TK_01","type":"TK","url":"./TK_01.html","color":"green"},{"date":"2018-09-11","title":"TK_02","type":"TK","url":"./TK_02.html","color":"green"},{"date":"2018-09-11","title":"TK_03","type":"TK","url":"./TK_03.html","color":"green"}]},"evals":[],"jsHooks":[]}</script>
 
 <!-- Google Analytics -->
 <script>
