@@ -3,11 +3,11 @@ title: GDAL and sf
 date: 2018-09-11 
 subtitle: Install GDAL and sf on your laptop
 reading:
-  - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}
-  - RStudio and [the Git GUI](https://www.youtube.com/watch?v=E2d91v1Twcc){target='blank'}
+   - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}
+   - RStudio and [the Git GUI](https://www.youtube.com/watch?v=E2d91v1Twcc){target='blank'}
 tasks:
-  - Install GDAL
-  - Install the sf package
+   - Install GDAL
+   - Install the sf package
 ---
 
 ```{r setup, include=FALSE}

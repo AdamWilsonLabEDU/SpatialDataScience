@@ -3,13 +3,15 @@
 #' date: 2018-09-25 
 #' subtitle: Working with Spatial Data and the sf package
 #' reading:
-#'   - Package [SF](https://r-spatial.github.io/sf/)
+#'    - The [Spatial Features Package (sf)](https://r-spatial.github.io/sf/){target='blank'}
 #' tasks:
-#'   - Reproject spatial data using `st_transform()`
-#'   - Perform spatial operations on spatial data (e.g. intersection and buffering)
-#'   - Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate it's area
-#'   - Save your script as a .R or .Rmd in your course repository
+#'    - Reproject spatial data using `st_transform()`
+#'    - Perform spatial operations on spatial data (e.g. intersection and buffering)
+#'    - Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate the area
+#'    - Save your script as a .R or .Rmd in your course repository
 #' ---
+#' 
+#' 
 #' 
 #' # Reading
 #' 

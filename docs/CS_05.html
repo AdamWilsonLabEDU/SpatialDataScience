@@ -421,7 +421,7 @@ div.tocify {
 <div id="reading" class="section level1">
 <h1>Reading</h1>
 <ul>
-<li>R4DS <a href="http://r4ds.had.co.nz/relational-data.html" target="blank">Chapter 13 - Relational Data</a></li>
+<li>The <a href="https://r-spatial.github.io/sf/" target="blank">Spatial Features Package (sf)</a></li>
 </ul>
 </div>
 <div id="background" class="section level1">
@@ -438,7 +438,9 @@ div.tocify {
 <div id="tasks" class="section level1">
 <h1>Tasks</h1>
 <ul>
-<li>NULL</li>
+<li>Reproject spatial data using <code>st_transform()</code></li>
+<li>Perform spatial operations on spatial data (e.g. intersection and buffering)</li>
+<li>Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate the area</li>
 <li>Save your script as a .R or .Rmd in your course repository</li>
 </ul>
 <p><a href="scripts/CS_05_nocomments.R" target="_blank"><i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download starter R script (if desired)</a></p>
@@ -453,8 +455,36 @@ Show Hints
 library(ggplot2)
 library(spData)
 library(dplyr)
-library(sf)
-# library(units) #this one is optional, but can help with unit conversions.</code></pre>
+library(sf)</code></pre>
+<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found
+
+## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found</code></pre>
+<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found
+
+## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found</code></pre>
+<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found
+
+## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found</code></pre>
+<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found
+
+## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
+##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
+##   Reason: image not found</code></pre>
+<pre class="r"><code># library(units) #this one is optional, but can help with unit conversions.</code></pre>
 <p>And datasets:</p>
 <pre class="r"><code>#load &#39;world&#39; data from spData package
 data(world) 

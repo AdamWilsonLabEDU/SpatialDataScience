@@ -173,18 +173,6 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Install GDAL </td>
-   <td style="text-align:left;"> [TK_03](./TK_03.html) </td>
-   <td style="text-align:left;"> 2018-09-11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Install the sf package </td>
-   <td style="text-align:left;"> [TK_03](./TK_03.html) </td>
-   <td style="text-align:left;"> 2018-09-11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Recreate layered graphics with ggplot including raw and transformed data </td>
    <td style="text-align:left;"> [CS_03](./CS_03.html) </td>
    <td style="text-align:left;"> 2018-09-13 </td>
@@ -233,7 +221,7 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate it's area </td>
+   <td style="text-align:left;"> Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate the area </td>
    <td style="text-align:left;"> [CS_05](./CS_05.html) </td>
    <td style="text-align:left;"> 2018-09-25 </td>
   </tr>
