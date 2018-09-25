@@ -132,7 +132,8 @@ Build a leaflet map of the same dataset.
 ```{r, purl=F, echo=F}
 library(leaflet)
 library(htmlwidgets)
-l=ny_border%>%st_transform("+proj=longlat +datum=WGS84")%>%
+l=ny_border%>%
+  st_transform("+proj=longlat +datum=WGS84")%>%
   leaflet() %>%
         addTiles() %>%
         addPolygons(color = "#444444", weight = 1, fillOpacity = 0.5,
