@@ -16,7 +16,7 @@
 #' 
 #' ## Download
 #' 
-#' | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r fullinput`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
+#' | [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`) | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r fullinput`)|
 #' |:--:|:-:|:-:|
 #' 
 #' # Spatial packages

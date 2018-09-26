@@ -17,7 +17,7 @@ _Click on presentation and then use the space bar to advance to the next slide o
 
 ## Download
 
-| [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](scripts/04_Spatial_with_sf.Rmd) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](scripts/04_Spatial_with_sf.R)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](scripts/04_Spatial_with_sf_nocomments.R) |
+| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](scripts/04_Spatial_with_sf_nocomments.R) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](scripts/04_Spatial_with_sf.R) | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](scripts/04_Spatial_with_sf.Rmd)|
 |:--:|:-:|:-:|
 
 # Spatial packages
