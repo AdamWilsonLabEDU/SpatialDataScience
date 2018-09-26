@@ -8,6 +8,7 @@
 #' <div id="pres" class="collapse">
 #' <div class="embed-responsive embed-responsive-16by9">
 #'   <iframe class="embed-responsive-item" src="presentations/day_08_spatial.html" allowfullscreen></iframe>
+#' _Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview._
 #' </div>
 #' </div>
 #' </div>
@@ -15,7 +16,7 @@
 #' 
 #' ## Download
 #' 
-#' | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r input`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
+#' | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r fullinput`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
 #' |:--:|:-:|:-:|
 #' 
 #' # Spatial packages

@@ -2,7 +2,7 @@
 title: "Working with Spatial Data"
 ---
 
-```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE, cache=F}
 source("knitr_header.R")
 ```
 
@@ -19,7 +19,7 @@ _Click on presentation and then use the space bar to advance to the next slide o
 
 ## Download
 
-| [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r input`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
+| [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r fullinput`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
 |:--:|:-:|:-:|
 
 # Spatial packages
