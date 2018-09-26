@@ -4,13 +4,22 @@ title: "Working with Spatial Data"
 
 
 
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#pres">View Presentation </button> [Open presentation in a new tab](presentations/day_08_spatial.html){target="_blank"}
+<div id="pres" class="collapse">
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="presentations/day_08_spatial.html" allowfullscreen></iframe>
+</div>
+</div>
+</div>
 
-## Resources
 
-| [<i class="fas fa-desktop fa-2x"></i> <br> Presentation](presentations/day_08_spatial.html){target="_blank"} | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](04_Spatial_with_sf.Rmd) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](scripts/04_Spatial_with_sf.R)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](scripts/04_Spatial_with_sf_nocomments.R) |
-|:-----:|:--:|:-:|:-:|
+## Download
 
-## Spatial packages
+| [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](04_Spatial_with_sf.Rmd) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](scripts/04_Spatial_with_sf.R)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](scripts/04_Spatial_with_sf_nocomments.R) |
+|:--:|:-:|:-:|
+
+# Spatial packages
 
 In R, there are two main lineages of tools for dealing with spatial data: sp and sf.
 
@@ -46,8 +55,9 @@ If you work with PostGis or GeoJSON you may have come across the [WKT (well-know
 
 In `sf` spatial objects are stored as a simple data frame with a special column that contains the information for the geographic coordinates. That special column is a list with the same length as the number of rows in the data frame. Each of the individual list elements then can be of any length needed to hold the coordinates that correspond to an individual feature.  
 
+# Data I/O
 
-### Loading data
+## Loading data
 
 
 To read spatial data in R, use `read_sf()`. The following example reads an example dataset built into the sf package:
@@ -89,7 +99,7 @@ nz_map <- maps::map("nz", plot = FALSE) #load a 'map' in non-sf format
 nz_sf <- st_as_sf(nz_map)  # convert it to sf format
 ```
 
-## Data structure
+# Data structure
 
 `nc` is a data frame, and not a tibble, so when printing, it's a good idea to use `head()` so you only see the first few rows:
 

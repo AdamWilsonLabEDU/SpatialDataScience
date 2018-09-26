@@ -415,12 +415,22 @@ div.tocify {
 </div>
 
 
-<div id="resources" class="section level2">
-<h2>Resources</h2>
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#pres">
+View Presentation
+</button>
+<a href="presentations/day_08_spatial.html" target="_blank">Open presentation in a new tab</a>
+<div id="pres" class="collapse">
+<div class="embed-responsive embed-responsive-16by9">
+<p><iframe class="embed-responsive-item" src="presentations/day_08_spatial.html" allowfullscreen></iframe></p>
+</div>
+</div>
+</div>
+<div id="download" class="section level2">
+<h2>Download</h2>
 <table>
 <thead>
 <tr class="header">
-<th align="center"><a href="presentations/day_08_spatial.html" target="_blank"><i class="fas fa-desktop fa-2x"></i> <br> Presentation</a></th>
 <th align="center"><a href="04_Spatial_with_sf.Rmd"><i class="far fa-file-alt fa-2x"></i> <br> Rmd Script</a></th>
 <th align="center"><a href="scripts/04_Spatial_with_sf.R"><i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script</a></th>
 <th align="center"><a href="scripts/04_Spatial_with_sf_nocomments.R"><i class="fas fa-code fa-2x" aria-hidden="true"></i><br> R Script</a></th>
@@ -430,8 +440,8 @@ div.tocify {
 </tbody>
 </table>
 </div>
-<div id="spatial-packages" class="section level2">
-<h2>Spatial packages</h2>
+<div id="spatial-packages" class="section level1">
+<h1>Spatial packages</h1>
 <p>In R, there are two main lineages of tools for dealing with spatial data: sp and sf.</p>
 <ul>
 <li><p><code>sp</code> has been around for a while (the first release was in 2005), and it has a rich ecosystem of tools built on top of it. However, it uses a rather complex data structure, which can make it challenging to use.</p></li>
@@ -450,8 +460,11 @@ LINESTRING (30 10, 10 30, 40 40)
 POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <p><code>sf</code> implements this standard natively in R. Data are structured and conceptualized very differently from the <code>sp</code> approach.</p>
 <p>In <code>sf</code> spatial objects are stored as a simple data frame with a special column that contains the information for the geographic coordinates. That special column is a list with the same length as the number of rows in the data frame. Each of the individual list elements then can be of any length needed to hold the coordinates that correspond to an individual feature.</p>
-<div id="loading-data" class="section level3">
-<h3>Loading data</h3>
+</div>
+<div id="data-io" class="section level1">
+<h1>Data I/O</h1>
+<div id="loading-data" class="section level2">
+<h2>Loading data</h2>
 <p>To read spatial data in R, use <code>read_sf()</code>. The following example reads an example dataset built into the sf package:</p>
 <pre class="r"><code># The counties of North Carolina
 file=system.file(&quot;shape/nc.shp&quot;, package = &quot;sf&quot;)
@@ -470,15 +483,15 @@ file</code></pre>
 </ul>
 <p><code>read_sf()</code> can read in the majority of spatial file formats, so don’t worry if your data isn’t in a shapefile; the chances are <code>read_sf()</code> will still be able to read it.</p>
 </div>
-</div>
 <div id="converting-data" class="section level2">
 <h2>Converting data</h2>
 <p>If you get a spatial object created by another package, us <code>st_as_sf()</code> to convert it to sf. For example, you can take data from the maps package (included in base R) and convert it to sf:</p>
 <pre class="r"><code>nz_map &lt;- maps::map(&quot;nz&quot;, plot = FALSE) #load a &#39;map&#39; in non-sf format
 nz_sf &lt;- st_as_sf(nz_map)  # convert it to sf format</code></pre>
 </div>
-<div id="data-structure" class="section level2">
-<h2>Data structure</h2>
+</div>
+<div id="data-structure" class="section level1">
+<h1>Data structure</h1>
 <p><code>nc</code> is a data frame, and not a tibble, so when printing, it’s a good idea to use <code>head()</code> so you only see the first few rows:</p>
 <pre class="r"><code>head(nc)</code></pre>
 <pre><code>## Simple feature collection with 6 features and 14 fields
@@ -529,7 +542,6 @@ nz_sf &lt;- st_as_sf(nz_map)  # convert it to sf format</code></pre>
 <p>Use <code>plot()</code> to show the geometry. You’ll learn how to use ggplot2 for more complex data visualisations later.</p>
 <pre class="r"><code>plot(nc$geometry)</code></pre>
 <p><img src="04_Spatial_with_sf_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
-</div>
 <div id="manipulating-with-dplyr" class="section level2">
 <h2>Manipulating with dplyr</h2>
 <p>Since an <code>sf</code> object is just a data frame, you can manipulate it with dplyr. The following example gives you a taste:</p>
@@ -600,6 +612,7 @@ nz_sf &lt;- st_as_sf(nz_map)  # convert it to sf format</code></pre>
 ##   proj4string: &quot;+proj=longlat +datum=NAD27 +no_defs&quot;</code></pre>
 <p>Here the datum is “NAD27”, the <a href="https://en.wikipedia.org/wiki/North_American_Datum">North American Datum</a> of 1927 (NAD27)</p>
 <p>In this class, you won’t have to worry too much about the datum as sf and ggplot2 will take care of the details for you. But it’s good to know why it exists and how to identify it if something goes wrong.</p>
+</div>
 </div>
 <div id="spatial-visualization" class="section level1">
 <h1>Spatial Visualization</h1>
