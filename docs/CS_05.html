@@ -430,9 +430,11 @@ div.tocify {
 </div>
 <div id="objective" class="section level1">
 <h1>Objective</h1>
-<p>You woke up in the middle of the night after a bad dream terrified of the Canadians. You decide to start you are going to start a militia to defend the border. But where should you defend?</p>
+<p>You woke up in the middle of the night terrified of the Canadians after a bad dream. You decide you need to set up military bases to defend the Canada-NY border. After you tweet your plans, you realize you have no plan. What will you do next?</p>
 <blockquote>
-<p>Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate it’s area. How much area will you need to defend from the Canadians?</p>
+<ol style="list-style-type: decimal">
+<li>Generate a polygon that includes all land in NY that is within 10km of the Canadian border and 2) calculate it’s area in km^2. How much land will you need to defend from the Canadians?</li>
+</ol>
 </blockquote>
 </div>
 <div id="tasks" class="section level1">
@@ -450,79 +452,50 @@ Show Hints
 </button>
 <div id="demo1" class="collapse">
 <p>The details below describe one possible approach.</p>
-<p>You will need to load the foillowing packages</p>
-<pre class="r"><code>library(maps)
-library(ggplot2)
-library(spData)
-library(dplyr)
-library(sf)</code></pre>
-<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found
-
-## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found</code></pre>
-<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found
-
-## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found</code></pre>
-<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found
-
-## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/ogr_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found</code></pre>
-<pre><code>## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found
-
-## Warning in CPL_gdal_init(): GDAL Error 1: dlopen(/usr/local/lib/gdalplugins/2.1/gdal_GRASS.dylib, 1): Library not loaded: /usr/local/opt/geos/lib/libgeos-3.6.1.dylib
-##   Referenced from: /usr/local/opt/grass7/grass-7.2.0/lib/libgrass_vector.7.2.0.dylib
-##   Reason: image not found</code></pre>
-<pre class="r"><code># library(units) #this one is optional, but can help with unit conversions.</code></pre>
-<p>And datasets:</p>
+<h2 id="libraries">Libraries</h2>
+<p>You will need to load the following packages</p>
+<pre class="r"><code>library(spData)
+library(sf)
+library(tidyverse)
+# library(units) #this one is optional, but can help with unit conversions.</code></pre>
+<h2 id="data">Data</h2>
 <pre class="r"><code>#load &#39;world&#39; data from spData package
-data(world) 
-# load &#39;states&#39; boundaries
-states &lt;- sf::st_as_sf(maps::map(&quot;state&quot;, plot = FALSE, fill = TRUE)) 
-
-plot(world[1])</code></pre>
-<p><img src="CS_05_files/figure-html/unnamed-chunk-2-1.png" /><!-- --></p>
-<pre class="r"><code>plot(states)</code></pre>
-<p><img src="CS_05_files/figure-html/unnamed-chunk-2-2.png" /><!-- --></p>
-<h2 id="projection">Projection</h2>
-<pre class="r"><code>albers=&quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs &quot;</code></pre>
+data(world)  
+# load &#39;states&#39; boundaries from spData package
+data(us_states)
+# plot(world[1])  #plot if desired
+# plot(us_states[1]) #plot if desired</code></pre>
+<h2 id="steps">Steps</h2>
 <ol style="list-style-type: decimal">
 <li><code>world</code> dataset
 <ol style="list-style-type: decimal">
-<li>transform to the albers equal area projection defined above as <code>albers</code></li>
+<li>transform to the albers equal area projection:</li>
+</ol>
+<pre class="r"><code>albers=&quot;+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs&quot;</code></pre>
+<ol start="2" style="list-style-type: decimal">
 <li>rename the <code>geom</code> column as <code>geometry</code> to make it easier to use <code>ggplot()</code></li>
 <li>filter the world dataset to include only <code>name_long==&quot;Canada&quot;</code></li>
 <li>buffer canada to 10km (10000m)</li>
 </ol></li>
-<li><code>states</code> object
+<li><code>us_states</code> object
 <ol style="list-style-type: decimal">
 <li>transform to the albers equal area projection defined above as <code>albers</code></li>
-<li>filter the <code>states</code> dataset to include only <code>ID == &quot;new york&quot;</code></li>
-<li>confirm that the filtered object is valid with <code>st_is_valid()</code>, if not, use <code>st_buffer(0)</code> to apply a zero-width buffer which can solve most validity problems</li>
+<li>filter the <code>us_states</code> dataset to include only <code>NAME == &quot;New York&quot;</code></li>
 </ol></li>
-<li>create a ‘border’ object
+<li>Create a ‘border’ object
 <ol style="list-style-type: decimal">
 <li>use <code>st_intersection()</code> to intersect the canada buffer with New York (this will be your final polygon)</li>
+<li>Plot the border area using <code>ggplot()</code> and <code>geom_sf()</code>.</li>
 <li>use <code>st_area()</code> to calculate the area of this polygon.</li>
+<li>Convert the units to km^2. You can use <code>set_units(km^2)</code> (from the <code>units</code> library) or some other method.</li>
 </ol></li>
+<li>Do not worry about small waterways, etc. Just use the two datasets listed above.</li>
 </ol>
 </div>
 </div>
-<p>Your final result should look like this:</p>
+<p>Your final result should look something like this:</p>
 <p><img src="CS_05_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
-<pre><code>## 3231.416 km^2</code></pre>
-<p>Important note: This is a crude dataset meant simply to illustrate the use of intersections and buffers. The two datasets are not adequate for a highly accurate analysis.</p>
+<p>Important note: This is a crude dataset meant simply to illustrate the use of intersections and buffers. The two datasets are not adequate for a highly accurate analysis. Please do not use these data for real military purposes.</p>
 <div class="extraswell">
 <button data-toggle="collapse" class="btn btn-link" data-target="#extras">
 Extra time? Try these extra activities…

@@ -21,5 +21,5 @@ output_nocomment = file.path("scripts",paste0(tools::file_path_sans_ext(input),
                                    '_nocomments.R'))
 knitr::purl(input,output,documentation=2,quiet=F,envir=new.env())
 knitr::purl(input,output_nocomment,documentation=0,quiet=F,envir=new.env())
-
+file.copy(input,file.path("scripts/",input)) # also copy .Rmd to script folder.
   

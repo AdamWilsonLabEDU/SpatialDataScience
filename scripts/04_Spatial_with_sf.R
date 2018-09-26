@@ -3,9 +3,11 @@
 #' ---
 #' 
 #' 
-#' [<i class="fas fa-desktop fa-3x" aria-hidden="true"></i> Presentation](presentations/day_08_spatial.html){target="_blank"}  
 #' 
-#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+#' ## Resources
+#' 
+#' | [<i class="fas fa-desktop fa-2x"></i> <br> Presentation](presentations/day_08_spatial.html){target="_blank"} | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r input`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`)| [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) |
+#' |:-----:|:--:|:-:|:-:|
 #' 
 #' ## Spatial packages
 #' 
