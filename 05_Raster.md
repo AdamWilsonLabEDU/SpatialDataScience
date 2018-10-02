@@ -631,7 +631,7 @@ object.size(clim)
 ```
 
 ```
-## 295710120 bytes
+## 295722384 bytes
 ```
 
 ```r
