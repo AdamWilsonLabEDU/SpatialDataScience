@@ -94,7 +94,7 @@ Your final result should look something like this:
 ```{r purl=F, echo=F, message=FALSE, warning=FALSE}
 canada <- world %>%
   st_transform(crs=albers) %>%
-  rename(geometry=geom) %>%
+  st_set_geometry("geom")%>%
   filter(name_long=="Canada") %>%
   st_buffer(10000)
 

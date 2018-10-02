@@ -3,7 +3,21 @@
 #' ---
 #' 
 #' 
-#' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+#' <div class="extraswell">
+#' <button data-toggle="collapse" class="btn btn-link" data-target="#pres">View Presentation </button> [Open presentation in a new tab](presentations/day_10_raster.html){target="_blank"}
+#' <div id="pres" class="collapse">
+#' <div class="embed-responsive embed-responsive-16by9">
+#'   <iframe class="embed-responsive-item" src="presentations/day_10_raster.html" allowfullscreen></iframe>
+#' _Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview._
+#' </div>
+#' </div>
+#' </div>
+#' 
+#' 
+#' ## Download
+#' 
+#' | [<i class="fas fa-code fa-2x" aria-hidden="true"></i><br>  R Script](`r output_nocomment`) | [<i class="fa fa-file-code-o fa-2x"></i> <br> Commented R Script](`r output`) | [<i class="far fa-file-alt fa-2x"></i> <br>  Rmd Script](`r fullinput`)|
+#' |:--:|:-:|:-:|
 #' 
 #' ## Libraries
 #' 
