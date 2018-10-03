@@ -231,6 +231,36 @@ Below are a set of tasks that we will work on in class (either alone or in small
    <td style="text-align:left;"> [CS_05](./CS_05.html) </td>
    <td style="text-align:left;"> 2018-09-25 </td>
   </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Calculate annual maximum temperatures from a monthly spatio-temporal dataset </td>
+   <td style="text-align:left;"> [CS_06](./CS_06.html) </td>
+   <td style="text-align:left;"> 2018-10-04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Remove Antarctica from the `world` dataset </td>
+   <td style="text-align:left;"> [CS_06](./CS_06.html) </td>
+   <td style="text-align:left;"> 2018-10-04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Summarize raster values within polygons </td>
+   <td style="text-align:left;"> [CS_06](./CS_06.html) </td>
+   <td style="text-align:left;"> 2018-10-04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Generate a summary figure and table. </td>
+   <td style="text-align:left;"> [CS_06](./CS_06.html) </td>
+   <td style="text-align:left;"> 2018-10-04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Save your script as a .R or .Rmd in your course repository </td>
+   <td style="text-align:left;"> [CS_06](./CS_06.html) </td>
+   <td style="text-align:left;"> 2018-10-04 </td>
+  </tr>
 </tbody>
 </table>
 

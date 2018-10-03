@@ -6,9 +6,7 @@ title: "Raster Analyses"
 
 ---
 
-# Spatial Data in R
-
-## Available Packages
+## Available Spatial Packages
 
 * `sp`  First major spatial data package/format
 * `rgdal` reading and writing spatial data

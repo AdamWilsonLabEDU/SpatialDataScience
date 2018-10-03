@@ -19,4 +19,5 @@ output:
 |  2018-09-13 | Module Title  | [<i class='fas fa-book'></i>]( ./CS_03.html ) | [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'} | [<i class='fas fa-tasks'>      </i>](TK_01.html) | [ Wealth over time ]( ./CS_03.html ) | 
 |  2018-09-20 | Module Title  | [<i class='fas fa-book'></i>]( ./CS_04.html ) | [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'} | [<i class='fas fa-tasks'>      </i>](TK_01.html) | [ Relational Data ]( ./CS_04.html ) | 
 |  2018-09-25 | Module Title  | [<i class='fas fa-book'></i>]( ./CS_05.html ) | [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'} | [<i class='fas fa-tasks'>      </i>](TK_01.html) | [ Spatial Data ]( ./CS_05.html ) | 
+|  2018-10-04 | Module Title  | [<i class='fas fa-book'></i>]( ./CS_06.html ) | [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'} | [<i class='fas fa-tasks'>      </i>](TK_01.html) | [ Raster Data ]( ./CS_06.html ) | 
 

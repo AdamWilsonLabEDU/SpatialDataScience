@@ -140,4 +140,21 @@ ___
 - Generate a polygon that includes all land in NY that is within 10km of the Canadian border and calculate the area
 - Save your script as a .R or .Rmd in your course repository
 </div>
+___
+# [ CS_06 :  Raster Data ]( ./CS_06.html ) 
+ 2018-10-04  
+ 
+  The hottest country on each continent.  
+ 
+ <a class="btn btn-link" href="./CS_06.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i8">Preview Readings & Tasks </button><div id="i8" class="collapse">
+## Readings
+- Raster Vector Interactions [GCR](https://geocompr.robinlovelace.net/geometric-operations.html#raster-vector){target='blank'}
+
+## Tasks
+- Calculate annual maximum temperatures from a monthly spatio-temporal dataset
+- Remove Antarctica from the `world` dataset
+- Summarize raster values within polygons
+- Generate a summary figure and table.
+- Save your script as a .R or .Rmd in your course repository
+</div>
 
