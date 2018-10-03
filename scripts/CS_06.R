@@ -32,7 +32,7 @@
 #' # Tasks
 #' 
 #' 
-#' [<i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download starter R script (if desired)](`r output_nocomment`){target="_blank"}
+#' [<i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download starter R script (if desired)](`r output_nocomment`){target="_blank"}.  Save this directly to your course folder (repository) so you don't lose track of it!
 #' 
 #' <div class="well">
 #' <button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Hints</button>
@@ -71,7 +71,7 @@ tmax_monthly <- getData(name = "worldclim", var="tmax", res=10)
 #'     1. use `raster::extract()` to identify the maximum temperature observed in each country (`fun=max`). Also set `na.rm=T, small=T, sp=T` to 1) handle missing data along coastlines, 2) account for small countries that may not have a full 0.5 degree pixel in them, and 3) return a spatial polygon object instead of just a vector of values.
 #'     2. convert the results of the previous step to `sf` format with `st_as_sf()`.  Now you have an updated polygon object with a new column of maximium temperature.  Cool!
 #' 3. Communicate your results
-#'     1. use `ggplot()` and `geom_sf()` to plot the maximum temperature in each country polygon (not the original raster layer)
+#'     1. use `ggplot()` and `geom_sf()` to plot the maximum temperature in each country polygon (not the original raster layer).  To recreate the image below, you will also need `scale_fill_viridis_c(name="Annual\nMaximum\nTemperature (C)")`.  Note the use of `\n` to insert a line break in the text string. You can move the legend around with `+theme(legend.position = 'bottom')`.
 #'     2. use `dplyr` tools to find the hottest country in each continent. You may need `group_by()` and `top_n`.  To create a nice looking table, you may also want to use `select()` to keep only the desired columns, `arrange()` to sort them, `st_set_geometry(NULL)` to drop the geometry column (if desired).
 #' </div>
 #' </div>
