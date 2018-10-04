@@ -28,9 +28,6 @@ The project proposal will  about 1 page in length and include the following:
 Finding good data takes time, and can take longer than the time to tidy your data.  This task could easily take 3-6 hours to find the data you need for your project.  After you find good data sources make sure to complete the remaining tasks.
 
 
-```
-## [1] FALSE
-```
 
 Use [this template (which is an R Markdown File) for your project proposal](scripts/Project_ProposalTemplate.Rmd).  You can see what this file looks like 'after rendering' [here](Project_ProposalTemplate.html).
 

@@ -6,7 +6,7 @@ output:
     keep_md: true
 ---
 
-[<i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download this file as a template ](Project_ProposalTemplate.Rmd).
+[<i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> Download this file as a template ](http://adamwilson.us/SpatialDataScience/scripts/Project_ProposalTemplate.Rmd).
 
 # Introduction to problem/question
   
