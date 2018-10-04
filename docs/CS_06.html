@@ -486,7 +486,7 @@ tmax_monthly &lt;- getData(name = &quot;worldclim&quot;, var=&quot;tmax&quot;, r
 </ol></li>
 <li>Communicate your results
 <ol style="list-style-type: decimal">
-<li>use <code>ggplot()</code> and <code>geom_sf()</code> to plot the maximum temperature in each country polygon (not the original raster layer). To recreate the image below, you will also need <code>scale_fill_viridis_c(name=&quot;Annual\nMaximum\nTemperature (C)&quot;)</code>. Note the use of <code>\n</code> to insert a line break in the text string. You can move the legend around with <code>+theme(legend.position = 'bottom')</code>.</li>
+<li>use <code>ggplot()</code> and <code>geom_sf()</code> to plot the maximum temperature in each country polygon (not the original raster layer). To recreate the image below, you will also need <code>+scale_fill_viridis_c(name=&quot;Annual\nMaximum\nTemperature (C)&quot;)</code>. Note the use of <code>\n</code> to insert a line break in the text string. You can move the legend around with <code>+theme(legend.position = 'bottom')</code>.</li>
 <li>use <code>dplyr</code> tools to find the hottest country in each continent. You may need <code>group_by()</code> and <code>top_n</code>. To create a nice looking table, you may also want to use <code>select()</code> to keep only the desired columns, <code>arrange()</code> to sort them, <code>st_set_geometry(NULL)</code> to drop the geometry column (if desired).</li>
 </ol></li>
 </ol>
