@@ -1,0 +1,58 @@
+---
+title: "Getting Help!"
+subtitle: Learning more about finding help
+reading:
+   - How to [write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html)
+presentation:
+   - day_12_help.html
+tasks:
+   - Learn how to read R help files effectively
+   - Learn how to search for help
+   - Learn how to create a Minimum Working Example (MWE)
+   - Debug existing code
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+## Download
+
+`r output_table()`
+
+## Libraries
+
+```{r message=F,warning=FALSE}
+library(tidyverse)
+library(reprex)
+library(spData)
+library(sf)
+```
+
+## Your problem
+
+You want to make a figure illustrating the distribution of GDP per capital for all countries within each continent.  Your desired figure looks something like the following:
+
+```{r, echo=F, purl=F}
+library(spData)
+library(ggplot2)
+data(world)
+
+ggplot(world,aes(x=gdpPercap, fill=continent))+
+   geom_density(alpha=0.5,color=F)+
+   labs(x="GDP Per Capita",y="Density")
+```
+
+You want to ask for help and so you know that you need to make a reproducible example.  Starting with the code below, use `reprex()` to generate a nicely formatted example that you could email or post to a forum to ask for help.  See the [reading](https://reprex.tidyverse.org/) for more help.
+
+```{r}
+ggplot(world,aes(x=gdpPercap, y=continent, color=continent))+
+   geom_density(alpha=0.5,color=F)
+```
+
+
+
+

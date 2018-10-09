@@ -1,12 +1,25 @@
 #' ---
-#' title: "Reproducible Research"
+#' title: "Reproducible Research and R Markdown"
+#' date: 2018-10-10 
+#' subtitle: 
+#' reading:
+#'    - 
+#' presentation:
+#'    - day_13_repro.html
+#' tasks:
+#'    - Learn how to read R help files effectively
+#'    - Learn how to search for help
+#'    - Learn how to create a Minimum Working Example (MWE)
 #' ---
 #' 
 #' 
-#' <div>
-#' <iframe src="07_assets/Reproducibile_presentation.html" width=100% height=400px></iframe>
-#' </div>
-#' <a target="_blank" href="07_assets/Reproducibile_presentation.html">Click here to open the presentation in a new tab </a>
+#' 
+#' `r presframe()`
+#' 
+#' ## Download
+#' 
+#' `r output_table()`
+#' 
 #' 
 #' ## R Markdown
 #' 
@@ -17,25 +30,7 @@
 #' <small><small><small>[https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)</small></small></small>
 #' 
 #' ## Overview
-#' Today we will make a copy of a template for your project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at [http://adamwilson.us/RDataScience_Project/](http://adamwilson.us/RDataScience_Project/)
-#' 
-#' ## Install Git on your computer
-#' 
-#' ### Windows and OSX
-#' http://git-scm.com/downloads
-#' 
-#' ### Linux
-#' ` sudo apt-get install git `
-#' or similar
-#' 
-#' 
-#' ## Create an account on [GitHub](github.com)
-#' 
-#' 1. Create a GitHub account at [https://github.com/](https://github.com/)
-#'     * This will be a public account associated with your name
-#'     * Choose a username wisely for future use
-#'     * Don't worry about details, you can fill them in later
-#' 2.  To set up a connection that doesn't require you to type in your password every time, [see here](GitSSHNotes.html)    
+#' Today we will make a copy of a template for your final project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at [http://adamwilson.us/RDataScience_Project/](http://adamwilson.us/RDataScience_Project/)
 #' 
 #' ## `Fork` the repository to create a linked copy in your GitHub account.
 #' 

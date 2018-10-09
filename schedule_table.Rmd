@@ -6,7 +6,7 @@ output:
     toc_depth: 1
 ---
 
-```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE,eval=F}
 library(dplyr)
 source("functions.R")
 yamls=yaml_dir()
@@ -15,7 +15,7 @@ yamls=yamls[order(sapply(yamls,function(x) x$date))]
 
 
 
-```{r table,results='asis',echo=F}
+```{r table,results='asis',echo=F, eval=F}
 # This chunk prints an index of all the task titles along with a preview of the sub-tasks 
 cat("| Week |  Module | Readings | Presentation | Tasks | Case Study |\n")
 cat("|:--|:--|:-:|:-:|:-:|:---|\n") 

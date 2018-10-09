@@ -1,13 +1,38 @@
 ---
-title: "Reproducible Research"
+title: "Reproducible Research and R Markdown"
+date: 2018-10-10 
+subtitle: 
+reading:
+   - 
+presentation:
+   - day_13_repro.html
+tasks:
+   - Learn how to read R help files effectively
+   - Learn how to search for help
+   - Learn how to create a Minimum Working Example (MWE)
 ---
 
 
 
-<div>
-<iframe src="07_assets/Reproducibile_presentation.html" width=100% height=400px></iframe>
+
+
+<div class='extraswell'>
+  <button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button>      [Open presentation in a new tab](presentation/day_13_repro.html){target='_blank'}
+<div id='pres' class='collapse'>
+<div class='embed-responsive embed-responsive-16by9'>
+  <iframe class='embed-responsive-item' src='presentation/day_13_repro.html' allowfullscreen></iframe>
+  _Click on presentation and then use the space bar to advance to the next slide
+   or escape key to show an overview._
 </div>
-<a target="_blank" href="07_assets/Reproducibile_presentation.html">Click here to open the presentation in a new tab </a>
+</div>
+</div>
+
+
+## Download
+
+| [<i class='fas fa-code fa-2x' aria-hidden='true'></i><br>  R Script]( scripts/07_Reproducibile_nocomments.R ) | [<i class='fa fa-file-code-o fa-2x'></i> <br> Commented R Script]( scripts/07_Reproducibile.R ) | [<i class='far fa-file-alt fa-2x'></i> <br>  Rmd Script]( scripts/07_Reproducibile.Rmd )|
+|:--:|:-:|:-:|
+
 
 ## R Markdown
 
@@ -18,25 +43,7 @@ Cheatsheet:
 <small><small><small>[https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)</small></small></small>
 
 ## Overview
-Today we will make a copy of a template for your project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at [http://adamwilson.us/RDataScience_Project/](http://adamwilson.us/RDataScience_Project/)
-
-## Install Git on your computer
-
-### Windows and OSX
-http://git-scm.com/downloads
-
-### Linux
-` sudo apt-get install git `
-or similar
-
-
-## Create an account on [GitHub](github.com)
-
-1. Create a GitHub account at [https://github.com/](https://github.com/)
-    * This will be a public account associated with your name
-    * Choose a username wisely for future use
-    * Don't worry about details, you can fill them in later
-2.  To set up a connection that doesn't require you to type in your password every time, [see here](GitSSHNotes.html)    
+Today we will make a copy of a template for your final project, edit it, and 'push' it back up to your github account.  You can check out the template code at [https://github.com/AdamWilsonLab/RDataScience_Project](https://github.com/AdamWilsonLab/RDataScience_Project) and the template website at [http://adamwilson.us/RDataScience_Project/](http://adamwilson.us/RDataScience_Project/)
 
 ## `Fork` the repository to create a linked copy in your GitHub account.
 

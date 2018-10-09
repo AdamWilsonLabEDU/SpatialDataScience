@@ -157,4 +157,21 @@ ___
 - Generate a summary figure and table.
 - Save your script as a .R or .Rmd in your course repository
 </div>
+___
+# [ CS_07 :  Getting Help! ]( ./CS_07.html ) 
+ 2018-10-10  
+ 
+  Learning more about finding help  
+ 
+ <a class="btn btn-link" href="./CS_07.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i9">Preview Readings & Tasks </button><div id="i9" class="collapse">
+## Readings
+- How to [write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html)
+
+## Tasks
+- Learn how to read R help files effectively
+- Learn how to search for help
+- Learn how to create a Minimum Working Example (MWE)
+- Debug existing code
+- Save your reprex to your course repository as an html file using Export -> "Save As Webpage" in the RStudio "Viewer" Tab.
+</div>
 

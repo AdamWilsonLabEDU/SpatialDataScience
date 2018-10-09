@@ -714,15 +714,15 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <p>Create a LINESTRING <code>sfg</code> object:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">xy=<span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">6</span>), <span class="dt">ncol=</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">xy</a></code></pre></div>
-<pre><code>##           [,1]      [,2]
-## [1,] 0.9389804 0.7876401
-## [2,] 0.3921556 0.3908075
-## [3,] 0.9063959 0.6533879</code></pre>
+<pre><code>##           [,1]       [,2]
+## [1,] 0.4120324 0.88614094
+## [2,] 0.9044622 0.34033336
+## [3,] 0.5781074 0.07004042</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">lnstr_sfg &lt;-<span class="st"> </span><span class="kw">st_linestring</span>(xy) </a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">class</span>(lnstr_sfg)</a></code></pre></div>
 <pre><code>## [1] &quot;XY&quot;         &quot;LINESTRING&quot; &quot;sfg&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">lnstr_sfg</a></code></pre></div>
-<pre><code>## LINESTRING (0.9389804 0.7876401, 0.3921556 0.3908075, 0.9063959 0.6533879)</code></pre>
+<pre><code>## LINESTRING (0.4120324 0.8861409, 0.9044622 0.3403334, 0.5781074 0.07004042)</code></pre>
 </section><section id="ii.-combine-all-individual-single-feature-objects-for-the-special-column." class="slide level2">
 <h2>II. Combine all individual single feature objects for the special column.</h2>
 <p>Create a <code>sfc</code> (Simple Feature Collection) object of individual features:</p>
@@ -733,10 +733,10 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <pre><code>## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
+## bbox:           xmin: 0.4120324 ymin: 0.07004042 xmax: 0.9044622 ymax: 0.8861409
 ## epsg (SRID):    NA
 ## proj4string:    NA</code></pre>
-<pre><code>## LINESTRING (0.9389804 0.7876401, 0.3921556 0.39...</code></pre>
+<pre><code>## LINESTRING (0.4120324 0.8861409, 0.9044622 0.34...</code></pre>
 <p>The <code>sfc</code> object also holds the bounding box and the projection information.</p>
 </section><section id="iii.-add-attributes." class="slide level2">
 <h2>III. Add attributes.</h2>
@@ -749,11 +749,11 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <pre><code>## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
+## bbox:           xmin: 0.4120324 ymin: 0.07004042 xmax: 0.9044622 ymax: 0.8861409
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.9389804 0.787...</code></pre>
+## 1 random LINESTRING (0.4120324 0.886...</code></pre>
 </section><section class="slide level2">
 
 <table>
@@ -766,7 +766,7 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">random</td>
-<td style="text-align: left;">c(0.938980444334447, 0.392155600944534, 0.90639588679187, 0.787640138994902, 0.39080753410235, 0.653387865517288)</td>
+<td style="text-align: left;">c(0.412032366730273, 0.904462206643075, 0.578107384266332, 0.886140941176564, 0.340333361877128, 0.0700404178351164)</td>
 </tr>
 </tbody>
 </table>
@@ -2715,15 +2715,12 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 </section><section id="compare-projections" class="slide level2">
 <h2>Compare projections</h2>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(gridExtra)  <span class="co"># for combining ggplots</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">na =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>)</a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">p1=na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
-<a class="sourceLine" id="cb52-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7">p2=na <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb52-9" data-line-number="9"><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png" /> For more on <code>grid.arrange</code>, see <a href="https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html">here</a>.</p>
+<a class="sourceLine" id="cb52-2" data-line-number="2">na =<span class="st"> </span>world <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;North America&quot;</span>)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">p1=na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">p2=na <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggplot</span>()<span class="op">+</span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom))</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="kw">grid.arrange</span>(p1,p2,<span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
+<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png" /></p>
+<p>For more on <code>grid.arrange</code>, see <a href="https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html">here</a>.</p>
 </section><section id="spatial-operations-1" class="slide level2">
 <h2>Spatial operations</h2>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">canada =<span class="st"> </span>na_<span class="dv">2163</span> <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -2754,22 +2751,18 @@ POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))</code></pre>
 <a class="sourceLine" id="cb56-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
 <p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png" /></p>
 <p>All the nice ggplot features are available</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">ggplot</span>(world)<span class="op">+</span></a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">geometry=</span>geom,<span class="dt">fill=</span>lifeExp))<span class="op">+</span></a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
-<p><img data-src="day_08_spatial_files/figure-revealjs/unnamed-chunk-32-1.png" /></p>
 </section><section id="leaflet-javascript-library-for-interactive-maps" class="slide level2">
 <h2>leaflet: javascript library for interactive maps</h2>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">library</span>(widgetframe)</a></code></pre></div>
 <p><a href="https://leafletjs.com/">Leaflet</a> leading open-source JavaScript library for mobile-friendly interactive maps. Weighing just about 38 KB of JS, it has all the mapping features most developers ever need.</p>
 </section><section id="construct-the-leaflet-map" class="slide level2">
 <h2>Construct the leaflet map</h2>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">l=<span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
-<a class="sourceLine" id="cb59-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Life Expectancy =&quot;</span>, <span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">l=<span class="kw">leaflet</span>(world) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="st">        </span><span class="kw">addTiles</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="st">        </span><span class="kw">addPolygons</span>(<span class="dt">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="dt">weight =</span> <span class="dv">1</span>, <span class="dt">fillOpacity =</span> <span class="fl">0.5</span>,</a>
+<a class="sourceLine" id="cb58-4" data-line-number="4">                    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, lifeExp)(lifeExp),</a>
+<a class="sourceLine" id="cb58-5" data-line-number="5">                    <span class="dt">popup =</span> <span class="kw">paste</span>(<span class="st">&quot;Life Expectancy =&quot;</span>, <span class="kw">round</span>(world<span class="op">$</span>lifeExp, <span class="dv">2</span>)))</a></code></pre></div>
 <iframe id="test" style=" height:400px; width:100%;" scrolling="no" frameborder="0" src="world_leaflet.html">
 </iframe>
 <p>Page hosted on Github for free (except the domain name)…</p>

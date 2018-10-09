@@ -23,3 +23,24 @@ knitr::purl(input,output,documentation=2,quiet=F,envir=new.env())
 knitr::purl(input,output_nocomment,documentation=0,quiet=F,envir=new.env())
 fullinput=file.path("scripts",input)
 file.copy(input,fullinput) # also copy .Rmd to script folder.
+
+presframe=function(path=rmarkdown::metadata$presentation,prefix="presentation"){ 
+  paste0("
+<div class='extraswell'>
+  <button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button>      [Open presentation in a new tab](",file.path(prefix,path),"){target='_blank'}
+<div id='pres' class='collapse'>
+<div class='embed-responsive embed-responsive-16by9'>
+  <iframe class='embed-responsive-item' src='",file.path(prefix,path),
+   "' allowfullscreen></iframe>
+  _Click on presentation and then use the space bar to advance to the next slide
+   or escape key to show an overview._
+</div>
+</div>
+</div>
+")}
+
+
+output_table=function(){
+  paste(
+"| [<i class='fas fa-code fa-2x' aria-hidden='true'></i><br>  R Script](",output_nocomment,") | [<i class='fa fa-file-code-o fa-2x'></i> <br> Commented R Script](",output,") | [<i class='far fa-file-alt fa-2x'></i> <br>  Rmd Script](",fullinput,")|
+|:--:|:-:|:-:|",collapse="")}

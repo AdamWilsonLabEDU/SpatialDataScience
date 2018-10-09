@@ -46,6 +46,11 @@ Weekly courses due before topic in class
 * [Exploratory Data Analysis in R: Case Study](https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study)
 * [Spatial Analysis in R with sf and raster](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
+## New Module: troubleshooting code
+* reading helpfiles
+* break down your code
+* reading error messages
+
 ## Git Classroom
 * setup git account
 * use github classroom

@@ -229,10 +229,10 @@ xy
 ```
 
 ```
-##           [,1]      [,2]
-## [1,] 0.9389804 0.7876401
-## [2,] 0.3921556 0.3908075
-## [3,] 0.9063959 0.6533879
+##           [,1]       [,2]
+## [1,] 0.4120324 0.88614094
+## [2,] 0.9044622 0.34033336
+## [3,] 0.5781074 0.07004042
 ```
 
 ```r
@@ -249,7 +249,7 @@ lnstr_sfg
 ```
 
 ```
-## LINESTRING (0.9389804 0.7876401, 0.3921556 0.3908075, 0.9063959 0.6533879)
+## LINESTRING (0.4120324 0.8861409, 0.9044622 0.3403334, 0.5781074 0.07004042)
 ```
 
 ---
@@ -275,13 +275,13 @@ lnstr_sfc
 ## Geometry set for 1 feature 
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
+## bbox:           xmin: 0.4120324 ymin: 0.07004042 xmax: 0.9044622 ymax: 0.8861409
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ```
 
 ```
-## LINESTRING (0.9389804 0.7876401, 0.3921556 0.39...
+## LINESTRING (0.4120324 0.8861409, 0.9044622 0.34...
 ```
 The `sfc` object also holds the bounding box and the projection information.
 
@@ -309,18 +309,18 @@ lnstr_sf
 ## Simple feature collection with 1 feature and 1 field
 ## geometry type:  LINESTRING
 ## dimension:      XY
-## bbox:           xmin: 0.3921556 ymin: 0.3908075 xmax: 0.9389804 ymax: 0.7876401
+## bbox:           xmin: 0.4120324 ymin: 0.07004042 xmax: 0.9044622 ymax: 0.8861409
 ## epsg (SRID):    NA
 ## proj4string:    NA
 ##     type                      lnstr_sfc
-## 1 random LINESTRING (0.9389804 0.787...
+## 1 random LINESTRING (0.4120324 0.886...
 ```
 
 ---
 
-type     lnstr_sfc                                                                                                         
--------  ------------------------------------------------------------------------------------------------------------------
-random   c(0.938980444334447, 0.392155600944534, 0.90639588679187, 0.787640138994902, 0.39080753410235, 0.653387865517288) 
+type     lnstr_sfc                                                                                                            
+-------  ---------------------------------------------------------------------------------------------------------------------
+random   c(0.412032366730273, 0.904462206643075, 0.578107384266332, 0.886140941176564, 0.340333361877128, 0.0700404178351164) 
 
 ---
 
@@ -2391,17 +2391,14 @@ st_crs(na_2163)
 
 ```r
 library(gridExtra)  # for combining ggplots
-
 na = world %>% filter(continent == "North America")
-
 p1=na_2163 %>% ggplot()+geom_sf(aes(geometry=geom))
-
 p2=na %>% ggplot()+geom_sf(aes(geometry=geom))
-
 grid.arrange(p1,p2,nrow=1)
 ```
 
 ![](day_08_spatial_files/figure-revealjs/unnamed-chunk-27-1.png)
+
 For more on `grid.arrange`, see [here](https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html).
 
 ---
@@ -2457,17 +2454,6 @@ ggplot(world)+
 ![](day_08_spatial_files/figure-revealjs/unnamed-chunk-31-1.png)
 
 All the nice ggplot features are available
-
-
-```r
-ggplot(world)+
-  geom_sf(aes(geometry=geom,fill=lifeExp))+
-  scale_fill_viridis_c()
-```
-
-![](day_08_spatial_files/figure-revealjs/unnamed-chunk-32-1.png)
-
-
 
 ## leaflet: javascript library for interactive maps
 
