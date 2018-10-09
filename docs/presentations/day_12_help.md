@@ -10,9 +10,10 @@ title: "HELP!"
 
 ![](https://imgs.xkcd.com/comics/error_code.png)
 
-# Strange Error
+# Strange Errors
 
-This is the error messages I get
+## Examples from Stack Overflow
+This is the error messages I get...
 
 ```r
 > setwd("H:/user/george")
@@ -27,7 +28,7 @@ Error: object 'GWS' not found
 ```
 
 
-## One more...
+## Another one
 
 
 "Help, I'm getting an error and I don't know what it means"
@@ -68,6 +69,7 @@ In storage.mode(v) <- "double" : NAs introduced by coercion
 * Break down your code (run bit by bit)!
 * Understand the data/inputs
 * Read the help files carefully
+* Try `traceback()`
 
 ## R is very picky
 It expects you to give accurate instructions...
@@ -84,6 +86,28 @@ lm(reallystrngenme~anothrstrngenme)
 Run bit by bit:
 
 ![](img/run_part.png)
+
+## traceback
+Prints the call stack of the last uncaught error, i.e., the sequence of calls that lead to the error. This is useful when an error occurs with an unidentifiable error message.
+
+
+```r
+pets=c("dog","cat","fish")
+lm(pets~1:5)
+
+Error in terms.formula(formula, data = data) :
+  invalid model formula in ExtractVars
+
+traceback()
+
+ 7: terms.formula(formula, data = data)
+ 6: terms(formula, data = data)
+ 5: model.frame.default(formula = pets ~ 1:5, drop.unused.levels = TRUE)
+ 4: stats::model.frame(formula = pets ~ 1:5, drop.unused.levels = TRUE)
+ 3: eval(mf, parent.frame())
+ 2: eval(mf, parent.frame())
+ 1: lm(pets ~ 1:5)
+```
 
 # RStudio features can help
 
@@ -118,7 +142,26 @@ Tab complete can find files and remove the hassle of writing out long path locat
 
 ![](img/tip_file_nav.gif)
 
+## Debugging
+[Debugging in RStudio](https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio)
+
+1. Begin running the code
+2. Stop the code at the point where you suspect the problem is arising, and
+3. Look at and/or walk through the code, step-by-step at that point.
+
 # Building a workflow
+
+## Grandma's Recipe Book
+
+>* Grandma writes the recipe for our favorite chocolate chip cookies
+>* We make a batch and they come out awful!
+>* Grandma makes another batch and they are delicious!
+>* Grandma says, "Well you didn't add the sugar, of course you need about 2 cups of sugar!" 
+>* No sugar in the recipe!
+>* Always, always, always think about the 'flow' of the script.
+
+## Your script is your product
+
 
 ## "It worked before, but now it doesn't"
 
@@ -135,17 +178,28 @@ Possible explanations:
 ```r
 library(spData); library(rasterVis)
 data(elev)
-elev=mask(elev,mask = elev==20, maskvalue=0) # values!=20 changed to NA
-elev_distance=distance(elev)  #works fine
-data(elev)
+# change values!=20 to NA
+elev=mask(elev,mask = elev==20, maskvalue=0) 
 gplot(elev)+geom_raster(aes(fill=value))
-gplot(elev_distance)+ geom_raster(aes(fill=value))
-elev_distance=distance(elev) #returns an error:
-# Error in .local(x, y, ...) : 
-#  RasterLayer has no NA cells (for which to compute a distance)
 ```
 
-## Goals
+![](day_12_help_files/figure-revealjs/unnamed-chunk-8-1.png)
+
+```r
+distance_to_20=distance(elev)  #works fine
+data(elev)
+gplot(distance_to_20)+ geom_raster(aes(fill=value))
+```
+
+![](day_12_help_files/figure-revealjs/unnamed-chunk-8-2.png)
+
+```r
+distance_to_20=distance(elev) #returns an error:
+Error in .local(x, y, ...) : 
+RasterLayer has no NA cells (for which to compute a distance)
+```
+
+## Goals while coding
 
 1. Figure out how to complete your task
 2. Build the script that will do it again (and again)
@@ -154,6 +208,11 @@ elev_distance=distance(elev) #returns an error:
 
 1. Try to keep your script 'clean' - it should always run from beginning to end
 2. Comment exploratory lines such as `View(iris)`, `str(iris)`, etc.
+  
+  ```r
+  # str(iris)
+  ```
+
 3. If you want a little playground, try 
   
   ```r
@@ -163,23 +222,14 @@ elev_distance=distance(elev) #returns an error:
   # Whatever you want
   }
   ```
-4. Use the Console (lower left) for testing, quick plots, temporary things.
+4. Use the console (lower left) for testing, quick plots, temporary things.
 5. Never do something important in the console without putting it in the script.
-
-## Grandma's Recipe Book
-
->* Grandma writes the recipe for our favorite chocolate chip cookies
->* We make a batch and they come out awful!
->* Grandma says, "Well you didn't add the sugar, of course you need about 2 cups of sugar!" 
->* No sugar included in the recipe
-
->* Always, always, always think about the 'flow' of the script..
 
 # Asking for help
 
 ## R's Community
 
-R has a large and generous community of users, don't make them angry.
+R has a large and generous community of users, help them help you.
 
 ## "Issue" posted on tidyr's github page:
 [Separate() causes R to crash with fatal error](https://github.com/tidyverse/tidyr/issues/297)

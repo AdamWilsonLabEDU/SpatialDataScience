@@ -441,20 +441,6 @@ div.tocify {
 <li>Debug existing code</li>
 <li>Save your reprex to your course repository as an html file using Export -&gt; “Save As Webpage” in the RStudio “Viewer” Tab.</li>
 </ul>
-<div id="download" class="section level2">
-<h2>Download</h2>
-<table>
-<thead>
-<tr class="header">
-<th align="center"><a href="scripts/CS_07_nocomments.R"><i class='fas fa-code fa-2x' aria-hidden='true'></i><br> R Script</a></th>
-<th align="center"><a href="scripts/CS_07.R"><i class='fa fa-file-code-o fa-2x'></i> <br> Commented R Script</a></th>
-<th align="center"><a href="scripts/CS_07.Rmd"><i class='far fa-file-alt fa-2x'></i> <br> Rmd Script</a></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-</div>
 <div id="libraries" class="section level2">
 <h2>Libraries</h2>
 <pre class="r"><code>library(tidyverse)
@@ -466,14 +452,42 @@ data(world)</code></pre>
 </div>
 <div id="your-problem" class="section level2">
 <h2>Your problem</h2>
-<p>You want to make a figure illustrating the distribution of GDP per capita for all countries within each continent using the <code>world</code> data in the <code>spData</code> package. Your desired figure looks something like the following:</p>
-<p><img src="CS_07_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
+<p>You want to make a figure illustrating the distribution of GDP per capita for all countries within each continent using the <code>world</code> data in the <code>spData</code> package.</p>
+<div id="your-goal" class="section level3">
+<h3>Your goal</h3>
+<p>Your desired figure looks something like the following: <img src="CS_07_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
+</div>
+<div id="current-version-of-your-code" class="section level3">
+<h3>Current Version of your code</h3>
 <p>You have started working on the figure but can’t seem to make it work like you want. Here is your current version of the code (and the resulting figure):</p>
 <pre class="r"><code>ggplot(world,aes(x=gdpPercap, y=continent, color=continent))+
    geom_density(alpha=0.5,color=F)</code></pre>
 <p><img src="CS_07_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
-<p>You want to ask for help and so you know that you need to make a reproducible example. Starting with the code above, make the required edits so you can use <code>reprex()</code> to generate a nicely formatted example that you could email or post to a forum to ask for help. See the <a href="https://reprex.tidyverse.org/">reading</a> for more help. Note: you do <em>not</em> need to recreate the figure above, only to use <code>reprex()</code> to illustrate your question.</p>
-<p>If you have extra time, try to fix the code above to make the first figure.</p>
+<p>The second figure is quite different from the one you want. You want to ask for help and so you know that you need to make a reproducible example. Starting with the code above, make the required edits so you can use <code>reprex()</code> to generate a nicely formatted example that you could email or post to a forum to ask for help. See the <a href="https://reprex.tidyverse.org/">reading</a> for more help. Note: you do <em>not</em> need to recreate the first figure above, only to use <code>reprex()</code> to illustrate your question and problematic code.</p>
+<div class="well">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Hints
+</button>
+<div id="demo1" class="collapse">
+<h2 id="steps">Steps</h2>
+<ol style="list-style-type: decimal">
+<li>Download the <a href="scripts/CS_07_nocomments.R" target="_blank"><i class="fa fa-file-code-o fa-1x" aria-hidden="true"></i> starter R script (if desired)</a>. Save this directly to your course folder (repository) so you don’t lose track of it!</li>
+<li>Add code needed to produce the second plot (loading required libraries above and loading the <code>world</code> data)</li>
+<li>Copy the code to your clipboard</li>
+<li>run <code>reprex()</code> to generate the reproducible example in the “Viewer Pane”</li>
+<li>Export the preview as an html file and save it in your course repository. It should look something like this (note the image is intentionally blurred): <img src="assets/reprex.png" /></li>
+</ol>
+</div>
+</div>
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#extras">
+Extra time? Try this…
+</button>
+<div id="extras" class="collapse">
+<p>Fix the code above to recreate the first figure.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 

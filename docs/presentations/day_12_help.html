@@ -523,14 +523,26 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Got Problems?</h2>
 <p><img data-src="https://imgs.xkcd.com/comics/error_code.png" /></p>
 </section>
-<section><section id="strange-error" class="title-slide slide level1"><h1>Strange Error</h1></section><section id="one-more" class="slide level2">
-<h2>One more…</h2>
+<section><section id="strange-errors" class="title-slide slide level1"><h1>Strange Errors</h1></section><section id="examples-from-stack-overflow" class="slide level2">
+<h2>Examples from Stack Overflow</h2>
+<p>This is the error messages I get…</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span><span class="kw">setwd</span>(<span class="st">&quot;H:/user/george&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">&quot;Error: unexpected input in &quot;</span><span class="kw">setwd</span>(<span class="st">&quot;H:/XX/XXX&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">&quot;Error: unexpected input in &quot;</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="op">&gt;</span><span class="st"> </span>GWS &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;X.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">stringsAsFactors =</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="ot">FALSE</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;NA&quot;</span>))</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="st">&quot;Error: unexpected input in &quot;</span>GWS &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;X.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, <span class="dt">sep =</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="st">&quot;,&quot;</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>, <span class="dt">na.strings=</span><span class="kw">c</span>(<span class="st">&quot;&quot;</span>,<span class="st">&quot;&quot;</span>,<span class="st">&quot;NA&quot;</span>))</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="op">&gt;</span><span class="st"> </span>GWS &lt;-<span class="st"> </span>GWS[<span class="kw">with</span>(GWS, <span class="kw">order</span>(d)), ]; <span class="kw">row.names</span>(GWS) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">Error<span class="op">:</span><span class="st"> </span>object <span class="st">&#39;GWS&#39;</span> not found</a></code></pre></div>
+</section><section id="another-one" class="slide level2">
+<h2>Another one</h2>
 <p>“Help, I’m getting an error and I don’t know what it means”</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>lm1=<span class="kw">lm</span>(cr<span class="op">~</span>tn,<span class="dt">data=</span>x)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">Error <span class="cf">in</span> <span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> offset, <span class="dt">singular.ok =</span> singular.ok, ...) <span class="op">:</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">  </span><span class="ot">NA</span><span class="op">/</span><span class="ot">NaN</span><span class="op">/</span><span class="ot">Inf</span> <span class="cf">in</span> <span class="st">&#39;y&#39;</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">In addition<span class="op">:</span><span class="st"> </span>Warning message<span class="op">:</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">In <span class="kw">storage.mode</span>(v) &lt;-<span class="st"> &quot;double&quot;</span> <span class="op">:</span><span class="st"> </span>NAs introduced by coercion</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>lm1=<span class="kw">lm</span>(cr<span class="op">~</span>tn,<span class="dt">data=</span>x)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">Error <span class="cf">in</span> <span class="kw">lm.fit</span>(x, y, <span class="dt">offset =</span> offset, <span class="dt">singular.ok =</span> singular.ok, ...) <span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="st">  </span><span class="ot">NA</span><span class="op">/</span><span class="ot">NaN</span><span class="op">/</span><span class="ot">Inf</span> <span class="cf">in</span> <span class="st">&#39;y&#39;</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">In addition<span class="op">:</span><span class="st"> </span>Warning message<span class="op">:</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">In <span class="kw">storage.mode</span>(v) &lt;-<span class="st"> &quot;double&quot;</span> <span class="op">:</span><span class="st"> </span>NAs introduced by coercion</a></code></pre></div>
 </section></section>
 <section><section id="finding-help" class="title-slide slide level1"><h1>Finding Help</h1></section><section id="basic-resources" class="slide level2">
 <h2>Basic Resources</h2>
@@ -555,13 +567,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Break down your code (run bit by bit)!</li>
 <li>Understand the data/inputs</li>
 <li>Read the help files carefully</li>
+<li>Try <code>traceback()</code></li>
 </ul>
 </section><section id="r-is-very-picky" class="slide level2">
 <h2>R is very picky</h2>
 <p>It expects you to give accurate instructions…</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">reallystrangenme &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">anothrstrngenme &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>reallystrangenme<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">lm</span>(reallystrngenme<span class="op">~</span>anothrstrngenme)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">reallystrangenme &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">anothrstrngenme &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="dv">5</span><span class="op">*</span>reallystrangenme<span class="op">+</span><span class="kw">rnorm</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">lm</span>(reallystrngenme<span class="op">~</span>anothrstrngenme)</a></code></pre></div>
 <ul>
 <li class="fragment"><code># Error: object 'reallystrngenme' not found</code></li>
 </ul>
@@ -569,11 +582,29 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Break down your code</h2>
 <p>Run bit by bit:</p>
 <p><img data-src="img/run_part.png" /></p>
+</section><section id="traceback" class="slide level2">
+<h2>traceback</h2>
+<p>Prints the call stack of the last uncaught error, i.e., the sequence of calls that lead to the error. This is useful when an error occurs with an unidentifiable error message.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">pets=<span class="kw">c</span>(<span class="st">&quot;dog&quot;</span>,<span class="st">&quot;cat&quot;</span>,<span class="st">&quot;fish&quot;</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">lm</span>(pets<span class="op">~</span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">Error <span class="cf">in</span> <span class="kw">terms.formula</span>(formula, <span class="dt">data =</span> data) <span class="op">:</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>invalid model formula <span class="cf">in</span> ExtractVars</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">traceback</span>()</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"> <span class="dv">7</span><span class="op">:</span><span class="st"> </span><span class="kw">terms.formula</span>(formula, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"> <span class="dv">6</span><span class="op">:</span><span class="st"> </span><span class="kw">terms</span>(formula, <span class="dt">data =</span> data)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"> <span class="dv">5</span><span class="op">:</span><span class="st"> </span><span class="kw">model.frame.default</span>(<span class="dt">formula =</span> pets <span class="op">~</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">drop.unused.levels =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"> <span class="dv">4</span><span class="op">:</span><span class="st"> </span>stats<span class="op">::</span><span class="kw">model.frame</span>(<span class="dt">formula =</span> pets <span class="op">~</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">drop.unused.levels =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"> <span class="dv">3</span><span class="op">:</span><span class="st"> </span><span class="kw">eval</span>(mf, <span class="kw">parent.frame</span>())</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"> <span class="dv">2</span><span class="op">:</span><span class="st"> </span><span class="kw">eval</span>(mf, <span class="kw">parent.frame</span>())</a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"> <span class="dv">1</span><span class="op">:</span><span class="st"> </span><span class="kw">lm</span>(pets <span class="op">~</span><span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</a></code></pre></div>
 </section></section>
 <section><section id="rstudio-features-can-help" class="title-slide slide level1"><h1>RStudio features can help</h1></section><section id="tab-completion" class="slide level2">
 <h2>TAB completion</h2>
 <p>Hit <code>TAB</code> key after typing the first few letters.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">lm</span>(reallystrangenme<span class="op">~</span>anothrstrngenme)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">lm</span>(reallystrangenme<span class="op">~</span>anothrstrngenme)</a></code></pre></div>
 </section><section id="find" class="slide level2">
 <h2>“Find”</h2>
 <p>Or use ctrl-F to ‘find’ variables with the same name. <img data-src="img/run_find.png" /></p>
@@ -593,8 +624,28 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>File Navigation</h2>
 <p>Tab complete can find files and remove the hassle of writing out long path locations. Hit tab in between two double quotes (” “) to open a file explorer.</p>
 <p><img data-src="img/tip_file_nav.gif" /></p>
+</section><section id="debugging" class="slide level2">
+<h2>Debugging</h2>
+<p><a href="https://support.rstudio.com/hc/en-us/articles/205612627-Debugging-with-RStudio">Debugging in RStudio</a></p>
+<ol type="1">
+<li>Begin running the code</li>
+<li>Stop the code at the point where you suspect the problem is arising, and</li>
+<li>Look at and/or walk through the code, step-by-step at that point.</li>
+</ol>
 </section></section>
-<section><section id="building-a-workflow" class="title-slide slide level1"><h1>Building a workflow</h1></section><section id="it-worked-before-but-now-it-doesnt" class="slide level2">
+<section><section id="building-a-workflow" class="title-slide slide level1"><h1>Building a workflow</h1></section><section id="grandmas-recipe-book" class="slide level2">
+<h2>Grandma’s Recipe Book</h2>
+<ul>
+<li class="fragment">Grandma writes the recipe for our favorite chocolate chip cookies</li>
+<li class="fragment">We make a batch and they come out awful!</li>
+<li class="fragment">Grandma makes another batch and they are delicious!</li>
+<li class="fragment">Grandma says, “Well you didn’t add the sugar, of course you need about 2 cups of sugar!”</li>
+<li class="fragment">No sugar in the recipe!</li>
+<li class="fragment">Always, always, always think about the ‘flow’ of the script.</li>
+</ul>
+</section><section id="your-script-is-your-product" class="slide level2">
+<h2>Your script is your product</h2>
+</section><section id="it-worked-before-but-now-it-doesnt" class="slide level2">
 <h2>“It worked before, but now it doesn’t”</h2>
 <p>Possible explanations:</p>
 <ul>
@@ -605,18 +656,21 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </ul>
 </section><section class="slide level2">
 
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(spData); <span class="kw">library</span>(rasterVis)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">data</span>(elev)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">elev=<span class="kw">mask</span>(elev,<span class="dt">mask =</span> elev<span class="op">==</span><span class="dv">20</span>, <span class="dt">maskvalue=</span><span class="dv">0</span>) <span class="co"># values!=20 changed to NA</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">elev_distance=<span class="kw">distance</span>(elev)  <span class="co">#works fine</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">data</span>(elev)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">gplot</span>(elev)<span class="op">+</span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">gplot</span>(elev_distance)<span class="op">+</span><span class="st"> </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">elev_distance=<span class="kw">distance</span>(elev) <span class="co">#returns an error:</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># Error in .local(x, y, ...) : </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#  RasterLayer has no NA cells (for which to compute a distance)</span></a></code></pre></div>
-</section><section id="goals" class="slide level2">
-<h2>Goals</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(spData); <span class="kw">library</span>(rasterVis)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">data</span>(elev)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># change values!=20 to NA</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">elev=<span class="kw">mask</span>(elev,<span class="dt">mask =</span> elev<span class="op">==</span><span class="dv">20</span>, <span class="dt">maskvalue=</span><span class="dv">0</span>) </a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">gplot</span>(elev)<span class="op">+</span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
+<p><img data-src="day_12_help_files/figure-revealjs/unnamed-chunk-8-1.png" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">distance_to_<span class="dv">20</span>=<span class="kw">distance</span>(elev)  <span class="co">#works fine</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">data</span>(elev)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">gplot</span>(distance_to_<span class="dv">20</span>)<span class="op">+</span><span class="st"> </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
+<p><img data-src="day_12_help_files/figure-revealjs/unnamed-chunk-8-2.png" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">distance_to_<span class="dv">20</span>=<span class="kw">distance</span>(elev) <span class="co">#returns an error:</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">Error <span class="cf">in</span> <span class="kw">.local</span>(x, y, ...) <span class="op">:</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">RasterLayer has no <span class="ot">NA</span> <span class="kw">cells</span> (<span class="cf">for</span> which to compute a distance)</a></code></pre></div>
+</section><section id="goals-while-coding" class="slide level2">
+<h2>Goals while coding</h2>
 <ol type="1">
 <li>Figure out how to complete your task</li>
 <li>Build the script that will do it again (and again)</li>
@@ -626,43 +680,35 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ol type="1">
 <li>Try to keep your script ‘clean’ - it should always run from beginning to end</li>
 <li>Comment exploratory lines such as <code>View(iris)</code>, <code>str(iris)</code>, etc.</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># str(iris)</span></a></code></pre></div>
+<ol start="3" type="1">
 <li>If you want a little playground, try</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="cf">if</span>(F){</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">View</span>(iris)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">str</span>(iris)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># Whatever you want</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="cf">if</span>(F){</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">View</span>(iris)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">str</span>(iris)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co"># Whatever you want</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">}</a></code></pre></div>
 <ol start="4" type="1">
-<li>Use the Console (lower left) for testing, quick plots, temporary things.</li>
+<li>Use the console (lower left) for testing, quick plots, temporary things.</li>
 <li>Never do something important in the console without putting it in the script.</li>
 </ol>
-</section><section id="grandmas-recipe-book" class="slide level2">
-<h2>Grandma’s Recipe Book</h2>
-<ul>
-<li class="fragment">Grandma writes the recipe for our favorite chocolate chip cookies</li>
-<li class="fragment">We make a batch and they come out awful!</li>
-<li class="fragment">Grandma says, “Well you didn’t add the sugar, of course you need about 2 cups of sugar!”</li>
-<li class="fragment">No sugar included in the recipe</li>
-</ul>
-<ul>
-<li class="fragment">Always, always, always think about the ‘flow’ of the script..</li>
-</ul>
 </section></section>
 <section><section id="asking-for-help" class="title-slide slide level1"><h1>Asking for help</h1></section><section id="rs-community" class="slide level2">
 <h2>R’s Community</h2>
-<p>R has a large and generous community of users, don’t make them angry.</p>
+<p>R has a large and generous community of users, help them help you.</p>
 </section><section id="issue-posted-on-tidyrs-github-page" class="slide level2">
 <h2>“Issue” posted on tidyr’s github page:</h2>
 <p><a href="https://github.com/tidyverse/tidyr/issues/297">Separate() causes R to crash with fatal error</a> I have 11 primary variables, each one appears in the dataset in 72 columns: once for each month, for 6 years. Each variable name ends in “.YYYY_M”, where YYYY is a 4-digit year and M is month.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>vnms &lt;-<span class="st"> </span><span class="kw">names</span>(outs_TN_wide)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>vars_tv &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;20[01]</span><span class="ch">\\</span><span class="st">d&quot;</span>, vnms)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="op">&gt;</span><span class="st"> </span>outs_TN_long &lt;-<span class="st"> </span>outs_TN_wide <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw">gather</span>(Variable, Value, <span class="kw">one_of</span>(vnms[vars_tv])) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">separate</span>(Variable, <span class="kw">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Time&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>)</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">R encountered a fatal error.<span class="op">/</span>The session was terminated.</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>vnms &lt;-<span class="st"> </span><span class="kw">names</span>(outs_TN_wide)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="op">&gt;</span><span class="st"> </span>vars_tv &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;20[01]</span><span class="ch">\\</span><span class="st">d&quot;</span>, vnms)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="op">&gt;</span><span class="st"> </span>outs_TN_long &lt;-<span class="st"> </span>outs_TN_wide <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="st">  </span><span class="kw">gather</span>(Variable, Value, <span class="kw">one_of</span>(vnms[vars_tv])) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="st">  </span><span class="kw">separate</span>(Variable, <span class="kw">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Time&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>)</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">R encountered a fatal error.<span class="op">/</span>The session was terminated.</a></code></pre></div>
 </section><section id="jun-23-2017-hadley-replies" class="slide level2">
 <h2>Jun 23, 2017 <span class="citation" data-cites="hadley">@hadley</span> replies</h2>
 <p>“Can you please provide a minimal reprex (reproducible example)? The goal of a reprex is to make it as easy as possible for me to recreate your problem so that I can fix it: please help me help you! If you’ve never heard of a reprex before, start by reading <a href="http://reprex.tidyverse.org/articles/reprex.html">&quot;What is a reprex&quot;</a>…”</p>
@@ -677,13 +723,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="reprex-package" class="slide level2">
 <h2>REPREX package</h2>
 <p>Write a bit of code and copy it to the clipboard:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">mean</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">mean</span>(y)</a></code></pre></div>
 <p>Type <code>reprex()</code> in the R Console. In RStudio, you’ll see a preview of your rendered reprex:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3 4</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">mean</span>(y)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">(y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co">#&gt; [1] 1 2 3 4</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="kw">mean</span>(y)</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; [1] 2.5</span></a></code></pre></div>
 <p>Paste it into GitHub issue, StackOverflow, email, etc.</p>
 </section><section id="this-is-a-lot-of-work" class="slide level2">
 <h2>This is a lot of work!</h2>

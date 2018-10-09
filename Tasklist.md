@@ -166,6 +166,7 @@ ___
  <a class="btn btn-link" href="./CS_07.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i9">Preview Readings & Tasks </button><div id="i9" class="collapse">
 ## Readings
 - How to [write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html)
+- Using [Reprex package](https://reprex.tidyverse.org/)
 
 ## Tasks
 - Learn how to read R help files effectively
