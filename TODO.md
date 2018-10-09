@@ -67,7 +67,7 @@ early:
 
 
 ### Project related tasks
-* convert project to separate tasks
+* convert project to separate tasks and upload to git repository
 
 late:
 earn an additional 5,000 datacamp XP in a topic/course of your choosing

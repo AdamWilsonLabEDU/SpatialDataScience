@@ -142,6 +142,8 @@ d$href2=paste0("<a href=",d$url," target='_blank'>",
                " <img src=",d$img,".png alt='' height='30%'>", # height='50%'
                 "</a>") 
 d%>%
-  dplyr::select(Student=user,Title=title,Thumbnail=href2)%>%
+  na.omit()%>%
+  mutate(Title=paste0("[",title,"](",url,")"))%>%
+  dplyr::select(Student=user,Title)%>%
   kable()
 ```
