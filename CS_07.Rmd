@@ -1,6 +1,6 @@
 ---
 title: "Getting Help!"
-date: 2018-10-10 
+date: 2018-10-09 
 subtitle: Learning more about finding help
 reading:
    - How to [write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html)

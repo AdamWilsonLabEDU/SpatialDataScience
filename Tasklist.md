@@ -159,7 +159,7 @@ ___
 </div>
 ___
 # [ CS_07 :  Getting Help! ]( ./CS_07.html ) 
- 2018-10-10  
+ 2018-10-09  
  
   Learning more about finding help  
  

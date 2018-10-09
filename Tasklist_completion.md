@@ -265,31 +265,31 @@ Below are a set of tasks that we will work on in class (either alone or in small
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Learn how to read R help files effectively </td>
    <td style="text-align:left;"> [CS_07](./CS_07.html) </td>
-   <td style="text-align:left;"> 2018-10-10 </td>
+   <td style="text-align:left;"> 2018-10-09 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Learn how to search for help </td>
    <td style="text-align:left;"> [CS_07](./CS_07.html) </td>
-   <td style="text-align:left;"> 2018-10-10 </td>
+   <td style="text-align:left;"> 2018-10-09 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Learn how to create a Minimum Working Example (MWE) </td>
    <td style="text-align:left;"> [CS_07](./CS_07.html) </td>
-   <td style="text-align:left;"> 2018-10-10 </td>
+   <td style="text-align:left;"> 2018-10-09 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Debug existing code </td>
    <td style="text-align:left;"> [CS_07](./CS_07.html) </td>
-   <td style="text-align:left;"> 2018-10-10 </td>
+   <td style="text-align:left;"> 2018-10-09 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Save your reprex to your course repository as an html file using Export -&gt; &quot;Save As Webpage&quot; in the RStudio &quot;Viewer&quot; Tab. </td>
    <td style="text-align:left;"> [CS_07](./CS_07.html) </td>
-   <td style="text-align:left;"> 2018-10-10 </td>
+   <td style="text-align:left;"> 2018-10-09 </td>
   </tr>
 </tbody>
 </table>
