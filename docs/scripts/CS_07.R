@@ -29,14 +29,6 @@
 #' 
 #' ## Libraries
 #' 
-## ----message=F,warning=FALSE---------------------------------------------
-library(tidyverse)
-library(reprex)
-library(sf)
-
-library(spData)
-data(world)
-
 #' 
 #' ## Your problem
 #' 

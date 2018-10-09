@@ -24,7 +24,7 @@ knitr::purl(input,output_nocomment,documentation=0,quiet=F,envir=new.env())
 fullinput=file.path("scripts",input)
 file.copy(input,fullinput) # also copy .Rmd to script folder.
 
-presframe=function(path=rmarkdown::metadata$presentation,prefix="presentation"){ 
+presframe=function(path=rmarkdown::metadata$presentation,prefix="presentations"){ 
   paste0("
 <div class='extraswell'>
   <button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button>      [Open presentation in a new tab](",file.path(prefix,path),"){target='_blank'}

@@ -39,7 +39,7 @@ md_bullet(rmarkdown::metadata$tasks)
 
 ## Libraries
 
-```{r message=F,warning=FALSE}
+```{r purl=F, message=F,warning=FALSE}
 library(tidyverse)
 library(reprex)
 library(sf)
@@ -54,6 +54,8 @@ You want to make a figure illustrating the distribution of GDP per capita for al
 
 ```{r, echo=F, purl=F, warning=F}
 library(spData)
+library(rgdal)
+library(sf)
 library(ggplot2)
 data(world)
 
