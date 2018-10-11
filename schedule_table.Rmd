@@ -7,27 +7,43 @@ output:
 ---
 
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-library(dplyr)
+library(tidyverse)
 source("functions.R")
 yamls=yaml_dir()
-yamls=yamls[order(sapply(yamls,function(x) x$date))]
+
+yamls=yamls[order(sapply(yamls,function(x) x$week))]
+weeks=read_csv("weeks.csv")
 ```
 
-
+## Schedule
 
 ```{r table,results='asis',echo=F}
 # This chunk prints an index of all the task titles along with a preview of the sub-tasks 
-cat("| Week |  Module | Readings | Presentation | Tasks | Case Study |\n")
+cat("| Week | Date | Presentation | Topic / Tasks  |  Case Study |\n")
 cat("|:--|:--|:-:|:-:|:-:|:---|\n") 
-for(i in 1:length(yamls)){
+for(i in 1:nrow(weeks)){
+  #print(i)
+  # Find items for that week
+wtasks=yamls[unlist(map(yamls,function(x) x$week==weeks$week[i] & x$type=="Task"))]
+
+wtasks2=ifelse(length(wtasks)==1, 
+               paste0("| [",wtasks[[1]]$title,"](",wtasks[[1]]$url,")"), 
+               "| ")
+wcs=yamls[unlist(map(yamls,function(x) x$week==weeks$week[i] & x$type=="Case Study"))]
+wcs2=ifelse(length(wcs)==1, 
+               paste0("| [",wcs[[1]]$title,"](",wcs[[1]]$url,") | \n"), 
+               "| \n")
+wpresent=ifelse(length(wtasks)==1,ifelse(!is.null(wtasks[[1]]$presentation), 
+               paste0( "| [<i class='fas fa-desktop'>    </i>](presentations/",
+                       wtasks[[1]]$presentation,"){target='_blank'}"), 
+               "| "),"| ")
+
   cat(paste(
-    "| ",yamls[[i]]$date,
-    "| Module Title ",
-    "| [<i class='fas fa-book'></i>](",yamls[[i]]$url,")",
-    "| [<i class='fas fa-desktop'>    </i>](presentations/day_02_intro.html){target='_blank'}",
-    "| [<i class='fas fa-tasks'>      </i>](TK_01.html)",
-    "| [",yamls[[i]]$title,"](",yamls[[i]]$url,") | \n"
+    "| ",weeks$week[i],
+    "| ",weeks$date[i],
+    wpresent,
+    wtasks2,
+    wcs2
     ))
 }
 ```
-

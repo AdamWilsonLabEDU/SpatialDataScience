@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Raster Analyses</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="externals/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="externals/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="externals/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Raster Analyses</h1>
+</section>
+
+<section id="available-spatial-packages" class="slide level2">
+<h2>Available Spatial Packages</h2>
+<ul>
+<li><code>sp</code> First major spatial data package/format</li>
+<li><code>rgdal</code> reading and writing spatial data</li>
+<li><code>rgeos</code> Interface to open-source geometry engine (GEOS)</li>
+<li><code>sf</code> Spatial Features in the ‘tidyverse’</li>
+<li><code>raster</code> gridded data (like satellite imagery)</li>
+<li>and a few others…</li>
+</ul>
+</section>
+<section id="common-simple-feature-sf-types" class="slide level2">
+<h2>Common Simple Feature (SF) types</h2>
+<p><img data-src="https://geocompr.robinlovelace.net/figures/sf-classes.png" /></p>
+</section>
+<section id="what-about-grids" class="slide level2">
+<h2>What about grids?</h2>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-2-1.png" /></p>
+</section>
+<section><section id="raster-data" class="title-slide slide level1"><h1>Raster Data</h1></section><section id="raster-data-types" class="slide level2">
+<h2>Raster Data Types</h2>
+<p>Many types including:</p>
+<ul>
+<li>Thematic (classified/thematic) data: land-use or soils data.</li>
+<li>Continuous data (temperature, elevation, spectral)</li>
+<li>Imagery / Pictures (scanned maps, drawings, etc.)</li>
+</ul>
+<p>Most Common:</p>
+<ul>
+<li>Satellite Imagery and derived products</li>
+<li>Earth System Models (e.g. climate models)</li>
+<li>Other models</li>
+</ul>
+</section><section id="raster-data-in-the-tidyverse" class="slide level2">
+<h2>Raster data in the tidyverse</h2>
+<p>Raster data is not yet closely connected to the <strong>tidyverse</strong>, however:</p>
+<ul>
+<li>Some functions from <code>raster</code> work well in <code>pipes</code></li>
+<li>Convert vector data to <code>Spatial*</code> form using <code>as(my_vector, &quot;Spatial&quot;)</code> for raster-vector interactions</li>
+<li>Some early efforts to bring raster data into the <strong>tidyverse</strong>, including <a href="https://github.com/hypertidy/tabularaster">tabularaster</a>, <a href="https://github.com/mdsumner/sfraster">sfraster</a>, <a href="https://github.com/ecohealthalliance/fasterize">fasterize</a>, and <a href="https://github.com/r-spatial/stars">stars</a> (multidimensional, large datasets).</li>
+</ul>
+</section><section id="raster-package" class="slide level2">
+<h2>Raster Package</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(spData)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(elev) <span class="co">#load fake data from spData package</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">plot</span>(elev) <span class="co">#load fake data from spData package</span></a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-3-1.png" /></p>
+</section><section id="raster-data-structure" class="slide level2">
+<h2>Raster Data Structure</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">elev</a></code></pre></div>
+<pre><code>## class       : RasterLayer 
+## dimensions  : 6, 6, 36  (nrow, ncol, ncell)
+## resolution  : 0.5, 0.5  (x, y)
+## extent      : -1.5, 1.5, -1.5, 1.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+## data source : in memory
+## names       : layer 
+## values      : 1, 36  (min, max)</code></pre>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">str</span>(elev)</a></code></pre></div>
+<pre><code>## Formal class &#39;RasterLayer&#39; [package &quot;raster&quot;] with 12 slots
+##   ..@ file    :Formal class &#39;.RasterFile&#39; [package &quot;raster&quot;] with 13 slots
+##   .. .. ..@ name        : chr &quot;&quot;
+##   .. .. ..@ datanotation: chr &quot;FLT4S&quot;
+##   .. .. ..@ byteorder   : chr &quot;little&quot;
+##   .. .. ..@ nodatavalue : num -Inf
+##   .. .. ..@ NAchanged   : logi FALSE
+##   .. .. ..@ nbands      : int 1
+##   .. .. ..@ bandorder   : chr &quot;BIL&quot;
+##   .. .. ..@ offset      : int 0
+##   .. .. ..@ toptobottom : logi TRUE
+##   .. .. ..@ blockrows   : int 0
+##   .. .. ..@ blockcols   : int 0
+##   .. .. ..@ driver      : chr &quot;&quot;
+##   .. .. ..@ open        : logi FALSE
+##   ..@ data    :Formal class &#39;.SingleLayerData&#39; [package &quot;raster&quot;] with 13 slots
+##   .. .. ..@ values    : int [1:36] 1 2 3 4 5 6 7 8 9 10 ...
+##   .. .. ..@ offset    : num 0
+##   .. .. ..@ gain      : num 1
+##   .. .. ..@ inmemory  : logi TRUE
+##   .. .. ..@ fromdisk  : logi FALSE
+##   .. .. ..@ isfactor  : logi FALSE
+##   .. .. ..@ attributes: list()
+##   .. .. ..@ haveminmax: logi TRUE
+##   .. .. ..@ min       : int 1
+##   .. .. ..@ max       : int 36
+##   .. .. ..@ band      : int 1
+##   .. .. ..@ unit      : chr &quot;&quot;
+##   .. .. ..@ names     : chr &quot;&quot;
+##   ..@ legend  :Formal class &#39;.RasterLegend&#39; [package &quot;raster&quot;] with 5 slots
+##   .. .. ..@ type      : chr(0) 
+##   .. .. ..@ values    : logi(0) 
+##   .. .. ..@ color     : logi(0) 
+##   .. .. ..@ names     : logi(0) 
+##   .. .. ..@ colortable: logi(0) 
+##   ..@ title   : chr(0) 
+##   ..@ extent  :Formal class &#39;Extent&#39; [package &quot;raster&quot;] with 4 slots
+##   .. .. ..@ xmin: num -1.5
+##   .. .. ..@ xmax: num 1.5
+##   .. .. ..@ ymin: num -1.5
+##   .. .. ..@ ymax: num 1.5
+##   ..@ rotated : logi FALSE
+##   ..@ rotation:Formal class &#39;.Rotation&#39; [package &quot;raster&quot;] with 2 slots
+##   .. .. ..@ geotrans: num(0) 
+##   .. .. ..@ transfun:function ()  
+##   ..@ ncols   : int 6
+##   ..@ nrows   : int 6
+##   ..@ crs     :Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##   ..@ history : list()
+##   ..@ z       : list()</code></pre>
+</section><section class="slide level2">
+
+<h3 id="arrays-with-metadata">Arrays with metadata</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">as.array</span>(elev)</a></code></pre></div>
+<pre><code>## , , 1
+## 
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    2    3    4    5    6
+## [2,]    7    8    9   10   11   12
+## [3,]   13   14   15   16   17   18
+## [4,]   19   20   21   22   23   24
+## [5,]   25   26   27   28   29   30
+## [6,]   31   32   33   34   35   36</code></pre>
+<p>Rasters are just arrays / matricies with metadata.</p>
+</section><section class="slide level2">
+
+<h3 id="cell-stats">Cell Stats</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">cellStats</span>(elev, <span class="dt">stat =</span> mean, <span class="dt">na.rm=</span>T)</a></code></pre></div>
+<pre><code>## [1] 18.5</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">cellStats</span>(elev, <span class="dt">stat =</span> quantile, <span class="dt">na.rm=</span>T)</a></code></pre></div>
+<pre><code>##    0%   25%   50%   75%  100% 
+##  1.00  9.75 18.50 27.25 36.00</code></pre>
+</section><section class="slide level2">
+
+<h3 id="raster-data-memory">Raster Data Memory</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">inMemory</span>(elev)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">canProcessInMemory</span>(elev)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Raster does not try to load or work with large datasets in RAM. It creates temporary files and processes them in the background.</p>
+</section><section id="map-algebra" class="slide level2">
+<h2>Map Algebra</h2>
+<p>Convert feet to meters</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">elev_m &lt;-<span class="st"> </span>elev<span class="op">*</span><span class="fl">0.3048</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">plot</span>(elev_m)</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-9-1.png" /></p>
+</section><section class="slide level2">
+
+<h3 id="simple-filter">Simple Filter</h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">high_ground &lt;-<span class="st"> </span>elev_m<span class="op">&gt;</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">plot</span>(high_ground)</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-10-1.png" /></p>
+</section><section class="slide level2">
+
+<h3 id="focal">Focal</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>,<span class="dt">nrow=</span><span class="dv">3</span>,<span class="dt">ncol=</span><span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">m</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    1    1
+## [2,]    1    1    1
+## [3,]    1    1    1</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">elev_smooth &lt;-<span class="st"> </span><span class="kw">focal</span>(elev_m,m,mean)</a></code></pre></div>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">plot</span>(elev_m)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">plot</span>(elev_smooth)</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-12-1.png" /></p>
+</section><section id="arbitrary-functions" class="slide level2">
+<h2>Arbitrary functions</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">NA16=<span class="cf">function</span>(x) <span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">16</span>,<span class="dv">1</span>,<span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">one_cell &lt;-<span class="st"> </span><span class="kw">calc</span>(elev,<span class="dt">fun =</span> NA16)</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">plot</span>(one_cell)</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-13-1.png" /></p>
+</section><section id="distances-to-non-na-cells" class="slide level2">
+<h2>Distances to non-NA cells</h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">distance</span>(one_cell)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-14-1.png" /></p>
+<p>Distance unit is meters if RasterLayer is <code>+proj=longlat</code>, map units (typically also meters) otherwise.</p>
+</section><section id="and-much-more" class="slide level2">
+<h2>And much more</h2>
+<ul>
+<li>aggregate (to coarser resolution)</li>
+<li>area (calculate cell area)</li>
+<li>buffer</li>
+<li>contour</li>
+<li>crop</li>
+<li>interpolate</li>
+<li>Moran’s I</li>
+</ul>
+</section></section>
+<section><section id="visualization" class="title-slide slide level1"><h1>Visualization</h1></section><section id="ggplot" class="slide level2">
+<h2>ggplot</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(rasterVis)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">gplot</span>(elev)<span class="op">+</span></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-15-1.png" /></p>
+</section><section class="slide level2">
+
+<h3 id="all-ggplot-functionality-available">All ggplot functionality available</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">gplot</span>(elev)<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_equal</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-16-1.png" /></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="externals/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="externals/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'zoom', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '90%',
+        height: '100%',
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 1,
+        maxScale: 3,
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

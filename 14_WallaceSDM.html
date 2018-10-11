@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Species Distribution Modelling with Wallace</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03b_DataWrangling.html">03 Data Wrangling 2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="DataCamp.html">DataCamp</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Species Distribution Modelling with Wallace</h1>
+
+</div>
+
+
+<!-- <div> -->
+<!-- <object data="14_assets/SDMs_Intro.pdf" type="application/pdf" width="100%" height="700px"> -->
+<!--   <p>It appears you don't have a PDF plugin for this browser. -->
+<!--    No biggie... you can <a href="4_1_assets/4_1_SDMs_Intro.pdf">click here to -->
+<!--   download the PDF file.</a></p> -->
+<!--  </object> -->
+<!--  </div> -->
+<!--  <p><a href="14_assets/SDMs_Intro.pdf">Download the PDF of the presentation</a></p> -->
+<!-- [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](scripts/14_WallaceSDM.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.   -->
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<p>For <code>wallace</code> to work, <strong>you need the latest version of R</strong> (or at least later than version 3.2.4). Download for <a href="https://cran.r-project.org/bin/windows/base/">Windows</a> or <a href="https://cran.r-project.org/bin/macosx/">Mac</a>.</p>
+<p>Load necessary libraries.</p>
+<pre class="r"><code>if (!require(&#39;devtools&#39;)) install.packages(&#39;devtools&#39;)
+devtools::install_github(&#39;rstudio/leaflet&#39;)
+install.packages(&#39;knitr&#39;,dep=T) # you need the latest version, even if you already have it
+install.packages(&#39;wallace&#39;,dep=T)
+library(wallace)
+run_wallace() # this will open the Wallace GUI in a web browser</code></pre>
+<p>The <code>wallace</code> GUI will open in your web browser and the R command line will be occupied (you only get a prompt back by pushing ‘escape’). If you find this annoying and want to use your typical R command line, open a terminal window, type <code>R</code> to start R, and then run the lines above in that window. This will tie up your terminal window but not your usual R command line (e.g. RStudio, or the R GUI). <strong>You need to avoid exiting your browser window or closing the R window that initiated <code>wallace</code> or you’ll have to start over! Luckily that’s pretty fast…</strong> Using the terminal looks like this:</p>
+<p><br> <img src="14_assets/Wallace_Introb.png" /></p>
+<p><br> Typing <code>run_wallace()</code> will give you the following in your web browser:</p>
+<p><br> <img src="14_assets/Wallace_Intro.png" /></p>
+</div>
+<div id="get-occurrence-data" class="section level1">
+<h1>Get Occurrence Data</h1>
+<p>Start by getting about 300 records of <strong>Acer rubrum</strong> (red maple) from GBIF. Throughout, I’ll use a red arrow in the images below to indicate which buttons I’m referring to.</p>
+<!-- To download the data click [here](https://github.com/cmerow/RDataScience/blob/gh-pages/14_assets/Outputs/a_rubrum_gbif.csv) -->
+<!-- # ```{r} -->
+<!-- # download.file(url='https://github.com/cmerow/RDataScience/blob/gh-pages/14_assets/Outputs/a_rubrum_gbif.csv',destfile='/Users/ctg/Desktop/acer.csv') -->
+<!-- # ``` -->
+<p><br> <img src="14_assets/Wallace1a.png" /></p>
+<p><br> While you’re at it, download the data for later use (bottom left).</p>
+<p>Notice that there are tabs along the top, and you can view the sources of the occurrence data. Later you can choose to ditch some if it looks suspect.</p>
+<p><br> <img src="14_assets/Wallace1b.png" /></p>
+<p><br> Each <strong>Module</strong> (the tabs labeled 1-8 at the top of the screen) comes with guidance and references by select the tabs at the right.</p>
+<p><br> <img src="14_assets/Wallace1c.png" /></p>
+</div>
+<div id="prep-occurrences" class="section level1">
+<h1>Prep Occurrences</h1>
+<p>Now let’s clean up the data. If we want to model <em>A. Rubrum</em> in the US, we can toss that odd point in Europe. Click the point to see it’s info and then enter the ID at the left to remove it.</p>
+<p><br> <img src="14_assets/Wallace2a.png" /></p>
+<p><br> The samples may exhibit spatial autocorrelation, which is best to account for in the model or remove before modeling. For example, there might be a bunch of samples near cities because these are mostly from iNaturalist (citizen science) and citizen often live near cities. So lets spatially thin the points and make sure they’re all at least 10km from one another. It takes a sec. That left me with 163 points for modeling (yours may be different).</p>
+<p><br></p>
+<p><img src="14_assets/Wallace2b.png" /></p>
+<p><br></p>
+<p>Download these points for later reference.</p>
+</div>
+<div id="get-environmental-data" class="section level1">
+<h1>Get environmental data</h1>
+<p>Now we need some covariates to describe occurrence patterns. Worldclim is global climate data base that is very popular to both use and complain about. It seems pretty good in regions with lots of weather stations, but has issues, especially with precipitation-related things. Lesson: statistical models have problems if you don’t have data. So its perfectly good for coarse resolution work, and was a decade ahead of competitors that are only emerging now. We’ll add those to Wallace eventually.</p>
+<p>Choose the <strong>10 arcmin</strong> data and press download. The first time you use <code>wallace</code> these data are slowly downloaded; after that you don’t have to wait. <strong>Don’t select finer resolution</strong> or you’ll be downloading while the rest of us are modeling.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace3a.png" /> Notice that the log window notes that one point was discarded because environmental data were not available.</p>
+<p><br></p>
+</div>
+<div id="prep-environmental-data" class="section level1">
+<h1>Prep environmental data</h1>
+<p>Now we need to choose the extent of the modeling domain. This jargon means that we have to define a sensible region to fit the model. Contrary to many publications, species ranges are not typically best modeling on domains defined by squares or political boundaries. Press some buttons on this screen to explore the options, but end up with something like what I show below. We’ll explore the consequences shortly. Press the <strong>Mask</strong> button to trim the environmental layers to this polygon and download the result.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace4a.png" /></p>
+<p><br></p>
+</div>
+<div id="partition-occurrences" class="section level1">
+<h1>Partition occurrences</h1>
+<p>In order to check whether you’ve built a decent model, you need some data to validate it. One solution is to partition your data into subsets (here 4) and build a models while witholding 1 subset at a time. Here we have 4 subsets, so we build 4 models, allowing us to get 4 independent measures of model performance. This is called k-fold cross-validation, and here k=4. There’s a whole literature on how to best make these subset; one option is to just do it randomly. A better option is to spatially stratify so that your model is forces to predict to regions that weren’t used for fitting. If it predicts well, you know you’ve got the general patterns right and have avoided overfitting to noise in the data. Below, I show some options for spatial stratification. Notice the 4 folds are now shown as 4 colors. Again, download the data.</p>
+<p><br> <img src="14_assets/Wallace5a.png" /></p>
+<p><br> Take a moment to scroll through the log window at the top of the screen and review all the steps you’ve taken so far.</p>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<p>Finally, we’re going to make use of that results tab in the middle of the screen. Let’s build a Maxent model; this is a machine learning method that fits wiggly functions to patterns in the data. Its great for exploring complex patterns. If you construct it with a particular set of decisions it becomes very similar to a simple GLM. So it can conver a wide spectrum of complexity. If you want more details, ask Cory; he’s written a lot of papers on this so he may talk for while….</p>
+<p>Below I’ve chosen some modeling options:</p>
+<ul>
+<li>Select the Maxent button</li>
+<li>Select LQH features. These are the shapes that can be fit to the data:
+<ul>
+<li>L = Linear, e.g. temp + precip</li>
+<li>Q = Quadratic, e.g. temp^2 + precip^2</li>
+<li>P = Product, e.g. interaction terms of the form temp*precip</li>
+<li>H = Hinge, e.g. piecewise linear functions. Taking all possible pairs of these between data points, you can build a very flexible function, similar to a GAM (generalized additive model).</li>
+<li>T = Threshold, e.g. step functions between each pair of data points</li>
+</ul></li>
+</ul>
+<p><br> <img src="14_assets/hinge_threshold.png" /></p>
+<ul>
+<li>Select regularization multipliers between 1-3
+<ul>
+<li>regularization is a way to reduce model complexity. Higher values = smoother, less complex models. Its kind of like using AIC during model fitting to toss out certain predictors. Just ask for more details.</li>
+</ul></li>
+<li>RM Step Value = 1
+<ul>
+<li>how large of step to take between values in the slide bar above.</li>
+</ul></li>
+</ul>
+<p>This takes about 2 min; you’re building 3 model types and 4 folds for each, and you’re using a load of features…</p>
+<p><br> <img src="14_assets/Wallace6a.png" /></p>
+<p><br> Notice that the first time I ran this, I got an error, which you may get too. You need to put the maxent software (maxent.jar) in the directory where <code>wallace</code> will look for it. This is a bug we’re working on. As the log window indicates, download the file and put it in the appropriate directory. Then click <strong>Run Models</strong> again. The result is number of statistics to compare the different models you just built. There should be 3: one for each of the regularization multipliers 1,2,3.</p>
+<p><br> <img src="14_assets/Wallace6b.png" /></p>
+<p><br></p>
+</div>
+<div id="visualize" class="section level1">
+<h1>Visualize</h1>
+<p>Now let’s see which model performs best. Statistics based on the data witheld from fitting (<strong>test data</strong>) are the most reliable for determining the model’s generality and ability to transfer to other locations. The model with regularization mulitiple = 2 appears to be the best model based on avg.test.auc=0.804. Moving to the Visualize tab (module 7), you can plot the performance statistics across models. Explore the options a little.</p>
+<p><br> <img src="14_assets/Wallace7a.png" /></p>
+<p><br></p>
+<p>To evaluate whether the model makes biological sense, we can look at <strong>response curves</strong> that define how each predictor (x-axis) relates to suitability (y-axis). The modal shape seems reasonable; there are places where the temp range is both too wide and too narrow for A. rubrum. The little jagged pieces intuitively seem like overfitting; why would a species, over an evolutionary time span, have an abrupt dip in response to temp range (as seen around 430). (Note that the units are degrees C x 100; worldclim serves the files this way to compress them.)</p>
+<p>The <strong>bioclim</strong> predictors are a series of summaries of temp and precip that have been determined to have some biological significance. They’re all listed <a href="http://www.worldclim.org/bioclim">here</a>. bio7, seen below, is the annual temperature range.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace7b.png" /> <br></p>
+<p>We can also map the predictions. At first glance it looks like a decent model because the presence points correspond to regions of higher suitability.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace7c.png" /></p>
+<p><br></p>
+</div>
+<div id="project" class="section level1">
+<h1>Project</h1>
+<p>Next we can evaluate the models ability to project first to new locations (extending the domain) and new times (2070). First, extend the domain by drawing a polygon like the one below. Double-clicking on each of the 4 corners of this one draws the polygon. Next, press <code>Select</code> and then <code>Project</code> to build the new map.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace8a.png" /></p>
+<p><br></p>
+<p>Below are the predictions to a much larger region. Looks like northern Canada should get ready for a red maple invasion… So it appears we’ve fit a response that doesn’t generalize well to other regions. One way to determine how that happened is to look back at the response curves to determine which predictors are contributing to high suitability in northern Canada. This is best done with MESS plots in the maxent software package, and we haven’t included those in <code>wallace</code> just yet. So we’ll explore another way to avoid this poor prediction below.</p>
+<p>As another example, of <code>wallace</code>’s features, we can also project to future climate scenarios. Select the options as below and forecast the future range of A. rubrum under an extreme climate change scenario. <br></p>
+<p><img src="14_assets/Wallace8b.png" /></p>
+<p><br></p>
+<p><img src="14_assets/Wallace8c.png" /></p>
+<p><br></p>
+<p><img src="14_assets/Wallace8d.png" /></p>
+<p><br></p>
+</div>
+<div id="extracting-the-code" class="section level1">
+<h1>Extracting the code</h1>
+<p>A major advantage of <code>wallace</code> compared to other GUI-based software is that you can extract all the code used to run the analysis. This allows you to recall what you did, share it, or modify it. The code is best extracted in <strong>R markdown</strong> format, which is a convienient format for combining R and text (and actually forms the basis of this website). Other formats are also available; for example Microsoft Word output mught be useful if you live in the ’90s.</p>
+<p>To download the code, select Rmd and click Download. You may need to go to your R window and allow R to set up a cache to proceed. Extraction takes a minute; currently it has to rerun all the analyses we just did. We’ll fix this in an upcoming release to avoid the redundancy.</p>
+<p><br></p>
+<p><img src="14_assets/Wallace9a.png" /></p>
+<p><br></p>
+<p>Now, you should have an .Rmd file that contains your complete analysis. Sometimes, if you make a bunch of mistakes while playing with the GUI, you might get an error when extracting the .Rmd. If that happens, you can download mine <a href="https://cmerow.github.io/RDataScience/14_assets/Outputs/wallace-session-2017-01-26.Rmd">here</a></p>
+<p>Rmd files combine regular text with <strong>code chunks</strong>, shown by the red arrow below. Modules from <code>wallace</code> are indicated as headers denoted by <strong>###</strong>. For a quick reference to Rmd syntax, see <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">here</a></p>
+<p><br></p>
+<p><img src="14_assets/WallaceRMDa.png" /> <br></p>
+<p>You might want to open a new R window and try running some of this code. Just note that if you close your <code>wallace</code> session you’ll lose your progress in the web browser (but your Rmd will be unaffected).</p>
+<p>If you use RStudio, you can open this Rmd an click to <strong>knit</strong> to compile your workflow into a sharable html document. Just in case you encountered an error, you can see mine <a href="https://cmerow.github.io/RDataScience/14_assets/Outputs/wallace-session-2017-01-26.html">here</a></p>
+<p>Note that you can change anything you like in this code to build upon your workflow. Future versions of <code>wallace</code> will enable you to upload such modified Rmds to <code>wallace</code> to fill in all the options you chose and pick up where you left off in a previous analysis in the GUI.</p>
+<p>At the moment we don’t have anything built into <code>wallace</code> for post-processing, so you can use R directly to build from the code created above.</p>
+</div>
+<div id="improving-the-model" class="section level1">
+<h1>Improving the model</h1>
+<p>Let’s revisit that crappy prediction into northern Canada. This issue derived from a poor choice of modeling domain and an overfit model. Try rerunning the analysis by extending the domain to include many locations where the species does not occur (see below) and using a simpler model that includes only linear and quadtratic features.</p>
+<p><br></p>
+<p><img src="14_assets/WallaceNexta.png" /></p>
+<p><br></p>
+<p>Here are the improved predictions that avoid prediction in northern Canada.</p>
+<p><br></p>
+<p><img src="14_assets/WallaceNexta.png" /></p>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

@@ -4,13 +4,13 @@
 #' 
 #' 
 #' <div>
-#' <object data="03_assets/03_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
+#' <object data="presentations/03_DataWrangling.pdf" type="application/pdf" width="100%" height="600px"> 
 #'   <p>It appears you don't have a PDF plugin for this browser.
-#'    No biggie... you can <a href="03_assets/03_DataWrangling.pdf">click here to
+#'    No biggie... you can <a href="presentations/03_DataWrangling.pdf">click here to
 #'   download the PDF file.</a></p>  
 #'  </object>
 #'  </div>
-#'  <p><a href="03_assets/03_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
+#'  <p><a href="presentations/03_DataWrangling.pdf">Download the PDF of the presentation</a></p>  
 #' 
 #' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](`r output`).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 

@@ -1,0 +1,68 @@
+---
+title: Raster Data
+week: 6
+type: Case Study
+subtitle: The hottest country on each continent.
+reading:
+   - Raster Vector Interactions [GCR](https://geocompr.robinlovelace.net/geometric-operations.html#raster-vector){target='blank'}
+tasks:
+   - Download daily weather data for Buffalo, NY using an API
+   - Generate a dynamic html visualization of the timeseries. 
+---
+
+
+```{r setup, include=FALSE, purl=F}
+source("functions.R")
+source("knitr_header.R")
+```
+
+# Reading
+
+```{r reading,results='asis',echo=F,purl=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+
+# Tasks
+
+```{r tasks,results='asis',echo=F, purl=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+## Background
+
+# Objective
+> Make a dygraph of recent daily maximum temperature data from Buffalo, NY.
+
+## Detailed Steps
+
+First use the following code to download the daily weather data.
+
+```{r, messages=F, warning=F, results=F}
+library(rnoaa)
+library(xts)
+library(dygraphs)
+library(htmlwidgets)
+
+d=meteo_tidy_ghcnd("USW00014733",
+                   date_min = "2016-01-01", 
+                   var = c("TMAX"),
+                   keep_flags=T)
+d$date=as.Date(d$date)
+```
+
+Remaining steps:
+
+1. Convert `d` into an `xts` time series object using `xts()`.  You will need to specifify which column has the data (`d$tmax`) and `order.by=d$date`. See `?xts` for help. 
+2. Use `dygraph()` to draw the plot
+3. Set the title of the dygraph to be `main="Daily Maximum Temperature in Buffalo, NY"`
+3. Add a `dyRangeSelector()` with a `dateWindow` of `c("2017-01-01", "2017-12-31")`
+
+```{r, echo=F, purl=F, warning=F, message=F}
+# Convert to a xts time series object as required by dygraph
+dt=xts(d$tmax,order.by=d$date)
+
+dygraph(dt, main = "Daily Maximum Temperature in Buffalo, NY") %>% 
+  dyRangeSelector(dateWindow = c("2017-01-01", "2017-12-31"))%>%
+  frameWidget(height =500)
+```

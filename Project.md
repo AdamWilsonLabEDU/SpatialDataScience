@@ -124,28 +124,6 @@ Figures (maps and other graphics) are a vital component of scientific communicat
 #### References
 You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section.  You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained [here](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.  
 
-### 'Lightning' Project Presentation
-
-Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the [lightning talk](http://en.wikipedia.org/wiki/Lightning_Talk) and [ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event)).
-
-**On the last day of class, each student will give a 5 minute overview of their project.**  You will open the html version on the screen (no need to make a separate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project.  Good use of headers, figures, and simple tables will make it easier to present!
-
-It's important to remember that most of the guidelines for good presentations still apply. You should still make eye contact with the audience, you should still be prepared to stop earlier or handle awkward questions, you should still remember to go to the bathroom beforehand. What the short talk format provides you with is a framework to get down to the essence of what you are trying to say to the audience.
-
-**Make your point and make it quickly**
-
-You will not be able to cover all the information in your project.  Your goal is to get us excited about what you have done.
-
-You are not there to provide the detail required for them to reproduce your work, you're there to inspire them to search out your work.  Remember they can download and reproduce your project if they want to.
-
-Practice against a timer. Practice standing up. Five minutes is a really short time when presenting. And yet make sure you go slow and steady and reduce the amount you say rather than rushing to try and cram more in.
-
-**And remember, the audience is on your side!**
-
-In summary, remember that for the presentation, DELIVERY is more important than CONTENT. This doesn't mean that your content shouldn't be good, but that it is always better to get across something that sticks in your audience's mind, than getting them to forget everything you've just said.
-
-Time will be tight for this final day, so please practice so that you will stay within the 5 minute time period.   The objectives of this presentation are primarily to share your work with your classmates and hopefully give you more ideas of ways you can use programming (and R) in your research.
-
 ### Resources
 
 Sites with examples of visual display of quantitative information 

@@ -71,3 +71,10 @@ early:
 
 late:
 earn an additional 5,000 datacamp XP in a topic/course of your choosing
+
+
+## Every Semester
+* update google sheets links - do I still need to do this with classroom?
+* Create new assignment
+* Update github classroom links in task 2
+* 

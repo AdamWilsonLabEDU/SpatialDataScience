@@ -4,7 +4,7 @@
 #' 
 #' 
 #' # Logistics
-#' [<i class="fas fa-desktop fa-3x" aria-hidden="true"></i> Presentation](presentations/day_02_intro.html){target="_blank"}  
+#' [<i class="fas fa-desktop fa-3x" aria-hidden="true"></i> Presentation](presentations/PS_01_intro.html){target="_blank"}  
 #' 
 #' [<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> R Script](`r output`){target="_blank"}  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 #' 

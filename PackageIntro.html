@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Package Introduction</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03b_DataWrangling.html">03 Data Wrangling 2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="DataCamp.html">DataCamp</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Package Introduction</h1>
+
+</div>
+
+
+<div id="description" class="section level1">
+<h1>Description</h1>
+<p>Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session. The objectives are:</p>
+<ul>
+<li>Learn how to find/download/install a new package and learn how to use it</li>
+<li>Teach your peers about existing R packages that may be useful in their research</li>
+</ul>
+<p>The presentation must include:</p>
+<ol style="list-style-type: decimal">
+<li>Brief introduction: what does the package do and why is it useful? (<strong>1-2 slides, 1 minute</strong>)</li>
+<li>Author introduction: a short background (affiliation and other packages, etc.) on at least one of the package authors (<strong>1 slide, 1 minute</strong>)</li>
+<li>Simple demonstration of package code: example input/output from the examples or custom coded examples (<strong>2-3 slides, 3 minutes</strong>)</li>
+</ol>
+<p>There will not be time to actually run any code <em>on-the-fly</em> during your presentation. Instead, copy the code and output into a presentation (powerpoint, etc.) so that you can simply display it. See an <a href="assets/PackagePresentation.pptx">example presentation here</a>.</p>
+<p>To select a package, I recommend starting with the <a href="https://cran.r-project.org/web/views/">views on CRAN</a> for a topic of interest. Then read the narrative in the task view for something interesting to you and install the package in R with <code>install.package(&quot;packagename&quot;)</code> in R and take a look at what it can do. Most package functions include sample code that performs a function. For example, if I was introducing the <code>dplyr</code> package, I might choose the <code>filter()</code> function. If you look in the help you will find a section called “Examples” that you can use for your example code in your presentation. All you have to do is copy-paste it from the help into the R console and them summarize what it’s doing in your presentation. For example, I might demonstrate (from the <code>filter()</code> documentation) that the following code will select all characters from Star Wars that are human.</p>
+<pre class="r"><code>library(dplyr)
+filter(starwars, species == &quot;Human&quot;)</code></pre>
+<pre><code>## # A tibble: 35 x 13
+##    name  height  mass hair_color skin_color eye_color birth_year gender
+##    &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; 
+##  1 Luke…    172    77 blond      fair       blue            19   male  
+##  2 Dart…    202   136 none       white      yellow          41.9 male  
+##  3 Leia…    150    49 brown      light      brown           19   female
+##  4 Owen…    178   120 brown, gr… light      blue            52   male  
+##  5 Beru…    165    75 brown      light      blue            47   female
+##  6 Bigg…    183    84 black      light      brown           24   male  
+##  7 Obi-…    182    77 auburn, w… fair       blue-gray       57   male  
+##  8 Anak…    188    84 blond      fair       blue            41.9 male  
+##  9 Wilh…    180    NA auburn, g… fair       blue            64   male  
+## 10 Han …    180    80 brown      fair       brown           29   male  
+## # ... with 25 more rows, and 5 more variables: homeworld &lt;chr&gt;,
+## #   species &lt;chr&gt;, films &lt;list&gt;, vehicles &lt;list&gt;, starships &lt;list&gt;</code></pre>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

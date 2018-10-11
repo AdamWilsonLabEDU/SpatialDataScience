@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>GEO 503: Spatial Data Science</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03b_DataWrangling.html">03 Data Wrangling 2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="DataCamp.html">DataCamp</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">GEO 503: Spatial Data Science</h1>
+
+</div>
+
+
+<div id="course-description" class="section level1">
+<h1>Course Description</h1>
+<p>This course introduces students to the fundamentals of spatial data science. The first part of the course introduces students to a high-level programming language (currently R). The second part covers methods to incorporate spatial data into data science workflows. The third part addresses the generation of dynamic, reproducible research output including figures, maps, manuscripts, and websites. The course includes an extensive project for students to conduct spatial analysis related to their research. Familiarity with basic GIS concepts (raster, vector, geographic projection, etc.) will be assumed, but no prior coding experience is required.</p>
+</div>
+<div id="logistics" class="section level1">
+<h1>Logistics</h1>
+<p>Professor Adam M. Wilson (<a href="adamwilson.us" class="uri">adamwilson.us</a>)</p>
+<p>Office Hours: Tuesdays &amp; Thursdays 10:00-11:00am</p>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
+<p>Tuesdays/Thursdays 2-3:20pm in 144 Wilkeson Quad.</p>
+</div>
+<div id="course-structure" class="section level2">
+<h2>Course Structure</h2>
+<p>The course will focus on programming in the R language. Typical class sessions will consist of a short (&lt;30 minute) lecture followed by interactive exercises and activities. All teaching and exercises are done from within <a href="rstudio.com">RStudio</a>.</p>
+</div>
+<div id="ublearns" class="section level2">
+<h2>UBLearns</h2>
+<p>Course announcements and other materials will be distributed through <a href="https://ublearns.buffalo.edu">UBLearns</a>. Please check the site regularly (or enable email notifications).</p>
+</div>
+<div id="computer-requirements" class="section level2">
+<h2>Computer requirements</h2>
+<p>During the course we will complete class exercises on your personal laptop (under any Mac, Linux, or Windows). If you do not have access to a laptop, please let the professor know as soon as possible. Students will need to install RStudio on their laptops (<a href="https://www.rstudio.com/products/rstudio/download/">instructions here</a>).</p>
+</div>
+<div id="email-policy" class="section level2">
+<h2>Email Policy</h2>
+<p>During the week, I will attempt to respond to emails within 24 hours of receiving them (not including weekends). Do not expect an immediate response (please plan accordingly). For example, do not send an email with a question about a homework the same day that the homework is due. If you send an email over the weekend, do not expect any response until Monday or Tuesday.</p>
+</div>
+</div>
+<div id="student-learning-outcomes" class="section level1">
+<h1>Student Learning Outcomes</h1>
+<p>Successful completion of this course will enable the student to:</p>
+<ol style="list-style-type: decimal">
+<li>convert data from varied formats or structures to a desirable format for analysis and visualization</li>
+<li>clean, transform and merge data attributes/variables appropriately</li>
+<li>effectively display and communicate meaning from spatial, temporal, and textual data</li>
+<li>use current analysis, presentation, and collaboration tools in the spatial data science field.</li>
+</ol>
+<p>These learning outcomes are related to those expected of students completing the Geography program.</p>
+</div>
+<div id="course-requirements" class="section level1">
+<h1>Course Requirements</h1>
+<div id="grading" class="section level2">
+<h2>Grading</h2>
+<p>The major course components are as follows:</p>
+<div id="course-participation-and-tasks-10" class="section level3">
+<h3>Course Participation and Tasks (10%)</h3>
+<p>You are expected to attend class, actively participate in class discussions, and follow along during in-class interactive exercises. If you are not able to attend class, please let me know as soon as possible so an alternative can be arranged. The course includes many tasks that are performed both in and out of class (see the <a href="Tasklist.html">tasklist</a>). These are ‘committed’ to your course respository which will be considered for your participation grade.</p>
+<p>You are welcome to work collaboratively on in-class assignments but you are responsible for understanding your responses to the various challenges. So an acceptable question to ask a classmate would be, “which functions did you use to answer task 2?,” while an unacceptable question would be “please email/chat/read me your code for task #2.”</p>
+</div>
+<div id="package-introduction-10" class="section level3">
+<h3>Package introduction (10%)</h3>
+<p>Each student will be expected to introduce a package (or two) that is relevant to their research interests in a 5 minute presentation during a class session. See full <a href="http://adamwilson.us/SpatialDataScience/PackageIntro.html">Package Introduction Description</a> for more details.</p>
+</div>
+<div id="data-camp-exercises-30" class="section level3">
+<h3>Data Camp Exercises (30%)</h3>
+<p>Several mini-courses will be assigned via DataCamp throughout the semester. These assignments will be graded as pass/fail (pass if you finish the course, fail if you don’t) and contribute 30% to your final grade. For example, if you complete 75% of the assigned courses, you will receive 30% x 75% = 23% for this component. See full <a href="http://adamwilson.us/SpatialDataScience/DataCamp.html">DataCamp Description</a> for more details.</p>
+</div>
+<div id="final-project-and-presentation-50" class="section level3">
+<h3>Final Project and Presentation (50%)</h3>
+<p>The final project will consist of a poster-length summary of an analysis that tells a story about a topic of interest. This project can be related to the student’s own research or a separate topic.</p>
+<p><strong>Project stages</strong></p>
+<ul>
+<li>Proposal (5%)</li>
+<li>First draft (evaluated by your peers) (5%)</li>
+<li>Presentation (5%)</li>
+<li>Final draft (35%)</li>
+</ul>
+<p>See the <a href="http://adamwilson.us/SpatialDataScience/Schedule.html">schedule</a> for details on deadlines. Unexcused late submissions will be docked 10 percentage points per 24 hour period. See full <a href="http://adamwilson.us/SpatialDataScience/Project.html">Project Description</a> for more details.</p>
+<p><strong>There will be no final exam.</strong></p>
+</div>
+</div>
+<div id="grading-scale" class="section level2">
+<h2>Grading Scale</h2>
+<p>Course grading will follow the <a href="http://grad.buffalo.edu/Academics/Policies-Procedures/Grading-Procedures.html">grading procedures of the UB Graduate School</a>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Quality of Work</th>
+<th>Weighted Percentage</th>
+<th>Quality Points</th>
+<th>Weighted Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Superb</td>
+<td>92+%</td>
+<td>4</td>
+<td>A</td>
+</tr>
+<tr class="even">
+<td>Excellent</td>
+<td>90+%</td>
+<td>3.67</td>
+<td>A–</td>
+</tr>
+<tr class="odd">
+<td>Very Good</td>
+<td>88+%</td>
+<td>3.33</td>
+<td>B+</td>
+</tr>
+<tr class="even">
+<td>Good</td>
+<td>85+%</td>
+<td>3.0</td>
+<td>B</td>
+</tr>
+<tr class="odd">
+<td>Acceptable</td>
+<td>80+%</td>
+<td>2.67</td>
+<td>B–</td>
+</tr>
+<tr class="even">
+<td>Adequate</td>
+<td>75+%</td>
+<td>2.33</td>
+<td>C+</td>
+</tr>
+<tr class="odd">
+<td>Barely Adequate</td>
+<td>70+%</td>
+<td>2.0</td>
+<td>C</td>
+</tr>
+<tr class="even">
+<td>Substantially Flawed</td>
+<td>60+%</td>
+<td>1.0</td>
+<td>D</td>
+</tr>
+<tr class="odd">
+<td>Flawed</td>
+<td>&lt;60%</td>
+<td>0.5</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="textbook" class="section level2">
+<h2>Textbook</h2>
+<p>We will read parts of <a href="http://r4ds.had.co.nz/"><em>R for Data Science</em></a> and <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em></a> which are both available online. All additional materials will be available through the course website (<a href="http://adamwilson.us/SpatialDataScience/" class="uri">http://adamwilson.us/SpatialDataScience/</a>).</p>
+</div>
+<div id="attendance-policy" class="section level2">
+<h2>Attendance Policy</h2>
+<p>This class will include ample opportunities for in-class discussion. You are expected to attend every class session, but you are permitted two unexcused absences during the semester. Please use these wisely, you never know when an unexpected illness or other event will occur.The University at Buffalo’s class attendance policy (<a href="http://undergrad-catalog.buffalo.edu/policies/course/attendance.html" class="uri">http://undergrad-catalog.buffalo.edu/policies/course/attendance.html</a>) is as follows: &gt; Students may be justifiably absent from classes due to religious observances, illness documented by a physician or other appropriate health care professional, conflicts with university-sanctioned activities documented by an appropriate university administrator, public emergencies, and documented personal or family emergencies. The student is responsible for notifying the instructor in writing with as much advance notice as possible.</p>
+<p>If a student does not attend a class session they will be counted as absent (as described above) unless they meet ALL THREE of the following criteria:</p>
+<ol style="list-style-type: decimal">
+<li>The student provides a note from an appropriate authority, as outlined at <a href="https://catalog.buffalo.edu/policies/attendance.html" class="uri">https://catalog.buffalo.edu/policies/attendance.html</a></li>
+<li>The student contacts the instructor either before, or on the day of, the scheduled class, unless the note explains why the instructor could not be contacted.</li>
+<li>The student turns in the lab assignment by the original deadline, unless the note from the authority explains why the student needs more time (due to extended illness, etc.).</li>
+</ol>
+<p>See the University website for cancellations/delays due to weather or other unforeseen events (<a href="http://emergency.buffalo.edu/" class="uri">http://emergency.buffalo.edu/</a>).</p>
+</div>
+<div id="academic-integrity" class="section level2">
+<h2>Academic Integrity</h2>
+<p>Academic integrity is a fundamental university value. Through the honest completion of academic work, students sustain the integrity of the university while facilitating the university’s imperative for the transmission of knowledge and culture based upon the generation of new and innovative ideas. Examples of academic dishonesty include: submitting work from another course, plagiarism, cheating, falsification, misrepresentation, and usage of confidential documents.</p>
+<p>Writing computer code often involves use of existing code chunks (e.g. copying an example from the documentation) which complicates identification of academic dishonesty. Students are responsible for comprehending the code they submit, regardless of its source. If there is reason to believe that submitted code was simply copied from elsewhere, the student will be asked to verbally (and specifically) explain the code used in the analysis to ensure comprehension.</p>
+<p>If a student is suspected of academic dishonesty, then a three-step consultative resolution will be employed. First, the instructor will notify the student of the incident and arrange a meeting. Second, the instructor will orally inform the student of the sanction, which could include: warning, revision, reduction in grade, or failure of course. Third, the instructor will provide the student with a written copy of the decision. See the university policy for more information (<a href="https://catalog.buffalo.edu/policies/integrity.html" class="uri">https://catalog.buffalo.edu/policies/integrity.html</a>). Please review it and ask if you have any questions.</p>
+</div>
+<div id="accessibility-resources" class="section level2">
+<h2>Accessibility Resources</h2>
+<p>If you have any disability which requires reasonable accommodations to enable you to participate in this course, please contact the Office of Accessibility Resources, 25 Capen Hall, 645-2608, and also the instructor of this course. The office will provide you with information and review appropriate arrangements for reasonable accommodations (<a href="http://www.student-affairs.buffalo.edu/ods/" class="uri">http://www.student-affairs.buffalo.edu/ods/</a>)</p>
+</div>
+</div>
+<div id="course-content" class="section level1">
+<h1>Course Content</h1>
+<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses. See the <a href="http://adamwilson.us/SpatialDataScience/Schedule.html">course schedule on the website for detailed course content</a>.</p>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

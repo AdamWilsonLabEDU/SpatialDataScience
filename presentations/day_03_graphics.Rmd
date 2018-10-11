@@ -1,6 +1,5 @@
 ---
-title: "Day 3"
-output: html_document
+title: "Week 2"
 ---
 
 ```{r setup, include=FALSE}

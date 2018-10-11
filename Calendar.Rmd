@@ -9,7 +9,7 @@ Course content is designed to be flexible to accommodate student interest and ab
 In the table below, R4DS refers to [_R for Data Science_ by Garrett Grolemund and Hadley Wickham](http://r4ds.had.co.nz) and, while GCR refers to [_Geocomputation with R_ by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)](https://geocompr.robinlovelace.net/).
 
 
-```{r, echo=FALSE, message=FALSE, purl=FALSE}
+```{r, echo=FALSE, message=FALSE, purl=FALSE, eval=F}
 source("functions.R")
 library(fullcalendar)
 library(lubridate)

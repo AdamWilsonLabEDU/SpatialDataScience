@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>APIs, time-series, and weather Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03b_DataWrangling.html">03 Data Wrangling 2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="DataCamp.html">DataCamp</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">APIs, time-series, and weather Data</h1>
+<h3 class="subtitle"><em>Processing daily weather data from NOAA</em></h3>
+
+</div>
+
+
+<div class="extraswell">
+<button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button> <a href="" target="_blank">Open presentation in a new tab</a>
+<div id="pres" class="collapse">
+<div class="embed-responsive embed-responsive-16by9">
+<p><iframe class='embed-responsive-item' src='' allowfullscreen></iframe> <em>Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview.</em></p>
+</div>
+</div>
+</div>
+<div id="reading" class="section level1">
+<h1>Reading</h1>
+<ul>
+<li>NULL</li>
+</ul>
+<div id="download" class="section level2">
+<h2>Download</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><a href="scripts/TK_09_nocomments.R"><i class='fas fa-code fa-2x' aria-hidden='true'></i><br> R Script</a></th>
+<th align="center"><a href="scripts/TK_09.R"><i class='fa fa-file-code-o fa-2x'></i> <br> Commented R Script</a></th>
+<th align="center"><a href="scripts/TK_09.Rmd"><i class='far fa-file-alt fa-2x'></i> <br> Rmd Script</a></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+</div>
+<div id="climate-metrics" class="section level1">
+<h1>Climate Metrics</h1>
+<div id="climate-metrics-climdex" class="section level2">
+<h2>Climate Metrics: ClimdEX</h2>
+<p>Indices representing extreme aspects of climate derived from daily data:</p>
+<p><img src="08_assets/climdex.png" alt="alt text" width="50%"></p>
+<p>Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) (<a href="http://www.climdex.org">climdex.org</a>).</p>
+<div id="core-indices" class="section level3">
+<h3>27 Core indices</h3>
+<p>For example:</p>
+<ul>
+<li><strong>FD</strong> Number of frost days: Annual count of days when TN (daily minimum temperature) &lt; 0C.</li>
+<li><strong>SU</strong> Number of summer days: Annual count of days when TX (daily maximum temperature) &gt; 25C.</li>
+<li><strong>ID</strong> Number of icing days: Annual count of days when TX (daily maximum temperature) &lt; 0C.</li>
+<li><strong>TR</strong> Number of tropical nights: Annual count of days when TN (daily minimum temperature) &gt; 20C.</li>
+<li><strong>GSL</strong> Growing season length: Annual (1st Jan to 31st Dec in Northern Hemisphere (NH), 1st July to 30th June in Southern Hemisphere (SH)) count between first span of at least 6 days with daily mean temperature TG&gt;5C and first span after July 1st (Jan 1st in SH) of 6 days with TG&lt;5C.</li>
+<li><strong>TXx</strong> Monthly maximum value of daily maximum temperature</li>
+<li><strong>TN10p</strong> Percentage of days when TN &lt; 10th percentile</li>
+<li><strong>Rx5day</strong> Monthly maximum consecutive 5-day precipitation</li>
+<li><strong>SDII</strong> Simple pricipitation intensity index</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="weather-data" class="section level1">
+<h1>Weather Data</h1>
+<div id="climate-data-online" class="section level3">
+<h3>Climate Data Online</h3>
+<div class="figure">
+<img src="08_assets/climatedataonline.png" alt="CDO" />
+<p class="caption">CDO</p>
+</div>
+</div>
+<div id="ghcn" class="section level3">
+<h3>GHCN</h3>
+<div class="figure">
+<img src="08_assets/ghcn.png" alt="ghcn" />
+<p class="caption">ghcn</p>
+</div>
+</div>
+<div id="options-for-downloading-data" class="section level2">
+<h2>Options for downloading data</h2>
+<div id="feddata-package" class="section level3">
+<h3><code>FedData</code> package</h3>
+<ul>
+<li>National Elevation Dataset digital elevation models (1 and 1/3 arc-second; USGS)</li>
+<li>National Hydrography Dataset (USGS)</li>
+<li>Soil Survey Geographic (SSURGO) database</li>
+<li>International Tree Ring Data Bank.</li>
+<li><em>Global Historical Climatology Network</em> (GHCN)</li>
+</ul>
+</div>
+<div id="noaa-api" class="section level3">
+<h3>NOAA API</h3>
+<div class="figure">
+<img src="08_assets/noaa_api.png" alt="noaa api" />
+<p class="caption">noaa api</p>
+</div>
+<p><a href="http://www.ncdc.noaa.gov/cdo-web/webservices/v2">National Climatic Data Center application programming interface (API)</a>.</p>
+</div>
+<div id="rnoaa-package" class="section level3">
+<h3><code>rNOAA</code> package</h3>
+<p>Handles downloading data directly from NOAA APIv2.</p>
+<ul>
+<li><code>buoy_*</code> NOAA Buoy data from the National Buoy Data Center</li>
+<li><code>ghcnd_*</code> GHCND daily data from NOAA</li>
+<li><code>isd_*</code> ISD/ISH data from NOAA</li>
+<li><code>homr_*</code> Historical Observing Metadata Repository</li>
+<li><code>ncdc_*</code> NOAA National Climatic Data Center (NCDC)</li>
+<li><code>seaice</code> Sea ice</li>
+<li><code>storm_</code> Storms (IBTrACS)</li>
+<li><code>swdi</code> Severe Weather Data Inventory (SWDI)</li>
+<li><code>tornadoes</code> From the NOAA Storm Prediction Center</li>
+</ul>
+<hr />
+</div>
+<div id="libraries" class="section level3">
+<h3>Libraries</h3>
+<pre class="r"><code>library(raster)
+library(sp)
+library(rgdal)
+library(ggplot2)
+library(ggmap)
+library(dplyr)
+library(tidyr)
+library(maps)
+library(scales)
+# New Packages
+library(rnoaa)
+library(climdex.pcic)
+library(zoo)
+library(reshape2)
+library(broom)</code></pre>
+</div>
+<div id="station-locations" class="section level3">
+<h3>Station locations</h3>
+<p>Download the GHCN station inventory with <code>ghcnd_stations()</code>.</p>
+<pre class="r"><code>datadir=&quot;data&quot;
+
+st = ghcnd_stations()
+
+## Optionally, save it to disk
+# write.csv(st,file.path(datadir,&quot;st.csv&quot;))
+## If internet fails, load the file from disk using:
+# st=read.csv(file.path(datadir,&quot;st.csv&quot;))</code></pre>
+</div>
+<div id="ghcnd-variables" class="section level3">
+<h3>GHCND Variables</h3>
+<p>5 core values:</p>
+<ul>
+<li><strong>PRCP</strong> Precipitation (tenths of mm)</li>
+<li><strong>SNOW</strong> Snowfall (mm)</li>
+<li><strong>SNWD</strong> Snow depth (mm)</li>
+<li><strong>TMAX</strong> Maximum temperature</li>
+<li><strong>TMIN</strong> Minimum temperature</li>
+</ul>
+<p>And ~50 others! For example:</p>
+<ul>
+<li><strong>ACMC</strong> Average cloudiness midnight to midnight from 30-second ceilometer</li>
+<li><strong>AWND</strong> Average daily wind speed</li>
+<li><strong>FMTM</strong> Time of fastest mile or fastest 1-minute wind</li>
+<li><strong>MDSF</strong> Multiday snowfall total</li>
+</ul>
+</div>
+<div id="filter-to-temperature-and-precipitation" class="section level3">
+<h3><code>filter()</code> to temperature and precipitation</h3>
+<pre class="r"><code>st=dplyr::filter(st,element%in%c(&quot;TMAX&quot;,&quot;TMIN&quot;,&quot;PRCP&quot;))</code></pre>
+</div>
+<div id="map-ghcnd-stations" class="section level3">
+<h3>Map GHCND stations</h3>
+<p>First, get a global country polygon</p>
+<pre class="r"><code>worldmap=map_data(&quot;world&quot;)</code></pre>
+<p>Plot all stations:</p>
+<pre class="r"><code>ggplot(data=st,aes(y=latitude,x=longitude)) +
+  facet_grid(element~.)+
+  annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
+  geom_point(size=.1,col=&quot;red&quot;)+
+  coord_equal()</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+<p>It’s hard to see all the points, let’s bin them…</p>
+<pre class="r"><code>ggplot(st,aes(y=latitude,x=longitude)) +
+  annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
+  facet_grid(element~.)+
+  stat_bin2d(bins=100)+
+  scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
+                       breaks = c(1,10,100,1000))+
+  coord_equal()</code></pre>
+<img src="TK_09_files/figure-html/unnamed-chunk-7-1.png" /><!-- -->
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
+<p>Produce a binned map (like above) with the following modifications:</p>
+<ul>
+<li>include only stations with a data record that starts before 1950 and ends after 2000 (keeping only complete records during that time).</li>
+<li>include only <code>tmax</code></li>
+</ul>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+<pre class="r"><code>ggplot(filter(st,
+              first_year&lt;=1950 &amp; 
+              last_year&gt;=2000 &amp; 
+              element==&quot;TMAX&quot;),
+       aes(y=latitude,x=longitude)) +
+  annotation_map(map=worldmap,size=.1,fill=&quot;grey&quot;,colour=&quot;black&quot;)+
+  stat_bin2d(bins=75)+
+  scale_fill_distiller(palette=&quot;YlOrRd&quot;,trans=&quot;log&quot;,direction=-1,
+    breaks = c(1,10,50))+
+  coord_equal()</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-8-1.png" /><!-- --></p>
+</div>
+</div>
+</div>
+</div>
+<div id="download-daily-data-from-ghcn" class="section level2">
+<h2>Download daily data from GHCN</h2>
+<p><code>ghcnd()</code> will download a <code>.dly</code> file for a particular station. But how to choose?</p>
+<div id="geocode-in-ggmap-package-useful-for-geocoding-place-names" class="section level3">
+<h3><code>geocode</code> in ggmap package useful for geocoding place names</h3>
+<p>Geocodes a location (find latitude and longitude) using either (1) the Data Science Toolkit (<a href="http://www.datasciencetoolkit.org/about" class="uri">http://www.datasciencetoolkit.org/about</a>) or (2) Google Maps.</p>
+<pre class="r"><code>geocode(&quot;University at Buffalo, NY&quot;)</code></pre>
+<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=University%20at%20Buffalo,%20NY&amp;sensor=false</code></pre>
+<pre><code>## Warning: geocode failed with status OVER_QUERY_LIMIT, location =
+## &quot;University at Buffalo, NY&quot;</code></pre>
+<pre><code>##   lon lat
+## 1  NA  NA</code></pre>
+<p>However, you have to be careful:</p>
+<pre class="r"><code>geocode(&quot;My Grandma&#39;s house&quot;)</code></pre>
+<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=My%20Grandma&#39;s%20house&amp;sensor=false</code></pre>
+<pre><code>## Warning: geocode failed with status OVER_QUERY_LIMIT, location = &quot;My
+## Grandma&#39;s house&quot;</code></pre>
+<pre><code>##   lon lat
+## 1  NA  NA</code></pre>
+<p>But this is pretty safe for well known places.</p>
+<pre class="r"><code>coords=as.matrix(geocode(&quot;Buffalo, NY&quot;))</code></pre>
+<pre><code>## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Buffalo,%20NY&amp;sensor=false</code></pre>
+<pre><code>## Warning: geocode failed with status OVER_QUERY_LIMIT, location = &quot;Buffalo,
+## NY&quot;</code></pre>
+<pre class="r"><code>coords</code></pre>
+<pre><code>##      lon lat
+## [1,]  NA  NA</code></pre>
+<p>Now use that location to spatially filter stations with a rectangular box.</p>
+<pre class="r"><code>dplyr::filter(st,
+              grepl(&quot;BUFFALO&quot;,name)&amp;
+              between(latitude,coords[2]-1,coords[2]+1) &amp;
+              between(longitude,coords[1]-1,coords[1]+1)&amp;
+         element==&quot;TMAX&quot;)</code></pre>
+<pre><code>## # A tibble: 0 x 11
+## # ... with 11 variables: id &lt;chr&gt;, latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,
+## #   elevation &lt;dbl&gt;, state &lt;chr&gt;, name &lt;chr&gt;, gsn_flag &lt;chr&gt;,
+## #   wmo_id &lt;chr&gt;, element &lt;chr&gt;, first_year &lt;int&gt;, last_year &lt;int&gt;</code></pre>
+<p>You could also spatially filter using <code>over()</code> in sp package…</p>
+<p>With the station ID, we can now download daily data from NOAA.</p>
+<pre class="r"><code>d=meteo_tidy_ghcnd(&quot;USW00014733&quot;,
+                   var = c(&quot;TMAX&quot;,&quot;TMIN&quot;,&quot;PRCP&quot;),
+                   keep_flags=T)
+head(d)</code></pre>
+<pre><code>## # A tibble: 6 x 14
+##   id    date       mflag_prcp mflag_tmax mflag_tmin  prcp qflag_prcp
+##   &lt;chr&gt; &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;     
+## 1 USW0… 1938-05-01 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 2 USW0… 1938-05-02 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 3 USW0… 1938-05-03 &quot; &quot;        &quot; &quot;        &quot; &quot;           25 &quot; &quot;       
+## 4 USW0… 1938-05-04 &quot; &quot;        &quot; &quot;        &quot; &quot;          112 &quot; &quot;       
+## 5 USW0… 1938-05-05 T          &quot; &quot;        &quot; &quot;            0 &quot; &quot;       
+## 6 USW0… 1938-05-06 &quot; &quot;        &quot; &quot;        &quot; &quot;           64 &quot; &quot;       
+## # ... with 7 more variables: qflag_tmax &lt;chr&gt;, qflag_tmin &lt;chr&gt;,
+## #   sflag_prcp &lt;chr&gt;, sflag_tmax &lt;chr&gt;, sflag_tmin &lt;chr&gt;, tmax &lt;dbl&gt;,
+## #   tmin &lt;dbl&gt;</code></pre>
+<p>See <a href="http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf">CDO Daily Description</a> and raw <a href="http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt">GHCND metadata</a> for more details. If you want to download multiple stations at once, check out <code>meteo_pull_monitors()</code></p>
+</div>
+<div id="quality-control-mflag" class="section level3">
+<h3>Quality Control: MFLAG</h3>
+<p>Measurement Flag/Attribute</p>
+<ul>
+<li><strong>Blank</strong> no measurement information applicable</li>
+<li><strong>B</strong> precipitation total formed from two twelve-hour totals</li>
+<li><strong>H</strong> represents highest or lowest hourly temperature (TMAX or TMIN) or average of hourly values (TAVG)</li>
+<li><strong>K</strong> converted from knots</li>
+<li>…</li>
+</ul>
+<p>See <a href="http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf">CDO Description</a></p>
+</div>
+<div id="quality-control-qflag" class="section level3">
+<h3>Quality Control: QFLAG</h3>
+<ul>
+<li><strong>Blank</strong> did not fail any quality assurance check</li>
+<li><strong>D</strong> failed duplicate check</li>
+<li><strong>G</strong> failed gap check</li>
+<li><strong>K</strong> failed streak/frequent-value check</li>
+<li><strong>N</strong> failed naught check</li>
+<li><strong>O</strong> failed climatological outlier check</li>
+<li><strong>S</strong> failed spatial consistency check</li>
+<li><strong>T</strong> failed temporal consistency check</li>
+<li><strong>W</strong> temperature too warm for snow</li>
+<li>…</li>
+</ul>
+<p>See <a href="http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf">CDO Description</a></p>
+</div>
+<div id="quality-control-sflag" class="section level3">
+<h3>Quality Control: SFLAG</h3>
+<p>Indicates the source of the data…</p>
+</div>
+</div>
+<div id="summarize-qc-flags" class="section level2">
+<h2>Summarize QC flags</h2>
+<p>Summarize the QC flags. How many of which type are there? Should we be more conservative?</p>
+<pre class="r"><code>table(d$qflag_tmax)  </code></pre>
+<pre><code>## 
+##           G     I 
+## 29027     2    10</code></pre>
+<pre class="r"><code>table(d$qflag_tmin)  </code></pre>
+<pre><code>## 
+##           G     I     S 
+## 29026     2     7     4</code></pre>
+<pre class="r"><code>table(d$qflag_prcp)  </code></pre>
+<pre><code>## 
+##           G 
+## 29038     1</code></pre>
+<ul>
+<li><strong>T</strong> failed temporal consistency check</li>
+</ul>
+<div id="filter-with-qc-data-and-change-units" class="section level4">
+<h4>Filter with QC data and change units</h4>
+<pre class="r"><code>d_filtered=d%&gt;%
+  mutate(tmax=ifelse(qflag_tmax!=&quot; &quot;|tmax==-9999,NA,tmax/10))%&gt;%  # convert to degrees C
+  mutate(tmin=ifelse(qflag_tmin!=&quot; &quot;|tmin==-9999,NA,tmin/10))%&gt;%  # convert to degrees C
+  mutate(prcp=ifelse(qflag_tmin!=&quot; &quot;|prcp==-9999,NA,prcp))%&gt;%  # convert to degrees C
+  arrange(date)</code></pre>
+<p>Plot temperatures</p>
+<pre class="r"><code>ggplot(d_filtered,
+       aes(y=tmax,x=date))+
+  geom_line(col=&quot;red&quot;)</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-16-1.png" /><!-- --></p>
+<p>Limit to a few years and plot the daily range and average temperatures.</p>
+<pre class="r"><code>d_filtered_recent=filter(d_filtered,date&gt;as.Date(&quot;2013-01-01&quot;))
+
+  ggplot(d_filtered_recent,
+         aes(ymax=tmax,ymin=tmin,x=date))+
+    geom_ribbon(col=&quot;grey&quot;,fill=&quot;grey&quot;)+
+    geom_line(aes(y=(tmax+tmin)/2),col=&quot;red&quot;)</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+</div>
+<div id="zoo-package-for-rolling-functions" class="section level3">
+<h3>Zoo package for rolling functions</h3>
+<p>Infrastructure for Regular and Irregular Time Series (Z’s Ordered Observations)</p>
+<ul>
+<li><code>rollmean()</code>: Rolling mean</li>
+<li><code>rollsum()</code>: Rolling sum</li>
+<li><code>rollapply()</code>: Custom functions</li>
+</ul>
+<p>Use rollmean to calculate a rolling 60-day average.</p>
+<ul>
+<li><code>align</code> whether the index of the result should be left- or right-aligned or centered</li>
+</ul>
+<pre class="r"><code>d_rollmean = d_filtered_recent %&gt;% 
+  arrange(date) %&gt;%
+  mutate(tmax.60 = rollmean(x = tmax, 60, align = &quot;center&quot;, fill = NA),
+         tmax.b60 = rollmean(x = tmax, 60, align = &quot;right&quot;, fill = NA))</code></pre>
+<pre class="r"><code>d_rollmean%&gt;%
+  ggplot(aes(ymax=tmax,ymin=tmin,x=date))+
+    geom_ribbon(fill=&quot;grey&quot;)+
+    geom_line(aes(y=(tmin+tmax)/2),col=grey(0.4),size=.5)+
+    geom_line(aes(y=tmax.60),col=&quot;red&quot;)+
+    geom_line(aes(y=tmax.b60),col=&quot;darkred&quot;)</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 70 rows containing missing values (geom_path).
+
+## Warning: Removed 70 rows containing missing values (geom_path).</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-1">Your Turn</h2>
+<p>Plot a 30-day rolling “right” aligned sum of precipitation.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<pre class="r"><code>tp=d_filtered_recent %&gt;%
+  arrange(date)  %&gt;% 
+  mutate(prcp.30 = rollsum(x = prcp, 30, align = &quot;right&quot;, fill = NA))
+
+ggplot(tp,aes(y=prcp,x=date))+
+  geom_line(aes(y=prcp.30),col=&quot;black&quot;)+ 
+  geom_line(col=&quot;red&quot;) </code></pre>
+<pre><code>## Warning: Removed 40 rows containing missing values (geom_path).</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_path).</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-20-1.png" /><!-- --></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="time-series-analysis" class="section level1">
+<h1>Time Series analysis</h1>
+<p>Most timeseries functions use the time series class (<code>ts</code>)</p>
+<pre class="r"><code>tmin.ts=ts(d_filtered_recent$tmin,frequency = 365)</code></pre>
+<div id="temporal-autocorrelation" class="section level2">
+<h2>Temporal autocorrelation</h2>
+<p>Values are highly correlated!</p>
+<pre class="r"><code>ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
+  geom_point()+
+  geom_abline(intercept=0, slope=1)</code></pre>
+<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-22-1.png" /><!-- --></p>
+<div id="autocorrelation-functions" class="section level3">
+<h3>Autocorrelation functions</h3>
+<ul>
+<li>autocorrelation <span class="math inline"><em>x</em></span> vs. <span class="math inline"><em>x</em><sub><em>t</em> − 1</sub></span> (lag=1)</li>
+<li>partial autocorrelation. <span class="math inline"><em>x</em></span> vs. <span class="math inline"><em>x</em><sub><em>n</em></sub></span> <em>after</em> controlling for correlations <span class="math inline"> ∈ <em>t</em> − 1 : <em>n</em></span></li>
+</ul>
+<div id="autocorrelation" class="section level4">
+<h4>Autocorrelation</h4>
+<pre class="r"><code>acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-23-1.png" /><!-- --></p>
+</div>
+<div id="partial-autocorrelation" class="section level4">
+<h4>Partial Autocorrelation</h4>
+<pre class="r"><code>pacf(tmin.ts,lag.max = 365*3,na.action = na.exclude )</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+</div>
+</div>
+</div>
+</div>
+<div id="checking-for-significant-trends" class="section level1">
+<h1>Checking for significant trends</h1>
+<div id="compute-temporal-aggregation-indices" class="section level2">
+<h2>Compute temporal aggregation indices</h2>
+<div id="group-by-month-season-year-and-decade." class="section level3">
+<h3>Group by month, season, year, and decade.</h3>
+<p>How to convert years into ‘decades’?</p>
+<pre class="r"><code>1938</code></pre>
+<pre><code>## [1] 1938</code></pre>
+<pre class="r"><code>round(1938,-1)</code></pre>
+<pre><code>## [1] 1940</code></pre>
+<pre class="r"><code>floor(1938/10)*10</code></pre>
+<pre><code>## [1] 1930</code></pre>
+<p>Calculate seasonal and decadal mean temperatures.</p>
+<pre class="r"><code>d_filtered2=d_filtered%&gt;%
+  mutate(month=as.numeric(format(date,&quot;%m&quot;)),
+        year=as.numeric(format(date,&quot;%Y&quot;)),
+        season=ifelse(month%in%c(12,1,2),&quot;Winter&quot;,
+            ifelse(month%in%c(3,4,5),&quot;Spring&quot;,
+              ifelse(month%in%c(6,7,8),&quot;Summer&quot;,
+                ifelse(month%in%c(9,10,11),&quot;Fall&quot;,NA)))),
+        dec=(floor(as.numeric(format(date,&quot;%Y&quot;))/10)*10))
+knitr::kable(head(d_filtered2))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">date</th>
+<th align="left">mflag_prcp</th>
+<th align="left">mflag_tmax</th>
+<th align="left">mflag_tmin</th>
+<th align="right">prcp</th>
+<th align="left">qflag_prcp</th>
+<th align="left">qflag_tmax</th>
+<th align="left">qflag_tmin</th>
+<th align="left">sflag_prcp</th>
+<th align="left">sflag_tmax</th>
+<th align="left">sflag_tmin</th>
+<th align="right">tmax</th>
+<th align="right">tmin</th>
+<th align="right">month</th>
+<th align="right">year</th>
+<th align="left">season</th>
+<th align="right">dec</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-01</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">14.4</td>
+<td align="right">3.9</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-02</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">21.1</td>
+<td align="right">8.3</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-03</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">25</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">16.7</td>
+<td align="right">7.2</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-04</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">112</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">20.6</td>
+<td align="right">9.4</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="odd">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-05</td>
+<td align="left">T</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">31.1</td>
+<td align="right">10.6</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+<tr class="even">
+<td align="left">USW00014733</td>
+<td align="left">1938-05-06</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="right">64</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="right">19.4</td>
+<td align="right">7.8</td>
+<td align="right">5</td>
+<td align="right">1938</td>
+<td align="left">Spring</td>
+<td align="right">1930</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="timeseries-models" class="section level2">
+<h2>Timeseries models</h2>
+<p>How to assess change? Simple differences?</p>
+<pre class="r"><code>d_filtered2%&gt;%
+  mutate(period=ifelse(year&lt;=1976-01-01,&quot;early&quot;,&quot;late&quot;))%&gt;% #create two time periods before and after 1976
+  group_by(period)%&gt;%  # divide the data into the two groups
+  summarize(n=n(),    # calculate the means between the two periods
+            tmin=mean(tmin,na.rm=T),
+            tmax=mean(tmax,na.rm=T),
+            prcp=mean(prcp,na.rm=T))</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   period     n  tmin  tmax  prcp
+##   &lt;chr&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 early  13394  4.20  13.7  25.1
+## 2 late   15645  4.76  13.8  28.4</code></pre>
+<p>But be careful, there were lots of missing data in the beginning of the record</p>
+<pre class="r"><code>d_filtered2%&gt;%
+  group_by(year)%&gt;%
+  summarize(n=n())%&gt;%
+  ggplot(aes(x=year,y=n))+
+  geom_line(col=&quot;grey&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-28-1.png" /><!-- --></p>
+<pre class="r"><code># which years don&#39;t have complete data?
+d_filtered2%&gt;%
+  group_by(year)%&gt;%
+  summarize(n=n())%&gt;%
+  filter(n&lt;360)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##    year     n
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  1938   245
+## 2  2017   304</code></pre>
+<p>Plot 10-year means (excluding years without complete data):</p>
+<pre class="r"><code>d_filtered2%&gt;%
+  filter(year&gt;1938, year&lt;2017)%&gt;%
+  group_by(dec)%&gt;%
+  summarize(
+            n=n(),
+            tmin=mean(tmin,na.rm=T),
+            tmax=mean(tmax,na.rm=T),
+            prcp=mean(prcp,na.rm=T)
+            )%&gt;%
+  ggplot(aes(x=dec,y=tmax))+
+  geom_line(col=&quot;grey&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
+<div id="look-for-specific-events-was-2017-unusually-hot-in-buffalo-ny" class="section level3">
+<h3>Look for specific events: was 2017 unusually hot in Buffalo, NY?</h3>
+<p>Let’s compare 2017 with all the previous years in the dataset. First add ‘day of year’ to the data to facilitate showing all years on the same plot.</p>
+<pre class="r"><code>df=d_filtered2%&gt;%
+  mutate(doy=as.numeric(format(date,&quot;%j&quot;)),
+         doydate=as.Date(paste(&quot;2017-&quot;,doy),format=&quot;%Y-%j&quot;))</code></pre>
+<p>Then plot all years (in grey) and add 2017 in red.</p>
+<pre class="r"><code>ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col=&quot;grey&quot;,alpha=.5)+ # plot each year in grey
+  stat_smooth(aes(group=1),col=&quot;black&quot;)+   # Add a smooth GAM to estimate the long-term mean
+  geom_line(data=filter(df,year&gt;2016),col=&quot;red&quot;)+  # add 2017 in red
+  scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-31-1.png" /><!-- --></p>
+<p>Then ‘zoom’ into just the past few months and add 2017 in red.</p>
+<pre class="r"><code>ggplot(df,aes(x=doydate,y=tmax,group=year))+
+  geom_line(col=&quot;grey&quot;,alpha=.5)+
+  stat_smooth(aes(group=1),col=&quot;black&quot;)+
+  geom_line(data=filter(df,year&gt;2016),col=&quot;red&quot;)+
+  scale_x_date(labels = date_format(&quot;%b&quot;),date_breaks = &quot;2 months&quot;,
+               lim=c(as.Date(&quot;2017-08-01&quot;),as.Date(&quot;2017-10-31&quot;)))</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
+<p>So there was an unusually warm spell in late September.</p>
+<div id="summarize-by-season" class="section level4">
+<h4>Summarize by season</h4>
+<pre class="r"><code>seasonal=d_filtered2%&gt;%
+  group_by(year,season)%&gt;%
+  summarize(n=n(),
+            tmin=mean(tmin),
+            tmax=mean(tmax),
+            prcp=mean(prcp))%&gt;%
+  filter(n&gt;75)
+
+ggplot(seasonal,aes(y=tmin,x=year))+
+  facet_grid(season~.,scales = &quot;free_y&quot;)+
+  stat_smooth(method=&quot;lm&quot;, se=T)+
+  geom_line()</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
+</div>
+<div id="linear-regression-of-maximum-temperature-in-fall" class="section level4">
+<h4>Linear regression of maximum temperature in fall</h4>
+<pre class="r"><code>s1=seasonal%&gt;%
+  filter(season==&quot;Summer&quot;)
+
+ggplot(s1,aes(y=tmin,x=year))+
+  stat_smooth(method=&quot;lm&quot;, se=T)+
+  geom_line()</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-34-1.png" /><!-- --></p>
+<pre class="r"><code>lm1=lm(tmin~year, data=s1)
+str(lm1)</code></pre>
+<pre><code>## List of 13
+##  $ coefficients : Named num [1:2] -23.551 0.0197
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ effects      : Named num [1:79] -137.232 4.023 -0.752 -0.424 -0.222 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;(Intercept)&quot; &quot;year&quot; &quot;&quot; &quot;&quot; ...
+##  $ rank         : int 2
+##  $ fitted.values: Named num [1:79] 14.7 14.7 14.7 14.7 14.7 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ assign       : int [1:2] 0 1
+##  $ qr           :List of 5
+##   ..$ qr   : num [1:79, 1:2] -8.888 0.113 0.113 0.113 0.113 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
+##   ..$ qraux: num [1:2] 1.11 1.17
+##   ..$ pivot: int [1:2] 1 2
+##   ..$ tol  : num 1e-07
+##   ..$ rank : int 2
+##   ..- attr(*, &quot;class&quot;)= chr &quot;qr&quot;
+##  $ df.residual  : int 77
+##  $ na.action    : &#39;omit&#39; Named int 9
+##   ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  $ xlevels      : Named list()
+##  $ call         : language lm(formula = tmin ~ year, data = s1)
+##  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. ..$ : chr &quot;year&quot;
+##   .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##  $ model        :&#39;data.frame&#39;:   79 obs. of  2 variables:
+##   ..$ tmin: num [1:79] 15.2 14.9 14 14.4 14.6 ...
+##   ..$ year: num [1:79] 1938 1939 1940 1941 1942 ...
+##   ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. .. ..$ : chr &quot;year&quot;
+##   .. .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   ..- attr(*, &quot;na.action&quot;)= &#39;omit&#39; Named int 9
+##   .. ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
+<pre class="r"><code>summary(lm1)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = tmin ~ year, data = s1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.00360 -0.45550 -0.02385  0.57754  1.90919 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -23.551009   8.042522  -2.928  0.00448 ** 
+## year          0.019713   0.004066   4.848 6.33e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8298 on 77 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.2339, Adjusted R-squared:  0.2239 
+## F-statistic: 23.51 on 1 and 77 DF,  p-value: 6.333e-06</code></pre>
+<p>You can extract values of interest by looking at the structure of the object.</p>
+<pre class="r"><code>str(summary(lm1))</code></pre>
+<pre><code>## List of 12
+##  $ call         : language lm(formula = tmin ~ year, data = s1)
+##  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language tmin ~ year
+##   .. ..- attr(*, &quot;variables&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##   .. .. .. ..$ : chr &quot;year&quot;
+##   .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;year&quot;
+##   .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, &quot;predvars&quot;)= language list(tmin, year)
+##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;tmin&quot; &quot;year&quot;
+##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:79] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ coefficients : num [1:2, 1:4] -23.55101 0.01971 8.04252 0.00407 -2.92831 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..$ : chr [1:4] &quot;Estimate&quot; &quot;Std. Error&quot; &quot;t value&quot; &quot;Pr(&gt;|t|)&quot;
+##  $ aliased      : Named logi [1:2] FALSE FALSE
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ sigma        : num 0.83
+##  $ df           : int [1:3] 2 77 2
+##  $ r.squared    : num 0.234
+##  $ adj.r.squared: num 0.224
+##  $ fstatistic   : Named num [1:3] 23.5 1 77
+##   ..- attr(*, &quot;names&quot;)= chr [1:3] &quot;value&quot; &quot;numdf&quot; &quot;dendf&quot;
+##  $ cov.unscaled : num [1:2, 1:2] 93.928528 -0.047483 -0.047483 0.000024
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;year&quot;
+##  $ na.action    : &#39;omit&#39; Named int 9
+##   ..- attr(*, &quot;names&quot;)= chr &quot;9&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;summary.lm&quot;</code></pre>
+<pre class="r"><code>summary(lm1)$r.squared</code></pre>
+<pre><code>## [1] 0.2338852</code></pre>
+<p>Print a summary table:</p>
+<pre class="r"><code>tidy(lm1)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   term        estimate std.error statistic    p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 (Intercept) -23.6      8.04        -2.93 0.00448   
+## 2 year          0.0197   0.00407      4.85 0.00000633</code></pre>
+</div>
+</div>
+<div id="autoregressive-models" class="section level3">
+<h3>Autoregressive models</h3>
+<p>See <a href="https://cran.r-project.org/web/views/TimeSeries.html">Time Series Analysis Task View</a> for summary of available packages/models.</p>
+<ul>
+<li>Moving average (MA) models</li>
+<li>autoregressive (AR) models</li>
+<li>autoregressive moving average (ARMA) models</li>
+<li>frequency analysis</li>
+<li>Many, many more…</li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+<div id="climate-metrics-1" class="section level1">
+<h1>Climate Metrics</h1>
+<div id="climdex-indices" class="section level3">
+<h3>Climdex indices</h3>
+<p><a href="http://www.climdex.org/indices.html">ClimDex</a></p>
+</div>
+<div id="format-data-for-climdex" class="section level3">
+<h3>Format data for <code>climdex</code></h3>
+<pre class="r"><code>library(PCICt)
+## Parse the dates into PCICt.
+pc.dates &lt;- as.PCICt(as.POSIXct(d_filtered$date),cal=&quot;gregorian&quot;)</code></pre>
+</div>
+<div id="generate-the-climdex-object" class="section level3">
+<h3>Generate the climdex object</h3>
+<pre class="r"><code>  library(climdex.pcic)
+    ci &lt;- climdexInput.raw(
+      tmax=d_filtered$tmax,
+      tmin=d_filtered$tmin,
+      prec=d_filtered$prcp,
+      pc.dates,pc.dates,pc.dates, 
+      base.range=c(1971, 2000))
+years=as.numeric(as.character(unique(ci@date.factors$annual)))</code></pre>
+</div>
+<div id="cumulative-dry-days" class="section level3">
+<h3>Cumulative dry days</h3>
+<pre class="r"><code>cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
+plot(cdd~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
+</div>
+<div id="diurnal-temperature-range" class="section level3">
+<h3>Diurnal Temperature Range</h3>
+<pre class="r"><code>dtr=climdex.dtr(ci, freq = c(&quot;annual&quot;))
+plot(dtr~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-41-1.png" /><!-- --></p>
+</div>
+<div id="frost-days" class="section level3">
+<h3>Frost Days</h3>
+<pre class="r"><code>fd=climdex.fd(ci)
+plot(fd~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
+<div class="well">
+<h2 id="your-turn-2">Your Turn</h2>
+<p>See all available indices with:</p>
+<pre class="r"><code>climdex.get.available.indices(ci)</code></pre>
+<pre><code>##  [1] &quot;climdex.su&quot;      &quot;climdex.id&quot;      &quot;climdex.txx&quot;    
+##  [4] &quot;climdex.txn&quot;     &quot;climdex.tx10p&quot;   &quot;climdex.tx90p&quot;  
+##  [7] &quot;climdex.wsdi&quot;    &quot;climdex.fd&quot;      &quot;climdex.tr&quot;     
+## [10] &quot;climdex.tnx&quot;     &quot;climdex.tnn&quot;     &quot;climdex.tn10p&quot;  
+## [13] &quot;climdex.tn90p&quot;   &quot;climdex.csdi&quot;    &quot;climdex.rx1day&quot; 
+## [16] &quot;climdex.rx5day&quot;  &quot;climdex.sdii&quot;    &quot;climdex.r10mm&quot;  
+## [19] &quot;climdex.r20mm&quot;   &quot;climdex.rnnmm&quot;   &quot;climdex.cdd&quot;    
+## [22] &quot;climdex.cwd&quot;     &quot;climdex.r95ptot&quot; &quot;climdex.r99ptot&quot;
+## [25] &quot;climdex.prcptot&quot; &quot;climdex.gsl&quot;     &quot;climdex.dtr&quot;</code></pre>
+<p>Select 3 indices, calculate them, and plot the timeseries.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo4">
+Show Solution
+</button>
+<div id="demo4" class="collapse">
+<pre class="r"><code>r10mm=climdex.r10mm(ci)
+plot(r10mm~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-44-1.png" /><!-- --></p>
+<pre class="r"><code>prcptot=climdex.prcptot(ci)
+plot(prcptot~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-44-2.png" /><!-- --></p>
+<pre class="r"><code>gsl=climdex.gsl(ci)
+plot(gsl~years,type=&quot;l&quot;)</code></pre>
+<p><img src="TK_09_files/figure-html/unnamed-chunk-44-3.png" /><!-- --></p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

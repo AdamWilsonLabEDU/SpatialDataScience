@@ -1,0 +1,17 @@
+---
+title: Data Wrangling
+week: 3
+type: Task
+subtitle: Data Transformation (Filtering, selecting, transforming) 
+presentation: 03_DataWrangling.pdf
+reading:
+  - Chapters [4-5 in R4DS](http://r4ds.had.co.nz)
+tasks:
+  - Quickly describe any functions that seem especially useful in the README.md file for this week.
+---
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```

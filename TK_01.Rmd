@@ -1,15 +1,18 @@
 ---
 title: Git-01
-date: 2018-09-06 
 subtitle: Install Git and get organized!
+week: 1
+type: Task
+presentation: PS_01_intro.html
 reading:
-  - Chapters [4-8 in Happy Git and Github for the useR - Installation](http://happygitwithr.com/installation-pain.html){target='blank'}
+    - Chapters [1-2 in R4DS](http://r4ds.had.co.nz)
+    - Chapters [4-8 in Happy Git and Github for the useR - Installation](http://happygitwithr.com/installation-pain.html){target='blank'}
 tasks:
   - Create a [GitHub account](https://github.com/join?source=header-home){target="blank"} and post your github username [here](https://goo.gl/forms/wy25GL0YWZIHplDH2)
   - Install git on your computer
   - Make sure git works in R-Studio
-  - Work through readings on git and github
   - Sign up for the [GitHub Education pack](https://education.github.com/pack)
+  - Complete DataCamp Course in [Introduction to R](https://www.datacamp.com/courses/introduction-to-r)
 ---
 
 ```{r setup, include=FALSE}

@@ -1,0 +1,35 @@
+---
+title:  Project Proposal
+week: 7
+type: Task
+subtitle: 
+presentation: PS_07_help.html
+reading:
+  - Chapters [3-4 in GCR](https://geocompr.robinlovelace.net/) 
+tasks:
+  - Complete project proposal and upload .Rmd and .md to Github
+---
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+### Project Proposal
+
+The project proposal will be about 1 page in length and include the following:
+  
+1.  Introduction to problem/question
+2.  Links to inspiring examples:  Include links and screenshots of a few (~3-5) example graphics found on the internet that convey what you want to do.  Include a few sentences about why you selected each link.
+2.  Proposed data sources: Be as specific as possible.
+3.  Proposed methods: List the approach you will use. Don't simply list packages, tell me what you will do with them.
+4.  Expected results: Describe what you want to produce (graphics, analyses, etc.)
+
+Finding good data takes time, and can take longer than the time to tidy your data.  This task could easily take 3-6 hours to find the data you need for your project.  After you find good data sources make sure to complete the remaining tasks.
+
+```{r echo=F, results='hide'}
+file.copy("Project_ProposalTemplate.Rmd","scripts/Project_ProposalTemplate.Rmd")
+```
+
+Use [this template (which is an R Markdown File) for your project proposal](scripts/Project_ProposalTemplate.Rmd).  You can see what this file looks like 'after rendering' [here](Project_ProposalTemplate.html).

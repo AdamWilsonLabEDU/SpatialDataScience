@@ -1,12 +1,11 @@
 #' ---
 #' title: "Getting Help!"
-#' date: 2018-10-09 
+#' week: 7
+#' type: Case Study
 #' subtitle: Learning more about finding help
 #' reading:
 #'    - How to [write a reproducible example](http://adv-r.had.co.nz/Reproducibility.html)
 #'    - Using [Reprex package](https://reprex.tidyverse.org/)
-#' presentation:
-#'    - day_12_help.html
 #' tasks:
 #'    - Learn how to read R help files effectively
 #'    - Learn how to search for help

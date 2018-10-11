@@ -1,6 +1,7 @@
 ---
-title: Spatial Data
-date: 2018-09-25 
+title: Beware the Canadians!
+week: 5
+type: Case Study
 subtitle: Working with Spatial Data and the sf package
 reading:
    - The [Spatial Features Package (sf)](https://r-spatial.github.io/sf/){target='blank'}

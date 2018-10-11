@@ -1,0 +1,18 @@
+---
+title: Data Wrangling 2 
+week: 4
+type: Task
+subtitle: Joining data
+presentation: PS_04_join.html
+reading:
+  - Chapters [11-13 in R4DS](http://r4ds.had.co.nz)
+tasks:
+  - Briefly describe functions that seem especially useful in the README.md file for this week.
+---
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+

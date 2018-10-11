@@ -1,8 +1,10 @@
 ---
 title: Git-02
-date: 2018-09-11 
+week: 2
+type: Task
 subtitle: Start using Github to manage course materials
 reading:
+  - Chapters [3 in R4DS](http://r4ds.had.co.nz)
   - Chapters [13-15 in Happy Git and Github for the useR - Installation](http://happygitwithr.com){target='blank'}
   - Overview of [Using the R-Studio GUI by R-Studio](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN){target='blank'}
   - Chapter [8 R for Data Science - Projects](http://r4ds.had.co.nz/workflow-projects.html){target='blank'}

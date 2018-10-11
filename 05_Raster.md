@@ -5,10 +5,10 @@ title: "Introduction to Raster Package"
 
 
 <div class="extraswell">
-<button data-toggle="collapse" class="btn btn-link" data-target="#pres">View Presentation </button> [Open presentation in a new tab](presentations/day_10_raster.html){target="_blank"}
+<button data-toggle="collapse" class="btn btn-link" data-target="#pres">View Presentation </button> [Open presentation in a new tab](presentations/PS_06_raster.html){target="_blank"}
 <div id="pres" class="collapse">
 <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="presentations/day_10_raster.html" allowfullscreen></iframe>
+  <iframe class="embed-responsive-item" src="presentations/PS_06_raster.html" allowfullscreen></iframe>
 _Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview._
 </div>
 </div>

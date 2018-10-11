@@ -1,6 +1,7 @@
 ---
 title: My grandfather says climate is cooling
-date: 2018-09-06 
+week: 2 
+type: Case Study
 subtitle: Import data, generate and save a graphic.
 reading:
   - The [ggplot2 vignette](https://ggplot2.tidyverse.org/)

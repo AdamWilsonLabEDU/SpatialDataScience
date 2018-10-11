@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Working with Spatial Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">GEO 503: Spatial Data Science</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Syllabus.html">Syllabus</a>
+</li>
+<li>
+  <a href="Schedule.html">Schedule</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Content
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="CourseContent.html">About Course Content</a>
+    </li>
+    <li class="dropdown-header">Module 1: Introduction to R</li>
+    <li>
+      <a href="00_CourseIntroductionFrame.html">00 Course Introduction</a>
+    </li>
+    <li>
+      <a href="01_Rintro.html">01 First Steps</a>
+    </li>
+    <li>
+      <a href="02_graphics.html">02 Graphics</a>
+    </li>
+    <li>
+      <a href="03_DataWrangling.html">03 Data Wrangling</a>
+    </li>
+    <li>
+      <a href="03b_DataWrangling.html">03 Data Wrangling 2</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 2: Spatial Analyses</li>
+    <li>
+      <a href="04_Spatial_with_sf.html">04 Spatial Data with sf</a>
+    </li>
+    <li>
+      <a href="05_Raster.html">05 Spatial Raster Data</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Module 3: Advanced Programming</li>
+    <li>
+      <a href="06_CreatingWorkflows.html">06 Creating Workflows</a>
+    </li>
+    <li>
+      <a href="07_Reproducibile.html">07 Reproducible Research</a>
+    </li>
+    <li>
+      <a href="08_WeatherData.html">08 Weather Data Processing</a>
+    </li>
+    <li>
+      <a href="09_RemoteSensing_appeears.html">09 Satellite Data Processing</a>
+    </li>
+    <li>
+      <a href="11_ParallelProcessing.html">11 Parallel Processing</a>
+    </li>
+    <li>
+      <a href="12_DynamicVisualization.html">12 Dynamic Visualization</a>
+    </li>
+    <li>
+      <a href="13_SDM_Exercise.html">13 Species Distribution Modeling</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Tasklist.html">Task list</a>
+    </li>
+    <li>
+      <a href="DataCamp.html">DataCamp</a>
+    </li>
+    <li>
+      <a href="PackageIntro.html">Package Introduction</a>
+    </li>
+    <li>
+      <a href="Project.html">Final Project</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Resources
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Provenance.html">Provenance</a>
+    </li>
+    <li>
+      <a href="Projects_2017.html">2017 Final Projects</a>
+    </li>
+    <li>
+      <a href="Resources.html">Resources</a>
+    </li>
+    <li>
+      <a href="GitSSHNotes.html">Setting up Github</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/adammwilson/RDataScience">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Working with Spatial Data</h1>
+
+</div>
+
+
+<p><a href="scripts/04_Spatial.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<div id="load-packages" class="section level2">
+<h2>Load packages</h2>
+<pre class="r"><code>library(sp)
+library(rgdal)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(maptools)</code></pre>
+</div>
+</div>
+<div id="point-data" class="section level1">
+<h1>Point data</h1>
+<div id="generate-some-random-data" class="section level2">
+<h2>Generate some random data</h2>
+<pre class="r"><code>coords = data.frame(
+  x=rnorm(100),
+  y=rnorm(100)
+)
+str(coords)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    100 obs. of  2 variables:
+##  $ x: num  -1.569 0.247 0.839 0.703 -1.147 ...
+##  $ y: num  0.1952 0.0851 -2.2198 -0.3312 -0.7096 ...</code></pre>
+<pre class="r"><code>plot(coords)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
+</div>
+<div id="convert-to-spatialpoints" class="section level2">
+<h2>Convert to <code>SpatialPoints</code></h2>
+<pre class="r"><code>sp = SpatialPoints(coords)
+str(sp)</code></pre>
+<pre><code>## Formal class &#39;SpatialPoints&#39; [package &quot;sp&quot;] with 3 slots
+##   ..@ coords     : num [1:100, 1:2] -1.569 0.247 0.839 0.703 -1.147 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : NULL
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   ..@ bbox       : num [1:2, 1:2] -2.29 -2.69 3.41 2.68
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
+##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr NA</code></pre>
+</div>
+<div id="create-a-spatialpointsdataframe" class="section level2">
+<h2>Create a <code>SpatialPointsDataFrame</code></h2>
+<p>First generate a dataframe (analagous to the <em>attribute table</em> in a shapefile)</p>
+<pre class="r"><code>data=data.frame(ID=1:100,group=letters[1:20])
+head(data)</code></pre>
+<pre><code>##   ID group
+## 1  1     a
+## 2  2     b
+## 3  3     c
+## 4  4     d
+## 5  5     e
+## 6  6     f</code></pre>
+<p>Combine the coordinates with the data</p>
+<pre class="r"><code>spdf = SpatialPointsDataFrame(coords, data)
+spdf = SpatialPointsDataFrame(sp, data)
+
+str(spdf)</code></pre>
+<pre><code>## Formal class &#39;SpatialPointsDataFrame&#39; [package &quot;sp&quot;] with 5 slots
+##   ..@ data       :&#39;data.frame&#39;:  100 obs. of  2 variables:
+##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
+##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..@ coords.nrs : num(0) 
+##   ..@ coords     : num [1:100, 1:2] -1.569 0.247 0.839 0.703 -1.147 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : NULL
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   ..@ bbox       : num [1:2, 1:2] -2.29 -2.69 3.41 2.68
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
+##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr NA</code></pre>
+<p>Note the use of <em>slots</em> designated with a <code>@</code>. See <code>?slot</code> for more.</p>
+</div>
+<div id="promote-a-data-frame-with-coordinates" class="section level2">
+<h2>Promote a data frame with <code>coordinates()</code></h2>
+<pre class="r"><code>coordinates(data) = cbind(coords$x, coords$y) </code></pre>
+<pre class="r"><code>str(spdf)</code></pre>
+<pre><code>## Formal class &#39;SpatialPointsDataFrame&#39; [package &quot;sp&quot;] with 5 slots
+##   ..@ data       :&#39;data.frame&#39;:  100 obs. of  2 variables:
+##   .. ..$ ID   : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...
+##   .. ..$ group: Factor w/ 20 levels &quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
+##   ..@ coords.nrs : num(0) 
+##   ..@ coords     : num [1:100, 1:2] -1.569 0.247 0.839 0.703 -1.147 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : NULL
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   ..@ bbox       : num [1:2, 1:2] -2.29 -2.69 3.41 2.68
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
+##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr NA</code></pre>
+</div>
+<div id="subset-data" class="section level2">
+<h2>Subset data</h2>
+<pre class="r"><code>subset(spdf, group==&quot;a&quot;)</code></pre>
+<pre><code>## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -1.56881, 1.961121, -1.717863, 0.2500004  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a</code></pre>
+<p>Or using <code>[]</code></p>
+<pre class="r"><code>spdf[spdf$group==&quot;a&quot;,]</code></pre>
+<pre><code>## class       : SpatialPointsDataFrame 
+## features    : 5 
+## extent      : -1.56881, 1.961121, -1.717863, 0.2500004  (xmin, xmax, ymin, ymax)
+## coord. ref. : NA 
+## variables   : 2
+## names       : ID, group 
+## min values  :  1,     a 
+## max values  : 81,     a</code></pre>
+<p>Unfortunately, <code>dplyr</code> functions do not directly filter spatial objects.</p>
+<div class="well">
+<h2 id="your-turn">Your turn</h2>
+<p>Convert the following <code>data.frame</code> into a SpatialPointsDataFrame using the <code>coordinates()</code> method and then plot the points with <code>plot()</code>.</p>
+<pre class="r"><code>df=data.frame(
+  lat=c(12,15,17,12),
+  lon=c(-35,-35,-32,-32),
+  id=c(1,2,3,4))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">lat</th>
+<th align="right">lon</th>
+<th align="right">id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">12</td>
+<td align="right">-35</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">-35</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">17</td>
+<td align="right">-32</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">12</td>
+<td align="right">-32</td>
+<td align="right">4</td>
+</tr>
+</tbody>
+</table>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Solution
+</button>
+<div id="demo1" class="collapse">
+<pre class="r"><code>coordinates(df)=c(&quot;lon&quot;,&quot;lat&quot;)
+plot(df)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-14-1.png" /><!-- --></p>
+</div>
+</div>
+</div>
+<div id="examine-topsoil-quality-in-the-meuse-river-data-set" class="section level2">
+<h2>Examine topsoil quality in the Meuse river data set</h2>
+<pre class="r"><code>## Load the data
+data(meuse)
+str(meuse)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    155 obs. of  14 variables:
+##  $ x      : num  181072 181025 181165 181298 181307 ...
+##  $ y      : num  333611 333558 333537 333484 333330 ...
+##  $ cadmium: num  11.7 8.6 6.5 2.6 2.8 3 3.2 2.8 2.4 1.6 ...
+##  $ copper : num  85 81 68 81 48 61 31 29 37 24 ...
+##  $ lead   : num  299 277 199 116 117 137 132 150 133 80 ...
+##  $ zinc   : num  1022 1141 640 257 269 ...
+##  $ elev   : num  7.91 6.98 7.8 7.66 7.48 ...
+##  $ dist   : num  0.00136 0.01222 0.10303 0.19009 0.27709 ...
+##  $ om     : num  13.6 14 13 8 8.7 7.8 9.2 9.5 10.6 6.3 ...
+##  $ ffreq  : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ soil   : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 2 2 2 2 1 1 2 ...
+##  $ lime   : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 1 1 1 1 1 1 1 ...
+##  $ landuse: Factor w/ 15 levels &quot;Aa&quot;,&quot;Ab&quot;,&quot;Ag&quot;,..: 4 4 4 11 4 11 4 2 2 15 ...
+##  $ dist.m : num  50 30 150 270 380 470 240 120 240 420 ...</code></pre>
+<div class="well">
+<h2 id="your-turn-1">Your turn</h2>
+<p><em>Promote</em> the <code>meuse</code> object to a spatial points data.frame with <code>coordinates()</code>.</p>
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">
+Show Solution
+</button>
+<div id="demo2" class="collapse">
+<pre class="r"><code>coordinates(meuse) &lt;- ~x+y
+# OR   coordinates(meuse)=cbind(meuse$x,meuse$y)
+# OR   coordinates(meuse))=c(&quot;x&quot;,&quot;y&quot;)
+str(meuse)</code></pre>
+<pre><code>## Formal class &#39;SpatialPointsDataFrame&#39; [package &quot;sp&quot;] with 5 slots
+##   ..@ data       :&#39;data.frame&#39;:  155 obs. of  12 variables:
+##   .. ..$ cadmium: num [1:155] 11.7 8.6 6.5 2.6 2.8 3 3.2 2.8 2.4 1.6 ...
+##   .. ..$ copper : num [1:155] 85 81 68 81 48 61 31 29 37 24 ...
+##   .. ..$ lead   : num [1:155] 299 277 199 116 117 137 132 150 133 80 ...
+##   .. ..$ zinc   : num [1:155] 1022 1141 640 257 269 ...
+##   .. ..$ elev   : num [1:155] 7.91 6.98 7.8 7.66 7.48 ...
+##   .. ..$ dist   : num [1:155] 0.00136 0.01222 0.10303 0.19009 0.27709 ...
+##   .. ..$ om     : num [1:155] 13.6 14 13 8 8.7 7.8 9.2 9.5 10.6 6.3 ...
+##   .. ..$ ffreq  : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##   .. ..$ soil   : Factor w/ 3 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;: 1 1 1 2 2 2 2 1 1 2 ...
+##   .. ..$ lime   : Factor w/ 2 levels &quot;0&quot;,&quot;1&quot;: 2 2 2 1 1 1 1 1 1 1 ...
+##   .. ..$ landuse: Factor w/ 15 levels &quot;Aa&quot;,&quot;Ab&quot;,&quot;Ag&quot;,..: 4 4 4 11 4 11 4 2 2 15 ...
+##   .. ..$ dist.m : num [1:155] 50 30 150 270 380 470 240 120 240 420 ...
+##   ..@ coords.nrs : int [1:2] 1 2
+##   ..@ coords     : num [1:155, 1:2] 181072 181025 181165 181298 181307 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:155] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   ..@ bbox       : num [1:2, 1:2] 178605 329714 181390 333611
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
+##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr NA</code></pre>
+</div>
+</div>
+<p>Plot it with ggplot:</p>
+<pre class="r"><code>  ggplot(as.data.frame(meuse),aes(x=x,y=y))+
+    geom_point(col=&quot;red&quot;)+
+    coord_equal()</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-17-1.png" /><!-- --></p>
+<p>Note that <code>ggplot</code> works only with data.frames. Convert with <code>as.data.frame()</code> or <code>fortify()</code>.</p>
+</div>
+</div>
+<div id="lines" class="section level1">
+<h1>Lines</h1>
+<div id="a-line-is-a-single-chain-of-points." class="section level3">
+<h3>A <code>Line</code> is a single chain of points.</h3>
+<pre class="r"><code>L1 = Line(cbind(rnorm(5),rnorm(5)))
+L2 = Line(cbind(rnorm(5),rnorm(5)))
+L3 = Line(cbind(rnorm(5),rnorm(5)))
+L1</code></pre>
+<pre><code>## An object of class &quot;Line&quot;
+## Slot &quot;coords&quot;:
+##            [,1]       [,2]
+## [1,] -0.2197486  1.7196384
+## [2,]  0.9908976 -2.1289599
+## [3,]  0.6689178 -2.1552641
+## [4,] -1.7243601  0.9982039
+## [5,]  0.4675741  0.3428374</code></pre>
+<pre class="r"><code>plot(coordinates(L1),type=&quot;l&quot;)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-19-1.png" /><!-- --></p>
+</div>
+<div id="a-lines-object-is-a-list-of-chains-with-an-id" class="section level3">
+<h3>A <code>Lines</code> object is a list of chains with an ID</h3>
+<pre class="r"><code>Ls1 = Lines(list(L1),ID=&quot;a&quot;)
+Ls2 = Lines(list(L2,L3),ID=&quot;b&quot;)
+Ls2</code></pre>
+<pre><code>## An object of class &quot;Lines&quot;
+## Slot &quot;Lines&quot;:
+## [[1]]
+## An object of class &quot;Line&quot;
+## Slot &quot;coords&quot;:
+##             [,1]       [,2]
+## [1,]  2.29433830 -0.6913286
+## [2,]  0.29582911 -0.7264487
+## [3,] -0.90527572 -1.4385630
+## [4,]  0.09601122  0.5968491
+## [5,] -0.60586321 -1.4422025
+## 
+## 
+## [[2]]
+## An object of class &quot;Line&quot;
+## Slot &quot;coords&quot;:
+##            [,1]       [,2]
+## [1,] -1.0356221 -1.1887470
+## [2,]  0.4151567  0.9467575
+## [3,]  0.1454527 -0.2905798
+## [4,]  1.0201153  1.0813600
+## [5,] -1.2874176 -0.5383682
+## 
+## 
+## 
+## Slot &quot;ID&quot;:
+## [1] &quot;b&quot;</code></pre>
+</div>
+<div id="a-spatiallines-is-a-list-of-lines" class="section level3">
+<h3>A <code>SpatialLines</code> is a list of Lines</h3>
+<pre class="r"><code>SL12 = SpatialLines(list(Ls1,Ls2))
+plot(SL12)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-21-1.png" /><!-- --></p>
+</div>
+<div id="a-spatiallinesdataframe-is-a-spatiallines-with-a-matching-dataframe" class="section level3">
+<h3>A <code>SpatialLinesDataFrame</code> is a <code>SpatialLines</code> with a matching <code>DataFrame</code></h3>
+<pre class="r"><code>SLDF = SpatialLinesDataFrame(
+  SL12,
+  data.frame(
+  Z=c(&quot;road&quot;,&quot;river&quot;),
+  row.names=c(&quot;a&quot;,&quot;b&quot;)
+))
+str(SLDF)</code></pre>
+<pre><code>## Formal class &#39;SpatialLinesDataFrame&#39; [package &quot;sp&quot;] with 4 slots
+##   ..@ data       :&#39;data.frame&#39;:  2 obs. of  1 variable:
+##   .. ..$ Z: Factor w/ 2 levels &quot;river&quot;,&quot;road&quot;: 2 1
+##   ..@ lines      :List of 2
+##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
+##   .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -0.22 0.991 0.669 -1.724 0.468 ...
+##   .. .. .. ..@ ID   : chr &quot;a&quot;
+##   .. ..$ :Formal class &#39;Lines&#39; [package &quot;sp&quot;] with 2 slots
+##   .. .. .. ..@ Lines:List of 2
+##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] 2.294 0.296 -0.905 0.096 -0.606 ...
+##   .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. .. .. .. .. ..@ coords: num [1:5, 1:2] -1.036 0.415 0.145 1.02 -1.287 ...
+##   .. .. .. ..@ ID   : chr &quot;b&quot;
+##   ..@ bbox       : num [1:2, 1:2] -1.72 -2.16 2.29 1.72
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:2] &quot;x&quot; &quot;y&quot;
+##   .. .. ..$ : chr [1:2] &quot;min&quot; &quot;max&quot;
+##   ..@ proj4string:Formal class &#39;CRS&#39; [package &quot;sp&quot;] with 1 slot
+##   .. .. ..@ projargs: chr NA</code></pre>
+</div>
+</div>
+<div id="polygons" class="section level1">
+<h1>Polygons</h1>
+<div id="getting-complicated" class="section level2">
+<h2>Getting complicated</h2>
+<p><img src="04_assets/polygons.png" alt="alt text" width="75%"></p>
+<div id="issues" class="section level3">
+<h3>Issues</h3>
+<ul>
+<li>Multipart Polygons</li>
+<li>Holes</li>
+</ul>
+<p>Rarely construct <em>by hand</em>…</p>
+</div>
+</div>
+</div>
+<div id="importing-data" class="section level1">
+<h1>Importing data</h1>
+<p>But, you rarely construct data <em>from scratch</em> like we did above. Usually you will import datasets created elsewhere.</p>
+<div id="geospatial-data-abstraction-library-gdal" class="section level2">
+<h2>Geospatial Data Abstraction Library (<a href="gdal.org">GDAL</a>)</h2>
+<p><code>rgdal</code> package for importing/exporting/manipulating spatial data:</p>
+<ul>
+<li><code>readOGR()</code> and <code>writeOGR()</code>: Vector data</li>
+<li><code>readGDAL()</code> and <code>writeGDAL()</code>: Raster data</li>
+</ul>
+<p>Also the <code>gdalUtils</code> package for reprojecting, transforming, reclassifying, etc.</p>
+<p>List the file formats that your installation of rgdal can read/write with <code>ogrDrivers()</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">long_name</th>
+<th align="left">write</th>
+<th align="left">copy</th>
+<th align="left">isVector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AeronavFAA</td>
+<td align="left">Aeronav FAA</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">AmigoCloud</td>
+<td align="left">AmigoCloud</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ARCGEN</td>
+<td align="left">Arc/Info Generate</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">AVCBin</td>
+<td align="left">Arc/Info Binary Coverage</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">AVCE00</td>
+<td align="left">Arc/Info E00 (ASCII) Coverage</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">BNA</td>
+<td align="left">Atlas BNA</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Carto</td>
+<td align="left">Carto</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Cloudant</td>
+<td align="left">Cloudant / CouchDB</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">CouchDB</td>
+<td align="left">CouchDB / GeoCouch</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">CSV</td>
+<td align="left">Comma Separated Value (.csv)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">CSW</td>
+<td align="left">OGC CSW (Catalog Service for the Web)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">DGN</td>
+<td align="left">Microstation DGN</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DXF</td>
+<td align="left">AutoCAD DXF</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">EDIGEO</td>
+<td align="left">French EDIGEO exchange format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ElasticSearch</td>
+<td align="left">Elastic Search</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ESRI Shapefile</td>
+<td align="left">ESRI Shapefile</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Geoconcept</td>
+<td align="left">Geoconcept</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GeoJSON</td>
+<td align="left">GeoJSON</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GeoRSS</td>
+<td align="left">GeoRSS</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GFT</td>
+<td align="left">Google Fusion Tables</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GML</td>
+<td align="left">Geography Markup Language (GML)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GPKG</td>
+<td align="left">GeoPackage</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GPSBabel</td>
+<td align="left">GPSBabel</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GPSTrackMaker</td>
+<td align="left">GPSTrackMaker</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GPX</td>
+<td align="left">GPX</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">HTF</td>
+<td align="left">Hydrographic Transfer Vector</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">HTTP</td>
+<td align="left">HTTP Fetching Wrapper</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Idrisi</td>
+<td align="left">Idrisi Vector (.vct)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">JML</td>
+<td align="left">OpenJUMP JML</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">KML</td>
+<td align="left">Keyhole Markup Language (KML)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MapInfo File</td>
+<td align="left">MapInfo File</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Memory</td>
+<td align="left">Memory</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">netCDF</td>
+<td align="left">Network Common Data Format</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ODS</td>
+<td align="left">Open Document/ LibreOffice / OpenOffice Spreadsheet</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OGR_GMT</td>
+<td align="left">GMT ASCII Vectors (.gmt)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">OGR_PDS</td>
+<td align="left">Planetary Data Systems TABLE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OGR_SDTS</td>
+<td align="left">SDTS</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">OGR_VRT</td>
+<td align="left">VRT - Virtual Datasource</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OpenAir</td>
+<td align="left">OpenAir</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">OpenFileGDB</td>
+<td align="left">ESRI FileGDB</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OSM</td>
+<td align="left">OpenStreetMap XML and PBF</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PCIDSK</td>
+<td align="left">PCIDSK Database File</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PDF</td>
+<td align="left">Geospatial PDF</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PGDUMP</td>
+<td align="left">PostgreSQL SQL dump</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PLSCENES</td>
+<td align="left">Planet Labs Scenes API</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">REC</td>
+<td align="left">EPIInfo .REC</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">S57</td>
+<td align="left">IHO S-57 (ENC)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SEGUKOOA</td>
+<td align="left">SEG-P1 / UKOOA P1/90</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SEGY</td>
+<td align="left">SEG-Y</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Selafin</td>
+<td align="left">Selafin</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SQLite</td>
+<td align="left">SQLite / Spatialite</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SUA</td>
+<td align="left">Tim Newport-Peace’s Special Use Airspace Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SVG</td>
+<td align="left">Scalable Vector Graphics</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SXF</td>
+<td align="left">Storage and eXchange Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">TIGER</td>
+<td align="left">U.S. Census TIGER/Line</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">UK .NTF</td>
+<td align="left">UK .NTF</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">VDV</td>
+<td align="left">VDV-451/VDV-452/INTREST Data Format</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">VFK</td>
+<td align="left">Czech Cadastral Exchange Data Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">WAsP</td>
+<td align="left">WAsP .map format</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">WFS</td>
+<td align="left">OGC WFS (Web Feature Service)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">XLSX</td>
+<td align="left">MS Office Open XML spreadsheet</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">XPlane</td>
+<td align="left">X-Plane/Flightgear aeronautical data</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>Now as an example, let’s read in a shapefile that’s included in the <code>maptools</code> package. You can try</p>
+<pre class="r"><code>## get the file path to the files
+file=system.file(&quot;shapes/sids.shp&quot;, package=&quot;maptools&quot;)
+## get information before importing the data
+ogrInfo(dsn=file, layer=&quot;sids&quot;)</code></pre>
+<pre><code>## Source: &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/maptools/shapes/sids.shp&quot;, layer: &quot;sids&quot;
+## Driver: ESRI Shapefile; number of rows: 100 
+## Feature type: wkbPolygon with 2 dimensions
+## Extent: (-84.32385 33.88199) - (-75.45698 36.58965)
+## LDID: 87 
+## Number of fields: 14 
+##         name type length  typeName
+## 1       AREA    2     12      Real
+## 2  PERIMETER    2     12      Real
+## 3      CNTY_   12     11 Integer64
+## 4    CNTY_ID   12     11 Integer64
+## 5       NAME    4     32    String
+## 6       FIPS    4      5    String
+## 7     FIPSNO   12     16 Integer64
+## 8   CRESS_ID    0      3   Integer
+## 9      BIR74    2     12      Real
+## 10     SID74    2      9      Real
+## 11   NWBIR74    2     11      Real
+## 12     BIR79    2     12      Real
+## 13     SID79    2      9      Real
+## 14   NWBIR79    2     12      Real</code></pre>
+<pre class="r"><code>## Import the data
+sids &lt;- readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/maptools/shapes/sids.shp&quot;, layer: &quot;sids&quot;
+## with 100 features
+## It has 14 fields
+## Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO</code></pre>
+<pre class="r"><code>summary(sids)</code></pre>
+<pre><code>## Object of class SpatialPolygonsDataFrame
+## Coordinates:
+##         min       max
+## x -84.32385 -75.45698
+## y  33.88199  36.58965
+## Is projected: NA 
+## proj4string : [NA]
+## Data attributes:
+##       AREA          PERIMETER         CNTY_       CNTY_ID          NAME   
+##  Min.   :0.0420   Min.   :0.999   1825   : 1   1825   : 1   Alamance : 1  
+##  1st Qu.:0.0910   1st Qu.:1.324   1827   : 1   1827   : 1   Alexander: 1  
+##  Median :0.1205   Median :1.609   1828   : 1   1828   : 1   Alleghany: 1  
+##  Mean   :0.1263   Mean   :1.673   1831   : 1   1831   : 1   Anson    : 1  
+##  3rd Qu.:0.1542   3rd Qu.:1.859   1832   : 1   1832   : 1   Ashe     : 1  
+##  Max.   :0.2410   Max.   :3.640   1833   : 1   1833   : 1   Avery    : 1  
+##                                   (Other):94   (Other):94   (Other)  :94  
+##       FIPS        FIPSNO      CRESS_ID          BIR74      
+##  37001  : 1   37001  : 1   Min.   :  1.00   Min.   :  248  
+##  37003  : 1   37003  : 1   1st Qu.: 25.75   1st Qu.: 1077  
+##  37005  : 1   37005  : 1   Median : 50.50   Median : 2180  
+##  37007  : 1   37007  : 1   Mean   : 50.50   Mean   : 3300  
+##  37009  : 1   37009  : 1   3rd Qu.: 75.25   3rd Qu.: 3936  
+##  37011  : 1   37011  : 1   Max.   :100.00   Max.   :21588  
+##  (Other):94   (Other):94                                   
+##      SID74          NWBIR74           BIR79           SID79      
+##  Min.   : 0.00   Min.   :   1.0   Min.   :  319   Min.   : 0.00  
+##  1st Qu.: 2.00   1st Qu.: 190.0   1st Qu.: 1336   1st Qu.: 2.00  
+##  Median : 4.00   Median : 697.5   Median : 2636   Median : 5.00  
+##  Mean   : 6.67   Mean   :1050.8   Mean   : 4224   Mean   : 8.36  
+##  3rd Qu.: 8.25   3rd Qu.:1168.5   3rd Qu.: 4889   3rd Qu.:10.25  
+##  Max.   :44.00   Max.   :8027.0   Max.   :30757   Max.   :57.00  
+##                                                                  
+##     NWBIR79       
+##  Min.   :    3.0  
+##  1st Qu.:  250.5  
+##  Median :  874.5  
+##  Mean   : 1352.8  
+##  3rd Qu.: 1406.8  
+##  Max.   :11631.0  
+## </code></pre>
+<pre class="r"><code>plot(sids)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-24-1.png" /><!-- --></p>
+<div id="maptools-package" class="section level3">
+<h3>Maptools package</h3>
+<p>The <code>maptools</code> package has an alternative function for importing shapefiles that can be a little easier to use (but has fewer options).</p>
+<ul>
+<li><code>readShapeSpatial</code></li>
+</ul>
+<pre class="r"><code>sids &lt;- readShapeSpatial(file)</code></pre>
+<pre><code>## Warning: use rgdal::readOGR or sf::st_read
+
+## Warning: use rgdal::readOGR or sf::st_read</code></pre>
+</div>
+<div id="raster-data" class="section level3">
+<h3>Raster data</h3>
+<p>We’ll deal with raster data in the next section.</p>
+</div>
+</div>
+</div>
+<div id="coordinate-systems" class="section level1">
+<h1>Coordinate Systems</h1>
+<ul>
+<li>Earth isn’t flat</li>
+<li>But small parts of it are close enough</li>
+<li>Many coordinate systems exist</li>
+<li>Anything <code>Spatial*</code> (or <code>raster*</code>) can have one</li>
+</ul>
+<div id="specifying-the-coordinate-system" class="section level2">
+<h2>Specifying the coordinate system</h2>
+<div id="the-proj.4-library" class="section level3">
+<h3>The <a href="https://trac.osgeo.org/proj/">Proj.4</a> library</h3>
+<p>Library for performing conversions between cartographic projections.</p>
+<p>See <a href="http://spatialreference.org" class="uri">http://spatialreference.org</a> for information on specifying projections. For example,</p>
+<div id="specifying-coordinate-systems" class="section level4">
+<h4>Specifying coordinate systems</h4>
+<p><strong>WGS 84</strong>:</p>
+<ul>
+<li>proj4: <br><small><code>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</code></small></li>
+<li>.prj / ESRI WKT: <small><code>GEOGCS[&quot;GCS_WGS_1984&quot;,DATUM[&quot;D_WGS_1984&quot;,</code><br><code>SPHEROID[&quot;WGS_1984&quot;,6378137,298.257223563]],</code><br><code>PRIMEM[&quot;Greenwich&quot;,0],UNIT[&quot;Degree&quot;,0.017453292519943295]]</code></small></li>
+<li>EPSG:<code>4326</code></li>
+</ul>
+<p>Note that it has no projection information assigned (since it came from a simple data frame). From the help file (<code>?meuse</code>) we can see that the projection is EPSG:28992.</p>
+<pre class="r"><code>proj4string(sids) &lt;- CRS(&quot;+proj=longlat +ellps=clrk66&quot;)
+proj4string(sids)</code></pre>
+<pre><code>## [1] &quot;+proj=longlat +ellps=clrk66&quot;</code></pre>
+</div>
+</div>
+</div>
+<div id="spatial-transform" class="section level2">
+<h2>Spatial Transform</h2>
+<p>Assigning a CRS doesn’t change the projection of the data, it just indicates which projection the data are currently in.<br />
+So assigning the wrong CRS really messes things up.</p>
+<p>Transform (<em>warp</em>) projection from one to another with <code>spTransform</code></p>
+<p>Project the <code>sids</code> data to the US National Atlas Equal Area (Lambert azimuthal equal-area projection):</p>
+<pre class="r"><code>sids_us = spTransform(sids,CRS(&quot;+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs&quot;))</code></pre>
+<p>Compare the <em>bounding box</em>:</p>
+<pre class="r"><code>bbox(sids)</code></pre>
+<pre><code>##         min       max
+## x -84.32385 -75.45698
+## y  33.88199  36.58965</code></pre>
+<pre class="r"><code>bbox(sids_us)</code></pre>
+<pre><code>##         min       max
+## x 1422262.8 2192698.1
+## y -984904.1 -629133.4</code></pre>
+<p>And plot them:</p>
+<pre class="r"><code># Geographic
+ggplot(fortify(sids),aes(x=long,y=lat,order=order,group=group))+
+  geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
+  coord_equal()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-1.png" /><!-- --></p>
+<pre class="r"><code># Equal Area
+ggplot(fortify(sids_us),aes(x=long,y=lat,order=order,group=group))+
+  geom_polygon(fill=&quot;white&quot;,col=&quot;black&quot;)+
+  coord_equal()+
+  ylab(&quot;Northing&quot;)+xlab(&quot;Easting&quot;)</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-29-2.png" /><!-- --></p>
+</div>
+</div>
+<div id="rgeos" class="section level1">
+<h1>RGEOS</h1>
+<p>Interface to Geometry Engine - Open Source (GEOS) using a C API for topology operations (e.g. union, simplification) on geometries (lines and polygons).</p>
+<pre class="r"><code>library(rgeos)</code></pre>
+<div id="rgeos-package-for-polygon-operations" class="section level2">
+<h2>RGEOS package for polygon operations</h2>
+<ul>
+<li>Area calculations (<code>gArea</code>)</li>
+<li>Centroids (<code>gCentroid</code>)</li>
+<li>Convex Hull (<code>gConvexHull</code>)</li>
+<li>Intersections (<code>gIntersection</code>)</li>
+<li>Unions (<code>gUnion</code>)</li>
+<li>Simplification (<code>gSimplify</code>)</li>
+</ul>
+<p>If you have trouble installing <code>rgeos</code> on OS X, look <a href="http://dyerlab.bio.vcu.edu/2015/03/31/install-rgeos-on-osx/">here</a></p>
+</div>
+<div id="example-gsimplify" class="section level2">
+<h2>Example: gSimplify</h2>
+<p>Make up some lines and polygons:</p>
+<pre class="r"><code>p = readWKT(paste(&quot;POLYGON((0 40,10 50,0 60,40 60,40 100,50 90,60 100,60&quot;,
+ &quot;60,100 60,90 50,100 40,60 40,60 0,50 10,40 0,40 40,0 40))&quot;))
+l = readWKT(&quot;LINESTRING(0 7,1 6,2 1,3 4,4 1,5 7,6 6,7 4,8 6,9 4)&quot;)</code></pre>
+<div id="simplication-of-lines" class="section level3">
+<h3>Simplication of lines</h3>
+<pre class="r"><code>par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(l);title(&quot;Original&quot;)
+plot(gSimplify(l,tol=3));title(&quot;tol: 3&quot;)
+plot(gSimplify(l,tol=5));title(&quot;tol: 5&quot;)
+plot(gSimplify(l,tol=7));title(&quot;tol: 7&quot;)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-32-1.png" /><!-- --></p>
+</div>
+<div id="simplification-of-polygons" class="section level3">
+<h3>Simplification of polygons</h3>
+<pre class="r"><code>par(mfrow=c(1,4))  # this sets up a 1x4 grid for the plots
+plot(p);title(&quot;Original&quot;)
+plot(gSimplify(p,tol=10));title(&quot;tol: 10&quot;)
+plot(gSimplify(p,tol=20));title(&quot;tol: 20&quot;)
+plot(gSimplify(p,tol=25));title(&quot;tol: 25&quot;)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-33-1.png" /><!-- --></p>
+</div>
+</div>
+<div id="use-rgeos-functions-with-real-spatial-data" class="section level2">
+<h2>Use <code>rgeos</code> functions with real spatial data</h2>
+<p>Load the <code>sids</code> data again</p>
+<pre class="r"><code>file = system.file(&quot;shapes/sids.shp&quot;, package=&quot;maptools&quot;)
+sids = readOGR(dsn=file, layer=&quot;sids&quot;)</code></pre>
+<pre><code>## OGR data source with driver: ESRI Shapefile 
+## Source: &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/maptools/shapes/sids.shp&quot;, layer: &quot;sids&quot;
+## with 100 features
+## It has 14 fields
+## Integer64 fields read as strings:  CNTY_ CNTY_ID FIPSNO</code></pre>
+</div>
+<div id="simplify-polygons-with-rgeos" class="section level2">
+<h2>Simplify polygons with RGEOS</h2>
+<pre class="r"><code>sids2=gSimplify(sids,tol = 0.2,topologyPreserve=T)</code></pre>
+<div id="plotting-vectors-with-ggplot" class="section level3">
+<h3>Plotting vectors with ggplot</h3>
+<p><code>fortify()</code> in <code>ggplot</code> useful for converting <code>Spatial*</code> objects into plottable data.frames.</p>
+<pre class="r"><code>sids%&gt;%
+  fortify()%&gt;%
+  head()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<pre><code>##        long      lat order  hole piece id group
+## 1 -81.47276 36.23436     1 FALSE     1  0   0.1
+## 2 -81.54084 36.27251     2 FALSE     1  0   0.1
+## 3 -81.56198 36.27359     3 FALSE     1  0   0.1
+## 4 -81.63306 36.34069     4 FALSE     1  0   0.1
+## 5 -81.74107 36.39178     5 FALSE     1  0   0.1
+## 6 -81.69828 36.47178     6 FALSE     1  0   0.1</code></pre>
+<p>To use <code>ggplot</code> with a <code>fortify</code>ed spatial object, you must specify <code>aes(x=long,y=lat,order=order, group=group)</code> to indicate that each polygon should be plotted separately.</p>
+<pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
+  coord_map()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-37-1.png" /><!-- --></p>
+<p>Now let’s overlay the simplified version to see how they differ.</p>
+<pre class="r"><code>ggplot(fortify(sids),aes(x=long,y=lat,order=order, group=group))+
+  geom_polygon(lwd=2,fill=&quot;grey&quot;,col=&quot;blue&quot;)+
+  geom_polygon(data=fortify(sids2),col=&quot;red&quot;,fill=NA)+
+  coord_map()</code></pre>
+<pre><code>## Regions defined for each Polygons</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-38-1.png" /><!-- --></p>
+<p>How does changing the tolerance (<code>tol</code>) affect the map?</p>
+</div>
+</div>
+<div id="calculate-area-with-garea" class="section level2">
+<h2>Calculate area with <code>gArea</code></h2>
+<pre class="r"><code>sids$area=gArea(sids,byid = T)</code></pre>
+<div id="plot-a-chloropleth-of-area" class="section level3">
+<h3>Plot a chloropleth of area</h3>
+<p>From <a href="https://en.wikipedia.org/wiki/Choropleth_map">Wikipedia</a>:</p>
+<blockquote>
+<p>A <strong>choropleth</strong> (from Greek χώρο (“area/region”) + πλήθος (“multitude”)) is a thematic map in which areas are shaded or patterned in proportion to the measurement of the statistical variable being displayed on the map, such as population density or per-capita income.</p>
+</blockquote>
+<p>By default, the rownames in the dataframe are the unique identifier (e.g. the <strong>FID</strong>) for the polygons.</p>
+<pre class="r"><code>## add the ID to the dataframe itself for easier indexing
+sids$id=as.numeric(rownames(sids@data))
+## create fortified version for plotting with ggplot()
+fsids=fortify(sids,region=&quot;id&quot;)
+
+ggplot(sids@data, aes(map_id = id)) +
+    expand_limits(x = fsids$long, y = fsids$lat)+
+    scale_fill_gradientn(colours = c(&quot;grey&quot;,&quot;goldenrod&quot;,&quot;darkgreen&quot;,&quot;green&quot;))+
+    coord_map()+
+    geom_map(aes(fill = area), map = fsids)</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-40-1.png" /><!-- --></p>
+</div>
+</div>
+<div id="union" class="section level2">
+<h2>Union</h2>
+<p>Merge sub-geometries (polygons) together with <code>gUnionCascaded()</code></p>
+<pre class="r"><code>sids_all=gUnionCascaded(sids)</code></pre>
+<pre class="r"><code>ggplot(fortify(sids_all),aes(x=long,y=lat,group=group,order=order))+
+  geom_path()+
+  coord_map()</code></pre>
+<p><img src="04_Spatial_files/figure-html/unnamed-chunk-42-1.png" /><!-- --></p>
+</div>
+<div id="colophon" class="section level2">
+<h2>Colophon</h2>
+<p>See also: <code>Raster</code> package for working with raster data</p>
+<p>Sources:</p>
+<ul>
+<li><a href="http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html">UseR 2012 Spatial Data Workshop</a> by Barry Rowlingson</li>
+</ul>
+<p>Licensing:</p>
+<ul>
+<li>Presentation: <a href="http://creativecommons.org/licenses/by/3.0/us/">CC-BY-3.0</a></li>
+<li>Source code: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+</ul>
+</div>
+</div>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-2684666-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+<!-- disqus 
+<div id="disqus_thread" style="margin-top: 45px;"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'rdataanalysis'; // required: replace example with your forum shortname
+        var disqus_identifier = "{{ page.url }}";
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq         );
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">
+              comments powered by Disqus.</a>
+</noscript>
+-->
+
+<!-- give the footer some space -->
+<br/>
+<br/>
+
+<footer id="site-footer">
+  <div id="footer1">
+  <a href="http://www.adamwilson.us"><img src="img/wilson.png" alt="logo" width=40px></a>
+  <a href="http://adamwilson.us/#contact"><i class="fa fa-envelope fa-2x"></i></a> 
+  <a href="https://twitter.com/AdamWilsonLab"><i class="fa fa-twitter fa-2x"></i></a> 
+  <a href="https://github.com/AdamMWilson"><i class="fa fa-github fa-2x"></i></a>
+  </div>
+  <div id="footer2">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+  </div>
+</footer>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
