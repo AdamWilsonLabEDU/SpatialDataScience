@@ -113,19 +113,6 @@ title: "Reproducible Research"
 Excel coding error sliced several countries out of the data set....
 [The Economist](http://www.economist.com/news/finance-and-economics/21576362-seminal-analysis-relationship-between-debt-and-growth-comes-under)
 
-## Case study: Gay Marrage
-
-#### In May 2015 _Science_ retracted a study of how canvassers can sway people's opinions about gay marriage published just 5 months ago.
-
-* Original survey data not made available for independent reproduction of results
-* Survey incentives misrepresented
-* Sponsorship statement false. 
-
-<small>- Science Editor-in-Chief Marcia McNutt</small>
-
-Two Berkeley grad students who attempted to replicate the study quickly discovered that the data must have been faked.
-
-[Source](http://news.sciencemag.org/policy/2015/05/science-retracts-gay-marriage-paper-without-lead-author-s-consent)
 
 ## Case study: Seizure Medicine
 
@@ -178,16 +165,16 @@ Of course `2+2` is trivial, but what if I said:
 <img src="img_12/model.png" alt="alt text" width="800">
 
 
-## Literate programming: for and against   {.columns-2}
+## Literate programming: pros and cons   {.columns-2}
 
-**For**
+**Pros**
 
 - Text & code in one place, in logical order
 - Tables and figures automatically updated
 - Automatic test when building document
 
 
-**Against**
+**Cons**
 
 - Text and code in one place; can be hard to read
 - Can slow down the processing of documents (use caching!)

@@ -250,9 +250,8 @@ ___
  
  <a class="btn btn-link" href="./CS_08.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i15">Preview Readings & Tasks </button><div id="i15" class="collapse">
 ## Readings
-- Chapters  [11, 26-30 in R4DS](http://r4ds.had.co.nz)
 - Browse website about [RMarkdown](https://rmarkdown.rstudio.com/index.html)
-- Browse details about creating [RMarkdown Websites](https://rmarkdown.rstudio.com/rmarkdown_websites.htm)
+- list(`Browse [_R Markdown` = "the Definitive Guide_](https://bookdown.org/yihui/rmarkdown/)")
 
 ## Tasks
 - Create a new RMarkdown Document in Rstudio with `File -> New File -> R Markdown` and save it in the case_study folder for this session
