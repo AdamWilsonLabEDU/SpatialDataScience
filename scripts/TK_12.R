@@ -9,8 +9,8 @@
 #'   - Chapter [28 in R4DS](http://r4ds.had.co.nz)
 #' tasks:
 #'   - Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. 
-#'    - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
-#'    - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
+#'   - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
+#'   - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
 #' ---
 #' 
 #' 

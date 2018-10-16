@@ -35,7 +35,7 @@ Homeworks are due at 5pm on the Friday of the week specified below.
  |  11 |  11/6/18 |   |  [Project First Draft](./TK_11.html) |   -  |  9 |
  |  12 |  11/13/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_12.html){target='_blank'} |  [Project Peer Review](./TK_12.html) |  [Dynamic HTML graph of Daily Temperatures](./CS_12.html) |  10 |
  |  13 |  11/20/18 |   |  [Thanksgiving Week (Tuesday Class Optional)](./TK_13.html) |   -  |   |
- |  14 |  11/27/18 |   |  [Building and summarizing models](./TK_14.html) |   -  |   |
+ |  14 |  11/27/18 |   |  [Final Project 2nd Draft / Building and summarizing models](./TK_14.html) |   -  |   |
  |  15 |  12/4/18 |   |  [Final Presentation](./TK_15.html) |   -  |   |
- |  16 |  12/11/18 |   |   -  |   -  |   |
+ |  16 |  12/14/18 |   |  [Publish Final Project](./TK_16.html) |   -  |   |
  

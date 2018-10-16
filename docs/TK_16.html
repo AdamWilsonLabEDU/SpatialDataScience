@@ -11,7 +11,7 @@
 
 
 
-<title>Course Schedule</title>
+<title>Publish Final Project</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -183,7 +183,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -410,176 +410,86 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Course Schedule</h1>
+<h1 class="title toc-ignore">Publish Final Project</h1>
+<h3 class="subtitle"><em>Commit the final version of your project</em></h3>
 
 </div>
 
 
-<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
-<p><strong>Readings</strong></p>
-<p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
-<p><strong>Homework</strong> Homeworks are due at 5pm on the Friday of the week specified below.</p>
-<div id="schedule" class="section level2">
-<h2>Schedule</h2>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Week</th>
-<th align="left">Date</th>
-<th align="center">Presentation</th>
-<th align="center">Topic / Tasks</th>
-<th align="center">Case Study</th>
-<th align="left"><a href="PackageIntro.html">Package Present</a></th>
-<th align="center"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">8/28/18</td>
-<td align="center"><a href="presentations/PS_01_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_01.html">Git-01</a></td>
-<td align="center"><a href="./CS_01.html">Create a simple, functioning script</a></td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">9/4/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_02.html">Git-02</a></td>
-<td align="center"><a href="./CS_02.html">My grandfather says climate is cooling</a></td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">9/11/18</td>
-<td align="center"><a href="presentations/03_DataWrangling.pdf" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_03.html">Data Wrangling</a></td>
-<td align="center"><a href="./CS_03.html">Wealth over time</a></td>
-<td align="left">1</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">9/18/18</td>
-<td align="center"><a href="presentations/PS_04_join.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_04.html">Data Wrangling 2</a></td>
-<td align="center"><a href="./CS_04.html">Farthest airport from New York City</a></td>
-<td align="left">2</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">9/25/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_05.html">Spatial Vector Data</a></td>
-<td align="center"><a href="./CS_05.html">Beware the Canadians!</a></td>
-<td align="left">3</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">10/2/18</td>
-<td align="center"><a href="presentations/PS_06_raster.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_06.html">Spatial Raster Data</a></td>
-<td align="center"><a href="./CS_06.html">Find hottest country on each continent</a></td>
-<td align="left">4</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">10/9/18</td>
-<td align="center"><a href="presentations/PS_07_help.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_07.html">Project Proposal</a></td>
-<td align="center"><a href="./CS_07.html">Getting Help!</a></td>
-<td align="left">5</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">10/16/18</td>
-<td align="center"><a href="presentations/PS_08_repro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_08.html">Create Final Project Webpage</a></td>
-<td align="center"><a href="./CS_08.html">One Script, Many Products</a></td>
-<td align="left">6</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">10/23/18</td>
-<td align="center"><a href="presentations/PS_09_weather.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_09.html">APIs, time-series, and weather Data</a></td>
-<td align="center">-</td>
-<td align="left">7</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">10/30/18</td>
-<td align="center"></td>
-<td align="center">-</td>
-<td align="center">-</td>
-<td align="left">8</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">11</td>
-<td align="left">11/6/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_11.html">Project First Draft</a></td>
-<td align="center">-</td>
-<td align="left">9</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">12</td>
-<td align="left">11/13/18</td>
-<td align="center"><a href="presentations/PS_12.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_12.html">Project Peer Review</a></td>
-<td align="center"><a href="./CS_12.html">Dynamic HTML graph of Daily Temperatures</a></td>
-<td align="left">10</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">13</td>
-<td align="left">11/20/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_13.html">Thanksgiving Week (Tuesday Class Optional)</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">14</td>
-<td align="left">11/27/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_14.html">Final Project 2nd Draft / Building and summarizing models</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">15</td>
-<td align="left">12/4/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_15.html">Final Presentation</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">16</td>
-<td align="left">12/14/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_16.html">Publish Final Project</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
+<div id="reading" class="section level1">
+<h1>Reading</h1>
+</div>
+<div id="tasks" class="section level1">
+<h1>Tasks</h1>
+<ul>
+<li>Finalize your project and commit to GitHub</li>
+<li>Confirm the final version renders correctly on your website</li>
+</ul>
+<div id="final-draft" class="section level2">
+<h2>Final Draft</h2>
+<p>You will have two opportunites to submit your final project and your final grade on the project will be the highest of the two submissions.</p>
+<p>The final project will include and be graded as follows:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Title</strong> (&lt;25 words)</li>
+<li><strong>Introduction [~ 200 words, 10%]</strong>
+<ul>
+<li>Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.</li>
+</ul></li>
+<li><strong>Materials and methods [~ 200 words]</strong>
+<ul>
+<li><strong>Narrative (10%)</strong>: Clear narrative description of the data sources and methods. Includes data from at least two sources that were integrated / merged in R.</li>
+<li><strong>Code (25%)</strong>: The code associated with the project is well organized and easy to follow. Demonstrates mastery of R graphics and functions.</li>
+<li><strong>Data (5%)</strong>: The underlying data are publicly accessible via the web and downloaded/accessed within the Rmd script. If you want to use your own data, you must make it available on a website (e.g. <a href="figshare.org">Figshare</a>) so that others are able to re-run your code.</li>
+</ul></li>
+<li><strong>Results [~200 words, 25%]</strong>
+<ul>
+<li>Tables and figures (maps and other graphics) are carefully planned to convey the results of your analysis. Intense exploration and evidence of many trials and failures. The author looked at the data in many different ways before coming to the final presentation of the data.</li>
+</ul></li>
+<li><strong>Conclusions [~200 words, 5%]</strong>
+<ul>
+<li>Clear summary adequately describing the results and putting them in context. Discussion of further questions and ways to continue investigation.</li>
+</ul></li>
+<li><strong>References [5%]</strong>
+<ul>
+<li>All sources are cited in a consistent manner</li>
+</ul></li>
+<li><strong>General Scores</strong>
+<ul>
+<li><strong>General organization (10%)</strong>: Clear labels/headings demarcate separate sections. Excellent flow from one section to the next. Tables and graphics carefully tuned and placed for desired purpose.The ‘story’ is very well organized, makes good use of graphics, and is easy to understand.</li>
+<li><strong>General Grammar (5%)</strong>: All sentences are well constructed and have varied structure and length. The author makes no errors in grammar, mechanics, and/or spelling.</li>
+</ul></li>
+</ol>
+<p>See the project rubric below for more details and examples.<br />
+<a href='assets/rubric.png' target="_blank"> <img src='assets/rubric.png'></a></p>
+<p>Note that the word counts are quite short (~200 words per section). This does not mean it’s <em>easy</em>! In fact, conveying all the necessary information succinctly requires extra effort. If English is not your first language, you are encouraged to contact the <a href="https://www.buffalo.edu/writing.html">UB Writing Center</a> to get help writing succinctly and clearly. They schedule 45 minute sessions to go over your writing which can dramatically improve the quality of your project. Plan ahead to schedule this before upcoming deadlines.</p>
+<p>The more complete the second draft, the more feedback I’ll be able to provide to ensure an excellent final project. So it’s in your interest to finish as much as possible. In addition to the details from the first draft, I would like to see drafts of the text and figures/tables/etc in each section.</p>
+<p>When submitting your your second draft, you can include any questions or comments in the draft (e.g., “I’m planning to do X, but I’m not sure how to organize the data appropriately”) or as a <em>comment</em> in the UBLearns submission webpage. Please do not include these comments in the final submission.</p>
+<div id="formatting" class="section level4">
+<h4>Formatting</h4>
+<p>The final project will be produced as a <a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html">RMarkdown Website</a> that includes all the steps necessary to run the analysis and produce the output (figures, tables,etc.). For examples of similar documents, explore the <a href="https://rpubs.com">RPubs website</a>.</p>
+<p>See the <a href="http://rmarkdown.rstudio.com/formats.html">RMarkdown page</a> for ideas on different html output designs. In particular, check out the <a href="http://rmarkdown.rstudio.com/flexdashboard/">FlexaDashboard</a> options if you want to include interactive displays.</p>
+</div>
+<div id="figures" class="section level4">
+<h4>Figures</h4>
+<p>Figures (maps and other graphics) are a vital component of scientific communication and you should carefully plan your figures to convey the results of your analysis.</p>
+</div>
+<div id="references" class="section level4">
+<h4>References</h4>
+<p>You should cite any relevant materials (including data sources and methods) in the text using a standard author-date citation format (e.g. Wilson, 2015) and then described in a References section. You can either compile the references manually (e.g. cutting and pasting the citation into the references section) or use the automated system in RMarkdown explained <a href="http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">here</a>. Other citation styles are acceptable as long as they are consistent, complete, and easy to understand.</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>Sites with examples of visual display of quantitative information</p>
+<ul>
+<li><a href="http://www.informationisbeautiful.net" class="uri">http://www.informationisbeautiful.net</a></li>
+<li><a href="http://flowingdata.com" class="uri">http://flowingdata.com</a></li>
+<li><a href="https://visual.ly/m/design-portfolio/" class="uri">https://visual.ly/m/design-portfolio/</a></li>
+<li><a href="https://designschool.canva.com/blog/best-infographics/">40 Brilliant and Complex Topics Explained Perfectly By Infographics</a></li>
+<li><a href="https://twitter.com/nytgraphics">NY Times Graphics Department</a></li>
+<li><a href="https://github.com/ropensci/opendata">Open Data through R</a>: This Task View contains information about using R to obtain, parse, manipulate, create, and share open data. Much open data is available on the web, and the WebTechnologies TaskView addresses how to obtain and parse web-based data. There is obvious overlap between the two TaskViews, so some packages are described on both. There is also a considerable amount of open data available as R packages on CRAN.</li>
+</ul>
+</div>
+</div>
 </div>
 
 <!-- Google Analytics -->

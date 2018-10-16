@@ -431,7 +431,19 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it? - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project. </td>
+   <td style="text-align:left;"> Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. </td>
+   <td style="text-align:left;"> [TK_12](./TK_12.html) </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it? </td>
+   <td style="text-align:left;"> [TK_12](./TK_12.html) </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project. </td>
    <td style="text-align:left;"> [TK_12](./TK_12.html) </td>
    <td style="text-align:right;"> 12 </td>
   </tr>
@@ -446,6 +458,12 @@ Below are a set of tasks that we will work on in class (either alone or in small
    <td style="text-align:left;"> Come to class with any questions </td>
    <td style="text-align:left;"> [TK_13](./TK_13.html) </td>
    <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Commit second draft of final project to GitHub for review </td>
+   <td style="text-align:left;"> [TK_14](./TK_14.html) </td>
+   <td style="text-align:right;"> 14 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
@@ -482,6 +500,18 @@ Below are a set of tasks that we will work on in class (either alone or in small
    <td style="text-align:left;"> Give your 5 minute presentation in class </td>
    <td style="text-align:left;"> [TK_15](./TK_15.html) </td>
    <td style="text-align:right;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Finalize your project and commit to GitHub </td>
+   <td style="text-align:left;"> [TK_16](./TK_16.html) </td>
+   <td style="text-align:right;"> 16 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Confirm the final version renders correctly on your website </td>
+   <td style="text-align:left;"> [TK_16](./TK_16.html) </td>
+   <td style="text-align:right;"> 16 </td>
   </tr>
 </tbody>
 </table>

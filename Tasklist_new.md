@@ -335,7 +335,9 @@ ___
 - Chapter [28 in R4DS](http://r4ds.had.co.nz)
 
 ## Tasks
-- Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it? - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
+- Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week.
+- Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
+- Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
 </div>
 ___
 ## [ TK_13 :  Thanksgiving Week (Tuesday Class Optional) ]( ./TK_13.html ) 
@@ -352,16 +354,17 @@ ___
 - Come to class with any questions
 </div>
 ___
-## [ TK_14 :  Building and summarizing models ]( ./TK_14.html ) 
+## [ TK_14 :  Final Project 2nd Draft / Building and summarizing models ]( ./TK_14.html ) 
    
  
-  Interactive web-based visualizations  
+  Building a species distribution model  
  
  <a class="btn btn-link" href="./TK_14.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i22">Preview Readings & Tasks </button><div id="i22" class="collapse">
 ## Readings
 - Chapter [23-25 in R4DS](http://r4ds.had.co.nz)
 
 ## Tasks
+- Commit second draft of final project to GitHub for review
 - Demonstrate a simple presence/absence model in spatial context.
 - Model spatial dependence (autocorrelation) in the response.
 </div>
@@ -381,5 +384,19 @@ ___
 - Present your analysis to your roommates, significant other, etc. and update your presentation based on the feedback
 - Get feedback from 2-3 fellow classmates on your presentation and update it based on their feedback
 - Give your 5 minute presentation in class
+</div>
+___
+## [ TK_16 :  Publish Final Project ]( ./TK_16.html ) 
+   
+ 
+  Commit the final version of your project  
+ 
+ <a class="btn btn-link" href="./TK_16.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i24">Preview Readings & Tasks </button><div id="i24" class="collapse">
+## Readings
+- 
+
+## Tasks
+- Finalize your project and commit to GitHub
+- Confirm the final version renders correctly on your website
 </div>
 
