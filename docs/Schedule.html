@@ -183,7 +183,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -419,155 +419,168 @@ div.tocify {
 <p><strong>Readings</strong></p>
 <p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
 <p><strong>Homework</strong> Homeworks are due at 5pm on the Friday of the week specified below.</p>
+<div id="schedule" class="section level2">
+<h2>Schedule</h2>
 <table>
-<colgroup>
-<col width="4%" />
-<col width="4%" />
-<col width="63%" />
-<col width="15%" />
-<col width="6%" />
-<col width="6%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Week</th>
-<th align="left">Title</th>
-<th align="left">Description</th>
-<th align="left">Assignment</th>
-<th align="left">Readings</th>
-<th align="right">Package Presentation Group</th>
+<th align="left">Date</th>
+<th align="center">Presentation</th>
+<th align="center">Topic / Tasks</th>
+<th align="center">Case Study</th>
+<th align="left"><a href="PackageIntro.html">Package Present</a></th>
+<th align="center"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">8/28</td>
-<td align="left"><strong>Introduction &amp; Overview</strong></td>
-<td align="left">Course Motivation &amp; Objectives. Workflow &amp; repeatable research in an era of big data. Getting started with R &amp; RStudio. Data structures (vectors, matrices, data frames).</td>
+<td align="left">1</td>
+<td align="left">8/28/18</td>
+<td align="center"><a href="presentations/PS_01_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_01.html">Git-01</a></td>
+<td align="center"><a href="./CS_01.html">Create a simple, functioning script</a></td>
 <td align="left"></td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 1-2</a></td>
-<td align="right"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">9/4</td>
-<td align="left"><strong>Graphics</strong></td>
-<td align="left">The <em>grammar of graphics</em>: ggplot2</td>
+<td align="left">2</td>
+<td align="left">9/4/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_02.html">Git-02</a></td>
+<td align="center"><a href="./CS_02.html">My grandfather says climate is cooling</a></td>
 <td align="left"></td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 3</a></td>
-<td align="right"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">9/11</td>
-<td align="left"><strong>Data Wrangling </strong></td>
-<td align="left">Data Transformation: Filtering, selecting, transforming</td>
-<td align="left"></td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 4-5</a></td>
-<td align="right">1</td>
+<td align="left">3</td>
+<td align="left">9/11/18</td>
+<td align="center"><a href="presentations/03_DataWrangling.pdf" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_03.html">Data Wrangling</a></td>
+<td align="center"><a href="./CS_03.html">Wealth over time</a></td>
+<td align="left">1</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">9/18</td>
-<td align="left"><strong>Data Wrangling 2</strong></td>
-<td align="left">Joining data</td>
-<td align="left"><a href="https://www.datacamp.com/enterprise/spatial-data-science/assignments">9/21 DataCamp</a></td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 11-13</a></td>
-<td align="right">2</td>
+<td align="left">4</td>
+<td align="left">9/18/18</td>
+<td align="center"><a href="presentations/PS_04_join.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_04.html">Data Wrangling 2</a></td>
+<td align="center"><a href="./CS_04.html">Farthest airport from New York City</a></td>
+<td align="left">2</td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">9/25</td>
-<td align="left"><strong>Spatial Vector Data</strong></td>
-<td align="left">Vector data processing. Integrating ‘traditional GIS’ analyses with statistical modelling. Data intersection, overlays, zonal statistics</td>
-<td align="left"></td>
-<td align="left"><a href="https://geocompr.robinlovelace.net/">GCR 1-2</a></td>
-<td align="right">3</td>
+<td align="left">5</td>
+<td align="left">9/25/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_05.html">Spatial Vector Data</a></td>
+<td align="center"><a href="./CS_05.html">Beware the Canadians!</a></td>
+<td align="left">3</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">10/2</td>
-<td align="left"><strong>Spatial Raster Data</strong></td>
-<td align="left">Gridded spatial data</td>
-<td align="left"><a href="https://www.datacamp.com/enterprise/spatial-data-science/assignments">10/5 DataCamp</a></td>
-<td align="left"><a href="https://geocompr.robinlovelace.net/">GCR 3-4</a></td>
-<td align="right">4</td>
+<td align="left">6</td>
+<td align="left">10/2/18</td>
+<td align="center"><a href="presentations/PS_06_raster.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_06.html">Spatial Raster Data</a></td>
+<td align="center"><a href="./CS_06.html">Find hottest country on each continent</a></td>
+<td align="left">4</td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">10/9</td>
-<td align="left"><strong>Creating Workflows</strong></td>
-<td align="left">Example A ‘mini’ project: Sea level rise in Bangladesh</td>
-<td align="left">Project Proposal</td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 6-10</a></td>
-<td align="right">5</td>
+<td align="left">7</td>
+<td align="left">10/9/18</td>
+<td align="center"><a href="presentations/PS_07_help.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_07.html">Project Proposal</a></td>
+<td align="center"><a href="./CS_07.html">Getting Help!</a></td>
+<td align="left">5</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">10/16</td>
-<td align="left"><strong>Reproducible Research &amp; Literate Programming </strong></td>
-<td align="left">Data I/O. RMarkdown to create dynamic research outputs. Publishing to github/word/html/etc.</td>
-<td align="left"><a href="https://www.datacamp.com/enterprise/spatial-data-science/assignments">10/19 DataCamp</a></td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 11, 26-30</a></td>
-<td align="right">6</td>
+<td align="left">8</td>
+<td align="left">10/16/18</td>
+<td align="center"><a href="presentations/PS_08_repro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_08.html">Create Final Project Webpage</a></td>
+<td align="center"><a href="./CS_08.html">One Script, Many Products</a></td>
+<td align="left">6</td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">10/23</td>
-<td align="left"><strong>APIs, time-series, and weather Data </strong></td>
-<td align="left">Processing daily weather data from NOAA</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="right">7</td>
+<td align="left">9</td>
+<td align="left">10/23/18</td>
+<td align="center"><a href="presentations/PS_09_weather.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_09.html">APIs, time-series, and weather Data</a></td>
+<td align="center">-</td>
+<td align="left">7</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">10/30</td>
-<td align="left"><strong>Satellite Data Processing</strong></td>
-<td align="left">MODIS Satellite data</td>
-<td align="left">Homework # 4</td>
-<td align="left"></td>
-<td align="right">8</td>
+<td align="left">10</td>
+<td align="left">10/30/18</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="left">8</td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">11/6</td>
-<td align="left"><strong>High Performance Computing &amp; Software Integration</strong></td>
-<td align="left">Parallel processing and high performance computing in R, Calling other programs from within R.</td>
-<td align="left">Project 1st draft for peer assessment</td>
-<td align="left"></td>
-<td align="right">9</td>
+<td align="left">11</td>
+<td align="left">11/6/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_11.html">Project First Draft</a></td>
+<td align="center">-</td>
+<td align="left">9</td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">11/13</td>
-<td align="left"><strong>Dynamic Visualization</strong></td>
-<td align="left">Interactive web-based visualizations</td>
-<td align="left">Peer Evaluation Due</td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 28</a></td>
-<td align="right">10</td>
+<td align="left">12</td>
+<td align="left">11/13/18</td>
+<td align="center"><a href="presentations/PS_12.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
+<td align="center"><a href="./TK_12.html">Project Peer Review</a></td>
+<td align="center"><a href="./CS_12.html">Dynamic HTML graph of Daily Temperatures</a></td>
+<td align="left">10</td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">11/20</td>
-<td align="left"><strong>Thanksgiving</strong></td>
-<td align="left">(no class)</td>
+<td align="left">13</td>
+<td align="left">11/20/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_13.html">Thanksgiving Week (Tuesday Class Optional)</a></td>
+<td align="center">-</td>
 <td align="left"></td>
-<td align="left"></td>
-<td align="right"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">11/27</td>
-<td align="left"><strong>Modeling Basics</strong></td>
-<td align="left">Building and summarizing models</td>
-<td align="left">Second draft of project Due 12/1 at midnight</td>
-<td align="left"><a href="http://r4ds.had.co.nz">R4DS 23-25</a></td>
-<td align="right"></td>
+<td align="left">14</td>
+<td align="left">11/27/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_14.html">Building and summarizing models</a></td>
+<td align="center">-</td>
+<td align="left"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="left">12/4</td>
-<td align="left"><strong>Final Project Presentations</strong></td>
+<td align="left">15</td>
+<td align="left">12/4/18</td>
+<td align="center"></td>
+<td align="center"><a href="./TK_15.html">Final Presentation</a></td>
+<td align="center">-</td>
 <td align="left"></td>
-<td align="left">5 minute presentation of your final project</td>
-<td align="left"></td>
-<td align="right"></td>
+<td align="center"></td>
 </tr>
 <tr class="even">
-<td align="left">12/14</td>
-<td align="left"><strong>Final Project Due in UBLearns</strong></td>
+<td align="left">16</td>
+<td align="left">12/11/18</td>
+<td align="center"></td>
+<td align="center">-</td>
+<td align="center">-</td>
 <td align="left"></td>
-<td align="left">See <a href=Project.html>Project description for more information</a></td>
-<td align="left"></td>
+<td align="center"></td>
 </tr>
 </tbody>
 </table>
+</div>
 
 <!-- Google Analytics -->
 <script>

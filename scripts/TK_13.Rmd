@@ -1,0 +1,24 @@
+---
+title:  Thanksgiving Week (Tuesday Class Optional)
+subtitle:  Optional Course Workshop
+week: 13
+type: Task
+reading:
+  - 
+tasks:
+   - Continue working on final project
+   - Come to class with any questions
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```

@@ -2,8 +2,7 @@
 title: "Reproducible Research"
 ---
 
-# Reproducible Research
-
+## The goal of reproducible research
 > "The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified."  <small> Max Kuhn, CRAN Task View: Reproducible Research </small>
 
 
@@ -24,7 +23,6 @@ title: "Reproducible Research"
 
 > "An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result." 
 <br><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small>
-
 
 
 ## Benefits are straightforward
@@ -61,7 +59,6 @@ title: "Reproducible Research"
 
 ## Goal: expose more of the research workflow
 
-
 <img src="img_12/peng-pipeline.jpg" alt="alt text" width="600">
 
 <small><small>http://www.stodden.net/AMP2011/slides/pengslides.pdf</small></small>
@@ -80,7 +77,6 @@ title: "Reproducible Research"
 <small>![alt text](img_12/lemon.png)</small>
 
 ## Common practices of many scientists {.columns-2}
-
 
 - Version control is ad hoc
 - Excel handles missing data inconsistently and sometimes incorrectly 

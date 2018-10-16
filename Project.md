@@ -33,16 +33,14 @@ Use [this template (which is an R Markdown File) for your project proposal](scri
 
 ### First Draft
 
-The first draft of your project will be assessed by your peers in UBlearns. The objectives of the peer evaluation are:
+The first draft of your project will be assessed by your peers in GitHub. The objectives of the peer evaluation are:
 
 * Expose you to the work of your peers so you know what others are working on
 * Provide an opportunity to share your knowledge to improve their project
 
-You should use the project website template (or similar) to generate a html version of your project report. See the [instructions here to set up your project](http://adamwilson.us/RDataScience/07_Reproducibile.html).  If your project requires any data not available in public repositories, you should put it in a folder called `/data` in your project's home directory and then import it into R with `read.csv('data/filname.csv')` or similar so that anyone with a copy of the repository can re-create the HTML output.
+You should use the project website template (or similar) to generate a html version of your project report. If your project requires any data not available in public repositories, you should put it in a folder called `/data` in your project's home directory and then import it into R with `read.csv('data/filname.csv')` or similar so that anyone with a copy of the repository can re-create the HTML output.
 
 #### Submission Instructions
-
-You have three options for submitting your project:
 
 1. **PREFERRED OPTION:** Submit links to your GitHub repository _and_ website.
     * Your project repository looks something like this:
@@ -51,32 +49,27 @@ You have three options for submitting your project:
         ![](assets/project_website.png)
     * Your submission screen in UBLearns will look like this:
          ![](assets/project_submit.png)
-2. Upload the .Rmd file that creates your output.  Use this option only if you are unwilling to publicly post your project.
-3. Upload a PDF file.   If you are unable to share your data you may be permitted to upload a PDF instead of the source .Rmd.   To make the PDF, I recommend you compile the .Rmd document to HTML (as explained [here](http://rmarkdown.rstudio.com/html_document_format.html)) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF. This is the preferred route as you also get the HTML version this way.  DO NOT create the PDF using other software (like pasting things into Microsoft Word), a big part of this project is learning how to create the dynamic documents using R Markdown.  This option only available with instructor approval.
 
 #### Evaluation Instructions
 
-You will be assigned two projects and evaluate them according to the instructions and rubric below.  
+Select two repositories and evaluate them according to the instructions and rubric below.  
 
-1) Go to UBLearns->Assignments->Final Project-> First Draft Peer Review to find your assigned reports.
+1) Explore the final projects in the [class repositor](https://github.com/AdamWilsonLabEDU)
+2) Open the repository and check if there have already been two reviews by checking if there are 2 (or more) "Pull Requests".  For example, in the image below, there are 0 pull requests, so this repository would be available for you to review.  If there are already 2 pull requests, select another repository. ![](assets/pull_reqeust.png)
 2) Go to the github page linked in the assignment and download the repository as a zip file (click on the <img src='assets/download.png' width=100> button).
 3) Unzip the file after it downloads
 4) Open the project or `index.Rmd` in RStudio and click `knit` or  `Build Website` in the `Build` tab in the upper right.
 
-Evaluate the following and enter your scores in UBlearns:
+Evaluate the following provide any feedback via pull request.
+1) Website
+  1) **Introduction**  [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.
+  2) **Data**: Script downloads at least one dataset automatically through the internet.  This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).
+  3) **Figure**: The HTML file includes at least one figure of the data.
+2) **Output:** The .Rmd produces HTML output with
+  1) section headers for all the major sections of the paper
+  2) a draft of the complete introduction.  
 
-1) **Output:** The .Rmd produces HTML output with:
-      * section headers for all the major sections of the paper
-      * a draft of the complete introduction.  
-   Be sure to install any required libraries (do not deduct points if it fails because you don't have a library installed).
-2) **Introduction**  [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.
-      * **0-50%** Missing or inadequate
-      * **50-70%** No Questions / Hypotheses/ Problems are mentioned
-      * **70-80%** Questions / Hypotheses/ Problems are addressed, but without much context or explanation.
-      * **80-90%** Clearly stated background sets up the questions / hypotheses/ problems being addressed by the analysis
-      * **90-100%** Clearly stated background and questions / hypotheses/ problems being addressed by the analysis.  Sets up the analysis in a interesting and compelling way.  
-3) **Data**: Script downloads at least one dataset automatically through the internet.  This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).
-4) **Figure**: The HTML file includes at least one figure of the data.
+Be sure to install any required libraries (do not complain if it fails because you don't have a library installed).
 
 
 ### Final Draft

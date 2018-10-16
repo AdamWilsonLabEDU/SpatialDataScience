@@ -1,0 +1,39 @@
+---
+title:  Dynamic Visualization
+subtitle:  Interactive web-based visualizations
+week: 12
+type: Task
+presentation: PS_12.html
+reading:
+  - Chapter [28 in R4DS](http://r4ds.had.co.nz)
+tasks:
+   - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
+   - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+In this session we will explore several ways to generate dynamic and interactive data displays.  These include making maps and graphs that you can pan/zoom, select features for more information, and interact with in other ways.  The most common output format is HTML, which can easily be embedded in a website (such as your final project!).
+
+```{r cache=F, message=F,warning=FALSE}
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(htmlwidgets)
+library(widgetframe)
+```
+
+If you don't have the packages above, install them in the package manager or by running `install.packages("widgetframe")`. 
+
+

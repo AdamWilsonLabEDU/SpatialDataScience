@@ -26,6 +26,13 @@ source("knitr_header.R")
 md_bullet(rmarkdown::metadata$reading)
 ```
 
+# Tasks
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+
 ### 'Lightning' Project Presentation
 
 Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the [lightning talk](http://en.wikipedia.org/wiki/Lightning_Talk) and [ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event)).

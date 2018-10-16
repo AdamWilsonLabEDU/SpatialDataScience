@@ -1,8 +1,5 @@
 TODO:
 
-Project page:
-1) add examples
-2) add more details
 
 Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
@@ -46,10 +43,12 @@ Weekly courses due before topic in class
 * [Exploratory Data Analysis in R: Case Study](https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study)
 * [Spatial Analysis in R with sf and raster](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
-## New Module: troubleshooting code
-* reading helpfiles
-* break down your code
-* reading error messages
+
+## Tasks to add
+early:
+* set up datacamp account
+* explore available classes and select 3-5 interesting ones (list these in README)
+* Data visualization: https://dcl-2017-04.github.io/curriculum/vis-perception.html
 
 ## Git Classroom
 * setup git account
@@ -58,12 +57,6 @@ Weekly courses due before topic in class
 * update profile on github
 * Add short description to top-level README in github repository
 
-
-## Tasks to add
-early:
-* set up datacamp account
-* explore available classes and select 3-5 interesting ones (list these in README)
-* Data visualization: https://dcl-2017-04.github.io/curriculum/vis-perception.html
 
 
 ### Project related tasks

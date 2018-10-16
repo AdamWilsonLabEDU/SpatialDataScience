@@ -15,10 +15,12 @@ source("functions.R")
 source("knitr_header.R")
 ```
 
-`r presframe()`
+# Tasks
 
-# Reading
+Tuesday this week there will be an optional 'open' workshop to work on course activities.  There will be no organized activities or assignments, but Dr. Wilson will be on hand to help you with any course-related activities.
 
 ```{r reading,results='asis',echo=F}
-md_bullet(rmarkdown::metadata$reading)
+md_bullet(rmarkdown::metadata$tasks)
 ```
+
+

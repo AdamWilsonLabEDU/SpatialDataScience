@@ -1,6 +1,11 @@
 ---
 title: "Course Schedule"
+output:
+  html_document:
+    toc: true
+    toc_depth: 1
 ---
+
 
 
 Course content is designed to be flexible to accommodate student interest and abilities.  The order and timing of course topics may change as the semester progresses.  
@@ -12,21 +17,25 @@ In the table below, R4DS refers to [_R for Data Science_ by Garrett Grolemund an
 **Homework**
 Homeworks are due at 5pm on the Friday of the week specified below.
 
-| Week    |  Title   | Description |  Assignment | Readings | Package Presentation Group |
-|:--|:--|:----------------------------------------|:---------|:---|---:| 
-| 8/28    | **Introduction & Overview** | Course Motivation & Objectives. Workflow & repeatable research in an era of big data. Getting started with R & RStudio. Data structures (vectors, matrices, data frames).| | [R4DS 1-2](http://r4ds.had.co.nz) |
-| 9/4 | **Graphics** | The _grammar of graphics_: ggplot2 |  | [R4DS 3](http://r4ds.had.co.nz) |  |
-| 9/11 | **Data Wrangling ** | Data Transformation: Filtering, selecting, transforming  | | [R4DS 4-5](http://r4ds.had.co.nz) | 1|
-| 9/18 | **Data Wrangling 2** | Joining data | [9/21 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments) | [R4DS 11-13](http://r4ds.had.co.nz) | 2 |
-| 9/25 | **Spatial Vector Data** | Vector data processing. Integrating ‘traditional GIS’ analyses with statistical modelling.  Data intersection, overlays, zonal statistics |  | [GCR 1-2](https://geocompr.robinlovelace.net/) | 3 |
-| 10/2 | **Spatial Raster Data** | Gridded spatial data |  [10/5 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments)  | [GCR 3-4](https://geocompr.robinlovelace.net/) | 4|
-| 10/9 | **Creating Workflows** | Example A 'mini' project: Sea level rise in Bangladesh | Project Proposal |  [R4DS 6-10](http://r4ds.had.co.nz) | 5|
-| 10/16 | **Reproducible Research & Literate Programming ** | Data I/O. RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc.| [10/19 DataCamp](https://www.datacamp.com/enterprise/spatial-data-science/assignments) |  [R4DS 11, 26-30](http://r4ds.had.co.nz) | 6 |
-| 10/23 | **APIs, time-series, and weather Data ** | Processing daily weather data from NOAA  |  | | 7|
-| 10/30 | **Satellite Data Processing** | MODIS Satellite data |Homework # 4  |   | 8 |
-| 11/6 | **High Performance Computing & Software Integration** | Parallel processing and high performance computing in R, Calling other programs from within R. | Project 1st draft for peer assessment| | 9 |
-| 11/13 | **Dynamic Visualization** | Interactive web-based visualizations|  Peer Evaluation Due |[R4DS 28](http://r4ds.had.co.nz) | 10 |
-| 11/20 | **Thanksgiving** | (no class)   |  | |
-| 11/27 | **Modeling Basics**  |  Building and summarizing models | Second draft of project Due 12/1 at midnight |  [R4DS 23-25](http://r4ds.had.co.nz) |
-| 12/4 | **Final Project Presentations** | | 5 minute presentation of your final project | |
-| 12/14 | **Final Project Due in UBLearns** | | See <a href=Project.html>Project description for more information</a> |
+
+## Schedule
+
+| Week | Date | Presentation | Topic / Tasks  |  Case Study | [Package Present](PackageIntro.html) |
+|:--|:--|:-:|:-:|:-:|:---|:-:|
+|  1 |  8/28/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_01_intro.html){target='_blank'} |  [Git-01](./TK_01.html) |  [Create a simple, functioning script](./CS_01.html) |   |
+ |  2 |  9/4/18 |   |  [Git-02](./TK_02.html) |  [My grandfather says climate is cooling](./CS_02.html) |   |
+ |  3 |  9/11/18 |  [<i class='fas fa-desktop'>    </i>](presentations/03_DataWrangling.pdf){target='_blank'} |  [Data Wrangling](./TK_03.html) |  [Wealth over time](./CS_03.html) |  1 |
+ |  4 |  9/18/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_04_join.html){target='_blank'} |  [Data Wrangling 2](./TK_04.html) |  [Farthest airport from New York City](./CS_04.html) |  2 |
+ |  5 |  9/25/18 |   |  [Spatial Vector Data](./TK_05.html) |  [Beware the Canadians!](./CS_05.html) |  3 |
+ |  6 |  10/2/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_06_raster.html){target='_blank'} |  [Spatial Raster Data](./TK_06.html) |  [Find hottest country on each continent](./CS_06.html) |  4 |
+ |  7 |  10/9/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_07_help.html){target='_blank'} |  [Project Proposal](./TK_07.html) |  [Getting Help!](./CS_07.html) |  5 |
+ |  8 |  10/16/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_08_repro.html){target='_blank'} |  [Create Final Project Webpage](./TK_08.html) |  [One Script, Many Products](./CS_08.html) |  6 |
+ |  9 |  10/23/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_09_weather.html){target='_blank'} |  [APIs, time-series, and weather Data](./TK_09.html) |   -  |  7 |
+ |  10 |  10/30/18 |   |   -  |   -  |  8 |
+ |  11 |  11/6/18 |   |  [Project First Draft](./TK_11.html) |   -  |  9 |
+ |  12 |  11/13/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_12.html){target='_blank'} |  [Project Peer Review](./TK_12.html) |  [Dynamic HTML graph of Daily Temperatures](./CS_12.html) |  10 |
+ |  13 |  11/20/18 |   |  [Thanksgiving Week (Tuesday Class Optional)](./TK_13.html) |   -  |   |
+ |  14 |  11/27/18 |   |  [Building and summarizing models](./TK_14.html) |   -  |   |
+ |  15 |  12/4/18 |   |  [Final Presentation](./TK_15.html) |   -  |   |
+ |  16 |  12/11/18 |   |   -  |   -  |   |
+ 

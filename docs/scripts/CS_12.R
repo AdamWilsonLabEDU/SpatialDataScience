@@ -21,6 +21,17 @@
 #' 
 #' 
 #' ## Background
+#' In this session you will explore several ways to generate dynamic and interactive data displays.  These include making maps and graphs that you can pan/zoom, select features for more information, and interact with in other ways.  The most common output format is HTML, which can easily be embedded in a website (such as your final project!).
+#' 
+## ----cache=F, message=F,warning=FALSE------------------------------------
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(htmlwidgets)
+library(widgetframe)
+
+#' 
+#' If you don't have the packages above, install them in the package manager or by running `install.packages("widgetframe")`, etc. 
 #' 
 #' # Objective
 #' > Make a dygraph of recent daily maximum temperature data from Buffalo, NY.

@@ -438,15 +438,14 @@ div.tocify {
 </div>
 <div id="first-draft" class="section level3">
 <h3>First Draft</h3>
-<p>The first draft of your project will be assessed by your peers in UBlearns. The objectives of the peer evaluation are:</p>
+<p>The first draft of your project will be assessed by your peers in GitHub. The objectives of the peer evaluation are:</p>
 <ul>
 <li>Expose you to the work of your peers so you know what others are working on</li>
 <li>Provide an opportunity to share your knowledge to improve their project</li>
 </ul>
-<p>You should use the project website template (or similar) to generate a html version of your project report. See the <a href="http://adamwilson.us/RDataScience/07_Reproducibile.html">instructions here to set up your project</a>. If your project requires any data not available in public repositories, you should put it in a folder called <code>/data</code> in your project’s home directory and then import it into R with <code>read.csv('data/filname.csv')</code> or similar so that anyone with a copy of the repository can re-create the HTML output.</p>
+<p>You should use the project website template (or similar) to generate a html version of your project report. If your project requires any data not available in public repositories, you should put it in a folder called <code>/data</code> in your project’s home directory and then import it into R with <code>read.csv('data/filname.csv')</code> or similar so that anyone with a copy of the repository can re-create the HTML output.</p>
 <div id="submission-instructions" class="section level4">
 <h4>Submission Instructions</h4>
-<p>You have three options for submitting your project:</p>
 <ol style="list-style-type: decimal">
 <li><strong>PREFERRED OPTION:</strong> Submit links to your GitHub repository <em>and</em> website.
 <ul>
@@ -454,39 +453,20 @@ div.tocify {
 <li>Your public website link looks something like this: <img src="assets/project_website.png" /></li>
 <li>Your submission screen in UBLearns will look like this: <img src="assets/project_submit.png" /></li>
 </ul></li>
-<li>Upload the .Rmd file that creates your output. Use this option only if you are unwilling to publicly post your project.</li>
-<li>Upload a PDF file. If you are unable to share your data you may be permitted to upload a PDF instead of the source .Rmd. To make the PDF, I recommend you compile the .Rmd document to HTML (as explained <a href="http://rmarkdown.rstudio.com/html_document_format.html">here</a>) and then open the html file in a browser (chrome, explorer, safari, etc.) and print it / save it as a PDF. This is the preferred route as you also get the HTML version this way. DO NOT create the PDF using other software (like pasting things into Microsoft Word), a big part of this project is learning how to create the dynamic documents using R Markdown. This option only available with instructor approval.</li>
 </ol>
 </div>
 <div id="evaluation-instructions" class="section level4">
 <h4>Evaluation Instructions</h4>
-<p>You will be assigned two projects and evaluate them according to the instructions and rubric below.</p>
+<p>Select two repositories and evaluate them according to the instructions and rubric below.</p>
 <ol style="list-style-type: decimal">
-<li>Go to UBLearns-&gt;Assignments-&gt;Final Project-&gt; First Draft Peer Review to find your assigned reports.</li>
+<li>Explore the final projects in the <a href="https://github.com/AdamWilsonLabEDU">class repositor</a></li>
+<li>Open the repository and check if there have already been two reviews by checking if there are 2 (or more) “Pull Requests”. For example, in the image below, there are 0 pull requests, so this repository would be available for you to review. If there are already 2 pull requests, select another repository. <img src="assets/pull_reqeust.png" /></li>
 <li>Go to the github page linked in the assignment and download the repository as a zip file (click on the <img src='assets/download.png' width=100> button).</li>
 <li>Unzip the file after it downloads</li>
 <li>Open the project or <code>index.Rmd</code> in RStudio and click <code>knit</code> or <code>Build Website</code> in the <code>Build</code> tab in the upper right.</li>
 </ol>
-<p>Evaluate the following and enter your scores in UBlearns:</p>
-<ol style="list-style-type: decimal">
-<li><strong>Output:</strong> The .Rmd produces HTML output with:
-<ul>
-<li>section headers for all the major sections of the paper</li>
-<li>a draft of the complete introduction.<br />
-Be sure to install any required libraries (do not deduct points if it fails because you don’t have a library installed).</li>
-</ul></li>
-<li><strong>Introduction</strong> [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.
-<ul>
-<li><strong>0-50%</strong> Missing or inadequate</li>
-<li><strong>50-70%</strong> No Questions / Hypotheses/ Problems are mentioned</li>
-<li><strong>70-80%</strong> Questions / Hypotheses/ Problems are addressed, but without much context or explanation.</li>
-<li><strong>80-90%</strong> Clearly stated background sets up the questions / hypotheses/ problems being addressed by the analysis</li>
-<li><strong>90-100%</strong> Clearly stated background and questions / hypotheses/ problems being addressed by the analysis. Sets up the analysis in a interesting and compelling way.<br />
-</li>
-</ul></li>
-<li><strong>Data</strong>: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci).</li>
-<li><strong>Figure</strong>: The HTML file includes at least one figure of the data.</li>
-</ol>
+<p>Evaluate the following provide any feedback via pull request. 1) Website 1) <strong>Introduction</strong> [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way. 2) <strong>Data</strong>: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci). 3) <strong>Figure</strong>: The HTML file includes at least one figure of the data. 2) <strong>Output:</strong> The .Rmd produces HTML output with 1) section headers for all the major sections of the paper 2) a draft of the complete introduction.</p>
+<p>Be sure to install any required libraries (do not complain if it fails because you don’t have a library installed).</p>
 </div>
 </div>
 <div id="final-draft" class="section level3">

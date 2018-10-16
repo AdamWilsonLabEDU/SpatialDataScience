@@ -580,7 +580,7 @@ head(trans)
 #' 
 #' #### Add other metadata and reshape
 ## ------------------------------------------------------------------------
-trans[,c("lon","lat")]=coordinates(clim)[trans$cell]
+trans[,c("lon","lat")]=coordinates(clim)[trans$cell,]
 trans$order=as.integer(rownames(trans))
 head(trans)  
 

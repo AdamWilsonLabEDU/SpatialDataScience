@@ -1,0 +1,24 @@
+---
+title:  Project Peer Review
+subtitle:  Review project drafts from your peers
+week: 11
+type: Task
+reading:
+  - GitHub [Pull Requests](https://help.github.com/articles/about-pull-requests/)
+tasks:
+   - Commit the current version of your project repository to GitHub
+   - Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week.
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```

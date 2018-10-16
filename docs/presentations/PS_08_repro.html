@@ -519,7 +519,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">Reproducible Research</h1>
 </section>
 
-<section><section id="reproducible-research" class="title-slide slide level1"><h1>Reproducible Research</h1></section><section id="history-of-reproducible-research" class="slide level2">
+<section id="the-goal-of-reproducible-research" class="slide level2">
+<h2>The goal of reproducible research</h2>
+<blockquote>
+<p>“The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood and verified.” <small> Max Kuhn, CRAN Task View: Reproducible Research </small></p>
+</blockquote>
+</section>
+<section id="history-of-reproducible-research" class="slide level2">
 <h2>History of reproducible research</h2>
 <ul>
 <li>Mathematics (400 BC?)</li>
@@ -531,12 +537,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Hosted integrated code and data (2020s?)</li>
 </ul>
 <p><small>Gavish &amp; Gonoho AAAS 2011, Oxberry 2013</small></p>
-</section><section id="motivations-claerbouts-principle" class="slide level2">
+</section>
+<section id="motivations-claerbouts-principle" class="slide level2">
 <h2>Motivations: Claerbout’s principle</h2>
 <blockquote>
 <p>“An article about computational result is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result.” <br><small> Claerbout and Karrenbach, Proceedings of the 62nd Annual International Meeting of the Society of Exploration Geophysics. 1992</small></p>
 </blockquote>
-</section><section id="benefits-are-straightforward" class="slide level2">
+</section>
+<section id="benefits-are-straightforward" class="slide level2">
 <h2>Benefits are straightforward</h2>
 <ul>
 <li><strong>Verification &amp; Reliability</strong>: Find and fix bugs. Today’s results == tomorrow’s.</li>
@@ -544,7 +552,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><strong>Efficiency</strong>: Reduces duplication of effort. Payoff in the (not so) long run</li>
 <li><strong>Flexibility</strong>: When you don’t ‘point-and-click’ you gain many new analytic options.</li>
 </ul>
-</section><section id="but-limitations-are-substantial" class="slide level2">
+</section>
+<section id="but-limitations-are-substantial" class="slide level2">
 <h2>But limitations are substantial</h2>
 <p><strong>Technical</strong></p>
 <ul>
@@ -560,15 +569,18 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>No uniform standards</li>
 <li>Inertia &amp; embarassment</li>
 </ul>
-</section><section id="our-work-exists-on-a-spectrum-of-reproducibility" class="slide level2">
+</section>
+<section id="our-work-exists-on-a-spectrum-of-reproducibility" class="slide level2">
 <h2>Our work exists on a spectrum of reproducibility</h2>
 <p><img src="img_12/peng-spectrum.jpg" alt="alt text" width="800"></p>
 <p><small>Peng 2011, Science 334(6060) pp. 1226-1227</small></p>
-</section><section id="goal-expose-more-of-the-research-workflow" class="slide level2">
+</section>
+<section id="goal-expose-more-of-the-research-workflow" class="slide level2">
 <h2>Goal: expose more of the research workflow</h2>
 <p><img src="img_12/peng-pipeline.jpg" alt="alt text" width="600"></p>
 <p><small><small><a href="http://www.stodden.net/AMP2011/slides/pengslides.pdf" class="uri">http://www.stodden.net/AMP2011/slides/pengslides.pdf</a></small></small></p>
-</section><section id="common-practices-of-many-scientists" class="slide level2 columns-2">
+</section>
+<section id="common-practices-of-many-scientists" class="slide level2 columns-2">
 <h2>Common practices of many scientists</h2>
 <ol type="1">
 <li>Enter data in Excel</li>
@@ -578,10 +590,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Use point-and-click options to run statistical analyses</li>
 <li>Copy &amp; paste output to Word document, repeatedly</li>
 </ol>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><small><img data-src="img_12/lemon.png" alt="alt text" /></small></p>
-</section><section id="common-practices-of-many-scientists-1" class="slide level2 columns-2">
+</section>
+<section id="common-practices-of-many-scientists-1" class="slide level2 columns-2">
 <h2>Common practices of many scientists</h2>
 <ul>
 <li>Version control is ad hoc</li>
@@ -589,10 +603,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Excel uses poor algorithms for many functions</li>
 <li>Scripting is possible but rare</li>
 </ul>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><img src="img_12/phd-comic-VCS.gif" alt="alt text" width="400"></p>
-</section><section id="click-trails-are-ephemeral-dangerous" class="slide level2 columns-2">
+</section>
+<section id="click-trails-are-ephemeral-dangerous" class="slide level2 columns-2">
 <h2>Click trails are ephemeral &amp; dangerous</h2>
 <ul>
 <li>Lots of human effort for tedious &amp; time-wasting tasks</li>
@@ -600,21 +616,25 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Difficult to record - hard to reconstruct a ‘click history’</li>
 <li>Tiny changes in data or method require extensive reworking</li>
 </ul>
-</section><section id="case-study-reinhart-and-rogoff-controversy" class="slide level2">
+</section>
+<section id="case-study-reinhart-and-rogoff-controversy" class="slide level2">
 <h2>Case study: Reinhart and Rogoff controversy</h2>
 <ul>
 <li>2010: Claimed high debt-to-GDP ratios led to low GDP growth</li>
 <li>Threshold to growth at a debt-to-GDP ratio of &gt;90%</li>
 <li>Substantial popular impact on autsterity politics</li>
 </ul>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><img src="img_12/reinhart_rogoff_coding_error_0.png" alt="alt text" width="400"></p>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p><img src="img_12/reinhart_rogoff_econ_mag.png" alt="alt text" width="500"></p>
 <p>Excel coding error sliced several countries out of the data set…. <a href="http://www.economist.com/news/finance-and-economics/21576362-seminal-analysis-relationship-between-debt-and-growth-comes-under">The Economist</a></p>
-</section><section id="case-study-gay-marrage" class="slide level2">
+</section>
+<section id="case-study-gay-marrage" class="slide level2">
 <h2>Case study: Gay Marrage</h2>
 <h4 id="in-may-2015-science-retracted-a-study-of-how-canvassers-can-sway-peoples-opinions-about-gay-marriage-published-just-5-months-ago.">In May 2015 <em>Science</em> retracted a study of how canvassers can sway people’s opinions about gay marriage published just 5 months ago.</h4>
 <ul>
@@ -625,14 +645,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><small>- Science Editor-in-Chief Marcia McNutt</small></p>
 <p>Two Berkeley grad students who attempted to replicate the study quickly discovered that the data must have been faked.</p>
 <p><a href="http://news.sciencemag.org/policy/2015/05/science-retracts-gay-marriage-paper-without-lead-author-s-consent">Source</a></p>
-</section><section id="case-study-seizure-medicine" class="slide level2">
+</section>
+<section id="case-study-seizure-medicine" class="slide level2">
 <h2>Case study: Seizure Medicine</h2>
 <h4 id="seizure-study-retracted-after-authors-realize-data-got-terribly-mixed">2013 Seizure study retracted after authors realize data got “terribly mixed”</h4>
 <blockquote>
 <p>“The article has been retracted at the request of the authors. After carefully re-examining the data presented in the article, they identified that data of two different hospitals got terribly mixed. The published results cannot be reproduced in accordance with scientific and clinical correctness.”&quot; <small> Authors of Low Dose Lidocaine for Refractory Seizures in Preterm Neonates </small></p>
 </blockquote>
 <p><a href="http://retractionwatch.com/2013/02/01/seizure-study-retracted-after-authors-realize-data-got-terribly-mixed/">Source</a></p>
-</section><section id="bad-spreadsheet-merge-kills-depression-paper-quick-fix-resurrects-it" class="slide level2">
+</section>
+<section id="bad-spreadsheet-merge-kills-depression-paper-quick-fix-resurrects-it" class="slide level2">
 <h2>Bad spreadsheet merge kills depression paper, quick fix resurrects it</h2>
 <p>Authors informed the journal that the merge of lab results and other survey data used in the paper resulted in an error regarding the identification codes. Results of the analyses were based on the data set in which this error occurred.</p>
 <blockquote>
@@ -642,7 +664,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>“<strong>Higher</strong> levels of CSF IL-6 and IL-8 were associated with current depression […]” <small> Revised conclusion </small></p>
 </blockquote>
 <p><a href="http://retractionwatch.com/2014/07/01/bad-spreadsheet-merge-kills-depression-paper-quick-fix-resurrects-it/">Source</a></p>
-</section><section id="scripted-analyses-are-superior" class="slide level2 columns-2">
+</section>
+<section id="scripted-analyses-are-superior" class="slide level2 columns-2">
 <h2>Scripted analyses are superior</h2>
 <p><img src="img_12/open-science.png" alt="alt text" width="200px"></p>
 <ul>
@@ -650,7 +673,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Improved transparency, automation, maintanability, accessibility, standardisation, modularity, portability, efficiency, communicability of process (what more could we want?)</li>
 <li>Steeper learning curve</li>
 </ul>
-</section><section id="literate-statistical-programming" class="slide level2">
+</section>
+<section id="literate-statistical-programming" class="slide level2">
 <h2>Literate statistical programming</h2>
 <blockquote>
 <p>“Instead of imagining that our main task is to instruct a computer what to do, let us concentrate rather on explaining to humans what we want the computer to do.” <small>Donald E. Knuth, Literate Programming, 1984</small></p>
@@ -659,11 +683,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dv">2</span><span class="op">+</span><span class="dv">2</span></a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>The text and R code are interwoven in the output. The products are ephemeral - focus is on the methods!</p>
-</section><section id="literate-statistical-programming-1" class="slide level2">
+</section>
+<section id="literate-statistical-programming-1" class="slide level2">
 <h2>Literate statistical programming</h2>
 <p>Of course <code>2+2</code> is trivial, but what if I said:</p>
 <p><img src="img_12/model.png" alt="alt text" width="800"></p>
-</section><section id="literate-programming-for-and-against" class="slide level2 columns-2">
+</section>
+<section id="literate-programming-for-and-against" class="slide level2 columns-2">
 <h2>Literate programming: for and against</h2>
 <p><strong>For</strong></p>
 <ul>
@@ -676,27 +702,32 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Text and code in one place; can be hard to read</li>
 <li>Can slow down the processing of documents (use caching!)</li>
 </ul>
-</section><section id="depositing-code-and-data" class="slide level2">
+</section>
+<section id="depositing-code-and-data" class="slide level2">
 <h2>Depositing code and data</h2>
 <p><strong>Payoffs</strong> - Free space for hosting (and paid options) - Assignment of persistent DOIs - Tracking citation metrics</p>
 <p><strong>Costs</strong> - Sometimes license restrictions (CC-BY &amp; CC0) - Limited or no private storage space</p>
 <p><img src="img_12/figshare.png" alt="alt text" width="30%"> <img src="img_12/dryad.png" alt="alt text" width="30%"> <img src="img_12/zenodo.png" alt="alt text" width="30%"></p>
-</section><section id="a-hierarchy-of-reproducibility" class="slide level2">
+</section>
+<section id="a-hierarchy-of-reproducibility" class="slide level2">
 <h2>A hierarchy of reproducibility</h2>
 <ul>
 <li><strong>Good</strong>: Use code with an integrated development environment (IDE). Minimize pointing and clicking (RStudio)</li>
 <li><strong>Better</strong>: Use version control. Help yourself keep track of changes, fix bugs and improve project management (RStudio &amp; Git &amp; GitHub or BitBucket)</li>
 <li><strong>Best</strong>: Use embedded narrative and code to explicitly link code, text and data, save yourself time, save reviewers time, improve your code. (RStudio &amp; Git &amp; GitHub or BitBucket &amp; rmarkdown &amp; knitr &amp; data repository)</li>
 </ul>
-</section><section id="section" class="slide level2">
+</section>
+<section id="section" class="slide level2">
 <h2></h2>
 <p><img src="img_12/VictoriaStoddenIASSISTJune2010-reasons-to.png" alt="alt text" width="600"></p>
 <p><small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small></p>
-</section><section id="section-1" class="slide level2">
+</section>
+<section id="section-1" class="slide level2">
 <h2></h2>
 <p><img src="img_12/VictoriaStoddenIASSISTJune2010-reasons.png" alt="alt text" width="600"></p>
 <p><small>Stodden (IASSIST 2010) sampled American academics registered at the Machine Learning conference NIPS (134 responses from 593 requests (23%). Red = communitarian norms, Blue = private incentives</small></p>
-</section><section id="standards-to-normalise-reproducible-research" class="slide level2">
+</section>
+<section id="standards-to-normalise-reproducible-research" class="slide level2">
 <h2>Standards to normalise reproducible research</h2>
 <p>Reproducible Research Standard (Stodden 2009)</p>
 <ul>
@@ -705,7 +736,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>Code with one of Apache 2.0, MIT, LGPL, BSD, etc.</li>
 <li>Original “selection and arrangement” of data with CC0 or CC-BY</li>
 </ul>
-</section><section id="biggest-challenge-culture-change" class="slide level2">
+</section>
+<section id="biggest-challenge-culture-change" class="slide level2">
 <h2>Biggest challenge: culture change</h2>
 <p>Promote culture change through positive attribution</p>
 <p>Implement mechanisms to indicate &amp; encourage <strong>degrees of compliance</strong> (ie. clear definitions for different levels of reproducibility), cf. Stodden’s:</p>
@@ -716,7 +748,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><strong>‘Semi-Reproduced’</strong>: independent reproduction with other data</li>
 <li><strong>‘Perpetually Reproducible’</strong>: streaming data</li>
 </ul>
-</section></section>
+</section>
 <section><section id="reproducible-research-in-r" class="title-slide slide level1"><h1>Reproducible Research in R</h1></section><section id="need-a-programming-language" class="slide level2 columns-2">
 <h2>Need a programming language</h2>
 <p>The machine-readable part: R</p>

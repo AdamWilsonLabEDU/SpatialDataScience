@@ -156,7 +156,7 @@ trans=raster::extract(x=clim[[12:14]],
                       cellnumbers=T)%>%
   data.frame()
 head(trans)
-trans[,c("lon","lat")]=coordinates(clim)[trans$cell]
+trans[,c("lon","lat")]=coordinates(clim)[trans$cell,]
 trans$order=as.integer(rownames(trans))
 head(trans)  
 transl=group_by(trans,lon,lat)%>%

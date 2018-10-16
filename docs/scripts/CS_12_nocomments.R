@@ -1,3 +1,8 @@
+library(dplyr)
+library(ggplot2)
+library(ggmap)
+library(htmlwidgets)
+library(widgetframe)
 library(rnoaa)
 library(xts)
 library(dygraphs)

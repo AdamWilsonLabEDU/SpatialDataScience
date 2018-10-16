@@ -243,14 +243,35 @@ ___
 - Complete project proposal and upload .Rmd and .md to Github
 </div>
 ___
-## [ TK_08 :  Reproducible Research & Literate Programming ]( ./TK_08.html ) 
+## [ CS_08 :  One Script, Many Products ]( ./CS_08.html ) 
+   
+ 
+  RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc  
+ 
+ <a class="btn btn-link" href="./CS_08.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i15">Preview Readings & Tasks </button><div id="i15" class="collapse">
+## Readings
+- Chapters  [11, 26-30 in R4DS](http://r4ds.had.co.nz)
+- Browse website about [RMarkdown](https://rmarkdown.rstudio.com/index.html)
+- Browse details about creating [RMarkdown Websites](https://rmarkdown.rstudio.com/rmarkdown_websites.htm)
+
+## Tasks
+- Create a new RMarkdown Document in Rstudio with `File -> New File -> R Markdown` and save it in the case_study folder for this session
+- Click "Knit" button or `File -> Knit` Document to generate an HTML document
+- Adjust the YAML header to produce a HTML, Word, and PDF version of the document.
+- Save the outputs in your course folder for this week
+- Think about how you could use this "one document, several outputs" approach in a project and make a few notes in your README.md file for this session.
+</div>
+___
+## [ TK_08 :  Create Final Project Webpage ]( ./TK_08.html ) 
    
  
   Data I/O. RMarkdown to create dynamic research outputs.  Publishing to github/word/html/etc  
  
- <a class="btn btn-link" href="./TK_08.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i15">Preview Readings & Tasks </button><div id="i15" class="collapse">
+ <a class="btn btn-link" href="./TK_08.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i16">Preview Readings & Tasks </button><div id="i16" class="collapse">
 ## Readings
-- Chapters  [11, 26-30 inR4DS](http://r4ds.had.co.nz)
+- Chapters  [11, 26-30 in R4DS](http://r4ds.had.co.nz)
+- Browse website about [RMarkdown](https://rmarkdown.rstudio.com/index.html)
+- Browse details about creating [RMarkdown Websites](https://rmarkdown.rstudio.com/rmarkdown_websites.htm)
 
 ## Tasks
 - Create repository for final project
@@ -265,9 +286,9 @@ ___
  
   Processing daily weather data from NOAA  
  
- <a class="btn btn-link" href="./TK_09.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i16">Preview Readings & Tasks </button><div id="i16" class="collapse">
+ <a class="btn btn-link" href="./TK_09.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i17">Preview Readings & Tasks </button><div id="i17" class="collapse">
 ## Readings
-- 
+- Overview of the [GHCN Dataset](https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/global-historical-climatology-network-ghcn)
 
 ## Tasks
 - Access and work with station weather data from Global Historical Climate Network (GHCN)
@@ -276,18 +297,17 @@ ___
 - Compute Climate Extremes
 </div>
 ___
-## [ TK_11 :  Project Peer Review ]( ./TK_11.html ) 
+## [ TK_11 :  Project First Draft ]( ./TK_11.html ) 
    
  
   Review project drafts from your peers  
  
- <a class="btn btn-link" href="./TK_11.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i17">Preview Readings & Tasks </button><div id="i17" class="collapse">
+ <a class="btn btn-link" href="./TK_11.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i18">Preview Readings & Tasks </button><div id="i18" class="collapse">
 ## Readings
 - GitHub [Pull Requests](https://help.github.com/articles/about-pull-requests/)
 
 ## Tasks
-- Commit the current version of your project repository to GitHub
-- Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week.
+- Commit your first draft of your project to GitHub
 </div>
 ___
 ## [ CS_12 :  Dynamic HTML graph of Daily Temperatures ]( ./CS_12.html ) 
@@ -295,7 +315,7 @@ ___
  
   Using DyGraph library.  
  
- <a class="btn btn-link" href="./CS_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i18">Preview Readings & Tasks </button><div id="i18" class="collapse">
+ <a class="btn btn-link" href="./CS_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i19">Preview Readings & Tasks </button><div id="i19" class="collapse">
 ## Readings
 - Explore the [DyGraphs webpage](http://rstudio.github.io/dygraphs/)
 
@@ -305,18 +325,18 @@ ___
 - Save the graph using Export->Save as Webpage
 </div>
 ___
-## [ TK_12 :  Dynamic Visualization ]( ./TK_12.html ) 
+## [ TK_12 :  Project Peer Review ]( ./TK_12.html ) 
    
  
-  Interactive web-based visualizations  
+    
  
- <a class="btn btn-link" href="./TK_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i19">Preview Readings & Tasks </button><div id="i19" class="collapse">
+ <a class="btn btn-link" href="./TK_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i20">Preview Readings & Tasks </button><div id="i20" class="collapse">
 ## Readings
+- GitHub [Pull Requests](https://help.github.com/articles/about-pull-requests/)
 - Chapter [28 in R4DS](http://r4ds.had.co.nz)
 
 ## Tasks
-- Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
-- Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
+- Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it? - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
 </div>
 ___
 ## [ TK_13 :  Thanksgiving Week (Tuesday Class Optional) ]( ./TK_13.html ) 
@@ -324,7 +344,7 @@ ___
  
   Optional Course Workshop  
  
- <a class="btn btn-link" href="./TK_13.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i20">Preview Readings & Tasks </button><div id="i20" class="collapse">
+ <a class="btn btn-link" href="./TK_13.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i21">Preview Readings & Tasks </button><div id="i21" class="collapse">
 ## Readings
 - NULL
 
@@ -338,7 +358,7 @@ ___
  
   Interactive web-based visualizations  
  
- <a class="btn btn-link" href="./TK_14.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i21">Preview Readings & Tasks </button><div id="i21" class="collapse">
+ <a class="btn btn-link" href="./TK_14.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i22">Preview Readings & Tasks </button><div id="i22" class="collapse">
 ## Readings
 - Chapter [23-25 in R4DS](http://r4ds.had.co.nz)
 
@@ -352,7 +372,7 @@ ___
  
   Present your project to the class  
  
- <a class="btn btn-link" href="./TK_15.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i22">Preview Readings & Tasks </button><div id="i22" class="collapse">
+ <a class="btn btn-link" href="./TK_15.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i23">Preview Readings & Tasks </button><div id="i23" class="collapse">
 ## Readings
 - Wikipedia pages about [Lightning talks](http://en.wikipedia.org/wiki/Lightning_Talk)
 - Wikipedia pages about [Ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event))

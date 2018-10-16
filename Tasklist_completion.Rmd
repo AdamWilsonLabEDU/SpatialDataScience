@@ -23,7 +23,7 @@ tasks=do.call(rbind.data.frame,lapply(yamls, FUN=function(x) {
     complete=0,
     tasks=x$tasks,
     task=paste0("[",x$name,"](",x$url,")"),
-    date=x$date
+    date=x$week
   )
 }
 ))
