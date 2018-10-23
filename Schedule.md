@@ -30,7 +30,7 @@ Homeworks are due at 5pm on the Friday of the week specified below.
  |  6 |  10/2/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_06_raster.html){target='_blank'} |  [Spatial Raster Data](./TK_06.html) |  [Find hottest country on each continent](./CS_06.html) |  4 |
  |  7 |  10/9/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_07_help.html){target='_blank'} |  [Project Proposal](./TK_07.html) |  [Getting Help!](./CS_07.html) |  5 |
  |  8 |  10/16/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_08_repro.html){target='_blank'} |  [Create Final Project Webpage](./TK_08.html) |  [One Script, Many Products](./CS_08.html) |  6 |
- |  9 |  10/23/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_09_weather.html){target='_blank'} |  [APIs, time-series, and weather Data](./TK_09.html) |   -  |  7 |
+ |  9 |  10/23/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_09_weather.html){target='_blank'} |  [APIs, time-series, and weather Data](./TK_09.html) |  [Tracking Hurricanes!](./CS_09.html) |  7 |
  |  10 |  10/30/18 |   |   -  |   -  |  8 |
  |  11 |  11/6/18 |   |  [Project First Draft](./TK_11.html) |   -  |  9 |
  |  12 |  11/13/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_12.html){target='_blank'} |  [Project Peer Review](./TK_12.html) |  [Dynamic HTML graph of Daily Temperatures](./CS_12.html) |  10 |

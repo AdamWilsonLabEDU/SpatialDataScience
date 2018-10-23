@@ -9,7 +9,7 @@
 #' tasks:
 #'    - Create a new RMarkdown Document in Rstudio with `File -> New File -> R Markdown` and save it in the case_study folder for this session
 #'    - Click "Knit" button or `File -> Knit` Document to generate an HTML document
-#'    - Adjust the YAML header to produce a HTML, Word, and PDF version of the document. 
+#'    - Adjust the [YAML header](https://bookdown.org/yihui/rmarkdown/html-document.html) to produce a HTML, Word, and PDF version of the document. 
 #'    - Save the outputs in your course folder for this week
 #'    - Think about how you could use this "one document, several outputs" approach in a project and make a few notes in your README.md file for this session.
 #' ---

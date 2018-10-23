@@ -1,0 +1,122 @@
+---
+title: Climatic analysis
+subtitle: Analyze historical storm data
+week: 9
+type: Case Study
+reading:
+   - Overview of the [International Best Track Archive for Climate Stewardship (IBTrACS)](https://www.ncdc.noaa.gov/ibtracs/index.php?name=ibtracs-data-access)
+   - Performing [Spatial Joins with sf](https://r-spatial.github.io/sf/reference/st_join.html)
+tasks:
+   - Write a .Rmd script that performs the following tasks
+   - Use an API to access NOAA Storm data over the web
+   - Intersect the storms with US states to quantify how many storms in the database have hit each state.
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+# Tasks
+
+```{r tasks,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+## Libraries
+
+```{r purl=F, message=F,warning=FALSE}
+library(sf)
+library(broom)
+library(tidyverse)
+library(ggmap)
+library(scales)
+library(rnoaa)
+library(climdex.pcic)
+library(zoo)
+```
+
+## Your problem
+
+
+### Your goal
+Your desired figure looks something like the following:
+```{r, echo=F, purl=F, warning=F, fig.width=15}
+storm_data <- storm_shp(basin = "NA")%>%
+   storm_shp_read()%>%
+   st_as_sf()
+
+storms <- storm_data%>%
+   filter(year>1950)%>%
+   mutate_if(is.numeric, 
+             function(x) ifelse(x==-999.0,NA,x))%>% #convert -999 to NA
+   mutate(decade=(floor(year/10)*10)) #add column for decade
+
+region=st_bbox(storms)
+
+map1=ggplot() +
+  geom_sf(data=world,inherit.aes = F,size=.1,fill="grey",colour="black")+
+  facet_wrap(~decade)+
+  stat_bin2d(data=storms,
+             aes(y=st_coordinates(storms)[,2],
+                 x=st_coordinates(storms)[,1]),bins=100)+
+  scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
+                       breaks = c(1,10,100,1000))+
+  coord_sf(ylim=region[c(2,4)],xlim=region[c(1,3)])+
+  labs(x="",y="")
+map1
+```
+
+```{r}
+data(us_states)
+states<- st_transform(us_states,crs(storms))
+
+sts2 <- st_join(storms, states, join = st_intersects, left = F)%>%
+   group_by(decade,NAME)%>%
+   summarize(storms=length(unique(Name)))%>%
+   arrange(desc(storms))
+
+ggplot(sts2,aes(x=decade,y=storms))+
+   facet_wrap(~NAME)+
+   geom_line()
+```
+
+### Current Version of your code
+
+```{r, warning=F, fig.width=15}
+```
+
+
+<div class="well">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Hints</button>
+<div id="demo1" class="collapse">
+
+## Steps
+
+
+</div>
+</div>
+
+---
+
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#extras">
+Extra time? Try this...
+</button>
+<div id="extras" class="collapse">
+
+Try to replicate this graphic.
+
+```{r, echo=F, purl=F}
+ggplot(sts2,aes(y=fct_reorder(NAME,storms),x=decade,fill=storms))+
+   geom_tile()+
+   scale_fill_viridis_c()
+```
+</div>
+</div>

@@ -335,7 +335,7 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Adjust the YAML header to produce a HTML, Word, and PDF version of the document. </td>
+   <td style="text-align:left;"> Adjust the [YAML header](https://bookdown.org/yihui/rmarkdown/html-document.html) to produce a HTML, Word, and PDF version of the document. </td>
    <td style="text-align:left;"> [CS_08](./CS_08.html) </td>
    <td style="text-align:right;"> 8 </td>
   </tr>
@@ -383,25 +383,25 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Access and work with station weather data from Global Historical Climate Network (GHCN) </td>
-   <td style="text-align:left;"> [TK_09](./TK_09.html) </td>
+   <td style="text-align:left;"> Write a .Rmd script to perform the following tasks </td>
+   <td style="text-align:left;"> [CS_09](./CS_09.html) </td>
    <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Explore options for plotting timeseries </td>
-   <td style="text-align:left;"> [TK_09](./TK_09.html) </td>
+   <td style="text-align:left;"> Use an API to access NOAA Storm data over the web </td>
+   <td style="text-align:left;"> [CS_09](./CS_09.html) </td>
    <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Trend analysis </td>
-   <td style="text-align:left;"> [TK_09](./TK_09.html) </td>
+   <td style="text-align:left;"> Intersect the storms with US states to quantify how many storms in the database have hit each state. </td>
+   <td style="text-align:left;"> [CS_09](./CS_09.html) </td>
    <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Compute Climate Extremes </td>
+   <td style="text-align:left;"> Complete the Case Study for this week. </td>
    <td style="text-align:left;"> [TK_09](./TK_09.html) </td>
    <td style="text-align:right;"> 9 </td>
   </tr>

@@ -2,46 +2,109 @@
 title:  APIs, time-series, and weather Data
 ---
 
+
+
 # API
 
 ## Application Programming Interface
 
+<iframe src="https://en.wikipedia.org/wiki/Application_programming_interface" width=100% height=400px></iframe>
 
-# Climate Metrics
+> - Imagine I wanted to work with Wikipedia content...
 
-## Climate Metrics: ClimdEX
-Indices representing extreme aspects of climate derived from daily data:
+## Manually processing information from the web
 
-<img src="08_assets/climdex.png" alt="alt text" width="50%">
+* Browse to page, `File->Save As`, repeat.
+* Deal with ugly html stuff...
 
-Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
+```{}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>APIs, time-series, and weather Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/reveal.css"/>
+```
 
-## 27 Core indices
-
-For example:
-
-* **FD** Number of frost days: Annual count of days when TN (daily minimum temperature) < 0C.
-* **SU** Number of summer days: Annual count of days when TX (daily maximum temperature) > 25C.
-* **ID** Number of icing days: Annual count of days when TX (daily maximum temperature) < 0C.
-* **TR** Number of tropical nights: Annual count of days when TN (daily minimum temperature) > 20C.
-* **GSL** Growing season length: Annual (1st Jan to 31st Dec in Northern Hemisphere (NH), 1st July to 30th June in Southern Hemisphere (SH)) count between first span of at least 6 days with daily mean temperature TG>5C and first span after July 1st (Jan 1st in SH) of 6 days with TG<5C.
-* **TXx** Monthly maximum value of daily maximum temperature
-* **TN10p** Percentage of days when TN < 10th percentile
-* **Rx5day** Monthly maximum consecutive 5-day precipitation
-* **SDII** Simple pricipitation intensity index
+---
 
 
-## Weather Data
+```r
+library(WikipediR)
+library(tidyverse)
 
-### Climate Data Online
+content=page_content(
+  page_name = "Application_programming_interface",
+  project="Wikipedia",
+  language="en",
+  as_wikitext=T)
+```
 
-![CDO](08_assets/climatedataonline.png)
+## APIs allow direct (and often custom) sharing of data
 
-### GHCN 
+```r
+c1=content$parse$wikitext%>%
+  str_split(boundary("sentence"),simplify = T)%>%
+  str_replace_all("'","")%>%
+  str_replace_all("\\[|\\]","")
+# results:
+cat(c1[3:4])
+```
 
-![ghcn](08_assets/ghcn.png)
+In Programming language|computer programming, an application programming interface (API) is a set of subroutine definitions, communication protocols, and tools for building software.  In general terms, it is a set of clearly defined methods of communication among various components. 
 
-## Options for downloading data in R
+## Many data providers now have APIs
+
+* Government Demographic data (census, etc.)
+* Government Environmental data
+* Google, Twitter, etc.
+
+## Pros & Cons
+
+### Pros
+* Get the data you want, when you want it
+* Automatic updates - just re-run the request
+
+### Cons
+* Dependent on real-time access
+* APIs, permissions, etc. can change and break code
+
+## Generic API Access
+1. Provide R with a URL to request information
+2. The API sends you back a response
+    * JavaScript Object Notation (JSON)
+    * Extensible Markup Language (XML). 
+    
+
+```r
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+
+```
+## 
+## Attaching package: 'jsonlite'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     flatten
+```
+
+## Endpoints
+The URL you will request information from. 
+
+* Data.gov API: https://www.data.gov/developers/apis
+* Github API: https://api.github.com
+
+
+## Some R Packages for specific APIs
 
 ### `FedData` package
 
@@ -49,11 +112,12 @@ For example:
 * National Hydrography Dataset (USGS)
 * Soil Survey Geographic (SSURGO) database 
 * International Tree Ring Data Bank.
-* **Global Historical Climatology Network** (GHCN)
+* Global Historical Climatology Network (GHCN)
+* Others
 
-## NOAA API
+## NOAA APIv2
 
-![noaa api](08_assets/noaa_api.png)
+<iframe src="https://www.ncdc.noaa.gov/cdo-web/webservices/v2" width=100% height=400px></iframe>
 
 [National Climatic Data Center application programming interface (API)]( http://www.ncdc.noaa.gov/cdo-web/webservices/v2). 
 
@@ -71,48 +135,50 @@ Handles downloading data directly from NOAA APIv2.
 * `swdi` Severe Weather Data Inventory (SWDI)
 * `tornadoes` From the NOAA Storm Prediction Center
 
----
+# Global Historical Climatology Network (GHCN)
+
+## GHCN 
+
+<iframe src="https://www.ncdc.noaa.gov/ghcn-daily-description" width=100% height=400px></iframe>
 
 ## Libraries
 
 
 ```r
-library(raster)
 library(sf)
+library(broom)
 library(tidyverse)
 library(ggmap)
-library(maps)
 library(scales)
 # New Packages
 library(rnoaa)
 library(climdex.pcic)
 library(zoo)
-library(broom)
-library(knitr)
 ```
 
 ## Station locations 
 
-Download the GHCN station inventory with `ghcnd_stations()`.  
+Download the GHCN station inventory with `ghcnd_stations()` and convert to `sf` object.  The download can take a minute or two.
 
 
 ```r
-datadir="data"
-
-st = ghcnd_stations()
-head(st)%>%kable()
+st = ghcnd_stations()%>%
+  na.omit()%>%  # remove records with missing values
+  st_as_sf(coords=c("longitude","latitude"))%>% #convert to sf
+  st_set_crs("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+  head(st)%>%kable()
 ```
 
 
 
-id             latitude   longitude   elevation  state   name                    gsn_flag   wmo_id   element    first_year   last_year
-------------  ---------  ----------  ----------  ------  ----------------------  ---------  -------  --------  -----------  ----------
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       TMAX             1949        1949
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       TMIN             1949        1949
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       PRCP             1949        1949
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       SNOW             1949        1949
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       SNWD             1949        1949
-ACW00011604     17.1167    -61.7833        10.1          ST JOHNS COOLIDGE FLD                       PGTM             1949        1949
+|id          | elevation|state |name                  |gsn_flag |wmo_id |element | first_year| last_year|geometry             |
+|:-----------|---------:|:-----|:---------------------|:--------|:------|:-------|----------:|---------:|:--------------------|
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |TMAX    |       1949|      1949|c(-61.7833, 17.1167) |
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |TMIN    |       1949|      1949|c(-61.7833, 17.1167) |
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |PRCP    |       1949|      1949|c(-61.7833, 17.1167) |
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |SNOW    |       1949|      1949|c(-61.7833, 17.1167) |
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |SNWD    |       1949|      1949|c(-61.7833, 17.1167) |
+|ACW00011604 |      10.1|      |ST JOHNS COOLIDGE FLD |         |       |PGTM    |       1949|      1949|c(-61.7833, 17.1167) |
 
 ## GHCND Variables: 5 core values
 
@@ -146,80 +212,35 @@ library(spData)
 data(world)
 ```
 
----
-
-Plot all stations:
+## Station locations
 
 ```r
-ggplot(data=st_filtered,aes(y=latitude,x=longitude)) +
-  facet_grid(element~.)+ #make panels for each variable
+map1=ggplot() +
   geom_sf(data=world,inherit.aes = F,size=.1,fill="grey",colour="black")+
-  geom_point(size=.1,col="red")+
-  coord_sf()
-```
-
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-5-1.png)
-
-It's hard to see all the points, let's bin them...
-
----
-
-
-```r
-ggplot(st_filtered,aes(y=latitude,x=longitude)) +
-  geom_sf(data=world,inherit.aes = F,size=.1,fill="grey",colour="black")+
-  facet_grid(element~.)+
-  stat_bin2d(bins=100)+
+  facet_wrap(~element)+
+  stat_bin2d(data=st_filtered,
+             aes(y=st_coordinates(st_filtered)[,2],
+                 x=st_coordinates(st_filtered)[,1]),bins=100)+
   scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
                        breaks = c(1,10,100,1000))+
-  coord_sf()
+  coord_sf()+
+  labs(x="",y="")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-6-1.png)
+---
 
-<div class="well">
-## Your turn
-
-Produce a binned map (like above) with the following modifications:
-
-* include only stations with a data record that starts before 1950 and ends after 2000 (keeping only complete records during that time).
-* include only `tmax`
-
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-<div id="demo1" class="collapse">
-
-
-```r
-ggplot(filter(st_filtered,
-              first_year<=1950 & 
-              last_year>=2000 & 
-              element=="TMAX"),
-       aes(y=latitude,x=longitude)) +
-  geom_sf(data=world, inherit.aes = F, size=.1, fill="grey", colour="black")+
-  stat_bin2d(bins=75)+
-  scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
-    breaks = c(1,10,50))+
-  coord_sf()
-```
-
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-7-1.png)
-</div>
-</div>
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-10-1.png)
 
 ## Download daily data from GHCN
 
-`ghcnd()` will download a `.dly` file for a particular station.  But how to choose?
+`ghcnd()` will download a `.dly` text file for a particular station.  But how to choose?
 
-### `geocode` in ggmap package useful for geocoding place names 
+## `geocode` in ggmap package useful for geocoding place names 
 Geocodes a location (find latitude and longitude) using either (1) the Data Science Toolkit (http://www.datasciencetoolkit.org/about) or (2) Google Maps. 
 
 
 ```r
 geocode("University at Buffalo, NY",source = "dsk")
-```
-
-```
-## Information from URL : http://www.datasciencetoolkit.org/maps/api/geocode/json?address=University%20at%20Buffalo,%20NY&sensor=false
 ```
 
 ```
@@ -232,93 +253,105 @@ geocode("University at Buffalo, NY",source = "dsk")
 However, you have to be careful:
 
 ```r
-geocode("My Grandma's house")
+geocode("Washington",source = "dsk")
 ```
 
 ```
-## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=My%20Grandma's%20house&sensor=false
-```
-
-```
-## Warning: geocode failed with status OVER_QUERY_LIMIT, location = "My
-## Grandma's house"
-```
-
-```
-##   lon lat
-## 1  NA  NA
-```
-
-But this is pretty safe for well known places.
-
-```r
-coords=as.matrix(geocode("Buffalo, NY",source = "dsk"))
-```
-
-```
-## Information from URL : http://www.datasciencetoolkit.org/maps/api/geocode/json?address=Buffalo,%20NY&sensor=false
+##         lon      lat
+## 1 -120.5015 47.50012
 ```
 
 ```r
-coords
+geocode("Washington D.C.",source = "dsk")
 ```
 
 ```
-##            lon      lat
-## [1,] -78.88642 42.89606
+##         lon      lat
+## 1 -77.03637 38.89511
 ```
 
 ---
 
-Now use that location to spatially filter stations with a rectangular box.
+But this is pretty safe for well known and well-defined places.
 
 ```r
-bufferwidth=1 #size of rectangular buffer in decimal degrees
-
-dplyr::filter(st_filtered,
-              grepl("BUFFALO",name)&
-              between(latitude, coords[2] - bufferwidth, coords[2] + bufferwidth) &
-              between(longitude, coords[1] - bufferwidth, coords[1] + bufferwidth)&
-         element=="TMAX")
+buffalo_c=geocode("Buffalo International Airport, NY",source = "dsk")
+buffalo_c
 ```
 
 ```
-## # A tibble: 3 x 11
-##   id    latitude longitude elevation state name  gsn_flag wmo_id element
-##   <chr>    <dbl>     <dbl>     <dbl> <chr> <chr> <chr>    <chr>  <chr>  
-## 1 USC0…     42.9     -78.9    -1000. NY    BUFF… ""       ""     TMAX   
-## 2 USC0…     42.9     -78.9      177. NY    BUFF… ""       ""     TMAX   
-## 3 USW0…     42.9     -78.7      211. NY    BUFF… ""       HCN 7… TMAX   
-## # ... with 2 more variables: first_year <int>, last_year <int>
+##         lon      lat
+## 1 -78.73153 42.97851
 ```
-You could also spatially filter using `sf` package...
+
+```r
+buffalo=buffalo_c%>%
+  st_as_sf(coords=c(1,2))%>% #convert to sf
+  st_set_crs("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+```
 
 ---
+
+Now use that location to spatially filter stations.
+
+```r
+buffalo_b=st_buffer(buffalo, 0.05) #radius of buffer in decimal degrees
+st1=st_within(st_filtered,buffalo_b)%>% #find stations in the buffered polygon
+  apply(1, any) 
+str(st1)
+```
+
+```
+##  logi [1:175510] FALSE FALSE FALSE FALSE FALSE FALSE ...
+```
+
+```r
+kable(st_filtered[st1,])
+```
+
+
+
+|id          | elevation|state |name                  |gsn_flag |wmo_id    |element | first_year| last_year|geometry             |
+|:-----------|---------:|:-----|:---------------------|:--------|:---------|:-------|----------:|---------:|:--------------------|
+|US1NYER0004 |     184.1|NY    |WILLIAMSVILLE 4.1 N   |         |          |PRCP    |       2009|      2011|c(-78.7432, 43.0216) |
+|US1NYER0007 |     214.0|NY    |WILLIAMSVILLE 2.7 E   |         |          |PRCP    |       2008|      2018|c(-78.6879, 42.9693) |
+|US1NYER0054 |     178.0|NY    |EAST AMHERST 1.2 WNW  |         |          |PRCP    |       2009|      2018|c(-78.719, 43.0225)  |
+|US1NYER0083 |      96.9|NY    |WILLIAMSVILLE 1 NW    |         |          |PRCP    |       2010|      2014|c(-78.7663, 42.9698) |
+|US1NYER0102 |     214.3|NY    |CHEEKTOWAGA 2.7 NE    |         |          |PRCP    |       2013|      2018|c(-78.7193, 42.9412) |
+|US1NYER0104 |     179.5|NY    |WILLIAMSVILLE 2.2 NNW |         |          |PRCP    |       2013|      2018|c(-78.7526, 42.9942) |
+|US1NYER0107 |     186.2|NY    |AMHERST 3.3 ENE       |         |          |PRCP    |       2014|      2018|c(-78.7269, 42.9855) |
+|US1NYER0147 |     180.7|NY    |WILLIAMSVILLE 2.4 N   |         |          |PRCP    |       1998|      2018|c(-78.7403, 42.9974) |
+|USW00014733 |     211.2|NY    |BUFFALO               |         |HCN 72528 |TMAX    |       1938|      2018|c(-78.7369, 42.9486) |
+|USW00014733 |     211.2|NY    |BUFFALO               |         |HCN 72528 |TMIN    |       1938|      2018|c(-78.7369, 42.9486) |
+|USW00014733 |     211.2|NY    |BUFFALO               |         |HCN 72528 |PRCP    |       1938|      2018|c(-78.7369, 42.9486) |
+
+---
+
 With the station ID, we can download daily data from NOAA.
 
+
 ```r
-d=meteo_tidy_ghcnd("USW00014733",
+d=meteo_pull_monitors(monitors=c("USW00014733"),
                    var = c("TMAX","TMIN","PRCP"),
-                   keep_flags=T)
+                   keep_flags = T)
 head(d)%>%kable()
 ```
 
 
 
-id            date         mflag_prcp   mflag_tmax   mflag_tmin    prcp  qflag_prcp   qflag_tmax   qflag_tmin   sflag_prcp   sflag_tmax   sflag_tmin    tmax   tmin
-------------  -----------  -----------  -----------  -----------  -----  -----------  -----------  -----------  -----------  -----------  -----------  -----  -----
-USW00014733   1938-05-01   T                                          0                                         0            0            0              144     39
-USW00014733   1938-05-02   T                                          0                                         0            0            0              211     83
-USW00014733   1938-05-03                                             25                                         0            0            0              167     72
-USW00014733   1938-05-04                                            112                                         0            0            0              206     94
-USW00014733   1938-05-05   T                                          0                                         0            0            0              311    106
-USW00014733   1938-05-06                                             64                                         0            0            0              194     78
+|id          |date       |mflag_prcp |mflag_tmax |mflag_tmin | prcp|qflag_prcp |qflag_tmax |qflag_tmin |sflag_prcp |sflag_tmax |sflag_tmin | tmax| tmin|
+|:-----------|:----------|:----------|:----------|:----------|----:|:----------|:----------|:----------|:----------|:----------|:----------|----:|----:|
+|USW00014733 |1938-05-01 |T          |           |           |    0|           |           |           |0          |0          |0          |  144|   39|
+|USW00014733 |1938-05-02 |T          |           |           |    0|           |           |           |0          |0          |0          |  211|   83|
+|USW00014733 |1938-05-03 |           |           |           |   25|           |           |           |0          |0          |0          |  167|   72|
+|USW00014733 |1938-05-04 |           |           |           |  112|           |           |           |0          |0          |0          |  206|   94|
+|USW00014733 |1938-05-05 |T          |           |           |    0|           |           |           |0          |0          |0          |  311|  106|
+|USW00014733 |1938-05-06 |           |           |           |   64|           |           |           |0          |0          |0          |  194|   78|
 
 ---
 
-See [CDO Daily Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.  If you want to download multiple stations at once, check out `meteo_pull_monitors()`
+See [CDO Daily Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.  
 
----
 
 ## Quality Control: MFLAG
 
@@ -378,7 +411,7 @@ table(d$qflag_tmin)
 d_filtered=d%>%
   mutate(tmax=ifelse(qflag_tmax!=" "|tmax==-9999,NA,tmax/10))%>%  # convert to degrees C
   mutate(tmin=ifelse(qflag_tmin!=" "|tmin==-9999,NA,tmin/10))%>%  # convert to degrees C
-  mutate(prcp=ifelse(qflag_prcp!=" "|prcp==-9999,NA,prcp))%>%  # convert to degrees C
+  mutate(prcp=ifelse(qflag_prcp!=" "|prcp==-9999,NA,prcp))%>% 
   arrange(date)
 ```
 
@@ -389,12 +422,14 @@ Plot temperatures
 ```r
 ggplot(d_filtered,
        aes(y=tmax,x=date))+
-  geom_line(col="red")
+  geom_line(col="red")+
+  facet_wrap(~id)
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-15-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-18-1.png)
 
 ---
+
 Limit to a few years and plot the daily range and average temperatures.
 
 ```r
@@ -410,7 +445,7 @@ d_filtered_recent=filter(d_filtered,date>as.Date("2013-01-01"))
 ## Warning: Removed 11 rows containing missing values (geom_path).
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-16-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-19-1.png)
 
 ## Zoo package for rolling functions
 
@@ -446,38 +481,7 @@ d_rollmean%>%
     geom_line(aes(y=tmax.b60),col="darkred")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-18-1.png)
-
-<div class="well">
-## Your Turn
-
-Plot a 30-day rolling "right" aligned sum of precipitation.
-
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
-<div id="demo2" class="collapse">
-
-```r
-tp=d_filtered_recent %>%
-  arrange(date)  %>% 
-  mutate(prcp.30 = rollsum(x = prcp, 30, align = "right", fill = NA))
-
-ggplot(tp,aes(y=prcp,x=date))+
-  geom_line(aes(y=prcp.30),col="black")+ 
-  geom_line(col="red") 
-```
-
-```
-## Warning: Removed 40 rows containing missing values (geom_path).
-```
-
-```
-## Warning: Removed 11 rows containing missing values (geom_path).
-```
-
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-19-1.png)
-</div>
-</div>
-
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-21-1.png)
 
 # Time Series analysis
 
@@ -503,7 +507,7 @@ ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
 ## Warning: Removed 12 rows containing missing values (geom_point).
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-21-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-23-1.png)
 
 ## Autocorrelation functions
 
@@ -516,20 +520,20 @@ ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
 acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-22-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-24-1.png)
 
-#### Partial Autocorrelation
+---
+
+### Partial Autocorrelation
 
 ```r
 pacf(tmin.ts,lag.max = 365,na.action = na.exclude )
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-23-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-25-1.png)
 
 
-# Checking for significant trends
-
-## Compute temporal aggregation indices
+# Trend analysis
 
 ## Group by month, season, year, and decade.
 
@@ -576,24 +580,25 @@ Calculate seasonal and decadal mean temperatures.
 d_filtered2=d_filtered%>%
   mutate(month=as.numeric(format(date,"%m")),
         year=as.numeric(format(date,"%Y")),
-        season=ifelse(month%in%c(12,1,2),"Winter",
-            ifelse(month%in%c(3,4,5),"Spring",
-              ifelse(month%in%c(6,7,8),"Summer",
-                ifelse(month%in%c(9,10,11),"Fall",NA)))),
+        season=case_when(
+          month%in%c(12,1,2)~"Winter",
+          month%in%c(3,4,5)~"Spring",
+          month%in%c(6,7,8)~"Summer",
+          month%in%c(9,10,11)~"Fall"),
         dec=(floor(as.numeric(format(date,"%Y"))/10)*10))
 d_filtered2%>%dplyr::select(date,month,year,season,dec,tmax)%>%head()%>%kable()
 ```
 
 
 
-date          month   year  season     dec   tmax
------------  ------  -----  -------  -----  -----
-1938-05-01        5   1938  Spring    1930   14.4
-1938-05-02        5   1938  Spring    1930   21.1
-1938-05-03        5   1938  Spring    1930   16.7
-1938-05-04        5   1938  Spring    1930   20.6
-1938-05-05        5   1938  Spring    1930   31.1
-1938-05-06        5   1938  Spring    1930   19.4
+|date       | month| year|season |  dec| tmax|
+|:----------|-----:|----:|:------|----:|----:|
+|1938-05-01 |     5| 1938|Spring | 1930| 14.4|
+|1938-05-02 |     5| 1938|Spring | 1930| 21.1|
+|1938-05-03 |     5| 1938|Spring | 1930| 16.7|
+|1938-05-04 |     5| 1938|Spring | 1930| 20.6|
+|1938-05-05 |     5| 1938|Spring | 1930| 31.1|
+|1938-05-06 |     5| 1938|Spring | 1930| 19.4|
 
 ## Timeseries models
 
@@ -614,10 +619,10 @@ d_filtered2%>%
 
 
 
-period        n       tmin       tmax       prcp
--------  ------  ---------  ---------  ---------
-early     13394   4.199753   13.67348   25.09372
-late      15645   4.764507   13.75706   28.44032
+|period |     n|     tmin|     tmax|     prcp|
+|:------|-----:|--------:|--------:|--------:|
+|early  | 13394| 4.199753| 13.67348| 25.09372|
+|late   | 15645| 4.764507| 13.75706| 28.44032|
 
 ---
 
@@ -631,7 +636,9 @@ d_filtered2%>%
   geom_line()
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-27-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-29-1.png)
+
+---
 
 
 ```r
@@ -668,7 +675,7 @@ d_filtered2%>%
   geom_line(col="grey")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-29-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-31-1.png)
 
 
 ## Look for specific events: was 2017 unusually hot in Buffalo, NY?
@@ -696,7 +703,7 @@ ggplot(df,aes(x=doydate,y=tmax,group=year))+
 ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-31-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-33-1.png)
 
 ---
 
@@ -711,7 +718,7 @@ ggplot(df,aes(x=doydate,y=tmax,group=year))+
                lim=c(as.Date("2017-08-01"),as.Date("2017-10-31")))
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-32-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-34-1.png)
 
 So there was an unusually warm spell in late September.
 
@@ -727,7 +734,7 @@ seasonal=d_filtered2%>%
   filter(n>75)
 ```
 
----
+## Seasonal Trends
 
 
 ```r
@@ -737,169 +744,16 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   geom_line()
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-34-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-36-1.png)
 
-
-## Linear regression of maximum temperature in fall
-
-```r
-s1=seasonal%>%
-  filter(season=="Summer")
-
-ggplot(s1,aes(y=tmin,x=year))+
-  stat_smooth(method="lm", se=T)+
-  geom_line()
-```
-
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-35-1.png)
-
----
+## Fit a linear model to a single season
 
 
 ```r
-lm1=lm(tmin~year, data=s1)
-str(lm1)
-```
+lm1=seasonal%>%
+  filter(season=="Summer")%>%
+  lm(tmin~year,data=.)
 
-```
-## List of 13
-##  $ coefficients : Named num [1:2] -23.551 0.0197
-##   ..- attr(*, "names")= chr [1:2] "(Intercept)" "year"
-##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
-##   ..- attr(*, "names")= chr [1:79] "1" "2" "3" "4" ...
-##  $ effects      : Named num [1:79] -137.232 4.023 -0.752 -0.424 -0.222 ...
-##   ..- attr(*, "names")= chr [1:79] "(Intercept)" "year" "" "" ...
-##  $ rank         : int 2
-##  $ fitted.values: Named num [1:79] 14.7 14.7 14.7 14.7 14.7 ...
-##   ..- attr(*, "names")= chr [1:79] "1" "2" "3" "4" ...
-##  $ assign       : int [1:2] 0 1
-##  $ qr           :List of 5
-##   ..$ qr   : num [1:79, 1:2] -8.888 0.113 0.113 0.113 0.113 ...
-##   .. ..- attr(*, "dimnames")=List of 2
-##   .. .. ..$ : chr [1:79] "1" "2" "3" "4" ...
-##   .. .. ..$ : chr [1:2] "(Intercept)" "year"
-##   .. ..- attr(*, "assign")= int [1:2] 0 1
-##   ..$ qraux: num [1:2] 1.11 1.17
-##   ..$ pivot: int [1:2] 1 2
-##   ..$ tol  : num 1e-07
-##   ..$ rank : int 2
-##   ..- attr(*, "class")= chr "qr"
-##  $ df.residual  : int 77
-##  $ na.action    : 'omit' Named int 9
-##   ..- attr(*, "names")= chr "9"
-##  $ xlevels      : Named list()
-##  $ call         : language lm(formula = tmin ~ year, data = s1)
-##  $ terms        :Classes 'terms', 'formula'  language tmin ~ year
-##   .. ..- attr(*, "variables")= language list(tmin, year)
-##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-##   .. .. ..- attr(*, "dimnames")=List of 2
-##   .. .. .. ..$ : chr [1:2] "tmin" "year"
-##   .. .. .. ..$ : chr "year"
-##   .. ..- attr(*, "term.labels")= chr "year"
-##   .. ..- attr(*, "order")= int 1
-##   .. ..- attr(*, "intercept")= int 1
-##   .. ..- attr(*, "response")= int 1
-##   .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-##   .. ..- attr(*, "predvars")= language list(tmin, year)
-##   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-##   .. .. ..- attr(*, "names")= chr [1:2] "tmin" "year"
-##  $ model        :'data.frame':	79 obs. of  2 variables:
-##   ..$ tmin: num [1:79] 15.2 14.9 14 14.4 14.6 ...
-##   ..$ year: num [1:79] 1938 1939 1940 1941 1942 ...
-##   ..- attr(*, "terms")=Classes 'terms', 'formula'  language tmin ~ year
-##   .. .. ..- attr(*, "variables")= language list(tmin, year)
-##   .. .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-##   .. .. .. ..- attr(*, "dimnames")=List of 2
-##   .. .. .. .. ..$ : chr [1:2] "tmin" "year"
-##   .. .. .. .. ..$ : chr "year"
-##   .. .. ..- attr(*, "term.labels")= chr "year"
-##   .. .. ..- attr(*, "order")= int 1
-##   .. .. ..- attr(*, "intercept")= int 1
-##   .. .. ..- attr(*, "response")= int 1
-##   .. .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-##   .. .. ..- attr(*, "predvars")= language list(tmin, year)
-##   .. .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-##   .. .. .. ..- attr(*, "names")= chr [1:2] "tmin" "year"
-##   ..- attr(*, "na.action")= 'omit' Named int 9
-##   .. ..- attr(*, "names")= chr "9"
-##  - attr(*, "class")= chr "lm"
-```
-
-```r
-summary(lm1)
-```
-
-```
-## 
-## Call:
-## lm(formula = tmin ~ year, data = s1)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.00360 -0.45550 -0.02385  0.57754  1.90919 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) -23.551009   8.042522  -2.928  0.00448 ** 
-## year          0.019713   0.004066   4.848 6.33e-06 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 0.8298 on 77 degrees of freedom
-##   (1 observation deleted due to missingness)
-## Multiple R-squared:  0.2339,	Adjusted R-squared:  0.2239 
-## F-statistic: 23.51 on 1 and 77 DF,  p-value: 6.333e-06
-```
-
----
-You can extract values of interest by looking at the structure of the object.
-
-
-```r
-str(summary(lm1))
-```
-
-```
-## List of 12
-##  $ call         : language lm(formula = tmin ~ year, data = s1)
-##  $ terms        :Classes 'terms', 'formula'  language tmin ~ year
-##   .. ..- attr(*, "variables")= language list(tmin, year)
-##   .. ..- attr(*, "factors")= int [1:2, 1] 0 1
-##   .. .. ..- attr(*, "dimnames")=List of 2
-##   .. .. .. ..$ : chr [1:2] "tmin" "year"
-##   .. .. .. ..$ : chr "year"
-##   .. ..- attr(*, "term.labels")= chr "year"
-##   .. ..- attr(*, "order")= int 1
-##   .. ..- attr(*, "intercept")= int 1
-##   .. ..- attr(*, "response")= int 1
-##   .. ..- attr(*, ".Environment")=<environment: R_GlobalEnv> 
-##   .. ..- attr(*, "predvars")= language list(tmin, year)
-##   .. ..- attr(*, "dataClasses")= Named chr [1:2] "numeric" "numeric"
-##   .. .. ..- attr(*, "names")= chr [1:2] "tmin" "year"
-##  $ residuals    : Named num [1:79] 0.566 0.187 -0.676 -0.349 -0.147 ...
-##   ..- attr(*, "names")= chr [1:79] "1" "2" "3" "4" ...
-##  $ coefficients : num [1:2, 1:4] -23.55101 0.01971 8.04252 0.00407 -2.92831 ...
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:2] "(Intercept)" "year"
-##   .. ..$ : chr [1:4] "Estimate" "Std. Error" "t value" "Pr(>|t|)"
-##  $ aliased      : Named logi [1:2] FALSE FALSE
-##   ..- attr(*, "names")= chr [1:2] "(Intercept)" "year"
-##  $ sigma        : num 0.83
-##  $ df           : int [1:3] 2 77 2
-##  $ r.squared    : num 0.234
-##  $ adj.r.squared: num 0.224
-##  $ fstatistic   : Named num [1:3] 23.5 1 77
-##   ..- attr(*, "names")= chr [1:3] "value" "numdf" "dendf"
-##  $ cov.unscaled : num [1:2, 1:2] 93.928528 -0.047483 -0.047483 0.000024
-##   ..- attr(*, "dimnames")=List of 2
-##   .. ..$ : chr [1:2] "(Intercept)" "year"
-##   .. ..$ : chr [1:2] "(Intercept)" "year"
-##  $ na.action    : 'omit' Named int 9
-##   ..- attr(*, "names")= chr "9"
-##  - attr(*, "class")= chr "summary.lm"
-```
-
-```r
 summary(lm1)$r.squared
 ```
 
@@ -907,20 +761,41 @@ summary(lm1)$r.squared
 ## [1] 0.2338852
 ```
 
----
-
-Print a summary table:
-
 ```r
 tidy(lm1)%>%kable()
 ```
 
 
 
-term              estimate   std.error   statistic     p.value
-------------  ------------  ----------  ----------  ----------
-(Intercept)    -23.5510090   8.0425217   -2.928311   0.0044803
-year             0.0197133   0.0040659    4.848415   0.0000063
+|term        |    estimate| std.error| statistic|   p.value|
+|:-----------|-----------:|---------:|---------:|---------:|
+|(Intercept) | -23.5510090| 8.0425217| -2.928311| 0.0044803|
+|year        |   0.0197133| 0.0040659|  4.848415| 0.0000063|
+
+## Linear regression for _each_ season
+
+```r
+# fit a lm model for each group
+models <- 
+  d_filtered2%>%
+  group_by(season)%>%
+  nest() %>%
+  mutate(lm_tmin = purrr::map(data, ~lm(tmin ~ year, data = .)),
+        tmax_tidy = purrr::map(lm_tmin, broom::tidy))%>%
+  unnest(tmax_tidy, .drop = T)%>%
+  filter(term=="year")
+models
+```
+
+```
+## # A tibble: 4 x 6
+##   season term  estimate std.error statistic  p.value
+##   <chr>  <chr>    <dbl>     <dbl>     <dbl>    <dbl>
+## 1 Spring year    0.0156   0.00348      4.48 7.56e- 6
+## 2 Summer year    0.0205   0.00189     10.9  2.77e-27
+## 3 Fall   year    0.0160   0.00323      4.97 6.87e- 7
+## 4 Winter year    0.0145   0.00316      4.59 4.60e- 6
+```
 
 ## Autoregressive models
 See [Time Series Analysis Task View](https://cran.r-project.org/web/views/TimeSeries.html) for summary of available packages/models. 
@@ -933,7 +808,30 @@ See [Time Series Analysis Task View](https://cran.r-project.org/web/views/TimeSe
 
 ---
 
-# Other Climate Metrics
+# Climate Metrics
+
+## Climate Metrics: ClimdEX
+Indices representing extreme aspects of climate derived from daily data:
+
+<img src="../08_assets/climdex.png" alt="alt text" width="50%">
+
+Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
+
+## 27 Core indices
+
+For example:
+
+* **FD** Number of frost days: Annual count of days when TN (daily minimum temperature) < 0C.
+* **SU** Number of summer days: Annual count of days when TX (daily maximum temperature) > 25C.
+* **ID** Number of icing days: Annual count of days when TX (daily maximum temperature) < 0C.
+* **TR** Number of tropical nights: Annual count of days when TN (daily minimum temperature) > 20C.
+* **GSL** Growing season length: Annual (1st Jan to 31st Dec in Northern Hemisphere (NH), 1st July to 30th June in Southern Hemisphere (SH)) count between first span of at least 6 days with daily mean temperature TG>5C and first span after July 1st (Jan 1st in SH) of 6 days with TG<5C.
+* **TXx** Monthly maximum value of daily maximum temperature
+* **TN10p** Percentage of days when TN < 10th percentile
+* **Rx5day** Monthly maximum consecutive 5-day precipitation
+* **SDII** Simple pricipitation intensity index
+
+
 
 ## Climdex indices
 [ClimDex](http://www.climdex.org/indices.html)

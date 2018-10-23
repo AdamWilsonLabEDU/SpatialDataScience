@@ -2,46 +2,103 @@
 title:  APIs, time-series, and weather Data
 ---
 
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+library(kableExtra)
+options(knitr.table.format = 'markdown')
+knitr::opts_chunk$set(cache=T,
+                      fig.width=6,
+                      fig.height=3,
+                      dpi=200,
+                      dev="png")
+library(knitr)
+```
+
 # API
 
 ## Application Programming Interface
 
+<iframe src="https://en.wikipedia.org/wiki/Application_programming_interface" width=100% height=400px></iframe>
 
-# Climate Metrics
+> - Imagine I wanted to work with Wikipedia content...
 
-## Climate Metrics: ClimdEX
-Indices representing extreme aspects of climate derived from daily data:
+## Manually processing information from the web
 
-<img src="08_assets/climdex.png" alt="alt text" width="50%">
+* Browse to page, `File->Save As`, repeat.
+* Deal with ugly html stuff...
 
-Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
+```{}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>APIs, time-series, and weather Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/reveal.css"/>
+```
 
-## 27 Core indices
+---
 
-For example:
+```{r, message=F}
+library(WikipediR)
+library(tidyverse)
 
-* **FD** Number of frost days: Annual count of days when TN (daily minimum temperature) < 0C.
-* **SU** Number of summer days: Annual count of days when TX (daily maximum temperature) > 25C.
-* **ID** Number of icing days: Annual count of days when TX (daily maximum temperature) < 0C.
-* **TR** Number of tropical nights: Annual count of days when TN (daily minimum temperature) > 20C.
-* **GSL** Growing season length: Annual (1st Jan to 31st Dec in Northern Hemisphere (NH), 1st July to 30th June in Southern Hemisphere (SH)) count between first span of at least 6 days with daily mean temperature TG>5C and first span after July 1st (Jan 1st in SH) of 6 days with TG<5C.
-* **TXx** Monthly maximum value of daily maximum temperature
-* **TN10p** Percentage of days when TN < 10th percentile
-* **Rx5day** Monthly maximum consecutive 5-day precipitation
-* **SDII** Simple pricipitation intensity index
+content=page_content(
+  page_name = "Application_programming_interface",
+  project="Wikipedia",
+  language="en",
+  as_wikitext=T)
+```
+
+## APIs allow direct (and often custom) sharing of data
+```{r, results='asis'}
+c1=content$parse$wikitext%>%
+  str_split(boundary("sentence"),simplify = T)%>%
+  str_replace_all("'","")%>%
+  str_replace_all("\\[|\\]","")
+# results:
+cat(c1[3:4])
+```
+
+## Many data providers now have APIs
+
+* Government Demographic data (census, etc.)
+* Government Environmental data
+* Google, Twitter, etc.
+
+## Pros & Cons
+
+### Pros
+* Get the data you want, when you want it
+* Automatic updates - just re-run the request
+
+### Cons
+* Dependent on real-time access
+* APIs, permissions, etc. can change and break code
+
+## Generic API Access
+1. Provide R with a URL to request information
+2. The API sends you back a response
+    * JavaScript Object Notation (JSON)
+    * Extensible Markup Language (XML). 
+    
+```{r}
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+
+## Endpoints
+The URL you will request information from. 
+
+* Data.gov API: https://www.data.gov/developers/apis
+* Github API: https://api.github.com
 
 
-## Weather Data
-
-### Climate Data Online
-
-![CDO](08_assets/climatedataonline.png)
-
-### GHCN 
-
-![ghcn](08_assets/ghcn.png)
-
-## Options for downloading data in R
+## Some R Packages for specific APIs
 
 ### `FedData` package
 
@@ -49,11 +106,12 @@ For example:
 * National Hydrography Dataset (USGS)
 * Soil Survey Geographic (SSURGO) database 
 * International Tree Ring Data Bank.
-* **Global Historical Climatology Network** (GHCN)
+* Global Historical Climatology Network (GHCN)
+* Others
 
-## NOAA API
+## NOAA APIv2
 
-![noaa api](08_assets/noaa_api.png)
+<iframe src="https://www.ncdc.noaa.gov/cdo-web/webservices/v2" width=100% height=400px></iframe>
 
 [National Climatic Data Center application programming interface (API)]( http://www.ncdc.noaa.gov/cdo-web/webservices/v2). 
 
@@ -71,34 +129,36 @@ Handles downloading data directly from NOAA APIv2.
 * `swdi` Severe Weather Data Inventory (SWDI)
 * `tornadoes` From the NOAA Storm Prediction Center
 
----
+# Global Historical Climatology Network (GHCN)
+
+## GHCN 
+
+<iframe src="https://www.ncdc.noaa.gov/ghcn-daily-description" width=100% height=400px></iframe>
 
 ## Libraries
 
 ```{r,results='hide',message=FALSE, warning=F}
-library(raster)
 library(sf)
+library(broom)
 library(tidyverse)
 library(ggmap)
-library(maps)
 library(scales)
 # New Packages
 library(rnoaa)
 library(climdex.pcic)
 library(zoo)
-library(broom)
-library(knitr)
 ```
 
 ## Station locations 
 
-Download the GHCN station inventory with `ghcnd_stations()`.  
+Download the GHCN station inventory with `ghcnd_stations()` and convert to `sf` object.  The download can take a minute or two.
 
 ```{r}
-datadir="data"
-
-st = ghcnd_stations()
-head(st)%>%kable()
+st = ghcnd_stations()%>%
+  na.omit()%>%  # remove records with missing values
+  st_as_sf(coords=c("longitude","latitude"))%>% #convert to sf
+  st_set_crs("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+  head(st)%>%kable()
 ```
 
 ## GHCND Variables: 5 core values
@@ -131,109 +191,82 @@ library(spData)
 data(world)
 ```
 
----
-
-Plot all stations:
+## Station locations
 ```{r}
-ggplot(data=st_filtered,aes(y=latitude,x=longitude)) +
-  facet_grid(element~.)+ #make panels for each variable
+map1=ggplot() +
   geom_sf(data=world,inherit.aes = F,size=.1,fill="grey",colour="black")+
-  geom_point(size=.1,col="red")+
-  coord_sf()
-```
-
-It's hard to see all the points, let's bin them...
-
----
-
-```{r}
-ggplot(st_filtered,aes(y=latitude,x=longitude)) +
-  geom_sf(data=world,inherit.aes = F,size=.1,fill="grey",colour="black")+
-  facet_grid(element~.)+
-  stat_bin2d(bins=100)+
+  facet_wrap(~element)+
+  stat_bin2d(data=st_filtered,
+             aes(y=st_coordinates(st_filtered)[,2],
+                 x=st_coordinates(st_filtered)[,1]),bins=100)+
   scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
                        breaks = c(1,10,100,1000))+
-  coord_sf()
+  coord_sf()+
+  labs(x="",y="")
 ```
 
-<div class="well">
-## Your turn
+---
 
-Produce a binned map (like above) with the following modifications:
-
-* include only stations with a data record that starts before 1950 and ends after 2000 (keeping only complete records during that time).
-* include only `tmax`
-
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">Show Solution</button>
-<div id="demo1" class="collapse">
-
-```{r, purl=F}
-ggplot(filter(st_filtered,
-              first_year<=1950 & 
-              last_year>=2000 & 
-              element=="TMAX"),
-       aes(y=latitude,x=longitude)) +
-  geom_sf(data=world, inherit.aes = F, size=.1, fill="grey", colour="black")+
-  stat_bin2d(bins=75)+
-  scale_fill_distiller(palette="YlOrRd",trans="log",direction=-1,
-    breaks = c(1,10,50))+
-  coord_sf()
+```{r, echo=F}
+map1
 ```
-</div>
-</div>
 
 ## Download daily data from GHCN
 
-`ghcnd()` will download a `.dly` file for a particular station.  But how to choose?
+`ghcnd()` will download a `.dly` text file for a particular station.  But how to choose?
 
-### `geocode` in ggmap package useful for geocoding place names 
+## `geocode` in ggmap package useful for geocoding place names 
 Geocodes a location (find latitude and longitude) using either (1) the Data Science Toolkit (http://www.datasciencetoolkit.org/about) or (2) Google Maps. 
 
-```{r}
+```{r, message=F}
 geocode("University at Buffalo, NY",source = "dsk")
 ```
 
 ---
 
 However, you have to be careful:
-```{r}
-geocode("My Grandma's house")
-```
-
-But this is pretty safe for well known places.
-```{r}
-coords=as.matrix(geocode("Buffalo, NY",source = "dsk"))
-coords
+```{r, message=F, warning=F}
+geocode("Washington",source = "dsk")
+geocode("Washington D.C.",source = "dsk")
 ```
 
 ---
 
-Now use that location to spatially filter stations with a rectangular box.
-```{r}
-bufferwidth=1 #size of rectangular buffer in decimal degrees
-
-dplyr::filter(st_filtered,
-              grepl("BUFFALO",name)&
-              between(latitude, coords[2] - bufferwidth, coords[2] + bufferwidth) &
-              between(longitude, coords[1] - bufferwidth, coords[1] + bufferwidth)&
-         element=="TMAX")
+But this is pretty safe for well known and well-defined places.
+```{r, message=F, warning=F}
+buffalo_c=geocode("Buffalo International Airport, NY",source = "dsk")
+buffalo_c
+buffalo=buffalo_c%>%
+  st_as_sf(coords=c(1,2))%>% #convert to sf
+  st_set_crs("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
 ```
-You could also spatially filter using `sf` package...
 
 ---
+
+Now use that location to spatially filter stations.
+```{r, message=F, warning=F}
+buffalo_b=st_buffer(buffalo, 0.05) #radius of buffer in decimal degrees
+st1=st_within(st_filtered,buffalo_b)%>% #find stations in the buffered polygon
+  apply(1, any) 
+str(st1)
+kable(st_filtered[st1,])
+```
+
+---
+
 With the station ID, we can download daily data from NOAA.
+
 ```{r}
-d=meteo_tidy_ghcnd("USW00014733",
+d=meteo_pull_monitors(monitors=c("USW00014733"),
                    var = c("TMAX","TMIN","PRCP"),
-                   keep_flags=T)
+                   keep_flags = T)
 head(d)%>%kable()
 ```
 
 ---
 
-See [CDO Daily Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.  If you want to download multiple stations at once, check out `meteo_pull_monitors()`
+See [CDO Daily Description](http://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf) and raw [GHCND metadata](http://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt) for more details.  
 
----
 
 ## Quality Control: MFLAG
 
@@ -285,7 +318,7 @@ table(d$qflag_tmin)
 d_filtered=d%>%
   mutate(tmax=ifelse(qflag_tmax!=" "|tmax==-9999,NA,tmax/10))%>%  # convert to degrees C
   mutate(tmin=ifelse(qflag_tmin!=" "|tmin==-9999,NA,tmin/10))%>%  # convert to degrees C
-  mutate(prcp=ifelse(qflag_prcp!=" "|prcp==-9999,NA,prcp))%>%  # convert to degrees C
+  mutate(prcp=ifelse(qflag_prcp!=" "|prcp==-9999,NA,prcp))%>% 
   arrange(date)
 ```
 
@@ -295,10 +328,12 @@ Plot temperatures
 ```{r, warning=F}
 ggplot(d_filtered,
        aes(y=tmax,x=date))+
-  geom_line(col="red")
+  geom_line(col="red")+
+  facet_wrap(~id)
 ```
 
 ---
+
 Limit to a few years and plot the daily range and average temperatures.
 ```{r, fig.height=6}
 d_filtered_recent=filter(d_filtered,date>as.Date("2013-01-01"))
@@ -341,27 +376,6 @@ d_rollmean%>%
     geom_line(aes(y=tmax.b60),col="darkred")
 ```
 
-<div class="well">
-## Your Turn
-
-Plot a 30-day rolling "right" aligned sum of precipitation.
-
-<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
-<div id="demo2" class="collapse">
-```{r, purl=F}
-tp=d_filtered_recent %>%
-  arrange(date)  %>% 
-  mutate(prcp.30 = rollsum(x = prcp, 30, align = "right", fill = NA))
-
-ggplot(tp,aes(y=prcp,x=date))+
-  geom_line(aes(y=prcp.30),col="black")+ 
-  geom_line(col="red") 
-
-```
-</div>
-</div>
-
-
 # Time Series analysis
 
 Most timeseries functions use the time series class (`ts`)
@@ -390,15 +404,15 @@ ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
 acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 ```
 
-#### Partial Autocorrelation
+---
+
+### Partial Autocorrelation
 ```{r}
 pacf(tmin.ts,lag.max = 365,na.action = na.exclude )
 ```
 
 
-# Checking for significant trends
-
-## Compute temporal aggregation indices
+# Trend analysis
 
 ## Group by month, season, year, and decade.
 
@@ -418,10 +432,11 @@ Calculate seasonal and decadal mean temperatures.
 d_filtered2=d_filtered%>%
   mutate(month=as.numeric(format(date,"%m")),
         year=as.numeric(format(date,"%Y")),
-        season=ifelse(month%in%c(12,1,2),"Winter",
-            ifelse(month%in%c(3,4,5),"Spring",
-              ifelse(month%in%c(6,7,8),"Summer",
-                ifelse(month%in%c(9,10,11),"Fall",NA)))),
+        season=case_when(
+          month%in%c(12,1,2)~"Winter",
+          month%in%c(3,4,5)~"Spring",
+          month%in%c(6,7,8)~"Summer",
+          month%in%c(9,10,11)~"Fall"),
         dec=(floor(as.numeric(format(date,"%Y"))/10)*10))
 d_filtered2%>%dplyr::select(date,month,year,season,dec,tmax)%>%head()%>%kable()
 ```
@@ -452,6 +467,8 @@ d_filtered2%>%
   ggplot(aes(x=year,y=n))+
   geom_line()
 ```
+
+---
 
 ```{r}
 # which years don't have complete data?
@@ -523,47 +540,38 @@ seasonal=d_filtered2%>%
   filter(n>75)
 ```
 
----
+## Seasonal Trends
 
-```{r, warning=F,fig.height=12}
+```{r, warning=F}
 ggplot(seasonal,aes(y=tmin,x=year))+
   facet_wrap(~season,scales = "free_y")+
   stat_smooth(method="lm", se=T)+
   geom_line()
 ```
 
-
-## Linear regression of maximum temperature in fall
-```{r, warning=F}
-s1=seasonal%>%
-  filter(season=="Summer")
-
-ggplot(s1,aes(y=tmin,x=year))+
-  stat_smooth(method="lm", se=T)+
-  geom_line()
-```
-
----
+## Fit a linear model to a single season
 
 ```{r}
-lm1=lm(tmin~year, data=s1)
-str(lm1)
-summary(lm1)
-```
+lm1=seasonal%>%
+  filter(season=="Summer")%>%
+  lm(tmin~year,data=.)
 
----
-You can extract values of interest by looking at the structure of the object.
-
-```{r}
-str(summary(lm1))
 summary(lm1)$r.squared
+tidy(lm1)%>%kable()
 ```
 
----
-
-Print a summary table:
-```{r, as.is=T}
-tidy(lm1)%>%kable()
+## Linear regression for _each_ season
+```{r, warning=F}
+# fit a lm model for each group
+models <- 
+  d_filtered2%>%
+  group_by(season)%>%
+  nest() %>%
+  mutate(lm_tmin = purrr::map(data, ~lm(tmin ~ year, data = .)),
+        tmax_tidy = purrr::map(lm_tmin, broom::tidy))%>%
+  unnest(tmax_tidy, .drop = T)%>%
+  filter(term=="year")
+models
 ```
 
 ## Autoregressive models
@@ -577,7 +585,30 @@ See [Time Series Analysis Task View](https://cran.r-project.org/web/views/TimeSe
 
 ---
 
-# Other Climate Metrics
+# Climate Metrics
+
+## Climate Metrics: ClimdEX
+Indices representing extreme aspects of climate derived from daily data:
+
+<img src="../08_assets/climdex.png" alt="alt text" width="50%">
+
+Climate Change Research Centre (CCRC) at University of New South Wales (UNSW) ([climdex.org](http://www.climdex.org)).  
+
+## 27 Core indices
+
+For example:
+
+* **FD** Number of frost days: Annual count of days when TN (daily minimum temperature) < 0C.
+* **SU** Number of summer days: Annual count of days when TX (daily maximum temperature) > 25C.
+* **ID** Number of icing days: Annual count of days when TX (daily maximum temperature) < 0C.
+* **TR** Number of tropical nights: Annual count of days when TN (daily minimum temperature) > 20C.
+* **GSL** Growing season length: Annual (1st Jan to 31st Dec in Northern Hemisphere (NH), 1st July to 30th June in Southern Hemisphere (SH)) count between first span of at least 6 days with daily mean temperature TG>5C and first span after July 1st (Jan 1st in SH) of 6 days with TG<5C.
+* **TXx** Monthly maximum value of daily maximum temperature
+* **TN10p** Percentage of days when TN < 10th percentile
+* **Rx5day** Monthly maximum consecutive 5-day precipitation
+* **SDII** Simple pricipitation intensity index
+
+
 
 ## Climdex indices
 [ClimDex](http://www.climdex.org/indices.html)
