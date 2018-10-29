@@ -11,7 +11,7 @@
 
 
 
-<title>Course Schedule</title>
+<title>Remote Sensing</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -183,7 +183,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1",
+      selectors: "h1,h2",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
@@ -410,176 +410,37 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Course Schedule</h1>
+<h1 class="title toc-ignore">Remote Sensing</h1>
+<h3 class="subtitle"><em>Processing MODIS data from NASA</em></h3>
 
 </div>
 
 
-<p>Course content is designed to be flexible to accommodate student interest and abilities. The order and timing of course topics may change as the semester progresses.</p>
-<p><strong>Readings</strong></p>
-<p>In the table below, R4DS refers to <a href="http://r4ds.had.co.nz"><em>R for Data Science</em> by Garrett Grolemund and Hadley Wickham</a> and, while GCR refers to <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em> by Robin Lovelace, Jakub Nowosad, and Jannes Muenchow (CRC Press, 2018)</a>.</p>
-<p><strong>Homework</strong> Homeworks are due at 5pm on the Friday of the week specified below.</p>
-<div id="schedule" class="section level2">
-<h2>Schedule</h2>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Week</th>
-<th align="left">Date</th>
-<th align="center">Presentation</th>
-<th align="center">Topic / Tasks</th>
-<th align="center">Case Study</th>
-<th align="left"><a href="PackageIntro.html">Package Present</a></th>
-<th align="center"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="left">8/28/18</td>
-<td align="center"><a href="presentations/PS_01_intro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_01.html">Git-01</a></td>
-<td align="center"><a href="./CS_01.html">Create a simple, functioning script</a></td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">2</td>
-<td align="left">9/4/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_02.html">Git-02</a></td>
-<td align="center"><a href="./CS_02.html">My grandfather says climate is cooling</a></td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">3</td>
-<td align="left">9/11/18</td>
-<td align="center"><a href="presentations/03_DataWrangling.pdf" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_03.html">Data Wrangling</a></td>
-<td align="center"><a href="./CS_03.html">Wealth over time</a></td>
-<td align="left">1</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">4</td>
-<td align="left">9/18/18</td>
-<td align="center"><a href="presentations/PS_04_join.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_04.html">Data Wrangling 2</a></td>
-<td align="center"><a href="./CS_04.html">Farthest airport from New York City</a></td>
-<td align="left">2</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">5</td>
-<td align="left">9/25/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_05.html">Spatial Vector Data</a></td>
-<td align="center"><a href="./CS_05.html">Beware the Canadians!</a></td>
-<td align="left">3</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">6</td>
-<td align="left">10/2/18</td>
-<td align="center"><a href="presentations/PS_06_raster.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_06.html">Spatial Raster Data</a></td>
-<td align="center"><a href="./CS_06.html">Find hottest country on each continent</a></td>
-<td align="left">4</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">7</td>
-<td align="left">10/9/18</td>
-<td align="center"><a href="presentations/PS_07_help.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_07.html">Project Proposal</a></td>
-<td align="center"><a href="./CS_07.html">Getting Help!</a></td>
-<td align="left">5</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">8</td>
-<td align="left">10/16/18</td>
-<td align="center"><a href="presentations/PS_08_repro.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_08.html">Create Final Project Webpage</a></td>
-<td align="center"><a href="./CS_08.html">One Script, Many Products</a></td>
-<td align="left">6</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">9</td>
-<td align="left">10/23/18</td>
-<td align="center"><a href="presentations/PS_09_weather.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_09.html">APIs, time-series, and weather Data</a></td>
-<td align="center"><a href="./CS_09.html">Tracking Hurricanes!</a></td>
-<td align="left">7</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">10</td>
-<td align="left">10/30/18</td>
-<td align="center"><a href="presentations/PS_10_RS.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_10.html">Remote Sensing</a></td>
-<td align="center">-</td>
-<td align="left">8</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">11</td>
-<td align="left">11/6/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_11.html">Project First Draft</a></td>
-<td align="center">-</td>
-<td align="left">9</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">12</td>
-<td align="left">11/13/18</td>
-<td align="center"><a href="presentations/PS_12.html" target="_blank"><i class='fas fa-desktop'> </i></a></td>
-<td align="center"><a href="./TK_12.html">Project Peer Review</a></td>
-<td align="center"><a href="./CS_12.html">Dynamic HTML graph of Daily Temperatures</a></td>
-<td align="left">10</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">13</td>
-<td align="left">11/20/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_13.html">Thanksgiving Week (Tuesday Class Optional)</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">14</td>
-<td align="left">11/27/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_14.html">Final Project 2nd Draft / Building and summarizing models</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="left">15</td>
-<td align="left">12/4/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_15.html">Final Presentation</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="left">16</td>
-<td align="left">12/14/18</td>
-<td align="center"></td>
-<td align="center"><a href="./TK_16.html">Publish Final Project</a></td>
-<td align="center">-</td>
-<td align="left"></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
+<div class="extraswell">
+<button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button> <a href="presentations/PS_10_RS.html" target="_blank">Open presentation in a new tab</a>
+<div id="pres" class="collapse">
+<div class="embed-responsive embed-responsive-16by9">
+<p><iframe class='embed-responsive-item' src='presentations/PS_10_RS.html' allowfullscreen></iframe> <em>Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview.</em></p>
+</div>
+</div>
+</div>
+<div id="reading" class="section level1">
+<h1>Reading</h1>
+<ul>
+<li>NULL</li>
+</ul>
+</div>
+<div id="tasks" class="section level1">
+<h1>Tasks</h1>
+<ul>
+<li>Work through the materials on <a href="09_RemoteSensing_appeears.html">processing MODIS RS data</a></li>
+<li>Take notes on interesting or useful things you learned in your course repository.</li>
+</ul>
+</div>
+<div id="more-resources" class="section level1">
+<h1>More Resources</h1>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8VHzCiupTVo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
 </div>
 
 <!-- Google Analytics -->

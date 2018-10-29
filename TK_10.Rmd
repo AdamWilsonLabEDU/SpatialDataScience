@@ -1,0 +1,36 @@
+---
+title:  Remote Sensing
+subtitle:  Processing MODIS data from NASA
+week: 10
+type: Task
+presentation: PS_10_RS.html
+reading: 
+   - 
+tasks: 
+   - Work through the materials on [processing MODIS RS data](09_RemoteSensing_appeears.html)
+   - Take notes on interesting or useful things you learned in your course repository.
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+# Tasks
+
+```{r tasks,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+# More Resources
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8VHzCiupTVo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+

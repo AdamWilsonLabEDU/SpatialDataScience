@@ -4,12 +4,8 @@ title: "Satellite Remote Sensing"
 
 
 
-<div>
-<iframe src="09_presentation/09_RemoteSensing.html" width="75%" height="400px"> </iframe>
-</div>
 
-
-[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](scripts/09_RemoteSensing_appeears.R).  Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
+[<i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here](scripts/09_RemoteSensing_appeears.R).  If you like, you can download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.  
 
 
 ### Libraries
@@ -21,15 +17,14 @@ library(rasterVis)
 library(rgdal)
 library(ggplot2)
 library(ggmap)
-library(dplyr)
-library(knitr)
-library(tidyr)
+library(tidyverse)
 
 library(DataScienceData)
 
 # New Packages
 library(gdalUtils)
 library(rts)
+library(ncdf4)
 ```
 
 
@@ -42,7 +37,7 @@ Today we'll work with:
 
 ## Land Use Land Cover
 
-You will need to update the DataScienceData package before the command below will work.  Run `devtools::install_github("adammwilson/DataScienceData"); library(DataScienceData)`.  If that doesn't work, you can download the needed files directly from [here](https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears).
+You will need to update the DataScienceData package before the command below will work.  Run `devtools::install_github("adammwilson/DataScienceData")` and then `library(DataScienceData)`.  If that doesn't work, you can download the needed files directly from [here](https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears).
 
 
 ```r
@@ -53,11 +48,7 @@ lulcf
 ```
 
 ```
-## [1] "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/DataScienceData/extdata/appeears/MCD12Q1.051_aid0001.nc"
-```
-
-```r
-#IF that doesn't work
+## [1] "/Library/Frameworks/R.framework/Versions/3.5/Resources/library/DataScienceData/extdata/appeears/MCD12Q1.051_aid0001.nc"
 ```
 
 
@@ -67,6 +58,13 @@ plot(lulc)
 ```
 
 ![](09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+You may see some errors similar to
+```
+">>>> WARNING <<<  attribute false_northing is an 8-byte value, but R"
+[1] "does not support this data type. I am returning a double precision"
+[1] "floating point, but you must be aware that this could lose precision!"
+```
+and you can ignore those.  
 
 We'll just pick one year to work with to keep this simple:
 
@@ -163,8 +161,6 @@ plot(lst[[1:12]])
 ```
 
 ![](09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
-
-You may get a warning about some attributes being 8-byte converted to double precisions. You can ignore these warnings. 
 
 ## Convert LST to Degrees C 
 You can convert LST from Degrees Kelvin (K) to Celcius (C) with `offs()`.

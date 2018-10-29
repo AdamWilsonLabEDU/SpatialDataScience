@@ -3,21 +3,18 @@ library(rasterVis)
 library(rgdal)
 library(ggplot2)
 library(ggmap)
-library(dplyr)
-library(knitr)
-library(tidyr)
+library(tidyverse)
 
 library(DataScienceData)
 
 # New Packages
 library(gdalUtils)
 library(rts)
+library(ncdf4)
 lulcf=system.file("extdata", 
                 "appeears/MCD12Q1.051_aid0001.nc", 
                 package = "DataScienceData")
 lulcf
-
-#IF that doesn't work
 lulc=stack(lulcf,varname="Land_Cover_Type_1")
 plot(lulc)
 lulc=lulc[[13]]

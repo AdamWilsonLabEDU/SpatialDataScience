@@ -407,6 +407,18 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Work through the materials on [processing MODIS RS data](09_RemoteSensing_appeears.html) </td>
+   <td style="text-align:left;"> [TK_10](./TK_10.html) </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Take notes on interesting or useful things you learned in your course repository. </td>
+   <td style="text-align:left;"> [TK_10](./TK_10.html) </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Commit your first draft of your project to GitHub </td>
    <td style="text-align:left;"> [TK_11](./TK_11.html) </td>
    <td style="text-align:right;"> 11 </td>

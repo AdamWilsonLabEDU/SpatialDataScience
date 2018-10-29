@@ -415,11 +415,7 @@ div.tocify {
 </div>
 
 
-<div>
-<iframe src="09_presentation/09_RemoteSensing.html" width="75%" height="400px">
-</iframe>
-</div>
-<p><a href="scripts/09_RemoteSensing_appeears.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. Download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
+<p><a href="scripts/09_RemoteSensing_appeears.R"><i class="fa fa-file-code-o fa-3x" aria-hidden="true"></i> The R Script associated with this page is available here</a>. If you like, you can download this file and open it (or copy-paste into a new script) with RStudio so you can follow along.</p>
 <div id="libraries" class="section level3">
 <h3>Libraries</h3>
 <pre class="r"><code>library(raster)
@@ -427,15 +423,14 @@ library(rasterVis)
 library(rgdal)
 library(ggplot2)
 library(ggmap)
-library(dplyr)
-library(knitr)
-library(tidyr)
+library(tidyverse)
 
 library(DataScienceData)
 
 # New Packages
 library(gdalUtils)
-library(rts)</code></pre>
+library(rts)
+library(ncdf4)</code></pre>
 </div>
 <div id="identify-and-create-download-folders" class="section level2">
 <h2>Identify (and create) download folders</h2>
@@ -447,16 +442,19 @@ library(rts)</code></pre>
 </div>
 <div id="land-use-land-cover" class="section level2">
 <h2>Land Use Land Cover</h2>
-<p>You will need to update the DataScienceData package before the command below will work. Run <code>devtools::install_github(&quot;adammwilson/DataScienceData&quot;); library(DataScienceData)</code>. If that doesn’t work, you can download the needed files directly from <a href="https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears">here</a>.</p>
+<p>You will need to update the DataScienceData package before the command below will work. Run <code>devtools::install_github(&quot;adammwilson/DataScienceData&quot;)</code> and then <code>library(DataScienceData)</code>. If that doesn’t work, you can download the needed files directly from <a href="https://github.com/adammwilson/DataScienceData/tree/master/inst/extdata/appeears">here</a>.</p>
 <pre class="r"><code>lulcf=system.file(&quot;extdata&quot;, 
                 &quot;appeears/MCD12Q1.051_aid0001.nc&quot;, 
                 package = &quot;DataScienceData&quot;)
 lulcf</code></pre>
-<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/DataScienceData/extdata/appeears/MCD12Q1.051_aid0001.nc&quot;</code></pre>
-<pre class="r"><code>#IF that doesn&#39;t work</code></pre>
+<pre><code>## [1] &quot;/Library/Frameworks/R.framework/Versions/3.5/Resources/library/DataScienceData/extdata/appeears/MCD12Q1.051_aid0001.nc&quot;</code></pre>
 <pre class="r"><code>lulc=stack(lulcf,varname=&quot;Land_Cover_Type_1&quot;)
 plot(lulc)</code></pre>
-<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
+<p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-4-1.png" /><!-- --> You may see some errors similar to</p>
+<pre><code>&quot;&gt;&gt;&gt;&gt; WARNING &lt;&lt;&lt;  attribute false_northing is an 8-byte value, but R&quot;
+[1] &quot;does not support this data type. I am returning a double precision&quot;
+[1] &quot;floating point, but you must be aware that this could lose precision!&quot;</code></pre>
+<p>and you can ignore those.</p>
 <p>We’ll just pick one year to work with to keep this simple:</p>
 <pre class="r"><code>lulc=lulc[[13]]
 plot(lulc)</code></pre>
@@ -568,7 +566,6 @@ lstf
 lst=stack(lstf,varname=&quot;LST_Day_1km&quot;)
 plot(lst[[1:12]])</code></pre>
 <p><img src="09_RemoteSensing_appeears_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
-<p>You may get a warning about some attributes being 8-byte converted to double precisions. You can ignore these warnings.</p>
 </div>
 <div id="convert-lst-to-degrees-c" class="section level2">
 <h2>Convert LST to Degrees C</h2>

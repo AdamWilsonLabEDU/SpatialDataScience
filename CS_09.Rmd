@@ -47,9 +47,8 @@ In this case study you will download storm track data from NOAA, make a summary 
 
 ### Your goal
 ```{r download_data, echo=F, purl=F, warning=F}
-storm_data <- storm_shp(basin = "NA")%>%
-   storm_shp_read()%>%
-   st_as_sf()
+storms <- storm_shp(basin = "NA")
+storm_data <- read_sf(storms$path)
 ```
 
 ```{r, echo=F, purl=F, warning=F}

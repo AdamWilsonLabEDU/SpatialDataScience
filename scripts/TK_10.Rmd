@@ -1,0 +1,26 @@
+---
+title:  Remote Sensing
+subtitle:  Processing MODIS data from NASA
+week: 10
+type: Task
+presentation: PS_10_RS.html
+reading: 
+   - 
+tasks: 
+   - Work through the materials on [processing MODIS RS data](09_RemoteSensing_appeears.html)
+---
+
+```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
+source("functions.R")
+source("knitr_header.R")
+```
+
+`r presframe()`
+
+# Reading
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+

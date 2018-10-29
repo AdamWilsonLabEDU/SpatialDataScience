@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Processing Data from Satellite Remote Sensing</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="externals/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="reveal.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <link href="externals/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="externals/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="externals/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Processing Data from Satellite Remote Sensing</h1>
+</section>
+
+<section id="objectives" class="slide level2">
+<h2>Objectives</h2>
+<ul>
+<li>Brief introduction to remote sensing</li>
+<li>Obtaining NASA remote sensing data</li>
+<li>MODIS</li>
+<li>MODIS data processing</li>
+</ul>
+</section>
+<section id="active-earth-observing-satellites-eos-as-of-8312015" class="slide level2">
+<h2>Active Earth Observing Satellites (EOS) (as of 8/31/2015)</h2>
+<ul>
+<li>Total number of operating satellites: 1,305</li>
+<li>Total Earth Observing Satellites (EOS): 333
+<ul>
+<li>United States: 34%</li>
+<li>China: 21%<br />
+</li>
+<li>Japan 6.3%</li>
+</ul></li>
+</ul>
+<p>From the <a href="http://www.ucsusa.org/nuclear-weapons/space-weapons/satellite-database.html#.VjzlnoS98VQ">Union of Concerned Scientists Satellite Database</a> and <a href="http://www.pixalytics.com/blog/">Pixalytics Blog</a></p>
+</section>
+<section id="debris-satellites-in-low-earth-orbit" class="slide level2">
+<h2>Debris &amp; Satellites in low Earth orbit</h2>
+<p><img src="PS_10_assets/satellites.jpg" alt="alt text" width="75%"></p>
+<p>Image courtesy of <a href="http://www.esa.int/spaceinimages/Images/2008/03/Debris_objects_-_mostly_debris_-_in_low_Earth_orbit_LEO_-_view_over_the_equator">European Space Agency</a></p>
+</section>
+<section id="nasas-earth-observing-system" class="slide level2">
+<h2>NASA’s Earth Observing System</h2>
+<p><img src="PS_10_assets/eos.jpg" alt="alt text" width="75%"></p>
+</section>
+<section id="passive-remote-sensing" class="slide level2">
+<h2>Passive Remote Sensing</h2>
+</section>
+<section id="electromagnetic-radiation" class="slide level2">
+<h2>Electromagnetic Radiation</h2>
+<p><img src="PS_10_assets/spectrum.png" alt="alt text" width="100%"></p>
+</section>
+<section id="earthdata" class="slide level2">
+<h2>EarthData</h2>
+<p><a href="https://earthdata.nasa.gov">EarthData.nasa.gov</a></p>
+<p>Datasets, news, articles, information</p>
+<p><img src="PS_10_assets/Earthdata1.png" alt="alt text" width="75%"></p>
+</section>
+<section id="earthdata-1" class="slide level2">
+<h2>EarthData</h2>
+<p><a href="https://earthdata.nasa.gov">EarthData.nasa.gov</a></p>
+<p>Datasets, news, articles, information</p>
+<p><img src="PS_10_assets/Earthdata2.png" alt="alt text" width="75%"></p>
+</section>
+<section><section id="modis" class="title-slide slide level1"><h1>MODIS</h1></section><section id="moderate-resolution-imaging-spectroradiometer-modis" class="slide level2">
+<h2>Moderate Resolution Imaging Spectroradiometer (MODIS)</h2>
+<p><img src="PS_10_assets/TerraLaunch.png" alt="alt text" width="75%"></p>
+<p>2 Satellites <em>Terra</em> launched in 1999, <em>Aqua</em> in 2002.</p>
+</section><section id="technical-details-swath" class="slide level2">
+<h2>Technical Details: swath</h2>
+<p><img src="PS_10_assets/terra.png" alt="alt text" width="75%"></p>
+<p>Viewing swath width of 2,330 km</p>
+<p>Technical Details: spatial coverage</p>
+</section><section class="slide level2">
+
+<p><img src="PS_10_assets/first_complete_day_from_modis.jpg" alt="alt text" width="75%"></p>
+<p>Covers Earth every one to two days</p>
+<p>Technical Details: spectral coverage</p>
+</section><section class="slide level2">
+
+<p><img src="PS_10_assets/spectrum2.png" alt="alt text" width="75%"></p>
+<p>36 spectral bands between 0.405 and 14.385 µm</p>
+<p>Technical Details: spatial resolution</p>
+</section><section class="slide level2">
+
+<p><img src="PS_10_assets/resolution.jpg" alt="alt text" width="50%"></p>
+<p>3 spatial resolutions – 250m, 500m, and 1,000m</p>
+</section><section id="modis-data-processing" class="slide level2">
+<h2>MODIS Data Processing</h2>
+<ul>
+<li>Tracking and Data Relay Satellite System in White Sands, New Mexico</li>
+<li>EOS Data and Operations System @ Goddard Space Flight Center in Greenbelt, MD</li>
+<li>MODIS Adaptive Processing System (MODAPS)</li>
+<li>3 DAACs for distribution</li>
+</ul>
+</section><section id="modis-products-a-subset" class="slide level2">
+<h2>MODIS products (a subset…)</h2>
+</section><section id="atmosphere" class="slide level2">
+<h2>Atmosphere</h2>
+<ul>
+<li>Aerosol &amp; Clouds</li>
+<li>Total Precipitable Water</li>
+</ul>
+</section><section id="cryosphere-products" class="slide level2">
+<h2>Cryosphere Products</h2>
+<ul>
+<li>Snow Cover</li>
+<li>Sea Ice and Ice Surface Temperature</li>
+</ul>
+</section><section id="ocean-products" class="slide level2">
+<h2>Ocean Products</h2>
+<ul>
+<li>Sea Surface Temperature</li>
+<li>Sub-surface Chlorophyll-a Concentration</li>
+<li>Particulate Carbon</li>
+<li>Photosynthetically Available Radiation</li>
+</ul>
+</section><section id="land-products" class="slide level2">
+<h2>Land Products</h2>
+<ul>
+<li>Surface Reflectance</li>
+<li>Land Surface Temperature and Emissivity</li>
+<li>Land Cover Products</li>
+<li>Vegetation Index Products (NDVI and EVI)</li>
+<li>Thermal Anomalies - Active Fires</li>
+<li>Photosynthetically Active Radiation (FPAR) / Leaf Area Index (LAI)</li>
+<li>Evapotranspiration</li>
+<li>Primary Productivity</li>
+<li>Vegetation Continuous Fields</li>
+<li>Water Mask</li>
+<li>Burned Area Product</li>
+</ul>
+</section><section id="example-product-workflow" class="slide level2">
+<h2>Example product workflow</h2>
+<p><img src="PS_10_assets/VI_flow.png" alt="alt text" heigt="90%"></p>
+<p>MODIS Products used to generate vegetation indices. From the <a href="http://modis.gsfc.nasa.gov/data/atbd/atbd_mod13.pdf">MOD13 Algorithm Theoretical Basis Document</a>.</p>
+</section></section>
+<section><section id="data" class="title-slide slide level1"><h1>Data</h1></section><section id="data-formats" class="slide level2">
+<h2>Data formats</h2>
+<p>Most NASA EOS data distributed as HDF files, which are very similar to netCDF.</p>
+<p><img src="PS_10_assets/NetCDF4Library.jpg" alt="alt text" width="75%"></p>
+</section><section id="netcdf-hdf" class="slide level2">
+<h2>NetCDF / HDF</h2>
+<p><img src="PS_10_assets/netcdf2.png" alt="alt text" width="75%"></p>
+</section><section id="collection-level-naming-conventsions" class="slide level2">
+<h2>Collection-Level Naming Conventsions</h2>
+<p><code>MODIS/Terra Surface Reflectance 8-Day L3 Global 500m SIN Grid V005</code></p>
+<ul>
+<li><code>MODIS/Terra</code> - Instrument/Sensor</li>
+<li><code>Surface Reflectance</code> - Geophysical Parameter</li>
+<li><code>8-Day</code> - Temporal Resolution</li>
+<li><code>L3</code> - Processing Level</li>
+<li><code>Global</code> - Global or Swath</li>
+<li><code>500m</code> - Spatial Resolution</li>
+<li><code>SIN Grid</code> - Gridded or Not</li>
+<li><code>V005</code> - Collection Version</li>
+</ul>
+</section><section id="modis-gridding-system" class="slide level2">
+<h2>MODIS Gridding system</h2>
+<p><img data-src="PS_10_assets/modgrid.gif" /></p>
+</section><section id="filename-conventions" class="slide level2">
+<h2>Filename Conventions</h2>
+<p><code>MOD09A1.A2006001.h08v05.005.2006012234657.hdf</code></p>
+<ul>
+<li><code>MOD09A1</code> - Product Short Name</li>
+<li><code>.A2006001</code> - Julian Date of Acquisition (A-YYYYDDD)</li>
+<li><code>.h08v05</code> - Tile Identifier (horizontalXXverticalYY)</li>
+<li><code>.005</code> - Collection Version</li>
+<li><code>.2006012234567</code> - Julian Date of Production (YYYYDDDHHMMSS)</li>
+<li><code>.hdf</code> - Data Format (HDF-EOS)</li>
+</ul>
+</section><section id="modis-temporal-resolution" class="slide level2">
+<h2>MODIS Temporal Resolution</h2>
+<ul>
+<li>Daily</li>
+<li>8-Day</li>
+<li>16-Day</li>
+<li>Monthly</li>
+<li>Quarterly</li>
+<li>Yearly</li>
+</ul>
+</section><section id="modis-spatial-resolution" class="slide level2">
+<h2>MODIS Spatial Resolution</h2>
+<ul>
+<li><strong>Bands 1–2</strong> 250-meter</li>
+<li><strong>Bands 3–7</strong> 500-meter</li>
+<li><strong>Bands 8–36</strong> 1000-meter</li>
+</ul>
+</section><section id="modis-data" class="slide level2">
+<h2>MODIS Data</h2>
+<h3 id="distributed-active-archive-centers-daacs">Distributed Active Archive Centers (DAACs)</h3>
+<ul>
+<li><strong>Level 1 data:</strong> geolocation, cloud mask, and atmosphere products <a href="http://ladsweb.nascom.nasa.gov/">ladsweb.nascom.nasa.gov</a></li>
+<li><strong>Land products:</strong> <a href="https://lpdaac.usgs.gov/">lpdaac.usgs.gov</a></li>
+<li><strong>Cryosphere (snow/ice) products:</strong> <a href="http://nsidc.org/daac/modis/index.html">nsidc.org/daac/modis</a></li>
+<li><strong>Ocean color and sea surface temperature:</strong> <a href="http://oceancolor.gsfc.nasa.gov/">oceancolor.gsfc.nasa.gov</a></li>
+</ul>
+</section><section id="accessing-data" class="slide level2">
+<h2>Accessing data</h2>
+<p>The Land Processes Distributed Active Archive Center has a nice “Data Discovery” Tool: <img data-src="PS_10_assets/lpdaac.png" /></p>
+</section><section id="modis-products-table" class="slide level2">
+<h2>MODIS Products Table</h2>
+<p>Lists <a href="">all available MODIS land products</a></p>
+<p><img data-src="PS_10_assets/lpdaac1.png" /></p>
+</section><section id="annual-land-cover-type-description" class="slide level2">
+<h2>Annual Land Cover Type Description</h2>
+<p><img data-src="PS_10_assets/lpdaac2.png" /></p>
+</section><section id="detailed-layer-information" class="slide level2">
+<h2>Detailed layer information</h2>
+<p><img data-src="PS_10_assets/lpdaac3.png" /></p>
+</section><section id="data-access-links" class="slide level2">
+<h2>Data access links</h2>
+<p><img data-src="PS_10_assets/lpdaac4.png" /></p>
+<p>Downloading: <code>http</code>/<code>ftp</code> access</p>
+</section><section class="slide level2">
+
+<p><img data-src="PS_10_assets/lpdaac5.png" /></p>
+<p>or the <a href="https://lpdaac.usgs.gov/sites/default/files/public/datapool/DAAC2DiskUserGuide.pdf">LP DAAC2Disk Download Manager</a> which builds a download script.</p>
+</section><section id="modis-reprojection-tool" class="slide level2">
+<h2>MODIS Reprojection Tool</h2>
+<p>Available at <a href="https://lpdaac.usgs.gov/tools/modis_reprojection_tool">lpdaac.usgs.gov/tools/modis_reprojection_tool</a>.</p>
+<p><img data-src="PS_10_assets/MRT1.png" /></p>
+</section><section id="modis-reprojection-tool-subset-reproject" class="slide level2">
+<h2>MODIS Reprojection Tool: Subset &amp; Reproject</h2>
+<p><img data-src="PS_10_assets/MRT.png" /></p>
+<p><code>MCD12Q1.A2012001.h12v04.051.2014288200441.hdf</code></p>
+<p>Application for Extracting and Exploring Analysis Ready Samples (AppEEARS)</p>
+</section><section class="slide level2">
+
+<p><img data-src="PS_10_assets/appeears.png" /></p>
+<p><a href="https://lpdaacsvc.cr.usgs.gov/appeears/" class="uri">https://lpdaacsvc.cr.usgs.gov/appeears/</a></p>
+<ul>
+<li>Provide access to regional subsets</li>
+<li>Merge across tiles</li>
+<li>Download full time series</li>
+</ul>
+</section><section id="data-subset" class="slide level2">
+<h2>Data Subset</h2>
+<p><img data-src="PS_10_assets/appeears2.png" /></p>
+<p>Submit and wait for results…</p>
+</section><section id="presentation-credits" class="slide level2">
+<h2>Presentation Credits</h2>
+<ul>
+<li>Images: NASA</li>
+<li>Some contents from Steve Ackerman <code>stevea@ssec.wisc.edu</code>, Cooperative Institute for Meteorological Satellite Studies, University of Wisconsin-Madison</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="externals/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="externals/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'zoom', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: '90%',
+        height: '100%',
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 1,
+        maxScale: 3,
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
