@@ -419,7 +419,7 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Write parallel for loops to speed up computation time. </td>
+   <td style="text-align:left;"> Write parallel for loops to process spatial data </td>
    <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
    <td style="text-align:right;"> 11 </td>
   </tr>

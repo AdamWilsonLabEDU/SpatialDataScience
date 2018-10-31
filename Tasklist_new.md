@@ -332,11 +332,11 @@ ___
  
  <a class="btn btn-link" href="./CS_11_ParallelProcessing.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i20">Preview Readings & Tasks </button><div id="i20" class="collapse">
 ## Readings
-- CRAN Task View [High-Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
 - Parallel [Computing with the R Language in a Supercomputing Environment](https://link.springer.com/chapter/10.1007/978-3-642-13872-0_64)
+- CRAN Task View [High Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
 
 ## Tasks
-- Write parallel for loops to speed up computation time.
+- Write parallel for loops to process spatial data
 </div>
 ___
 ## [ TK_11 :  Project First Draft ]( ./TK_11.html ) 

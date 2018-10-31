@@ -419,14 +419,14 @@ div.tocify {
 <div id="reading" class="section level1">
 <h1>Reading</h1>
 <ul>
-<li>list(<code>CRAN [Task View</code> = “High-Performance and Parallel Computing with R](<a href="http://cran.r-project.org/web/views/HighPerformanceComputing.html" class="uri">http://cran.r-project.org/web/views/HighPerformanceComputing.html</a>)”)</li>
 <li>Parallel <a href="https://link.springer.com/chapter/10.1007/978-3-642-13872-0_64">Computing with the R Language in a Supercomputing Environment</a></li>
+<li>CRAN Task View <a href="http://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance and Parallel Computing with R</a></li>
 </ul>
 </div>
 <div id="tasks" class="section level1">
 <h1>Tasks</h1>
 <ul>
-<li>Write parallel for loops to speed up computation time.</li>
+<li>Write parallel for loops to process spatial data</li>
 </ul>
 <div id="background" class="section level2">
 <h2>Background</h2>
@@ -446,7 +446,7 @@ getDoParWorkers() # check registered cores</code></pre>
 <li>Runs a parallel <code>foreach()</code> to loop over countries (<code>name_long</code>) and:
 <ul>
 <li><code>filter</code> the world object to include only on country at a time.</li>
-<li>use <code>st_is_within_distance</code> to find the distance from that country to all other countries in the <code>world</code> object within 100000m Set <code>sparse=F</code> to return a simple array of <code>T</code> for countries within the distance.</li>
+<li>use <code>st_is_within_distance</code> to find the distance from that country to all other countries in the <code>world</code> object within 100000m Set <code>sparse=F</code> to return a simple array of <code>TRUE/FALSE</code> for countries within the distance.</li>
 <li>set <code>.combine=rbind</code> to return a simple matrix.</li>
 </ul></li>
 <li>Confirm that you get the same answer without using foreach:
