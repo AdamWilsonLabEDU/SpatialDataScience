@@ -5,7 +5,7 @@ Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
 
 # Structure updates
-Add a datacamp course for each/most of the 14 case studies
+Add a datacamp course/chapter for each/most of the 14 case studies
 Use datacamp education for instruction/assignments
 Then class time for questions/case studies
 

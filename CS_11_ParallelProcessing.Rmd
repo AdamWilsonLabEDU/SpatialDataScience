@@ -1,0 +1,93 @@
+---
+title: "Parallel Computing with R"
+subtitle: Write a parallel for loop
+week: 11
+type: Case Study
+reading:
+   - CRAN Task View [High-Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
+   - Parallel [Computing with the R Language in a Supercomputing Environment](https://link.springer.com/chapter/10.1007/978-3-642-13872-0_64)
+tasks:
+   - Write parallel for loops to speed up computation time.
+---
+
+```{r setup, include=FALSE, purl=F}
+source("functions.R")
+source("knitr_header.R")
+```
+
+# Reading
+
+```{r reading,results='asis',echo=F,purl=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+
+# Tasks
+
+```{r tasks,results='asis',echo=F, purl=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+## Background
+
+```{r cache=F, message=F,warning=FALSE}
+library(tidyverse)
+library(spData)
+library(sf)
+
+## New Packages
+library(foreach)
+library(doParallel)
+registerDoParallel()
+getDoParWorkers() # check registered cores
+```
+
+
+Write an Rmd script that:
+
+* Loads the `world` dataset in the `spData` package
+* Runs a parallel `foreach()` to loop over countries (`name_long`) and:
+   * `filter` the world object to include only on country at a time.
+   * use `st_is_within_distance` to find the distance from that country to all other countries in the `world` object within 100000m Set `sparse=F` to return a simple array of `T` for countries within the distance.
+   * set `.combine=rbind` to return a simple matrix.
+* Confirm that you get the same answer without using foreach:
+   * imply use `st_is_within_distance` with the transformed `world` object as both `x` and `y` object.
+   * compare the results with `identical()`
+   * you can also check the time difference with `system.time()`.
+   
+```{r, echo=F, purl=F}
+data("world")
+proj="+proj=robin +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs "
+dist=100000 # distance in m
+world2=st_transform(world,proj)
+
+#system.time(
+  x_seq<-world2%>%
+  st_is_within_distance(world2,dist,sparse=F)
+#)
+
+#system.time(
+  x_par <- foreach(i=unique(world$name_long),.combine=rbind) %dopar% {
+  world2%>%
+    filter(name_long==i)%>%
+    st_is_within_distance(world2,dist=dist,sparse = F)
+  }
+#)
+
+#identical(x_seq,x_par)
+```
+
+This approach could be used to identify which countries were 'close' to others.  For example, these countries are within `r dist`m of Costa Rica:
+```{r}
+i=which(world2$name_long=="Costa Rica")
+# neighbor countries
+world2[x_par[i,],]$name_long
+```
+
+```{r echo=F}
+ggplot()+
+  geom_sf(data=world2[x_par[i,],])+
+  geom_sf(data=world2[i,],col="red")
+```
+
+Note that in this example the sequential version typically runs faster than the 

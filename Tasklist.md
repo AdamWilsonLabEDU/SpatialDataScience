@@ -325,14 +325,28 @@ ___
 - Take notes on interesting or useful things you learned in your course repository.
 </div>
 ___
+## [ CS_11_ParallelProcessing :  Parallel Computing with R ]( ./CS_11_ParallelProcessing.html ) 
+   
+ 
+  Write a parallel for loop  
+ 
+ <a class="btn btn-link" href="./CS_11_ParallelProcessing.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i20">Preview Readings & Tasks </button><div id="i20" class="collapse">
+## Readings
+- CRAN Task View [High-Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
+- Parallel [Computing with the R Language in a Supercomputing Environment](https://link.springer.com/chapter/10.1007/978-3-642-13872-0_64)
+
+## Tasks
+- Write parallel for loops to speed up computation time.
+</div>
+___
 ## [ TK_11 :  Project First Draft ]( ./TK_11.html ) 
    
  
-  Review project drafts from your peers  
+  Submit the first draft of your project for peer review  
  
- <a class="btn btn-link" href="./TK_11.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i20">Preview Readings & Tasks </button><div id="i20" class="collapse">
+ <a class="btn btn-link" href="./TK_11.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i21">Preview Readings & Tasks </button><div id="i21" class="collapse">
 ## Readings
-- GitHub [Pull Requests](https://help.github.com/articles/about-pull-requests/)
+- Documentation for [RMarkdown Websites](https://rmarkdown.rstudio.com/rmarkdown_websites.htm)
 
 ## Tasks
 - Commit your first draft of your project to GitHub
@@ -343,7 +357,7 @@ ___
  
   Using DyGraph library.  
  
- <a class="btn btn-link" href="./CS_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i21">Preview Readings & Tasks </button><div id="i21" class="collapse">
+ <a class="btn btn-link" href="./CS_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i22">Preview Readings & Tasks </button><div id="i22" class="collapse">
 ## Readings
 - Explore the [DyGraphs webpage](http://rstudio.github.io/dygraphs/)
 
@@ -358,13 +372,13 @@ ___
  
     
  
- <a class="btn btn-link" href="./TK_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i22">Preview Readings & Tasks </button><div id="i22" class="collapse">
+ <a class="btn btn-link" href="./TK_12.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i23">Preview Readings & Tasks </button><div id="i23" class="collapse">
 ## Readings
 - GitHub [Pull Requests](https://help.github.com/articles/about-pull-requests/)
 - Chapter [28 in R4DS](http://r4ds.had.co.nz)
 
 ## Tasks
-- Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week.
+- Review at least two other students' projects and make comments via a _pull request_ in GitHub.
 - Browse the [Leaflet website](http://rstudio.github.io/leaflet/) and take notes in your readme.md about potential uses in your project. What data could you use?  How would you display it?
 - Browse the [HTML Widgets page](http://gallery.htmlwidgets.org/) for many more examples. Take notes in your readme.md about potential uses in your project.
 </div>
@@ -374,7 +388,7 @@ ___
  
   Optional Course Workshop  
  
- <a class="btn btn-link" href="./TK_13.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i23">Preview Readings & Tasks </button><div id="i23" class="collapse">
+ <a class="btn btn-link" href="./TK_13.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i24">Preview Readings & Tasks </button><div id="i24" class="collapse">
 ## Readings
 - NULL
 
@@ -388,7 +402,7 @@ ___
  
   Building a species distribution model  
  
- <a class="btn btn-link" href="./TK_14.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i24">Preview Readings & Tasks </button><div id="i24" class="collapse">
+ <a class="btn btn-link" href="./TK_14.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i25">Preview Readings & Tasks </button><div id="i25" class="collapse">
 ## Readings
 - Chapter [23-25 in R4DS](http://r4ds.had.co.nz)
 
@@ -403,7 +417,7 @@ ___
  
   Present your project to the class  
  
- <a class="btn btn-link" href="./TK_15.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i25">Preview Readings & Tasks </button><div id="i25" class="collapse">
+ <a class="btn btn-link" href="./TK_15.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i26">Preview Readings & Tasks </button><div id="i26" class="collapse">
 ## Readings
 - Wikipedia pages about [Lightning talks](http://en.wikipedia.org/wiki/Lightning_Talk)
 - Wikipedia pages about [Ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event))
@@ -420,7 +434,7 @@ ___
  
   Commit the final version of your project  
  
- <a class="btn btn-link" href="./TK_16.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i26">Preview Readings & Tasks </button><div id="i26" class="collapse">
+ <a class="btn btn-link" href="./TK_16.html" role="button" >Full Description</a><button data-toggle="collapse" class="btn btn-link" data-target="#i27">Preview Readings & Tasks </button><div id="i27" class="collapse">
 ## Readings
 - 
 

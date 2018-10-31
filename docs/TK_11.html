@@ -411,7 +411,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Project First Draft</h1>
-<h3 class="subtitle"><em>Review project drafts from your peers</em></h3>
+<h3 class="subtitle"><em>Submit the first draft of your project for peer review</em></h3>
 
 </div>
 
@@ -421,6 +421,12 @@ div.tocify {
 <ul>
 <li>GitHub <a href="https://help.github.com/articles/about-pull-requests/">Pull Requests</a></li>
 </ul>
+</div>
+<div id="tasks" class="section level1">
+<h1>Tasks</h1>
+<ul>
+<li>Commit your first draft of your project to GitHub</li>
+</ul>
 <div id="first-draft" class="section level3">
 <h3>First Draft</h3>
 <p>The first draft of your project will be assessed by your peers in GitHub. The objectives of the peer evaluation are:</p>
@@ -429,6 +435,25 @@ div.tocify {
 <li>Provide an opportunity to share your knowledge to improve their project</li>
 </ul>
 <p>You should use the project website template (or similar) to generate a html version of your project report. If your project requires any data not available in public repositories, you should put it in a folder called <code>/data</code> in your project’s home directory and then import it into R with <code>read.csv('data/filname.csv')</code> or similar so that anyone with a copy of the repository can re-create the HTML output.</p>
+</div>
+<div id="required-components-of-first-draft" class="section level2">
+<h2>Required components of first draft</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Introduction</strong> [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way.</li>
+<li><strong>Data</strong>: Script downloads at least one dataset automatically through the internet or loads the data from the <code>data/</code> folder. This could use a direct download (e.g. download.file()) or an API (e.g. anything from ROpenSci).</li>
+<li><strong>Figure</strong>: The HTML file includes at least one figure of the data.</li>
+<li><strong>Reproducibility</strong>: The .Rmd should generate the HTML output when “Build Website” is clicked.</li>
+</ol>
+<div id="confirming-reproducibility" class="section level3">
+<h3>Confirming ‘reproducibility’</h3>
+<p>After pushing the files to GitHub, try downloading it as a zip file, opening in RStudio, and clicking build website - it should work.</p>
+</div>
+</div>
+<div id="common-issues" class="section level2">
+<h2>Common issues</h2>
+<ol style="list-style-type: decimal">
+<li>Importing data from somewhere on your computer. You should not have any commands such as <code>read.csv(&quot;~/projects/inputdata.csv&quot;)</code> that read any data from your computer other than the <code>data/</code> folder in your repository.</li>
+</ol>
 </div>
 </div>
 

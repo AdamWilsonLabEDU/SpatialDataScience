@@ -426,21 +426,54 @@ div.tocify {
 <div id="reading" class="section level1">
 <h1>Reading</h1>
 <ul>
-<li><p>Chapter <a href="http://r4ds.had.co.nz">28 in R4DS</a> # Tasks</p></li>
-<li><p>Review at least two other students’ projects and make comments via a <em>pull request</em> in GitHub before next class next week. - Browse the <a href="http://rstudio.github.io/leaflet/">Leaflet website</a> and take notes in your readme.md about potential uses in your project. What data could you use? How would you display it? - Browse the <a href="http://gallery.htmlwidgets.org/">HTML Widgets page</a> for many more examples. Take notes in your readme.md about potential uses in your project.</p></li>
+<li>Chapter <a href="http://r4ds.had.co.nz">28 in R4DS</a></li>
 </ul>
-<div id="evaluation-instructions" class="section level2">
-<h2>Evaluation Instructions</h2>
-<p>Select two repositories and evaluate them according to the instructions and rubric below.</p>
+</div>
+<div id="tasks" class="section level1">
+<h1>Tasks</h1>
+<ul>
+<li>Review at least two other students’ projects and make comments via a <em>pull request</em> in GitHub before next class next week.</li>
+<li>Browse the <a href="http://rstudio.github.io/leaflet/">Leaflet website</a> and take notes in your readme.md about potential uses in your project. What data could you use? How would you display it?</li>
+<li>Browse the <a href="http://gallery.htmlwidgets.org/">HTML Widgets page</a> for many more examples. Take notes in your readme.md about potential uses in your project.</li>
+</ul>
+</div>
+<div id="project-peer-evaluation" class="section level1">
+<h1>Project Peer Evaluation</h1>
+<div id="instructions" class="section level2">
+<h2>Instructions</h2>
+<p>Select two repositories and evaluate them according to the instructions listed in the <a href="TK_11.html">Project First Draft task</a></p>
+<p><img src="project_assets/project_evaluation.png" /></p>
+<div id="download-and-reproduce-the-project" class="section level3">
+<h3>Download and reproduce the project</h3>
 <ol style="list-style-type: decimal">
-<li>Explore the final projects in the <a href="https://github.com/AdamWilsonLabEDU">class repositor</a></li>
-<li>Open the repository and check if there have already been two reviews by checking if there are 2 (or more) “Pull Requests”. For example, in the image below, there are 0 pull requests, so this repository would be available for you to review. If there are already 2 pull requests, select another repository. <img src="assets/pull_reqeust.png" /></li>
-<li>Go to the github page linked in the assignment and download the repository as a zip file (click on the <img src='assets/download.png' width=100> button).</li>
+<li>Explore the final projects in the <a href="https://github.com/AdamWilsonLabEDU?q=finalproject">class repository</a></li>
+<li>Select two projects that do not already have two evaluations (pull requests). For example, in the image above, there are 0 pull requests, so this repository would be available for you to review. If there are already 2 pull requests, select another repository.</li>
+<li>Go to the github page linked in the assignment and download the repository as a zip file (click on the <img src='project_assets/download.png' width=100> button).</li>
 <li>Unzip the file after it downloads</li>
-<li>Open the project or <code>index.Rmd</code> in RStudio and click <code>knit</code> or <code>Build Website</code> in the <code>Build</code> tab in the upper right.</li>
+<li>Open the project or <code>index.Rmd</code> in RStudio and click <code>Build Website</code> in the <code>Build</code> tab in the upper right.</li>
+<li>Evaluate whether the project meets the specifications listed in the <a href="TK_11.html">Project First Draft task</a></li>
 </ol>
-<p>Evaluate the following provide any feedback via pull request. 1) Website 1) <strong>Introduction</strong> [~ 200 words]: Clearly stated background and questions / hypotheses / problems being addressed. Sets up the analysis in an interesting and compelling way. 2) <strong>Data</strong>: Script downloads at least one dataset automatically through the internet. This could use a direct download (e.g. download.file()) or an API (anything from ROpenSci). 3) <strong>Figure</strong>: The HTML file includes at least one figure of the data. 2) <strong>Output:</strong> The .Rmd produces HTML output with 1) section headers for all the major sections of the paper 2) a draft of the complete introduction.</p>
+</div>
+<div id="provide-feedback-and-evaluation-via-pull-request" class="section level3">
+<h3>Provide feedback and evaluation via pull request</h3>
+<p>After you reproduce the project, you will provide feedback via pull request.</p>
+<p>The following video will walk you through the steps of providing feedback via a pull request. <iframe width="560" height="315" src="https://www.youtube.com/embed/wy9EggBhC-M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<ol style="list-style-type: decimal">
+<li>In the “Code” tab of the github page for the project, click on the file you want to provide feedback on (typically this will be <code>index.Rmd</code>)</li>
+<li>Click the pencil icon on the right side to edit the file</li>
+<li>You can make changes or comment on the code
+<ul>
+<li>To make changes, simply edit the text</li>
+<li>To comment, you must still make some sort of change on the lines where you want to cmment. The easiest thing is simply to add a space at the end of the line (as I do in the video above).</li>
+</ul></li>
+<li>At the bottom of the file, there is a section called “Commit Changes”, select the button for <strong>Create a new branch for this commit and start a pull request.</strong> and name the new branch <code>project_feedback_githubusername</code></li>
+<li>Click “Propose File change”</li>
+<li>Click on the button “Files Changed #1” near the middle of the next page</li>
+<li>Hover over lines you would like to comment on and click the little blue plus button. Then enter your comment and select “Add single comment”</li>
+<li>Repeat steps 2-6 for any additional files you want to comment on</li>
+</ol>
 <p>Be sure to install any required libraries (do not complain if it fails because you don’t have a library installed).</p>
+</div>
 </div>
 </div>
 

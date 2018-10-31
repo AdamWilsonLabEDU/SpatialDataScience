@@ -1,0 +1,115 @@
+---
+title: "Parallel Computing with R"
+subtitle: Write a parallel for loop
+week: 11
+type: Case Study
+reading:
+  - CRAN [Task View: High-Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
+  - Parallel [Computing with the R Language in a Supercomputing Environment](https://link.springer.com/chapter/10.1007/978-3-642-13872-0_64)
+tasks:
+   - Write parallel for loops to speed up computation time.
+---
+
+```{r setup, include=FALSE, purl=F}
+source("functions.R")
+source("knitr_header.R")
+```
+
+# Reading
+
+```{r reading,results='asis',echo=F,purl=F}
+md_bullet(rmarkdown::metadata$reading)
+```
+
+
+# Tasks
+
+```{r tasks,results='asis',echo=F, purl=F}
+md_bullet(rmarkdown::metadata$tasks)
+```
+
+## Background
+
+```{r cache=F, message=F,warning=FALSE}
+library(tidyverse)
+
+## New Packages
+library(foreach)
+library(doParallel)
+```
+
+
+Write a `foreach()` loop that:
+
+* generates 10 sets of 100 random values from a normal distribution (`rnorm()`)
+* column-binds (`cbind`) them.  
+
+```{r, purl=F}
+nset=100
+n=10000
+
+x <- foreach(i=1:nset,.combine='cbind') %do% 
+  rnorm(n)
+
+mean(x)
+head(x)%>%kable()
+dim(x)
+```
+
+
+### Sampling from a dataset with `sample_n()`
+
+```{r}
+size=5
+sample_n(data,size,replace=T)
+```
+
+## Your turn
+* Generate some random as follows:
+
+```{r}
+n <- 10000              # number of data points
+x1 <- rnorm (n)          # make up x1 covariate
+b0 <- 25                # set intercept (beta0)
+b1 <- -15                # set beta1
+y <- rnorm (n, b0+b1*x1,10)  # simulate data with noise
+data2=cbind.data.frame(y=y,x1=x1)
+```
+
+Write a parallel `foreach()` loop that:
+
+* selects a sample (as above) with `sample_n()`
+* fits a 'normal' linear model with `lm()`
+* Compiles the coefficient of determination (R^2) from each model
+
+Hint: use `summary(M1)$r.squared` to extract the R^2 from model `M1` (see `?summary.lm` for more details).
+
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo2">Show Solution</button>
+<div id="demo2" class="collapse">
+
+```{r, purl=F}
+trials = 100
+tsize = 100
+
+  result <- foreach(i=1:trials,.combine = rbind.data.frame) %dopar% 
+    {
+      tdata=sample_n(data2,tsize,replace=TRUE)
+      M1=lm(y ~ x1, data=tdata)
+      cbind.data.frame(trial=i,
+        t(coefficients(M1)),
+        r2=summary(M1)$r.squared,
+        aic=AIC(M1))
+  }
+```
+
+Plot it:
+```{r, purl=F}
+ggplot(data2,aes(y=y,x=x1))+
+  geom_point(col="grey")+
+  geom_abline(data=dplyr::select(result,everything(),
+                                 Intercept=contains("Intercept")),
+              aes(intercept=Intercept,slope=x1),alpha=.5)
+```
+
+</div>
+</div>

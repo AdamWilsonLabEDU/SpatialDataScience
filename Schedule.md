@@ -32,7 +32,7 @@ Homeworks are due at 5pm on the Friday of the week specified below.
  |  8 |  10/16/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_08_repro.html){target='_blank'} |  [Create Final Project Webpage](./TK_08.html) |  [One Script, Many Products](./CS_08.html) |  6 |
  |  9 |  10/23/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_09_weather.html){target='_blank'} |  [APIs, time-series, and weather Data](./TK_09.html) |  [Tracking Hurricanes!](./CS_09.html) |  7 |
  |  10 |  10/30/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_10_RS.html){target='_blank'} |  [Remote Sensing](./TK_10.html) |   -  |  8 |
- |  11 |  11/6/18 |   |  [Project First Draft](./TK_11.html) |   -  |  9 |
+ |  11 |  11/6/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_11_ParallelProcessing.html){target='_blank'} |  [Project First Draft](./TK_11.html) |  [Parallel Computing with R](./CS_11_ParallelProcessing.html) |  9 |
  |  12 |  11/13/18 |  [<i class='fas fa-desktop'>    </i>](presentations/PS_12.html){target='_blank'} |  [Project Peer Review](./TK_12.html) |  [Dynamic HTML graph of Daily Temperatures](./CS_12.html) |  10 |
  |  13 |  11/20/18 |   |  [Thanksgiving Week (Tuesday Class Optional)](./TK_13.html) |   -  |   |
  |  14 |  11/27/18 |   |  [Final Project 2nd Draft / Building and summarizing models](./TK_14.html) |   -  |   |

@@ -9,7 +9,7 @@ output:
       center: false
       code_folding: hide
       css: reveal.css
-      reveal_plugins: ["search", "zoom", "chalkboard"]
+      reveal_plugins: ["zoom", "chalkboard"]
       self_contained: false
       transition: zoom
       reveal_options:

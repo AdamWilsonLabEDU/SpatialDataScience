@@ -3,15 +3,20 @@ title: "Dynamic Visualization"
 ---
 ```{r setup, echo=F, results='hide'}
 knitr::opts_knit$set(root.dir = NULL)
+knitr::opts_chunk$set(fig.width=800,fig.height=400)
 ```
-# HTML Visualization
 
+# Logistics
+<iframe class='embed-responsive-item' src='schedule.html'  width=100% height=700px allowfullscreen></iframe>
+
+
+# HTML Visualization
 
 ## DataTables
 
 [DataTables](http://rstudio.github.io/DT/) display R data frames as interactive HTML tables (with filtering, pagination, sorting, and search).  This is a great way to make your raw data browsable without using too much space.
 
-```{r}
+```{r, message=F}
 library(widgetframe)
 library(DT)
 datatable(iris, options = list(pageLength = 5))
@@ -23,7 +28,7 @@ Interface to the [Bokeh](http://hafen.github.io/rbokeh) library for making inter
 
 ```{r, warning=F, message=F}
 library(rbokeh)
-figure(width = 400, height=400) %>%
+figure(width = 800, height=400) %>%
   ly_points(Sepal.Length, Sepal.Width, data = iris,
     color = Species, glyph = Species,
     hover = list(Sepal.Length, Sepal.Width))
@@ -37,9 +42,13 @@ figure(width = 400, height=400) %>%
 ```{r, warning=F, message=F}
 library(leaflet)
 library(ggmap)
-geocode("Buffalo, NY")
-m <- leaflet() %>% setView(lng = -78.87837, lat = 42.88645, zoom = 12) %>% 
-  addTiles()
+geocode("Buffalo, NY", source = "dsk")
+m <- leaflet() %>% setView(lng = -78.88642, lat = 42.89606, zoom = 12) %>%   addTiles()
+```
+
+---
+
+```{r,  echo=F}
 frameWidget(m,height =500)
 ```
 
@@ -48,10 +57,14 @@ Provides rich facilities for charting time-series data in R, including highly co
     
 ```{r, warning=F}
 library(dygraphs)
-dygraph(nhtemp, main = "New Haven Temperatures",height = 100) %>% 
-  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))%>%
-  frameWidget(height =500)
+dy1=dygraph(nhtemp, main = "New Haven Temperatures",height = 75) %>% 
+  dyRangeSelector(dateWindow = c("1920-01-01", "1960-01-01"))
+```
 
+---
+
+```{r,fig.height=600,fig.width=800, echo=F}
+frameWidget(dy1,height =400)
 ```
 
 
@@ -65,7 +78,13 @@ library(threejs)
 z <- seq(-10, 10, 0.1)
 x <- cos(z)
 y <- sin(z)
-scatterplot3js(x, y, z, color=rainbow(length(z)))
+js3=scatterplot3js(x, y, z, color=rainbow(length(z)))
+```
+
+---
+
+```{r,fig.height=600,fig.width=800, echo=F}
+frameWidget(js3,height =500)
 ```
 
 ## networkD3
@@ -88,15 +107,16 @@ members <- membership(wc)
 
 # Convert to object suitable for networkD3
 karate_d3 <- igraph_to_networkD3(karate, group = members)
+
+n3d=forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
+             Source = 'source', Target = 'target', NodeID = 'name',
+             Group = 'group')
 ```
 
 ## Force directed network plot
 
-```{r}
-forceNetwork(Links = karate_d3$links, Nodes = karate_d3$nodes,
-             Source = 'source', Target = 'target', NodeID = 'name',
-             Group = 'group')%>%
-  frameWidget(height =500)
+```{r, echo=F}
+frameWidget(n3d,height =500)
 ```
 
 
@@ -111,15 +131,16 @@ URL <- paste0(
         "https://cdn.rawgit.com/christophergandrud/networkD3/",
         "master/JSONdata/energy.json")
 Energy <- fromJSON(URL)
+
+sn1=sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
+             Target = "target", Value = "value", NodeID = "name",
+             units = "TWh", fontSize = 12, nodeWidth = 30)
 ```
 
 ---
 
-```{r}
-sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
-             Target = "target", Value = "value", NodeID = "name",
-             units = "TWh", fontSize = 12, nodeWidth = 30)%>%
-  frameWidget(height =500)
+```{r, echo=F}
+frameWidget(sn1,height =500)
 ```
 
 ## Radial Network
@@ -131,21 +152,27 @@ URL <- paste0(
 Flare <- jsonlite::fromJSON(URL, simplifyDataFrame = FALSE)
 # Use subset of data for more readable diagram
 Flare$children = Flare$children[1:3]
+
+rn1=radialNetwork(List = Flare, fontSize = 10, opacity = 0.9, height = 400, width=400)
 ```
 
 ---
 
 ```{r}
-radialNetwork(List = Flare, fontSize = 10, opacity = 0.9, height = 400, width=400)%>%
-  frameWidget(height =500)
+frameWidget(rn1,height =500)
 ```
 
 ## Diagonal Network
 ```{r}
-diagonalNetwork(List = Flare, fontSize = 10, opacity = 0.9, height = 400, width=400)%>%
-  frameWidget(height =500)
+dn1=diagonalNetwork(List = Flare, fontSize = 10, 
+                    opacity = 0.9, height = 400, width=400)
+
+frameWidget(dn1,height =500)
 ```
 
+## Other D3 Visualizations
+[https://github.com/d3/d3/wiki/Gallery](https://github.com/d3/d3/wiki/Gallery)
+![](PS_12/D3_examples.png)
 
 ## rglwidget
 
@@ -153,7 +180,6 @@ RGL provides 3D interactive graphics, including functions modelled on base graph
 
 ```{r, message=F}
 library(rgl)
-library(rglwidget)
 library(htmltools)
 
 theta <- seq(0, 6*pi, len=100)
@@ -165,8 +191,8 @@ lineid <- plot3d(xyz, type="l", alpha = 1:0,
 
 ## Animate an interactive 3D process
 ```{r}
-browsable(tagList(
-  rglwidget(elementId = "example", width = 500, height = 400,
+rg1=browsable(tagList(
+  rglwidget(elementId = "example", width = 800, height = 600,
             controllers = "player"),
   playwidget("example", 
              ageControl(births = theta, ages = c(0, 0, 1),
@@ -178,3 +204,8 @@ browsable(tagList(
 ---
 <iframe class='embed-responsive-item' src='rgl.html'  width=100% height=700px allowfullscreen></iframe>
 
+# Final Projects
+
+## Interactive elements
+
+Consider embedding interactive elements in your site.

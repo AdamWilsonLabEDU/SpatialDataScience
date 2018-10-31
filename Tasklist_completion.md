@@ -419,6 +419,12 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Write parallel for loops to speed up computation time. </td>
+   <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
    <td style="text-align:left;"> Commit your first draft of your project to GitHub </td>
    <td style="text-align:left;"> [TK_11](./TK_11.html) </td>
    <td style="text-align:right;"> 11 </td>
@@ -443,7 +449,7 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Review at least two other students' projects and make comments via a _pull request_ in GitHub before next class next week. </td>
+   <td style="text-align:left;"> Review at least two other students' projects and make comments via a _pull request_ in GitHub. </td>
    <td style="text-align:left;"> [TK_12](./TK_12.html) </td>
    <td style="text-align:right;"> 12 </td>
   </tr>
