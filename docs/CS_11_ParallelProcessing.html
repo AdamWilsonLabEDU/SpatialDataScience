@@ -383,10 +383,10 @@ div.tocify {
       <a href="Provenance.html">Provenance</a>
     </li>
     <li>
-      <a href="Projects_2017.html">2017 Final Projects</a>
+      <a href="Projects_2018.html">2018 Project Drafts</a>
     </li>
     <li>
-      <a href="Resources.html">Resources</a>
+      <a href="Projects_2017.html">2017 Final Projects</a>
     </li>
     <li>
       <a href="GitSSHNotes.html">Setting up Github</a>
@@ -437,32 +437,207 @@ library(sf)
 ## New Packages
 library(foreach)
 library(doParallel)
-registerDoParallel()
-getDoParWorkers() # check registered cores</code></pre>
-<pre><code>## [1] 2</code></pre>
+registerDoParallel(2)
+getDoParWorkers() # check registered cores
+
+#define working projection (EASE-Grid, https://nsidc.org/data/ease)
+proj=&quot;+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</code></pre>
+<div class="well">
+<button data-toggle="collapse" class="btn btn-primary btn-sm round" data-target="#demo1">
+Show Hints
+</button>
+<div id="demo1" class="collapse">
+<h2 id="steps">Steps</h2>
 <p>Write an Rmd script that:</p>
 <ul>
-<li>Loads the <code>world</code> dataset in the <code>spData</code> package</li>
-<li>Runs a parallel <code>foreach()</code> to loop over countries (<code>name_long</code>) and:
+<li>Loads the <code>world</code> dataset in the <code>spData</code> package
+<ul>
+<li>Reproject the <code>world</code> dataset to the Equal-Area Scalable Earth Grid (EASE-Grid) (<a href="https://nsidc.org/data/ease">EASE-Grid</a>) using <code>st_transform()</code> and the proj4 projection in the code above</li>
+</ul></li>
+<li>Runs a parallel <code>foreach()</code> to loop over countries (<code>name_long</code>) that:
 <ul>
 <li><code>filter</code> the world object to include only on country at a time.</li>
-<li>use <code>st_is_within_distance</code> to find the distance from that country to all other countries in the <code>world</code> object within 100000m Set <code>sparse=F</code> to return a simple array of <code>TRUE/FALSE</code> for countries within the distance.</li>
+<li>use <code>st_is_within_distance</code> to find the distance from that country to all other countries in the <code>world</code> object within 100000m Set <code>sparse=F</code> to return a simple vector of <code>TRUE/FALSE</code> for countries within the distance.</li>
 <li>set <code>.combine=rbind</code> to return a simple matrix.</li>
 </ul></li>
 <li>Confirm that you get the same answer without using foreach:
 <ul>
-<li>imply use <code>st_is_within_distance</code> with the transformed <code>world</code> object as both <code>x</code> and <code>y</code> object.</li>
+<li>simply use <code>st_is_within_distance</code> with the transformed <code>world</code> object as both <code>x</code> and <code>y</code> object.</li>
 <li>compare the results with <code>identical()</code></li>
-<li>you can also check the time difference with <code>system.time()</code>.</li>
+<li>if you are curious, you can also check the time difference with <code>system.time()</code>.</li>
 </ul></li>
 </ul>
-<p>This approach could be used to identify which countries were ‘close’ to others. For example, these countries are within 10^{5}m of Costa Rica:</p>
-<pre class="r"><code>i=which(world2$name_long==&quot;Costa Rica&quot;)
-# neighbor countries
-world2[x_par[i,],]$name_long</code></pre>
-<pre><code>## [1] &quot;Panama&quot;     &quot;Costa Rica&quot; &quot;Nicaragua&quot;</code></pre>
-<p><img src="CS_11_ParallelProcessing_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
-<p>Note that in this example the sequential version typically runs faster than the</p>
+</div>
+</div>
+<p>The first 10 rows/columns of the resulting matrix (e.g. <code>x_par[1:10,1:10]</code>) should look like this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>Note that in this example the sequential version typically runs faster than the parallel version due to the relatively small size of the dataset and computation needed.</p>
+<hr />
+<div class="extraswell">
+<button data-toggle="collapse" class="btn btn-link" data-target="#extras">
+Extra time? Try this…
+</button>
+<div id="extras" class="collapse">
+<p>This approach could be used to identify which countries were ‘close’ to others. For example, Identify which countries are within 10^{5}m of Costa Rica:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Nearbye Countries</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Panama</td>
+</tr>
+<tr class="even">
+<td align="left">Costa Rica</td>
+</tr>
+<tr class="odd">
+<td align="left">Nicaragua</td>
+</tr>
+</tbody>
+</table>
+<p>And plot them:</p>
+<p><img src="CS_11_ParallelProcessing_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
+</div>
+</div>
 </div>
 </div>
 

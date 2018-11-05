@@ -10,9 +10,8 @@
 
 
 
-<meta name="date" content="2018-10-10" />
 
-<title>Reproducible Research and R Markdown</title>
+<title>2018 Virtual Poster Session</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -174,101 +170,6 @@ $(document).ready(function () {
 
 
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
 
 
 <div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
@@ -411,110 +312,207 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Reproducible Research and R Markdown</h1>
-<h4 class="date"><em>2018-10-10</em></h4>
+<h1 class="title toc-ignore">2018 Virtual Poster Session</h1>
 
 </div>
 
 
-<div class="extraswell">
-<button data-toggle='collapse' class='btn btn-link' data-target='#pres'>View Presentation </button> <a href="presentations/day_13_repro.html" target="_blank">Open presentation in a new tab</a>
-<div id="pres" class="collapse">
-<div class="embed-responsive embed-responsive-16by9">
-<p><iframe class='embed-responsive-item' src='presentations/day_13_repro.html' allowfullscreen></iframe> <em>Click on presentation and then use the space bar to advance to the next slide or escape key to show an overview.</em></p>
-</div>
-</div>
-</div>
-<div id="download" class="section level2">
-<h2>Download</h2>
+<p>This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The <a href="Project.html">final project</a> in the course is the construction of a reproducible research workflow as illustrated in the figure below.</p>
+<p><img src="00_CourseIntroduction/assets/data-science.png" alt="Productivity" /> Figure from <em>R for Data Science</em> by Grolemund &amp; Wickham (2017)</p>
+<p>Each student wrote a script (using the <a href="https://www.r-project.org/">R</a> programming language) to perform these steps and generate a website showcasing their analysis. The focus of the course is on the design and implementation of the complete data processing research workflow itself (not any particular statistics/methods/models). The challenge is to string all the steps together in a <em>coherent, reproducible flow from raw data to final outputs</em>.</p>
+<div id="student-project-gallery" class="section level2">
+<h2>Student Project Gallery</h2>
+<p>You are invited to explore the student projects below (click on a thumbnail to visit their website). The embedded code reveals their methodological details in addition to their narrative and graphical stories. If you find something interesting, you are free to download and re-run the script to reproduce the entire analysis (from acquiring the original data through generating the tables/figures and even the webpage itself).</p>
 <table>
 <thead>
-<tr class="header">
-<th align="center"><a href="scripts/07_Reproducibile_nocomments.R"><i class='fas fa-code fa-2x' aria-hidden='true'></i><br> R Script</a></th>
-<th align="center"><a href="scripts/07_Reproducibile.R"><i class='fa fa-file-code-o fa-2x'></i> <br> Commented R Script</a></th>
-<th align="center"><a href="scripts/07_Reproducibile.Rmd"><i class='far fa-file-alt fa-2x'></i> <br> Rmd Script</a></th>
+<tr>
+<th style="text-align:left;">
+Student
+</th>
+<th style="text-align:left;">
+Title
+</th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+acerpovicz
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-acerpovicz/">Australian Fires and House Loss</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+allisonleet
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-allisonleet">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Canacelqr
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Canacelqr">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dnkarp
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-dnkarp/">GEO 503 Final Project [WORKING SITE]</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EllieGaiser
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-EllieGaiser">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HamedGhodsi90
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Henryxie1003
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Henryxie1003">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hkhorasani
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-hkhorasani">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jim-King
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/">The Template Website</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jiyuanzh
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-jiyuanzh">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JonathanMLynch
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/">Final Project</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Katie-M-Walsh
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Katie-M-Walsh">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+matthewamoia
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-matthewamoia/">I have the best titles</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+nathandubinin
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-nathandubinin/">I have the best titles</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nino-Martinez
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Nino-Martinez/">Gentrification and Displacement in Buffalo, NY</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+seankono
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-seankono/">I have the best titles</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sunjiazh
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-sunjiazh">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+talentstuder
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-talentstuder">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+wwang52
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-wwang52">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YingLuGit
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-YingLuGit/">NA</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zero12r
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-zero12r">I have the best titles</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zhang224
+</td>
+<td style="text-align:left;">
+<a href="https://adamwilsonlabedu.github.io/geo503-2018-finalproject-zhang224">NA</a>
+</td>
+</tr>
 </tbody>
 </table>
-</div>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>Cheatsheet:</p>
-<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
-<p><small><small><small><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf</a></small></small></small></p>
-</div>
-<div id="overview" class="section level2">
-<h2>Overview</h2>
-<p>Today we will make a copy of a template for your final project, edit it, and ‘push’ it back up to your github account. You can check out the template code at <a href="https://github.com/AdamWilsonLab/RDataScience_Project" class="uri">https://github.com/AdamWilsonLab/RDataScience_Project</a> and the template website at <a href="http://adamwilson.us/RDataScience_Project/" class="uri">http://adamwilson.us/RDataScience_Project/</a></p>
-</div>
-<div id="fork-the-repository-to-create-a-linked-copy-in-your-github-account." class="section level2">
-<h2><code>Fork</code> the repository to create a linked copy in your GitHub account.</h2>
-<p>Steps:</p>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="https://github.com/AdamWilsonLab/RDataScience_Project" class="uri">https://github.com/AdamWilsonLab/RDataScience_Project</a></li>
-<li>Log into Github using your account (or create a new account)</li>
-<li>Click <code>fork</code> near the upper right corner. This will create a copy in your GitHub Account. <a href="https://help.github.com/articles/fork-a-repo/">See here for more details</a></li>
-<li>After it completes, click the green button “Clone or Download” and copy the URL.</li>
-</ol>
-</div>
-<div id="clone-the-project-template-to-your-computer" class="section level2">
-<h2>Clone the project template to your computer</h2>
-<ol style="list-style-type: decimal">
-<li><strong>File -&gt; New Project -&gt; Version Control -&gt; Git</strong></li>
-</ol>
-<ul>
-<li>URL: paste from above. It will be similar to <code>https://github.com/AdamWilsonLab/RDataScience_Project.git</code> but with your username.</li>
-<li>Project name: you can rename it if you want or keep the default: <code>RDataScience_Project</code></li>
-<li>Project as subdirectory of <code>~/Documents/repos</code> or wherever you want to put it.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>It should download the project to your computer then open it to the <code>index.Rmd</code> file.</li>
-</ol>
-</div>
-<div id="play-with-the-project-template" class="section level2">
-<h2>Play with the project template</h2>
-<ol style="list-style-type: decimal">
-<li>Select the <code>Build</code> tab in the upper right corner of RStudio, then click <code>Build Website</code></li>
-<li>Check out the website settings in <code>_site.yml</code>. These adjust the appearance, title, etc.</li>
-<li>Check out <code>_navbar.yml</code>. These settings define the menus, etc. If you only have one page you probably won’t need to adjust this information.</li>
-</ol>
-</div>
-<div id="push-to-github-and-enable-the-website" class="section level2">
-<h2>Push to GitHub and enable the website</h2>
-<ol style="list-style-type: decimal">
-<li>Select the <code>Git</code> tab in the upper right and notice how it keeps track of any changes.</li>
-</ol>
-<ul>
-<li>To ‘commit’ the files (which is like saving them), check the files you want to commit (or all of them) and click <code>commit</code>.</li>
-<li>Type in a brief message about the changes you made. Maybe something like “First update to my project materials”</li>
-<li>Click <code>Commit</code>, then <code>close</code>.</li>
-<li>Click <code>Push</code> to push it back up to GitHub.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Now go to your repository website (similar to <a href="https://github.com/AdamWilsonLab/RDataScience_Project" class="uri">https://github.com/AdamWilsonLab/RDataScience_Project</a> in your account)</li>
-<li>Click settings in the upper right, then scroll down to <code>GitHub Pages</code> section
-<ul>
-<li>Source: <code>master branch /docs folder</code></li>
-</ul></li>
-<li>Go to your new project webpage (URL will be similar to <a href="http://adamwilson.us/RDataScience_Project/" class="uri">http://adamwilson.us/RDataScience_Project/</a>)</li>
-<li>Now you can <code>commit</code> and then <code>push</code> your updates and your website will be updated. If you get tired of entering your username and password every time, check out the instructions <a href="http://adamwilson.us/RDataScience/GitSSHNotes.html">here</a>.</li>
-</ol>
-</div>
-<div id="explore-markdown-functions" class="section level2">
-<h2>Explore markdown functions</h2>
-<ol style="list-style-type: decimal">
-<li>Use the Cheatsheet to add sections and some example narrative.<br />
-</li>
-<li>Try changing changing the species name to your favorite species and re-run the report.</li>
-<li>Add more figures or different versions of a figure</li>
-<li>Check out the <code>kable()</code> function for tables (e.g. <code>kable(head(d))</code>)</li>
-</ol>
-<p><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf"> <img src="07_assets/rmarkdown.png" alt="alt text" width="400"></a></p>
-<blockquote>
-<p>Abandoning the habit of secrecy in favor of process transparency and peer review was the crucial step by which alchemy became chemistry.<small>Raymond, E. S., 2004, The art of UNIX programming: Addison-Wesley.</small></p>
-</blockquote>
 </div>
 
 <!-- Google Analytics -->
@@ -569,8 +567,6 @@ div.tocify {
 </footer>
 
 
-</div>
-</div>
 
 </div>
 

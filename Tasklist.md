@@ -336,7 +336,10 @@ ___
 - CRAN Task View [High Performance and Parallel Computing with R](http://cran.r-project.org/web/views/HighPerformanceComputing.html)
 
 ## Tasks
-- Write parallel for loops to process spatial data
+- Reproject `world` dataset to a global equal area projection
+- Write a parallel `foreach()` loop to identify the a spatial relationships of each country
+- Set the output of the `foreach()` funtion to return a simple matrix
+- Confirm that your parallel loop returns the same answer as a typical "sequential" approach
 </div>
 ___
 ## [ TK_11 :  Project First Draft ]( ./TK_11.html ) 

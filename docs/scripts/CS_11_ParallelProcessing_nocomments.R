@@ -5,11 +5,8 @@ library(sf)
 ## New Packages
 library(foreach)
 library(doParallel)
-registerDoParallel()
+registerDoParallel(2)
 getDoParWorkers() # check registered cores
-i=which(world2$name_long=="Costa Rica")
-# neighbor countries
-world2[x_par[i,],]$name_long
-ggplot()+
-  geom_sf(data=world2[x_par[i,],])+
-  geom_sf(data=world2[i,],col="red")
+
+#define working projection (EASE-Grid, https://nsidc.org/data/ease)
+proj="+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"

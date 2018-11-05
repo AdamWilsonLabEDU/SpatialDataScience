@@ -59,10 +59,10 @@ left:
     menu:
     - text: "Provenance"
       href: Provenance.html
+    - text: "2018 Project Drafts"
+      href: Projects_2018.html
     - text: "2017 Final Projects"
       href: Projects_2017.html
-    - text: "Resources"
-      href: Resources.html
     - text: "Setting up Github"
       href: GitSSHNotes.html
 right:

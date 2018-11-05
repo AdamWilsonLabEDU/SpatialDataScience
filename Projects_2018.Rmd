@@ -1,0 +1,85 @@
+---
+title: "2018 Virtual Poster Session"
+output:
+  html_document:
+    toc: false
+---
+
+This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
+
+![Productivity](00_CourseIntroduction/assets/data-science.png)
+Figure from _R for Data Science_ by Grolemund & Wickham (2017)
+
+Each student wrote a script (using the [R](https://www.r-project.org/) programming language) to perform these steps and generate a website showcasing their analysis. The focus of the course is on the design and implementation of the complete data processing research workflow itself (not any particular statistics/methods/models). The challenge is to string all the steps together in a _coherent, reproducible flow from raw data to final outputs_.  
+
+## Student Project Gallery
+
+You are invited to explore the student projects below (click on a thumbnail to visit their website).  The embedded code reveals their methodological details in addition to their narrative and graphical stories.   If you find something interesting, you are free to download and re-run the script to reproduce the entire analysis (from acquiring the original data through generating the tables/figures and even the webpage itself).
+
+
+```{r,echo=F, warning=F, message=F}
+library(dplyr)
+#library(kableExtra)
+library(knitr)
+library(doParallel)
+registerDoParallel(4)
+#devtools::install_github("ijlyttle/bsplus")
+#library(bsplus)
+
+d=data.frame(url=c(
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-dnkarp/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-YingLuGit/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-EllieGaiser",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-nathandubinin/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-matthewamoia/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-seankono/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-acerpovicz/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Katie-M-Walsh",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-zero12r",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Nino-Martinez/",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-allisonleet",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-jiyuanzh",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-sunjiazh",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-zhang224",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-hkhorasani",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Henryxie1003",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Canacelqr",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-talentstuder",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-wwang52",
+  "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90"
+  ),stringsAsFactors = F)
+
+d=d%>%mutate(user=sub("/","",sub("https://adamwilsonlabedu.github.io/geo503-2018-finalproject-","",url,ignore.case = T)))
+```
+
+
+```{r, echo=F, message=F, results='hide'}
+library(rvest)
+
+for(i in 1:nrow(d)) {
+  print(i)
+  d$title[i] <- ifelse(
+    is.na(tryCatch(read_html(d$url[i]), error = function(e){NA})),
+         NA,
+         read_html(d$url[i]) %>% html_nodes("h1")%>%html_text()%>%first()
+  )
+#  d$title[i]=read_html(d$url[i]) %>% html_nodes("h1")%>%html_text()%>%first()
+#  d$author[i] <- read_html(d$url[i]) %>%html_nodes(c("h1","h2","h3"))%>%html_text()
+}
+
+```
+
+
+```{r,asis=T, echo=F}
+# Build html for the image with link
+#d$href2=paste0("<a href=",d$url," target='_blank'>",
+#               " <img src=",d$img,".png alt='' height='30%'>", # height='50%'
+#                "</a>") 
+d%>%
+  arrange(user)%>%
+  mutate(Title=paste0("[",title,"](",url,")"))%>%
+  dplyr::select(Student=user,Title)%>%
+  kable()
+```

@@ -419,7 +419,25 @@ Below are a set of tasks that we will work on in class (either alone or in small
   </tr>
   <tr>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:left;"> Write parallel for loops to process spatial data </td>
+   <td style="text-align:left;"> Reproject `world` dataset to a global equal area projection </td>
+   <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Write a parallel `foreach()` loop to identify the a spatial relationships of each country </td>
+   <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Set the output of the `foreach()` funtion to return a simple matrix </td>
+   <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:left;"> Confirm that your parallel loop returns the same answer as a typical &quot;sequential&quot; approach </td>
    <td style="text-align:left;"> [CS_11_ParallelProcessing](./CS_11_ParallelProcessing.html) </td>
    <td style="text-align:right;"> 11 </td>
   </tr>
