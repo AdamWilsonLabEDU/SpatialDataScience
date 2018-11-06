@@ -443,8 +443,9 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
-    <link href="externals/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-    <link href="externals/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+    <link href="externals/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+    <script src="externals/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="externals/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 </head>
 <body>
   <div class="reveal">
@@ -454,31 +455,31 @@ document.getElementsByTagName('head')[0].appendChild(style);
     <h1 class="title">Version Control</h1>
 </section>
 
-<section><section id="keeping-up" class="titleslide slide level1"><h1>Keeping up</h1></section><section id="datacamp" class="slide level2" data-background-iframe="https://web.archive.org/web/20180909011807/https://www.datacamp.com/">
+<section><section id="keeping-up" class="title-slide slide level1"><h1>Keeping up</h1></section><section id="datacamp" class="slide level2" data-background-iframe="https://web.archive.org/web/20180909011807/https://www.datacamp.com/">
 <h2>DataCamp</h2>
 <p><a href="https://www.datacamp.com/home" class="uri">https://www.datacamp.com/home</a></p>
 </section><section id="advantages-of-datacamp" class="slide level2">
 <h2>Advantages of DataCamp</h2>
 <ol type="1">
-<li class="fragment">Slick dynamic interface</li>
-<li class="fragment">Lots of help available</li>
-<li class="fragment">Can provide hints (reducing XP points)</li>
-<li class="fragment">Easy to earn extra XP points with ‘practice’</li>
-<li class="fragment">Free access to their ‘premium’ content (typically $29/month)</li>
-<li class="fragment">Additional ‘Certification’ that you can list on LinkedIn, CV, etc.</li>
+<li>Slick dynamic interface</li>
+<li>Lots of help available</li>
+<li>Can provide hints (reducing XP points)</li>
+<li>Easy to earn extra XP points with ‘practice’</li>
+<li>Free access to their ‘premium’ content (typically $29/month)</li>
+<li>Additional ‘Certification’ that you can list on LinkedIn, CV, etc.</li>
 </ol>
 </section><section id="data-camp-screenshot" class="slide level2">
 <h2>Data Camp Screenshot</h2>
-<p><img src="Week_03_Git_assets/data_camp.png" alt="Data Camp" /></p>
+<p><img data-src="Week_03_Git_assets/data_camp.png" alt="Data Camp" /></p>
 </section><section id="proposed-course-restructure" class="slide level2">
 <h2>Proposed course restructure</h2>
 <ol type="1">
-<li class="fragment">DataCamp chapter ‘assignments’ instead of homeworks</li>
-<li class="fragment">Less talking / lecturing material in class</li>
-<li class="fragment">More time in class to work on group case studies, ask questions, etc.</li>
+<li>DataCamp chapter ‘assignments’ instead of homeworks</li>
+<li>Less talking / lecturing material in class</li>
+<li>More time in class to work on group case studies, ask questions, etc.</li>
 </ol>
 </section></section>
-<section><section id="version-control-keeping-track-of-your-files." class="titleslide slide level1"><h1>Version Control: Keeping track of your files.</h1></section><section class="slide level2">
+<section><section id="version-control-keeping-track-of-your-files." class="title-slide slide level1"><h1>Version Control: Keeping track of your files.</h1></section><section class="slide level2">
 
 <blockquote>
 <p>“The goal of reproducible research is to tie specific instructions to data analysis and experimental data so that scholarship can be recreated, better understood, and verified.”</p>
@@ -500,22 +501,22 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>Tracking changes with version control</h2>
 <p><strong>Payoffs</strong></p>
 <ul>
-<li class="fragment">Eases collaboration</li>
-<li class="fragment">Can track changes in any file type (plain text)</li>
-<li class="fragment">Can revert file to any point in its tracked history</li>
+<li>Eases collaboration</li>
+<li>Can track changes in any file type (plain text)</li>
+<li>Can revert file to any point in its tracked history</li>
 </ul>
 <p><strong>Costs</strong></p>
 <ul>
-<li class="fragment">Learning curve</li>
+<li>Learning curve</li>
 </ul>
 </section></section>
-<section><section id="git" class="titleslide slide level1"><h1>Git</h1></section><section id="section" class="slide level2">
+<section><section id="git" class="title-slide slide level1"><h1>Git</h1></section><section id="section" class="slide level2">
 <h2><img src="Week_03_Git_assets/git.png" alt="alt text" width="30%"></h2>
 <ul>
-<li class="fragment"><strong>Strong support for non-linear development:</strong> Rapid branching and merging, specific tools for visualizing and navigating a non-linear development history.</li>
-<li class="fragment"><strong>Distributed development:</strong> No central server needed, each user has a full copy</li>
-<li class="fragment"><strong>Efficient handling of large projects:</strong> Designed to manage the Linux OS</li>
-<li class="fragment"><strong>Cryptographic authentication of history:</strong> The ID of a particular version depends uponthe complete history. Once published, it is not possible to change the old versions without it being noticed.</li>
+<li><strong>Strong support for non-linear development:</strong> Rapid branching and merging, specific tools for visualizing and navigating a non-linear development history.</li>
+<li><strong>Distributed development:</strong> No central server needed, each user has a full copy</li>
+<li><strong>Efficient handling of large projects:</strong> Designed to manage the Linux OS</li>
+<li><strong>Cryptographic authentication of history:</strong> The ID of a particular version depends uponthe complete history. Once published, it is not possible to change the old versions without it being noticed.</li>
 </ul>
 </section><section id="git-has-integrity" class="slide level2">
 <h2>Git Has Integrity</h2>
@@ -535,14 +536,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p><img src="Week_03_Git_assets/staging.png" alt="alt text" width="75%"></p>
 <p>The important stuff is hidden in the <code>.git</code> folder.</p>
 </section></section>
-<section><section id="github" class="titleslide slide level1"><h1>Github</h1></section><section id="think-of-github-as-a" class="slide level2">
+<section><section id="github" class="title-slide slide level1"><h1>Github</h1></section><section id="think-of-github-as-a" class="slide level2">
 <h2>Think of Github as a…</h2>
 <ul>
-<li class="fragment">Server to back up your files</li>
-<li class="fragment">Website to share your files</li>
-<li class="fragment">Method to track changes to your files</li>
-<li class="fragment">Platform to collaboratively develop code</li>
-<li class="fragment">Social media to show off your coding wizardry</li>
+<li>Server to back up your files</li>
+<li>Website to share your files</li>
+<li>Method to track changes to your files</li>
+<li>Platform to collaboratively develop code</li>
+<li>Social media to show off your coding wizardry</li>
 </ul>
 </section><section id="example-course-website-managed-with-github" class="slide level2">
 <h2>Example: course website managed with GitHub</h2>
@@ -553,31 +554,31 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section><section id="git-use-in-this-course" class="slide level2">
 <h2>Git use in this course</h2>
 <ol type="1">
-<li class="fragment">Set up class repository</li>
-<li class="fragment">Make changes (edit the code)</li>
-<li class="fragment">Save those changes as you go (ctrl-S)</li>
-<li class="fragment">Stage changes (get ready to commit them)</li>
-<li class="fragment">Commit changes at various milestones (like the end of the day or when you finish something)</li>
-<li class="fragment">Push those changes to github (back them up)</li>
-<li class="fragment">repeat</li>
+<li>Set up class repository</li>
+<li>Make changes (edit the code)</li>
+<li>Save those changes as you go (ctrl-S)</li>
+<li>Stage changes (get ready to commit them)</li>
+<li>Commit changes at various milestones (like the end of the day or when you finish something)</li>
+<li>Push those changes to github (back them up)</li>
+<li>repeat</li>
 </ol>
 <p>See Tasks <a href="Tk_01.html">1</a> and <a href="Tk_02.html">2</a>.</p>
 </section><section id="function-of-git-repository-for-this-course" class="slide level2">
 <h2>Function of Git Repository for this course</h2>
 <ol type="1">
-<li class="fragment">Force you to learn git (a little)</li>
-<li class="fragment">Force you to organize</li>
-<li class="fragment">Prepare you for collaborative coding</li>
-<li class="fragment">Allow me to see your in-class <em>participation</em></li>
+<li>Force you to learn git (a little)</li>
+<li>Force you to organize</li>
+<li>Prepare you for collaborative coding</li>
+<li>Allow me to see your in-class <em>participation</em></li>
 </ol>
 </section><section id="commit-to-github-from-within-rstudio" class="slide level2">
 <h2>Commit to GitHub from within RStudio</h2>
 <h3 id="basic-steps">Basic Steps</h3>
 <ol type="1">
-<li class="fragment">Edit: make changes to a file in the repository you cloned above</li>
-<li class="fragment">Stage: tell git which changes you want to commit</li>
-<li class="fragment">Commit (with a message)</li>
-<li class="fragment">Push: send the updated files to GitHub</li>
+<li>Edit: make changes to a file in the repository you cloned above</li>
+<li>Stage: tell git which changes you want to commit</li>
+<li>Commit (with a message)</li>
+<li>Push: send the updated files to GitHub</li>
 </ol>
 </section><section id="edit" class="slide level2">
 <h2>Edit</h2>
@@ -601,11 +602,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <h2>And much more!</h2>
 <p>Git has many, many more features…</p>
 </section></section>
-<section><section id="lets-do-it" class="titleslide slide level1"><h1>Let’s do it!</h1></section><section id="task-2" class="slide level2" data-background-iframe="../TK_02.html">
+<section><section id="lets-do-it" class="title-slide slide level1"><h1>Let’s do it!</h1></section><section id="task-2" class="slide level2" data-background-iframe="../TK_02.html">
 <h2>Task 2</h2>
 <p><a href="../TK_02.html">Task 2</a></p>
 </section></section>
-<section><section id="more-advanced-git" class="titleslide slide level1"><h1>More advanced Git</h1></section><section id="git-command-line-from-rstudio" class="slide level2">
+<section><section id="more-advanced-git" class="title-slide slide level1"><h1>More advanced Git</h1></section><section id="git-command-line-from-rstudio" class="slide level2">
 <h2>Git command line from RStudio</h2>
 <p>RStudio has limited functionality.</p>
 <p><img src="Week_03_Git_assets/CommandLine.png" alt="alt text" width="75%"></p>
@@ -623,8 +624,8 @@ $ man git-&lt;verb&gt;</code></pre>
 <h2>Git config</h2>
 <p><code>git config</code> shows you all the git configuration settings:</p>
 <ul>
-<li class="fragment"><code>user.email</code></li>
-<li class="fragment"><code>remote.origin.url</code> (e.g. to connect to GitHub)</li>
+<li><code>user.email</code></li>
+<li><code>remote.origin.url</code> (e.g. to connect to GitHub)</li>
 </ul>
 </section><section id="branching" class="slide level2">
 <h2>Branching</h2>
@@ -698,7 +699,6 @@ $ git merge devel  #merge in changes from devel branch</code></pre>
 
         // Optional reveal.js plugins
         dependencies: [
-          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
         ]

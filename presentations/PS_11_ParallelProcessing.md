@@ -215,6 +215,12 @@ x
 ## [1] 1 4 9
 ```
 
+## Review Basic Steps
+Most parallel computing:
+
+1. Split problem into pieces (iterators: `i=1:3`)
+2. Execute the pieces in parallel (`%dopar%`)
+3. Combine the results back (`.combine`)
 
 ## Useful `foreach` parameters
 
@@ -223,8 +229,9 @@ x
   * `.packages` packages to made available to sub-processes
   * `.export` variables to export to sub-processes
 
+# Raster Package
 
-# Raster Packge
+## Parallel processing with raster
 Some functions in the raster package also easy to parallelize.
 
 
@@ -252,3 +259,14 @@ Does _not_ work with:
 * buffer
 * direction
 
+## spatial.tools
+
+However, check out the [`spatial.tools package`](https://www.rdocumentation.org/packages/spatial.tools/versions/1.6.0/topics/rasterEngine)
+
+`rasterEngine` executes a function on Raster* object(s) using foreach, to achieve parallel reads, executions and writes. 
+
+
+
+## Summary
+
+Each task should involve computationally-intensive work.  If the tasks are very small, it can take _longer_ to run in parallel.

@@ -86,17 +86,6 @@ library(httr)
 library(jsonlite)
 ```
 
-```
-## 
-## Attaching package: 'jsonlite'
-```
-
-```
-## The following object is masked from 'package:purrr':
-## 
-##     flatten
-```
-
 ## Endpoints
 The URL you will request information from. 
 
@@ -229,7 +218,7 @@ map1=ggplot() +
 
 ---
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-10-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-11-1.png)
 
 ## Download daily data from GHCN
 
@@ -426,7 +415,7 @@ ggplot(d_filtered,
   facet_wrap(~id)
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-18-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-19-1.png)
 
 ---
 
@@ -445,7 +434,7 @@ d_filtered_recent=filter(d_filtered,date>as.Date("2013-01-01"))
 ## Warning: Removed 11 rows containing missing values (geom_path).
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-19-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-20-1.png)
 
 ## Zoo package for rolling functions
 
@@ -481,7 +470,7 @@ d_rollmean%>%
     geom_line(aes(y=tmax.b60),col="darkred")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-21-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-22-1.png)
 
 # Time Series analysis
 
@@ -507,7 +496,7 @@ ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
 ## Warning: Removed 12 rows containing missing values (geom_point).
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-23-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-24-1.png)
 
 ## Autocorrelation functions
 
@@ -520,7 +509,7 @@ ggplot(d_filtered_recent,aes(y=tmin,x=lag(tmin)))+
 acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-24-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-25-1.png)
 
 ---
 
@@ -530,7 +519,7 @@ acf(tmin.ts,lag.max = 365*3,na.action = na.exclude )
 pacf(tmin.ts,lag.max = 365,na.action = na.exclude )
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-25-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-26-1.png)
 
 
 # Trend analysis
@@ -636,7 +625,7 @@ d_filtered2%>%
   geom_line()
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-29-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-30-1.png)
 
 ---
 
@@ -675,7 +664,7 @@ d_filtered2%>%
   geom_line(col="grey")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-31-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-32-1.png)
 
 
 ## Look for specific events: was 2017 unusually hot in Buffalo, NY?
@@ -703,7 +692,7 @@ ggplot(df,aes(x=doydate,y=tmax,group=year))+
 ## `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-33-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-34-1.png)
 
 ---
 
@@ -718,7 +707,7 @@ ggplot(df,aes(x=doydate,y=tmax,group=year))+
                lim=c(as.Date("2017-08-01"),as.Date("2017-10-31")))
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-34-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-35-1.png)
 
 So there was an unusually warm spell in late September.
 
@@ -744,7 +733,7 @@ ggplot(seasonal,aes(y=tmin,x=year))+
   geom_line()
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-36-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-37-1.png)
 
 ## Fit a linear model to a single season
 
@@ -867,7 +856,7 @@ cdd= climdex.cdd(ci, spells.can.span.years = TRUE)
 plot(cdd~years,type="l")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-41-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-42-1.png)
 
 ## Diurnal Temperature Range
 
@@ -877,7 +866,7 @@ dtr=climdex.dtr(ci, freq = c("annual"))
 plot(dtr~years,type="l")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-42-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-43-1.png)
 
 ## Frost Days
 
@@ -887,4 +876,4 @@ fd=climdex.fd(ci)
 plot(fd~years,type="l")
 ```
 
-![](PS_09_weather_files/figure-revealjs/unnamed-chunk-43-1.png)
+![](PS_09_weather_files/figure-revealjs/unnamed-chunk-44-1.png)

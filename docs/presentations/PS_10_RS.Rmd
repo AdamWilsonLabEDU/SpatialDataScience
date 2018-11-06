@@ -3,7 +3,7 @@ title:  Processing Data from Satellite Remote Sensing
 ---
 
 ```{r, echo=FALSE, message=FALSE, results='hide', purl=FALSE}
-source("functions.R")
+source("../functions.R")
 library(kableExtra)
 options(knitr.table.format = 'markdown')
 knitr::opts_chunk$set(cache=T,

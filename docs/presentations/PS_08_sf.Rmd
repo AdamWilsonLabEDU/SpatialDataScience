@@ -378,7 +378,7 @@ pop_den <-
   world %>% 
   left_join(worldbank_df, by = "iso_a2") %>%
   mutate(pop_density = pop/area_km2) %>%
-  select(name_long, pop_density) %>%
+  dplyr::select(name_long, pop_density) %>%
   arrange(desc(pop_density))
 ```
 
@@ -519,9 +519,11 @@ l=leaflet(world) %>%
                     popup = paste("Life Expectancy =", round(world$lifeExp, 2)))
 ```
 
-```{r, echo=F, message=F}
+```{r, echo=F, eval=F,message=F}
 f <-"presentations/world_leaflet.html"
-saveWidget(l,file.path(normalizePath(dirname(f)),basename(f)),libdir="externals",selfcontained = T)
+saveWidget(l,file.path(normalizePath(dirname(f)),basename(f)),
+           libdir="externals",
+           selfcontained = T)
 ```
 
 <iframe id="test"  style=" height:400px; width:100%;" scrolling="no"  frameborder="0" src="world_leaflet.html"></iframe>

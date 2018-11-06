@@ -85,7 +85,7 @@ You are invited to explore the student projects below (click on a thumbnail to v
   </tr>
   <tr>
    <td style="text-align:left;"> nathandubinin </td>
-   <td style="text-align:left;"> [I have the best titles](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-nathandubinin/) </td>
+   <td style="text-align:left;"> [The Story Pollen Tells Us](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-nathandubinin/) </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Nino-Martinez </td>

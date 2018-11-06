@@ -661,11 +661,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># change values!=20 to NA</span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">elev=<span class="kw">mask</span>(elev,<span class="dt">mask =</span> elev<span class="op">==</span><span class="dv">20</span>, <span class="dt">maskvalue=</span><span class="dv">0</span>) </a>
 <a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">gplot</span>(elev)<span class="op">+</span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
-<p><img data-src="PS_07_help_files/figure-revealjs/unnamed-chunk-8-1.png" /></p>
+<p><img data-src="PS_07_help_files/figure-revealjs/unnamed-chunk-9-1.png" /></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">distance_to_<span class="dv">20</span>=<span class="kw">distance</span>(elev)  <span class="co">#works fine</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">data</span>(elev)</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">gplot</span>(distance_to_<span class="dv">20</span>)<span class="op">+</span><span class="st"> </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
-<p><img data-src="PS_07_help_files/figure-revealjs/unnamed-chunk-8-2.png" /></p>
+<p><img data-src="PS_07_help_files/figure-revealjs/unnamed-chunk-9-2.png" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">distance_to_<span class="dv">20</span>=<span class="kw">distance</span>(elev) <span class="co">#returns an error:</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">Error <span class="cf">in</span> <span class="kw">.local</span>(x, y, ...) <span class="op">:</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">RasterLayer has no <span class="ot">NA</span> <span class="kw">cells</span> (<span class="cf">for</span> which to compute a distance)</a></code></pre></div>
@@ -795,7 +795,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
         // Optional reveal.js plugins
         dependencies: [
-          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
         ]

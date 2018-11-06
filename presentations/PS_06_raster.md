@@ -20,7 +20,7 @@ title: "Raster Analyses"
 ![](https://geocompr.robinlovelace.net/figures/sf-classes.png)
 
 ## What about grids?
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-2-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-3-1.png)
 
 
 # Raster Data
@@ -56,7 +56,7 @@ data(elev) #load fake data from spData package
 plot(elev) #load fake data from spData package
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-3-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-4-1.png)
 
 
 
@@ -210,7 +210,7 @@ elev_m <- elev*0.3048
 plot(elev_m)
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-9-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-10-1.png)
 
 ---
 
@@ -221,7 +221,7 @@ high_ground <- elev_m>8
 plot(high_ground)
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-10-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-11-1.png)
 
 
 ---
@@ -251,7 +251,7 @@ plot(elev_m)
 plot(elev_smooth)
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-12-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-13-1.png)
 
 ## Arbitrary functions
 
@@ -262,7 +262,7 @@ one_cell <- calc(elev,fun = NA16)
 plot(one_cell)
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-13-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-14-1.png)
 
 ## Distances to non-NA cells
 
@@ -271,7 +271,7 @@ distance(one_cell)%>%
   plot()
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-14-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-15-1.png)
 
 Distance unit is meters if RasterLayer is `+proj=longlat`, map units (typically also meters) otherwise.
 
@@ -297,7 +297,7 @@ gplot(elev)+
   geom_raster(aes(fill=value))
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-15-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-16-1.png)
 
 ---
 
@@ -311,6 +311,6 @@ gplot(elev)+
   scale_fill_viridis_c()
 ```
 
-![](PS_06_raster_files/figure-revealjs/unnamed-chunk-16-1.png)
+![](PS_06_raster_files/figure-revealjs/unnamed-chunk-17-1.png)
 
 

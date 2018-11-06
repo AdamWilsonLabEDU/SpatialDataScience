@@ -536,7 +536,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 </section>
 <section id="what-about-grids" class="slide level2">
 <h2>What about grids?</h2>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-2-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-3-1.png" /></p>
 </section>
 <section><section id="raster-data" class="title-slide slide level1"><h1>Raster Data</h1></section><section id="raster-data-types" class="slide level2">
 <h2>Raster Data Types</h2>
@@ -566,7 +566,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(spData)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">data</span>(elev) <span class="co">#load fake data from spData package</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">plot</span>(elev) <span class="co">#load fake data from spData package</span></a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-3-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-4-1.png" /></p>
 </section><section id="raster-data-structure" class="slide level2">
 <h2>Raster Data Structure</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">elev</a></code></pre></div>
@@ -667,13 +667,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <p>Convert feet to meters</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">elev_m &lt;-<span class="st"> </span>elev<span class="op">*</span><span class="fl">0.3048</span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">plot</span>(elev_m)</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-9-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-10-1.png" /></p>
 </section><section class="slide level2">
 
 <h3 id="simple-filter">Simple Filter</h3>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">high_ground &lt;-<span class="st"> </span>elev_m<span class="op">&gt;</span><span class="dv">8</span></a>
 <a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">plot</span>(high_ground)</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-10-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-11-1.png" /></p>
 </section><section class="slide level2">
 
 <h3 id="focal">Focal</h3>
@@ -689,18 +689,18 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">plot</span>(elev_m)</a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">plot</span>(elev_smooth)</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-12-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-13-1.png" /></p>
 </section><section id="arbitrary-functions" class="slide level2">
 <h2>Arbitrary functions</h2>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">NA16=<span class="cf">function</span>(x) <span class="kw">ifelse</span>(x <span class="op">==</span><span class="st"> </span><span class="dv">16</span>,<span class="dv">1</span>,<span class="ot">NA</span>)</a>
 <a class="sourceLine" id="cb22-2" data-line-number="2">one_cell &lt;-<span class="st"> </span><span class="kw">calc</span>(elev,<span class="dt">fun =</span> NA16)</a>
 <a class="sourceLine" id="cb22-3" data-line-number="3"><span class="kw">plot</span>(one_cell)</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-13-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-14-1.png" /></p>
 </section><section id="distances-to-non-na-cells" class="slide level2">
 <h2>Distances to non-NA cells</h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">distance</span>(one_cell)<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-14-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-15-1.png" /></p>
 <p>Distance unit is meters if RasterLayer is <code>+proj=longlat</code>, map units (typically also meters) otherwise.</p>
 </section><section id="and-much-more" class="slide level2">
 <h2>And much more</h2>
@@ -719,7 +719,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">library</span>(rasterVis)</a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">gplot</span>(elev)<span class="op">+</span></a>
 <a class="sourceLine" id="cb24-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-15-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-16-1.png" /></p>
 </section><section class="slide level2">
 
 <h3 id="all-ggplot-functionality-available">All ggplot functionality available</h3>
@@ -727,7 +727,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>value))<span class="op">+</span></a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_equal</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_fill_viridis_c</span>()</a></code></pre></div>
-<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-16-1.png" /></p>
+<p><img data-src="PS_06_raster_files/figure-revealjs/unnamed-chunk-17-1.png" /></p>
 </section></section>
     </div>
   </div>
@@ -780,7 +780,6 @@ document.getElementsByTagName('head')[0].appendChild(style);
 
         // Optional reveal.js plugins
         dependencies: [
-          { src: 'externals/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
           { src: 'externals/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
         ]

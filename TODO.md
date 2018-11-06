@@ -1,6 +1,5 @@
 TODO:
 
-
 Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
 

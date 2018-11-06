@@ -704,6 +704,14 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span>i<span class="op">^</span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">x</a></code></pre></div>
 <pre><code>## [1] 1 4 9</code></pre>
+</section><section id="review-basic-steps" class="slide level2">
+<h2>Review Basic Steps</h2>
+<p>Most parallel computing:</p>
+<ol type="1">
+<li>Split problem into pieces (iterators: <code>i=1:3</code>)</li>
+<li>Execute the pieces in parallel (<code>%dopar%</code>)</li>
+<li>Combine the results back (<code>.combine</code>)</li>
+</ol>
 </section><section id="useful-foreach-parameters" class="slide level2">
 <h2>Useful <code>foreach</code> parameters</h2>
 <ul>
@@ -713,7 +721,16 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li><code>.export</code> variables to export to sub-processes</li>
 </ul>
 </section></section>
-<section><section id="raster-packge" class="title-slide slide level1"><h1>Raster Packge</h1></section><section id="raster-package" class="slide level2">
+<section><section id="raster-package" class="title-slide slide level1"><h1>Raster Package</h1></section><section id="parallel-processing-with-raster" class="slide level2">
+<h2>Parallel processing with raster</h2>
+<p>Some functions in the raster package also easy to parallelize.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">ncores=<span class="dv">2</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">beginCluster</span>(ncores)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">fn=<span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw">system.time</span>(<span class="kw">clusterR</span>(r, fn, <span class="dt">verbose=</span>T))</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="kw">endCluster</span>()</a></code></pre></div>
+</section><section id="raster-package-1" class="slide level2">
 <h2>Raster package</h2>
 <p>Does <em>not</em> work with:</p>
 <ul>
@@ -728,6 +745,13 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <li>buffer</li>
 <li>direction</li>
 </ul>
+</section><section id="spatial.tools" class="slide level2">
+<h2>spatial.tools</h2>
+<p>However, check out the <a href="https://www.rdocumentation.org/packages/spatial.tools/versions/1.6.0/topics/rasterEngine"><code>spatial.tools package</code></a></p>
+<p><code>rasterEngine</code> executes a function on Raster* object(s) using foreach, to achieve parallel reads, executions and writes.</p>
+</section><section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p>Each task should involve computationally-intensive work. If the tasks are very small, it can take <em>longer</em> to run in parallel.</p>
 </section></section>
     </div>
   </div>

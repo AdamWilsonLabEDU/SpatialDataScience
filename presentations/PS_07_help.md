@@ -183,7 +183,7 @@ elev=mask(elev,mask = elev==20, maskvalue=0)
 gplot(elev)+geom_raster(aes(fill=value))
 ```
 
-![](PS_07_help_files/figure-revealjs/unnamed-chunk-8-1.png)
+![](PS_07_help_files/figure-revealjs/unnamed-chunk-9-1.png)
 
 ```r
 distance_to_20=distance(elev)  #works fine
@@ -191,7 +191,7 @@ data(elev)
 gplot(distance_to_20)+ geom_raster(aes(fill=value))
 ```
 
-![](PS_07_help_files/figure-revealjs/unnamed-chunk-8-2.png)
+![](PS_07_help_files/figure-revealjs/unnamed-chunk-9-2.png)
 
 ```r
 distance_to_20=distance(elev) #returns an error:
