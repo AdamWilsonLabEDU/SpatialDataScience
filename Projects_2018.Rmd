@@ -4,7 +4,7 @@ output:
   html_document:
     toc: false
 ---
-
+ 
 This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
 
 ![Productivity](00_CourseIntroduction/assets/data-science.png)

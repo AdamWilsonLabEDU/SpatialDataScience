@@ -8,7 +8,7 @@ reading:
 tasks:
    - Download daily weather data for Buffalo, NY using an API
    - Generate a dynamic html visualization of the timeseries. 
-   - Save the graph using Export->Save as Webpage
+   - Save the graph to your project folder using Export->Save as Webpage
 ---
 
 
