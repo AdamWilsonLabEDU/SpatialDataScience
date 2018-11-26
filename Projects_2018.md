@@ -4,7 +4,7 @@ output:
   html_document:
     toc: false
 ---
-
+ 
 This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
 
 ![Productivity](00_CourseIntroduction/assets/data-science.png)
@@ -30,13 +30,13 @@ acerpovicz       [Wave Patterns Before, During and After Hurricanes](https://ada
 allisonleet      [Spatial Differences in surface temperature mapping using LANDSAT vs. weather stations](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-allisonleet)             
 Canacelqr        [Spatial pattern of plant species’ biodiversity in South Africa](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Canacelqr)                                      
 dnkarp           [GEO 503 Final Project | Fall 2018](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-dnkarp/)                                                                     
-EllieGaiser      [Sea Ice Depth/Thickness](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-EllieGaiser)                                                                           
+EllieGaiser      [Parking Summonses Throughout the City of Buffalo](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-EllieGaiser)                                                  
 HamedGhodsi90    [Interpreting Stormwater management model (SWMM) Output](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90)                                          
 Henryxie1003     [Tracking tree phenology of Nature View Park in Buffalo](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Henryxie1003)                                           
 hkhorasani       [Investigation of the eutrophication trends in the united states’ northeastern and midwestern lakes](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-hkhorasani) 
-Jim-King         [Final Project Version 1.0](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/)                                                                           
+Jim-King         [NA](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/)                                                                                                  
 jiyuanzh         [US Airport Delay and snowfall in January 2018](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-jiyuanzh)                                                        
-JonathanMLynch   [Final Project](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/)                                                                                 
+JonathanMLynch   [A Guide to Responding to Select Hazardous Material Spills](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/)                                     
 Katie-M-Walsh    [Establishing Floodzones and Potential Constructed Wetlands for Wastewater Management](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Katie-M-Walsh)            
 matthewamoia     [The occurence of Clemmys guttata (Spotted Turtle) with respect to wetland habitat suitability](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-matthewamoia/)   
 nathandubinin    [The Story Pollen Tells Us](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-nathandubinin/)                                                                      
