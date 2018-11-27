@@ -34,7 +34,7 @@ EllieGaiser      [Parking Summonses Throughout the City of Buffalo](https://adam
 HamedGhodsi90    [Interpreting Stormwater management model (SWMM) Output](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90)                                          
 Henryxie1003     [Tracking tree phenology of Nature View Park in Buffalo](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Henryxie1003)                                           
 hkhorasani       [Investigation of the eutrophication trends in the united states’ northeastern and midwestern lakes](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-hkhorasani) 
-Jim-King         [NA](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/)                                                                                                  
+Jim-King         [Final Project Version 1.0](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Jim-King/)                                                                           
 jiyuanzh         [US Airport Delay and snowfall in January 2018](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-jiyuanzh)                                                        
 JonathanMLynch   [A Guide to Responding to Select Hazardous Material Spills](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/)                                     
 Katie-M-Walsh    [Establishing Floodzones and Potential Constructed Wetlands for Wastewater Management](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Katie-M-Walsh)            
