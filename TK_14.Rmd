@@ -16,12 +16,18 @@ source("functions.R")
 source("knitr_header.R")
 ```
 
-`r presframe()`
+`r #presframe()`
 
 # Reading
 
 ```{r reading,results='asis',echo=F}
 md_bullet(rmarkdown::metadata$reading)
+```
+
+# Tasks
+
+```{r reading,results='asis',echo=F}
+md_bullet(rmarkdown::metadata$tasks)
 ```
 
 # Exercise

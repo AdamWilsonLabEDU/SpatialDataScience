@@ -18,7 +18,7 @@ source("functions.R")
 source("knitr_header.R")
 ```
 
-`r presframe()`
+`r # presframe()`
 
 # Reading
 
@@ -28,7 +28,7 @@ md_bullet(rmarkdown::metadata$reading)
 
 # Tasks
 
-```{r reading,results='asis',echo=F}
+```{r tasks,results='asis',echo=F}
 md_bullet(rmarkdown::metadata$tasks)
 ```
 
@@ -37,7 +37,7 @@ md_bullet(rmarkdown::metadata$tasks)
 
 Many conferences and workshops have been moving from the traditional presentation and poster sessions to use alternative mechanisms for disseminating information. Amongst the most popular are the short talk formats including the [lightning talk](http://en.wikipedia.org/wiki/Lightning_Talk) and [ignite Sessions](http://en.wikipedia.org/wiki/Ignite_(event)).
 
-**On the last day of class, each student will give a 5 minute overview of their project.**  You will open the html version on the screen (no need to make a separate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project.  Good use of headers, figures, and simple tables will make it easier to present!
+**During the last week of class, each student will give a 5 minute overview of their project.**  You will open the html version on the screen (no need to make a separate presentation).  It's OK if not all the text will be readable on the screen (as you know the projector is really low resolution). However, you should think about this presentation when designing your project.  Good use of headers, figures, and simple tables will make it easier to present!
 
 It's important to remember that most of the guidelines for good presentations still apply. You should still make eye contact with the audience, you should still be prepared to stop earlier or handle awkward questions, you should still remember to go to the bathroom beforehand. What the short talk format provides you with is a framework to get down to the essence of what you are trying to say to the audience.
 
