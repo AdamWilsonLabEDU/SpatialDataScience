@@ -7,6 +7,8 @@ Teaching resources: https://www.carlboettiger.info/teaching
 Add a datacamp course/chapter for each/most of the 14 case studies
 Use datacamp education for instruction/assignments
 Then class time for questions/case studies
+Put all case studies in .Rmd with github markdown output
+
 
 Grading changes
 30% datacamp
@@ -14,7 +16,7 @@ Grading changes
 30% participation: tasks, and case studies
 10% leadership (package presentation, leading a study group)
 
-Package presentation?  IF keeping, use a Rmd structure inside course repositories so they can be opened on the fly. 
+Package presentation?  IF keeping, use a Rmd structure inside course repositories so they can be opened on the fly.
 
 For grade: include letter to instructor with grade request.
 
@@ -38,16 +40,18 @@ Finish last week's case study and commit, read chapter, take DataCamp course, pe
 Weekly courses due before topic in class
 
 ### Assigned
-* [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r) 
+* [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
 * [Exploratory Data Analysis in R: Case Study](https://www.datacamp.com/courses/exploratory-data-analysis-in-r-case-study)
 * [Spatial Analysis in R with sf and raster](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
 
 ## Tasks to add
 early:
+
 * set up datacamp account
 * explore available classes and select 3-5 interesting ones (list these in README)
 * Data visualization: https://dcl-2017-04.github.io/curriculum/vis-perception.html
+
 
 ## Git Classroom
 * setup git account
@@ -69,4 +73,4 @@ earn an additional 5,000 datacamp XP in a topic/course of your choosing
 * update google sheets links - do I still need to do this with classroom?
 * Create new assignment
 * Update github classroom links in task 2
-* 
+*

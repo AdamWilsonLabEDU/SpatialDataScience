@@ -7,14 +7,14 @@ output:
  
 This course uses a combination of lecture and hands-on exercises to provide a gentle introduction to programming in R with a focus on spatial data processing. The [final project](Project.html) in the course is the construction of a reproducible research workflow as illustrated in the figure below.
 
-![Productivity](00_CourseIntroduction/assets/data-science.png)
+<img height="100px" src="00_CourseIntroduction/assets/data-science.png">
 Figure from _R for Data Science_ by Grolemund & Wickham (2017)
 
 Each student wrote a script (using the [R](https://www.r-project.org/) programming language) to perform these steps and generate a website showcasing their analysis. The focus of the course is on the design and implementation of the complete data processing research workflow itself (not any particular statistics/methods/models). The challenge is to string all the steps together in a _coherent, reproducible flow from raw data to final outputs_.  
 
 ## Student Project Gallery
 
-You are invited to explore the student projects below (click on a thumbnail to visit their website).  The embedded code reveals their methodological details in addition to their narrative and graphical stories.   If you find something interesting, you are free to download and re-run the script to reproduce the entire analysis (from acquiring the original data through generating the tables/figures and even the webpage itself).
+You are invited to explore the student projects below (click on a title to visit their website).  Each projects includes the embedded code in addition to their narrative and graphical stories.   If you find something interesting, you are free to download and re-run the script to reproduce the entire analysis (including generating the tables/figures and even the webpage itself).
 
 
 ```{r,echo=F, warning=F, message=F}
@@ -49,7 +49,9 @@ d=data.frame(url=c(
   "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-talentstuder",
   "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-wwang52",
   "https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90"
-  ),stringsAsFactors = F)
+  ),
+  group=c(2,1,2,2,1,1,2,2,1,1,1,2,2,2,1,1,2,1,2,1,2,1),
+  stringsAsFactors = F)
 
 d=d%>%mutate(user=sub("/","",sub("https://adamwilsonlabedu.github.io/geo503-2018-finalproject-","",url,ignore.case = T)))
 ```
@@ -71,15 +73,24 @@ for(i in 1:nrow(d)) {
 
 ```
 
-
+# Group 1
 ```{r,asis=T, echo=F}
-# Build html for the image with link
-#d$href2=paste0("<a href=",d$url," target='_blank'>",
-#               " <img src=",d$img,".png alt='' height='30%'>", # height='50%'
-#                "</a>") 
 d%>%
   arrange(user)%>%
+  filter(group==1)%>%
   mutate(Title=paste0("[",title,"](",url,")"))%>%
   dplyr::select(Student=user,Title)%>%
   kable()
+```
+
+# Group 2
+
+```{r, asis=T, echo=F}
+d%>%
+  arrange(user)%>%
+  filter(group==2)%>%
+  mutate(Title=paste0("[",title,"](",url,")"))%>%
+  dplyr::select(Student=user,Title)%>%
+  kable()
+
 ```
