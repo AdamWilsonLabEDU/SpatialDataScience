@@ -3,12 +3,45 @@ TODO:
 Geocomputation: https://geocompr.robinlovelace.net/transport.html
 Teaching resources: https://www.carlboettiger.info/teaching
 
+
+# Content updates / additions
+
+* data in/out
+* data cleaning
+* date processing
+* text processing
+* linear modeling
+* kriging?
+
 # Structure updates
+
 Add a datacamp course/chapter for each/most of the 14 case studies
 Use datacamp education for instruction/assignments
 Then class time for questions/case studies
-Put all case studies in .Rmd with github markdown output
+Build index of student projects on website to facilitate?
 
+File Structure
+
+* put all case studies in .Rmd with github markdown output (include summary of project, name, etc.)
+* Use travis CI to ensure content builds
+* gitignore data
+* Grand checklist for completed tasks
+* update links to course repository
+
+
+General repository rules:
+* never use an absolute path (e.g. ~/Desktop/RClass/...)
+* never commit large files (100MB max, better < 5mb) 
+    * instructions if you did this accidentally
+* push before your pull error
+  ```>>> git push origin refs/heads/master
+   ! [rejected]        master -> master (fetch first)
+    error: failed to push some refs to 
+    hint: Updates were rejected because the remote contains work that you do
+    hint: not have locally. This is usually caused by another repository pushing
+    hint: to the same ref. You may want to first integrate the remote changes
+    hint: (e.g., 'git pull ...') before pushing again.
+    hint: See the 'Note about fast-forwards' in 'git push --help' for details.```
 
 Grading changes
 30% datacamp
@@ -49,7 +82,7 @@ Weekly courses due before topic in class
 early:
 
 * set up datacamp account
-* explore available classes and select 3-5 interesting ones (list these in README)
+* explore available datacamp courses and select 3-5 interesting ones (list these in README)
 * Data visualization: https://dcl-2017-04.github.io/curriculum/vis-perception.html
 
 

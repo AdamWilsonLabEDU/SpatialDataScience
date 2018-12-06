@@ -26,7 +26,7 @@ You are invited to explore the student projects below (click on a title to visit
 
 Student          Title                                                                                                                                                                      
 ---------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-HamedGhodsi90    [Interpreting Stormwater management model (SWMM) Output](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90)                                        
+HamedGhodsi90    [Interpreting The Stormwater Management Model (SWMM) Output Files](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-HamedGhodsi90)                              
 Henryxie1003     [Tracking tree phenology of Nature View Park in Buffalo](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Henryxie1003)                                         
 JonathanMLynch   [Historical Hazardous Material Spills](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-JonathanMLynch/)                                                        
 Katie-M-Walsh    [Establishing Floodzones and Potential Constructed Wetlands for Wastewater Management](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Katie-M-Walsh)          
@@ -43,9 +43,9 @@ zhang224         [Connection between Deer Tick and Lyme Disease](https://adamwil
 
 Student         Title                                                                                                                                                                        
 --------------  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-acerpovicz      [Wave Patterns Before, During and After Hurricanes](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-acerpovicz/)                                                 
-allisonleet     [Spatial differences in surface temperature mapping using LANDSAT vs. weather stations](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-allisonleet)             
-Canacelqr       [Spatial pattern of plant species’ biodiversity in South Africa](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Canacelqr)                                      
+acerpovicz      [Wave Patterns and Hurricanes](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-acerpovicz/)                                                                      
+allisonleet     [Spatial differences in surface temperature mapping using LANDSAT and NOAA weather stations](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-allisonleet)        
+Canacelqr       [Spatial pattern of plant species biodiversity in South Africa—Using Proteaceae family as example](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-Canacelqr)    
 dnkarp          [GEO 503 Final Project | Fall 2018](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-dnkarp/)                                                                     
 EllieGaiser     [Parking Summonses Throughout the City of Buffalo](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-EllieGaiser)                                                  
 hkhorasani      [Investigation of the eutrophication trends in the united states’ northeastern and midwestern lakes](https://adamwilsonlabedu.github.io/geo503-2018-finalproject-hkhorasani) 
