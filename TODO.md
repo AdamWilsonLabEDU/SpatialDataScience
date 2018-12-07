@@ -13,12 +13,20 @@ Teaching resources: https://www.carlboettiger.info/teaching
 * linear modeling
 * kriging?
 
+code style:
+* more line returns  
+
+Viz style:
+* log transform color ramps and axis, not data...
+
+
 # Structure updates
 
 Add a datacamp course/chapter for each/most of the 14 case studies
 Use datacamp education for instruction/assignments
 Then class time for questions/case studies
 Build index of student projects on website to facilitate?
+first draft submitted earilier for video feedback.
 
 File Structure
 

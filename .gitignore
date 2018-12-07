@@ -8,3 +8,5 @@ wc10*
 *rds*
 *nc
 ['~']
+*secrets*
+.httr-oauth
